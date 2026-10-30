@@ -1,6 +1,7 @@
 # id-H · NGÂN HÀNG HOOK — 7 LOẠI HOOK × 16 FORMAT
 
 > Chạy **sau CỔNG 1**. Mỗi hook phải gắn: **1 chân dung · 1 nấc 5A · 1 mã `O` · 1 `HT-nnn` truy ngược · 3 format**.
+> ⚠ Chân dung gắn vào hook là chân dung **đã duyệt ở CỔNG 0 của kỳ này** (`id-C` §1). ⛔ Không viết hook cho một chân dung của kỳ trước mà kỳ này không có.
 > ⛔ Hook không truy ngược được về một dòng hội thoại hoặc một con số là **hook bịa** — loại khỏi ngân hàng.
 
 ---
@@ -137,7 +138,7 @@ HT-031: "mũi em nâng rồi mà đầu mũi bị bóng đỏ, giờ còn sửa 
 - ⛔ Hook trả lời **bệnh nền / chống chỉ định** (`O-12`)
 - ⛔ Hook gắn **chức danh, số năm, số ca của bác sĩ chưa đối chiếu chứng chỉ**
 - ⛔ Hook có **giá dịch vụ ngoài mắt** khi chưa có bảng giá hiện hành
-- ⛔ Hook hứa **đổi vận, tài lộc** (`CD5`) hoặc **tỷ lệ thành công** (`CD6`)
+- ⛔ Hook hứa **đổi vận, tài lộc, tướng số** hoặc **tỷ lệ thành công** — cấm với mọi chân dung, kể cả khi chính khách mở lời bằng chuyện đó
 - ⛔ Hook **dìm đối thủ**
 - ⛔ Hook lấy **số từ hook cũ** làm nguồn giá — hook cũ không phải nguồn giá
 

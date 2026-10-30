@@ -10,7 +10,7 @@
 | # | Tab | Trả lời câu |
 |---|---|---|
 | ① | **Phễu inbox** | Khách vào bao nhiêu, nóng tới đâu, rơi ở đâu và vì sao |
-| ② | **Chân dung & Insight** | Khách là ai, họ sợ gì, câu hỏi ngầm là gì |
+| ② | **Chân dung & Insight** | Khách là ai, họ sợ gì, câu hỏi ngầm là gì. ⏳ Khoá lại khi chân dung chưa qua CỔNG 0 |
 | ③ | ★ **Chấm điểm nhân viên** | Khối trực page đang yếu tiêu chí nào, ai cần kèm |
 | ④ | **Marketing — Facebook** | Chuỗi CPM→CTR→CPI→CPL→CPB, nội dung nào tốt/kém |
 | ⑤ | **Marketing — Google Ads** | ⚠ chờ dữ liệu |
@@ -73,9 +73,13 @@ Tiêu đề + chọn kỳ
   },
 
   "chan_dung": {
-    "tep":     [ { "cd","ten","ht","hot","warm","cold","co_sdt","chot_lich","chi_nhan","bo_1_luot","roi" } ],
+    // ⛔ KHÔNG có bộ chân dung mặc định. `tep` rỗng = chưa qua CỔNG 0 (id-C §1).
+    "phac_hoa": { "trang_thai":"chua_phac_hoa|da_duyet", "vi_sao", "file",
+                  "nguyen_lieu", "so_chan_dung", "duyet_boi", "duyet_luc" },
+    "tep":     [ { "cd","ten","ht","quan_sat","hot","warm","cold","co_sdt",
+                   "chot_lich","bo_1_luot","roi_truc","he_so" } ],   // + 1 dòng CD0
     "insight": [ { "cd","ten","nhom","ho_la_ai","insight","cau_hoi_ngam","tin_hieu_nong","huong_xu_ly","trich" } ],
-    "ma_tran_cd_5a": { "noi_dung": {...}, "hoi_thoai": {...} }   // hai bảng 7×5
+    "ma_tran_cd_5a": { "noi_dung": {...}, "hoi_thoai": {...} }   // hai bảng N×5
   },
 
   "nhan_vien": {                                      // ★ tab ③
@@ -129,6 +133,10 @@ Tiêu đề + chọn kỳ
 ① KHÔNG CÓ SỐ thì hiện "—", ⛔ không hiện 0.
    0 nghĩa là đã đo và bằng không. "—" nghĩa là chưa đo. Hai thứ khác nhau.
 
+   Cùng luật đó cho CHÂN DUNG: `tep` rỗng thì tab ② hiện một ô khoá
+   "⏳ chân dung chưa được phác họa" kèm lý do, ⛔ không hiện bảng trống và
+   ⛔ không điền tạm một bộ chân dung nào vào cho đủ bảng.
+
 ② MỌI SO SÁNH ghi rõ so với cái gì:
    "▲ 2,1 điểm so kỳ trước"  ·  "mốc gốc 42,7% · ▼ 3,2 điểm"
    Chưa có mốc → "⚠ chưa có mốc so sánh".
@@ -171,7 +179,8 @@ Mỗi kỳ mở đầu bằng việc **chấm lại việc kỳ trước**: đ�
 ## 6. TỰ KIỂM SỔ NÀY
 
 - [ ] File JSON có `schema` đúng phiên bản không?
-- [ ] Tổng các cột có khớp `so_ht_phan_tich` không?
+- [ ] Tổng các cột có khớp `so_ht_phan_tich` không? Bảng chân dung đã **cộng cả dòng `CD0`** chưa?
+- [ ] `chan_dung.phac_hoa.duyet_boi` có tên người thật chưa, hay tab ② đang hiện số của một cách chia chưa ai duyệt?
 - [ ] Ô chưa đo có hiện `—` thay vì `0` không?
 - [ ] Mọi so sánh có ghi rõ so với cái gì không?
 - [ ] Tab ③ có bảng xếp hạng có tên lọt ra không?

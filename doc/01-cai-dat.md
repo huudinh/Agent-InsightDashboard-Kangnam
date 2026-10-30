@@ -1,5 +1,8 @@
 # 01 · Cài đặt
 
+📘 **Bản có nút Copy từng file:** <https://claude.ai/artifact/PkfQjahnMx9Vfb3KxpM7wh>
+*(2 thẻ bộ não · 19 file tri thức · 16 prompt · 6 câu smoke test — dễ dùng hơn file này)*
+
 Ba cách dùng agent này. Chọn một.
 
 ---
@@ -83,7 +86,7 @@ Hỏi agent 6 câu, trả lời sai câu nào thì nạp lại file tương ứn
 
 | Câu hỏi | Phải trả lời đúng | Nằm ở |
 |---|---|---|
-| *"CD3 là gì, vì sao không gộp vào CD1?"* | Sửa lại · nỗi sợ nặng nhất, giá trị đơn cao nhất | `id-C` |
+| *"Chân dung lấy ở đâu ra?"* | ⛔ Không có bộ dựng sẵn — phác họa từ chính hội thoại của kỳ, duyệt ở CỔNG 0 | `id-C` §1–2 |
 | *"Năm tín hiệu nóng là gì?"* | dịch vụ · thời gian ≤14 ngày · SĐT · điều kiện · khung giờ gọi | `id-D` |
 | *"CPL tăng vì CPM thì làm gì?"* | Nói thẳng "không phải vấn đề nội dung" | `id-E` |
 | *"Khách hỏi bảo hành mấy năm thì trả lời sao?"* | ⛔ Không nêu số — "chính sách bảo hành bằng văn bản" | `id-K` |

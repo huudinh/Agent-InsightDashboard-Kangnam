@@ -18,7 +18,7 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 | # | Khối | Mục tiêu | Tập lead xét |
 |---|---|---|---|
 | ① | **TĂNG HOT** | Kéo WARM sát HOT lên HOT | HT `WARM` đạt **3/5 tín hiệu** — thường thiếu ② mốc thời gian hoặc ⑤ khung giờ gọi |
-| ② | **GIẢM COLD** | Làm khách nói được tình trạng ngay từ quảng cáo | HT `COLD` của `CD0` + HT tin đầu chỉ hỏi giá/địa chỉ |
+| ② | **GIẢM COLD** | Làm khách nói được tình trạng ngay từ quảng cáo | HT `COLD` của `CD0` (ô dự trữ — xem `id-C` §1) + HT tin đầu chỉ hỏi giá/địa chỉ |
 | ③ | **TỐI ƯU WARM** | Gỡ rào cản làm WARM đứng lại | HT `WARM` đạt 2/5, có mã `O` rõ |
 
 ★ **Thứ tự này không đảo được.** Khối ① rẻ nhất (lead đã gần chín), khối ② đông nhất nhưng chậm, khối ③ là phần còn lại. Làm ② trước ① là bỏ tiền kéo người lạ trong khi người sắp mua đang đứng ngay đó.
@@ -33,6 +33,8 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 
 ### Hệ số giá trị đơn — theo dịch vụ chính khách hỏi
 
+⚠️ Hệ số đi theo **dịch vụ**, ⛔ không đi theo chân dung. Một chân dung có thể khai sẵn `he_so_gia_tri` trong bản phác họa (`id-C` §2) — khi có, hệ số đó thắng, vì nó là kết luận của người đã đọc cả tệp.
+
 | Bậc | Giá trị đơn ước tính | Hệ số |
 |---|---|---|
 | Thấp | < 5 triệu | **1** |
@@ -45,15 +47,18 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 ### Ví dụ đọc một dòng
 
 ```
-CD3 · Sửa lại · khối ① Tăng HOT
+CD1 · "Đã làm rồi, đi sửa" · khối ① Tăng HOT
+  (chân dung của kỳ này, đã duyệt ở CỔNG 0 — id-C §2)
   HT mới trong kỳ        : 42
   HT trong tập (WARM 3/5): 11
   Có SĐT                 : 6
-  Hệ số giá trị đơn      : 3  (sửa mũi ≥15tr)
+  Hệ số giá trị đơn      : 3  (ca sửa lại ≥15tr)
   Điểm                   : 11 × 3 = 33
   Dừng ở                 : A3 (7 HT) · A2 (4 HT)
   → Ưu tiên 1 của khối ①, làm nội dung nấc A3
 ```
+
+⚠️ Tên và số mã trong ví dụ là **của một kỳ cụ thể**. Kỳ khác chân dung khác — ⛔ không chép bảng này sang kỳ sau rồi chỉ đổi số.
 
 ---
 
@@ -100,7 +105,7 @@ MA TRẬN ƯU TIÊN — KỲ <tu> → <den>          TRẠNG THÁI: ⏳ CHỜ DU
 │ CD  │ Chân dung    │ HT  │ Rơi do trực  │ Lý do                      │
 └─────┴──────────────┴─────┴──────────────┴────────────────────────────┘
 
-👁 QUAN SÁT — dưới 5 HT mới: CD2 (3) · CD5 (2)
+👁 QUAN SÁT — dưới 5 HT mới: CD3 (3) · CD4 (2)
 
 ───────────────────────────────────────────────────────────────────────
 Gõ DUYỆT để agent viết ngân hàng hook và sinh sổ tay.

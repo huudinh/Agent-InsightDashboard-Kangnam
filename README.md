@@ -1,14 +1,19 @@
 # 📊 Agent-InsightDashboard-Kangnam
 
-> **Đọc hội thoại khách + số quảng cáo → chân dung khách hàng Kangnam.**
+> **Agent đọc Insight khách hàng của Bệnh viện Thẩm mỹ Kangnam.**
 >
-> Từ **100–300 hội thoại chat** và **số ads Facebook / Google**, dựng ra bốn thứ dùng được ngay: **dashboard insight · ma trận ưu tiên · ngân hàng hook · sổ tay thực thi riêng cho từng nhân viên**.
+> Đọc **chính lời khách nói trong inbox** cùng **số quảng cáo Facebook / Google**, rồi trả lời bốn câu: **khách là ai · họ đang sợ gì · họ rơi ở đâu và vì ai · kỳ tới phải làm gì**.
+>
+> Đầu ra dùng được ngay: **dashboard insight · ma trận ưu tiên · ngân hàng hook · sổ tay thực thi riêng cho từng nhân viên**.
 
 `v1.0` · 2026-10-30 · Claude / ChatGPT / Gemini / Claude Code
 
-### 📈 [**Xem dashboard mẫu — chạy thật trên 295 hội thoại →**](https://claude.ai/artifact/79zY1N3Ltg2kk33JzLg66y)
+### 📘 [**Hướng dẫn cài đặt & prompt mẫu →**](https://claude.ai/artifact/PkfQjahnMx9Vfb3KxpM7wh)
+### 📈 [**Dashboard mẫu — chạy thật trên 295 hội thoại →**](https://claude.ai/artifact/79zY1N3Ltg2kk33JzLg66y)
 
-> 9 tab · dữ liệu hội thoại thật *(12–13/10)*, số quảng cáo mô phỏng, **tên nhân viên đã thay bằng mã `NV-nn`**.
+> Trang hướng dẫn có **nút Copy từng file**: 2 thẻ bộ não · 19 file tri thức · 16 prompt mẫu lọc theo nhóm · 6 câu smoke test. Người mới vào khối thì **mở trang này trước, đừng đọc README**.
+>
+> Dashboard: 9 tab · hội thoại thật *(12–13/10)*, số quảng cáo mô phỏng, **tên nhân viên đã thay bằng mã `NV-nn`**.
 
 ---
 
@@ -16,7 +21,7 @@
 
 | Việc | Nghĩa |
 |---|---|
-| ① **Dựng chân dung khách** | 7 chân dung `CD0–CD6` × 5 nấc `A1–A5`, gán từng hội thoại |
+| ① **Phác họa chân dung khách** | ⛔ Không có bộ chân dung dựng sẵn — mỗi kỳ phác họa 2–7 chân dung **từ chính hội thoại đưa vào**, người dùng duyệt ở **CỔNG 0**, rồi gán từng hội thoại × 5 nấc `A1–A5` |
 | ② **Đào sâu insight** | 12 mã phản đối `O`, **câu hỏi ngầm**, 5 tín hiệu nóng, vì sao khách rơi |
 | ③ ★ **Chấm điểm nhân viên trực page** | 22 tiêu chí `N1.1–N6.3` · thang 100 · phân loại A/B/C/D · 6 cờ đỏ |
 | ④ **Ma trận ưu tiên** | 3 khối: Tăng HOT → Giảm COLD → Tối ưu WARM, có công thức điểm |
@@ -86,9 +91,9 @@ Chi tiết: [`doc/01-cai-dat.md`](doc/01-cai-dat.md)
 
 | Sổ | Nội dung |
 |---|---|
-| [`id-A`](knowledge/id-A-vai-tro-quy-trinh.md) | Vai trò · 8 bước · **hai cổng chặn** · AUTO · ngưỡng mẫu · luật một lần chấm |
+| [`id-A`](knowledge/id-A-vai-tro-quy-trinh.md) | Vai trò · 8 bước · **ba cổng chặn** · AUTO · ngưỡng mẫu · luật một lần chấm |
 | [`id-B`](knowledge/id-B-doc-dau-vao.md) | Ba dòng đầu vào · cột bắt buộc · ẩn danh · quy ước mã |
-| ★ [`id-C`](knowledge/id-C-chan-dung-5A.md) | **Chân dung `CD0–CD6` × hành trình `5A`** · ma trận lỗ hổng phễu |
+| ★★ [`id-C`](knowledge/id-C-chan-dung-5A.md) | **Phác họa chân dung từ hội thoại · CỔNG 0** × hành trình `5A` · ma trận lỗ hổng phễu |
 | ★ [`id-D`](knowledge/id-D-dao-sau-insight.md) | **12 mã `O` · 5 tín hiệu nóng · vì sao rơi · câu hỏi ngầm · bảng giao "yếu gì"** |
 | ★ [`id-E`](knowledge/id-E-to-chuc-ads-chi-so.md) | **Tổ chức Ads** — 11 chiều cắt số · chuỗi chỉ số · phân rã CPL · VIEW/PERF · Google Ads |
 | ★★ [`id-F`](knowledge/id-F-cham-diem-nhan-vien.md) | **Tiêu chí chấm điểm `N1–N6` · A/B/C/D · 6 cờ đỏ · 4 rào an toàn** |
@@ -119,7 +124,12 @@ python tools/so_tay.py --ky "19-25/10"
 
 # xem dashboard
 cd dashboard && python -m http.server 8080
+
+# sinh lại trang hướng dẫn sau khi sửa knowledge/ hoặc prompts/
+python tools/trang-huong-dan.py
 ```
+
+> Nút Copy trên trang hướng dẫn **đọc thẳng file nguồn trong repo** — sửa `knowledge/` rồi chạy lại là nút Copy tự khớp, không bao giờ lệch với repo.
 
 Chi tiết: [`doc/02-cau-lenh.md`](doc/02-cau-lenh.md) · Kết quả mẫu: [`doc/03-output-mau.md`](doc/03-output-mau.md)
 
@@ -202,6 +212,7 @@ Agent-InsightDashboard-Kangnam/
 ├── goi/GOP-tri-thuc.md       bản gộp (sinh tự động)
 ├── template/                 dữ liệu mẫu để chạy thử
 ├── tools/                    id.py · so_tay.py · tu_dien.json · gop-tham-khao.py · dem-ngan.py
+│                             trang-huong-dan.py + huong-dan.json → huong-dan.html
 ├── dashboard/                index.html (cố định) + data/*.json (mỗi kỳ một file)
 ├── doc/                      cài đặt · dòng lệnh · output mẫu · changelog
 └── out/                      kết quả — ⛔ KHÔNG commit

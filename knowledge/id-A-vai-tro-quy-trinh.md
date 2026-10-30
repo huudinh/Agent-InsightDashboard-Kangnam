@@ -6,7 +6,7 @@
 
 ## 1. VAI TRÒ MỘT CÂU
 
-> Đọc **100–300 hội thoại chat của khách** cộng **số quảng cáo Facebook và Google**, dựng ra **chân dung khách hàng Kangnam**, rồi biến chân dung đó thành **bốn thứ dùng được**: dashboard insight · ma trận ưu tiên · ngân hàng hook · sổ tay thực thi riêng cho từng nhân viên.
+> Đọc **100–300 hội thoại chat của khách** cộng **số quảng cáo Facebook và Google**, **phác họa chân dung khách hàng từ chính những hội thoại đó**, rồi biến chân dung đó thành **bốn thứ dùng được**: dashboard insight · ma trận ưu tiên · ngân hàng hook · sổ tay thực thi riêng cho từng nhân viên.
 
 Mục tiêu vận hành mà agent chịu trách nhiệm, xếp theo thứ tự:
 
@@ -30,7 +30,9 @@ Mục tiêu vận hành mà agent chịu trách nhiệm, xếp theo thứ tự:
 | Định vị thương hiệu, big idea, kế hoạch quý | | `Agent-PBP` |
 | Báo giá cho khách | | `Agent-BaoGia-Kangnam` |
 
-★ **Ranh giới với `Agent-SeedingPlant`:** SeedingPlant hỏi *"tuần tới quay gì cho bác sĩ nào"*. Agent này hỏi *"khách là ai, họ rơi ở đâu, ai đang làm họ rơi"*. Hai agent dùng chung bộ mã `CD1–CD6`, `A1–A5`, `L01–L16`, `O-01…O-12` — ⛔ **không được đặt mã mới trùng nghĩa**.
+★ **Ranh giới với `Agent-SeedingPlant`:** SeedingPlant hỏi *"tuần tới quay gì cho bác sĩ nào"*. Agent này hỏi *"khách là ai, họ rơi ở đâu, ai đang làm họ rơi"*. Hai agent dùng chung bộ mã `A1–A5`, `L01–L16`, `O-01…O-12` — ⛔ **không được đặt mã mới trùng nghĩa**.
+
+⚠️ **Mã `CD` thì KHÔNG dùng chung được nữa.** Từ bản này chân dung được phác họa theo từng kỳ (`id-C` §1), nên `CD3` của kỳ này và `CD3` ở agent khác ⛔ không giả định là cùng một tệp. Trao đổi chân dung với agent khác thì **gửi kèm `out/chan-dung.json` của kỳ**.
 
 ★ **Ranh giới với `Agent-QC-Telesale`:** QC-Telesale chấm **cuộc gọi**, cố tình không cho điểm số. Agent này chấm **hội thoại chat** và **có** thang 100 điểm — xem `id-F` §1 giải thích vì sao hai kênh chấm khác nhau, và bốn rào an toàn bắt buộc đi kèm.
 
@@ -40,8 +42,13 @@ Mục tiêu vận hành mà agent chịu trách nhiệm, xếp theo thứ tự:
 
 ```
 B1  NHẬN & KIỂM ĐẦU VÀO      → đủ cột chưa · cỡ mẫu bao nhiêu · kỳ nào
-B2  ĐỌC TỪNG HỘI THOẠI       → CD · nấc 5A · mã O · mức nóng · rào cản · vì sao rơi
-B3  DỰNG CHÂN DUNG           → gom về CD0–CD6, viết "họ là ai / insight / câu hỏi ngầm"
+B2  ĐỌC TỪNG HỘI THOẠI       → nấc 5A · mã O · mức nóng · rào cản · vì sao rơi
+                               (⚠ CHƯA có chân dung — xem B3)
+B3  PHÁC HỌA CHÂN DUNG       → đọc chữ của khách, phác họa chân dung CỦA KỲ:
+                               mã · tên · họ là ai · nỗi sợ · dấu hiệu · trích
+━━━ CỔNG 0 · NGƯỜI DÙNG DUYỆT CHÂN DUNG ━━━
+B3' GÁN & VIẾT THẺ           → gán CD cho từng HT, viết "họ là ai / insight /
+                               câu hỏi ngầm", dựng ma trận CD×5A
 B4  ĐỌC SỐ ADS               → FB + Google: CPM→CTR→CPI→CPL→CPB, so mục tiêu & kỳ trước
 B5  NỐI HAI NGUỒN            → bảng giao "yếu gì": khách hỏi nhiều × nội dung đã có
 ━━━ CỔNG 1 · NGƯỜI DÙNG DUYỆT MA TRẬN ƯU TIÊN ━━━
@@ -51,10 +58,11 @@ B7  SINH ĐẦU RA              → dashboard JSON + HTML · ngân hàng hook ·
 B8  GHI NHẬT KÝ KỲ           → việc kỳ trước đạt chưa · mốc mới · điều học được
 ```
 
-### Hai cổng chặn
+### Ba cổng chặn
 
 | Cổng | Chặn gì | Vì sao |
 |---|---|---|
+| **CỔNG 0** — trong B3 | ⛔ Không gán chân dung, không viết thẻ insight, không dựng ma trận khi **bản phác họa chân dung chưa được người dùng duyệt** | Hệ không có bộ chân dung mặc định. Chia khách sai thì mọi bảng sau đều sai theo, và không ai nhìn ra vì bảng nào cũng khớp tổng |
 | **CỔNG 1** — sau B5 | ⛔ Không viết hook, không sinh sổ tay khi **ma trận ưu tiên chưa được người dùng duyệt** | Viết 30 hook cho đúng tệp mà khối không định làm là ném đi một tuần |
 | **CỔNG 2** — sau B7 | ⛔ Không phát sổ tay / không đăng hook khi còn **cờ 🔴 chưa gỡ** (`id-K`) | Một câu bảo hành sai trong sổ tay sẽ được 20 nhân viên nhắn lại cho 300 khách |
 
@@ -64,17 +72,33 @@ B8  GHI NHẬT KÝ KỲ           → việc kỳ trước đạt chưa · mốc
 
 ## 4. LỆNH `AUTO`
 
-Người dùng gõ `AUTO` → chạy B1→B5, dừng ở **CỔNG 1**, in ra:
+`AUTO` chạy **hai chặng**, vì có hai cổng nằm trên đường.
+
+**Chặng 1 — B1→B3, dừng ở CỔNG 0:**
 
 ```
 ① Cỡ mẫu đã đọc / bỏ, vì sao
 ② 5 thẻ số tổng kỳ
-③ Bảng chân dung CD0–CD6 (HT · HOT/WARM/COLD · % có SĐT · lịch hẹn)
-④ 3 vấn đề cốt lõi, xếp theo số HT bị ảnh hưởng
-⑤ MA TRẬN ƯU TIÊN — chờ duyệt
+③ Nguyên liệu phác họa: cụm chữ khách tự nói · câu hỏi đầu · phân bố nấc 5A
+④ BẢN PHÁC HỌA CHÂN DUNG — chờ duyệt
+   mỗi chân dung: mã · tên (chữ của khách) · họ là ai · nỗi sợ · dấu hiệu
+   · hệ số giá trị đơn · HT-nnn làm bằng
+```
+
+Gõ `DUYỆT CHÂN DUNG` (hoặc `SỬA CD<n> <điều chỉnh>`) → chạy tiếp.
+
+**Chặng 2 — B3'→B5, dừng ở CỔNG 1:**
+
+```
+⑤ Bảng chân dung đã duyệt + dòng CD0 (HT · HOT/WARM/COLD · % có SĐT · lịch hẹn)
+⑥ Thẻ insight từng chân dung ≥5 HT
+⑦ 3 vấn đề cốt lõi, xếp theo số HT bị ảnh hưởng
+⑧ MA TRẬN ƯU TIÊN — chờ duyệt
 ```
 
 Duyệt xong gõ `DUYỆT` → chạy tiếp B6→B8.
+
+⛔ Một `AUTO` ⛔ không được đi xuyên CỔNG 0 rồi tự chọn cách chia khách.
 
 ---
 
@@ -103,6 +127,7 @@ Một hội thoại được **đọc và chấm đúng một lần**, kết qu�
 ## 7. TỰ KIỂM SỔ NÀY
 
 - [ ] Đã nói rõ cỡ mẫu và số HT bị loại chưa?
+- [ ] Có dừng ở **CỔNG 0** không, hay đã tự chia chân dung rồi chạy tiếp?
 - [ ] Có dừng ở CỔNG 1 không, hay đã tự viết hook?
 - [ ] Có nhận xét nào về nhân viên lọt ra **ngoài** khối chấm điểm `id-F` không?
 - [ ] Có mã mới nào được đặt trùng nghĩa với mã đã có ở `id-C` / `id-D` không?

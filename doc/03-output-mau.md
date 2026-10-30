@@ -2,6 +2,8 @@
 
 Số dưới đây là **kết quả chạy thật** trên 300 hội thoại nâng mũi xuất từ Caresoft (12–13/10/2026), 295 hội thoại đủ điều kiện phân tích. Dùng để biết đầu ra trông thế nào và để so sánh khi hiệu chỉnh từ điển.
 
+> ⚠️ **Lần chạy này là của bản `v1.0`, khi hệ còn một bộ bảy chân dung dựng sẵn cho dịch vụ mũi.** Từ `v1.1` bộ đó đã bỏ: chân dung được **phác họa từ chính hội thoại của kỳ** và duyệt ở **CỔNG 0** (`id-C` §1). Giữ bảng chân dung ở §4 lại vì **chính nó là bằng chứng** cho việc phải bỏ — xem ô ★ dưới bảng. Mọi phần khác của trang này *(thẻ số tổng · mức nóng · vì sao rơi · mã O · chấm điểm)* ⛔ không phụ thuộc chân dung nên vẫn đúng với bản hiện hành.
+
 ---
 
 ## 1 · Năm thẻ số tổng
@@ -45,7 +47,7 @@ COLD 196
 | `CD6` | Khó, bệnh lý | 3 | 0 | 0 | 0 | 0% | 1 |
 | `CD2` `CD5` | Hot Face · Phong thủy | 0 | | | | | |
 
-★ Hai kết luận đọc ngay được:
+★ Ba kết luận đọc ngay được:
 
 ```
 ① CD0 chiếm 239/295 (81%) — quảng cáo kéo được người vào
@@ -53,6 +55,11 @@ COLD 196
 
 ② CD3 "sửa lại" chỉ 29 HT nhưng % có SĐT 44,8% — GẤP ĐÔI CD0.
    Tệp nhỏ, nóng, giá trị đơn cao. Đây là ô đáng làm nhất của khối ① Tăng HOT.
+
+③ ★ VÀ: chính bảng này là lý do bỏ bộ chân dung dựng sẵn.
+   81% mẫu rơi vào ô "chưa rõ", hai chân dung không có một người nào
+   (CD2 Hot Face · CD5 Phong thủy) — bộ chân dung này không đo khách,
+   nó đo chính nó. Từ v1.1: phác họa từ hội thoại, duyệt ở CỔNG 0.
 ```
 
 ## 5 · Mã phản đối

@@ -62,7 +62,7 @@
 
 ```
 "bảo hành nếp mí lên đến 3 NĂM"   ← kịch bản mắt (cụ thể nhất)
-"bảo hành 10 NĂM"                 ← chân dung CD3 mũi
+"bảo hành 10 NĂM"                 ← kịch bản tệp khách đi sửa lại (mũi)
 "bảo hành TRỌN ĐỜI"               ← nhiều hook mũi đang chạy
 
 → BA CÁI NÀY KHÔNG THỂ CÙNG ĐÚNG CHO CÙNG MỘT DỊCH VỤ.

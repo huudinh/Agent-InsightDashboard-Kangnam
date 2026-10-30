@@ -31,7 +31,7 @@ Gộp ngày 2026-10-30 · 11 sổ
 
 ## 1. VAI TRÒ MỘT CÂU
 
-> Đọc **100–300 hội thoại chat của khách** cộng **số quảng cáo Facebook và Google**, dựng ra **chân dung khách hàng Kangnam**, rồi biến chân dung đó thành **bốn thứ dùng được**: dashboard insight · ma trận ưu tiên · ngân hàng hook · sổ tay thực thi riêng cho từng nhân viên.
+> Đọc **100–300 hội thoại chat của khách** cộng **số quảng cáo Facebook và Google**, **phác họa chân dung khách hàng từ chính những hội thoại đó**, rồi biến chân dung đó thành **bốn thứ dùng được**: dashboard insight · ma trận ưu tiên · ngân hàng hook · sổ tay thực thi riêng cho từng nhân viên.
 
 Mục tiêu vận hành mà agent chịu trách nhiệm, xếp theo thứ tự:
 
@@ -55,7 +55,9 @@ Mục tiêu vận hành mà agent chịu trách nhiệm, xếp theo thứ tự:
 | Định vị thương hiệu, big idea, kế hoạch quý | | `Agent-PBP` |
 | Báo giá cho khách | | `Agent-BaoGia-Kangnam` |
 
-★ **Ranh giới với `Agent-SeedingPlant`:** SeedingPlant hỏi *"tuần tới quay gì cho bác sĩ nào"*. Agent này hỏi *"khách là ai, họ rơi ở đâu, ai đang làm họ rơi"*. Hai agent dùng chung bộ mã `CD1–CD6`, `A1–A5`, `L01–L16`, `O-01…O-12` — ⛔ **không được đặt mã mới trùng nghĩa**.
+★ **Ranh giới với `Agent-SeedingPlant`:** SeedingPlant hỏi *"tuần tới quay gì cho bác sĩ nào"*. Agent này hỏi *"khách là ai, họ rơi ở đâu, ai đang làm họ rơi"*. Hai agent dùng chung bộ mã `A1–A5`, `L01–L16`, `O-01…O-12` — ⛔ **không được đặt mã mới trùng nghĩa**.
+
+⚠️ **Mã `CD` thì KHÔNG dùng chung được nữa.** Từ bản này chân dung được phác họa theo từng kỳ (`id-C` §1), nên `CD3` của kỳ này và `CD3` ở agent khác ⛔ không giả định là cùng một tệp. Trao đổi chân dung với agent khác thì **gửi kèm `out/chan-dung.json` của kỳ**.
 
 ★ **Ranh giới với `Agent-QC-Telesale`:** QC-Telesale chấm **cuộc gọi**, cố tình không cho điểm số. Agent này chấm **hội thoại chat** và **có** thang 100 điểm — xem `id-F` §1 giải thích vì sao hai kênh chấm khác nhau, và bốn rào an toàn bắt buộc đi kèm.
 
@@ -65,8 +67,13 @@ Mục tiêu vận hành mà agent chịu trách nhiệm, xếp theo thứ tự:
 
 ```
 B1  NHẬN & KIỂM ĐẦU VÀO      → đủ cột chưa · cỡ mẫu bao nhiêu · kỳ nào
-B2  ĐỌC TỪNG HỘI THOẠI       → CD · nấc 5A · mã O · mức nóng · rào cản · vì sao rơi
-B3  DỰNG CHÂN DUNG           → gom về CD0–CD6, viết "họ là ai / insight / câu hỏi ngầm"
+B2  ĐỌC TỪNG HỘI THOẠI       → nấc 5A · mã O · mức nóng · rào cản · vì sao rơi
+                               (⚠ CHƯA có chân dung — xem B3)
+B3  PHÁC HỌA CHÂN DUNG       → đọc chữ của khách, phác họa chân dung CỦA KỲ:
+                               mã · tên · họ là ai · nỗi sợ · dấu hiệu · trích
+━━━ CỔNG 0 · NGƯỜI DÙNG DUYỆT CHÂN DUNG ━━━
+B3' GÁN & VIẾT THẺ           → gán CD cho từng HT, viết "họ là ai / insight /
+                               câu hỏi ngầm", dựng ma trận CD×5A
 B4  ĐỌC SỐ ADS               → FB + Google: CPM→CTR→CPI→CPL→CPB, so mục tiêu & kỳ trước
 B5  NỐI HAI NGUỒN            → bảng giao "yếu gì": khách hỏi nhiều × nội dung đã có
 ━━━ CỔNG 1 · NGƯỜI DÙNG DUYỆT MA TRẬN ƯU TIÊN ━━━
@@ -76,10 +83,11 @@ B7  SINH ĐẦU RA              → dashboard JSON + HTML · ngân hàng hook ·
 B8  GHI NHẬT KÝ KỲ           → việc kỳ trước đạt chưa · mốc mới · điều học được
 ```
 
-### Hai cổng chặn
+### Ba cổng chặn
 
 | Cổng | Chặn gì | Vì sao |
 |---|---|---|
+| **CỔNG 0** — trong B3 | ⛔ Không gán chân dung, không viết thẻ insight, không dựng ma trận khi **bản phác họa chân dung chưa được người dùng duyệt** | Hệ không có bộ chân dung mặc định. Chia khách sai thì mọi bảng sau đều sai theo, và không ai nhìn ra vì bảng nào cũng khớp tổng |
 | **CỔNG 1** — sau B5 | ⛔ Không viết hook, không sinh sổ tay khi **ma trận ưu tiên chưa được người dùng duyệt** | Viết 30 hook cho đúng tệp mà khối không định làm là ném đi một tuần |
 | **CỔNG 2** — sau B7 | ⛔ Không phát sổ tay / không đăng hook khi còn **cờ 🔴 chưa gỡ** (`id-K`) | Một câu bảo hành sai trong sổ tay sẽ được 20 nhân viên nhắn lại cho 300 khách |
 
@@ -89,17 +97,33 @@ B8  GHI NHẬT KÝ KỲ           → việc kỳ trước đạt chưa · mốc
 
 ## 4. LỆNH `AUTO`
 
-Người dùng gõ `AUTO` → chạy B1→B5, dừng ở **CỔNG 1**, in ra:
+`AUTO` chạy **hai chặng**, vì có hai cổng nằm trên đường.
+
+**Chặng 1 — B1→B3, dừng ở CỔNG 0:**
 
 ```
 ① Cỡ mẫu đã đọc / bỏ, vì sao
 ② 5 thẻ số tổng kỳ
-③ Bảng chân dung CD0–CD6 (HT · HOT/WARM/COLD · % có SĐT · lịch hẹn)
-④ 3 vấn đề cốt lõi, xếp theo số HT bị ảnh hưởng
-⑤ MA TRẬN ƯU TIÊN — chờ duyệt
+③ Nguyên liệu phác họa: cụm chữ khách tự nói · câu hỏi đầu · phân bố nấc 5A
+④ BẢN PHÁC HỌA CHÂN DUNG — chờ duyệt
+   mỗi chân dung: mã · tên (chữ của khách) · họ là ai · nỗi sợ · dấu hiệu
+   · hệ số giá trị đơn · HT-nnn làm bằng
+```
+
+Gõ `DUYỆT CHÂN DUNG` (hoặc `SỬA CD<n> <điều chỉnh>`) → chạy tiếp.
+
+**Chặng 2 — B3'→B5, dừng ở CỔNG 1:**
+
+```
+⑤ Bảng chân dung đã duyệt + dòng CD0 (HT · HOT/WARM/COLD · % có SĐT · lịch hẹn)
+⑥ Thẻ insight từng chân dung ≥5 HT
+⑦ 3 vấn đề cốt lõi, xếp theo số HT bị ảnh hưởng
+⑧ MA TRẬN ƯU TIÊN — chờ duyệt
 ```
 
 Duyệt xong gõ `DUYỆT` → chạy tiếp B6→B8.
+
+⛔ Một `AUTO` ⛔ không được đi xuyên CỔNG 0 rồi tự chọn cách chia khách.
 
 ---
 
@@ -128,6 +152,7 @@ Một hội thoại được **đọc và chấm đúng một lần**, kết qu�
 ## 7. TỰ KIỂM SỔ NÀY
 
 - [ ] Đã nói rõ cỡ mẫu và số HT bị loại chưa?
+- [ ] Có dừng ở **CỔNG 0** không, hay đã tự chia chân dung rồi chạy tiếp?
 - [ ] Có dừng ở CỔNG 1 không, hay đã tự viết hook?
 - [ ] Có nhận xét nào về nhân viên lọt ra **ngoài** khối chấm điểm `id-F` không?
 - [ ] Có mã mới nào được đặt trùng nghĩa với mã đã có ở `id-C` / `id-D` không?
@@ -172,7 +197,7 @@ _Cập nhật: 2026-10-13 14:46:52 · NV: <Tên nhân viên> · SĐT: Có|Không
 | `KH:` / `NV <tên>:` | ✅ | Tách hai nửa hội thoại · gán nhân viên |
 | SĐT có/không | ✅ | Chỉ số lõi `% có SĐT` |
 | Page / nguồn quảng cáo | 🔶 nên có | Nối hội thoại ↔ nội dung ads (`id-E` §6) |
-| Dịch vụ khách hỏi | ⬜ tự suy ra | Gán chân dung |
+| Dịch vụ khách hỏi | ⬜ tự suy ra | Tín hiệu nóng ① · hệ số giá trị đơn. ⛔ **Không** dùng để gán chân dung (`id-C` §1) |
 
 ### ⛔ Tám thứ phải bỏ trước khi ghi ra bất cứ đâu
 
@@ -182,10 +207,12 @@ link Facebook cá nhân · mã đơn hàng · tên người nhà khách nhắc t
 ```
 Trích dẫn trong báo cáo phải ở dạng **đã ẩn danh**, chỉ còn `HT-nnn` + nội dung câu hỏi.
 
-### Mười ô tự suy ra, ⛔ không hỏi người dùng
+### Chín ô tự suy ra, ⛔ không hỏi người dùng
 
-`mức nóng` · `nấc 5A` · `chân dung CD` · `mã O` · `rào cản` · `vì sao rơi` ·
+`mức nóng` · `nấc 5A` · `mã O` · `rào cản` · `vì sao rơi` ·
 `có chốt lịch trong chat không` · `tin đầu khách hỏi gì` · `khu vực khách tự nói` · `khách mới hay khách cũ`
+
+⚠️ **`chân dung CD` KHÔNG nằm trong danh sách này.** Chân dung không suy ra được từ một ô dữ liệu: nó được **phác họa từ chữ của khách** rồi người dùng duyệt ở **CỔNG 0** (`id-C` §1–2). Trước khi duyệt, ô `cd` của mọi hội thoại để `null`.
 
 ---
 
@@ -274,7 +301,8 @@ MỐC SO SÁNH: kỳ trước <có/không> · mục tiêu 30 ngày <có/không>
 | Mã | Nghĩa | Định nghĩa ở |
 |---|---|---|
 | `HT-nnn` | Một hội thoại | sổ này |
-| `CD0 … CD6` | Chân dung khách hàng | `id-C` |
+| `CD0` | ★ Mã **dự trữ** — hội thoại không khớp dấu hiệu chân dung nào. ⛔ Không phác họa, ⛔ không đổi nghĩa | `id-C` §1 |
+| `CD1 … CDn` | Chân dung **của từng kỳ**, phác họa từ hội thoại kỳ đó. Số lượng và tên thay đổi theo kỳ; mã giữ nguyên khi cùng nỗi sợ | `id-C` §1 · `out/chan-dung.json` |
 | `A1 … A5` | Nấc hành trình 5A | `id-C` |
 | `O-01 … O-12`, `O-00` | Mã phản đối / rào cản | `id-D` |
 | `L01 … L16` | Format thể hiện | `id-H` |
@@ -284,63 +312,151 @@ MỐC SO SÁNH: kỳ trước <có/không> · mục tiêu 30 ngày <có/không>
 
 ★ Các mã này **được tham chiếu chéo ở 30+ chỗ trong repo và ở hai agent khác**. Đổi tên mã = hỏng cả hệ.
 
+⚠️ Ngoại lệ duy nhất là `CD1 … CDn`: **nội dung** của chúng đổi theo kỳ, chỉ **khuôn mã** là cố định. Gửi số liệu theo chân dung cho người khác thì gửi kèm `out/chan-dung.json` của kỳ, ⛔ không để người đọc tự đoán `CD2` nghĩa là gì.
+
 ---
 
 <!-- ===== id-C-chan-dung-5A.md ===== -->
 
-# id-C · ★ CHÂN DUNG KHÁCH HÀNG × HÀNH TRÌNH 5A
+# id-C · ★ CHÂN DUNG PHÁC HỌA TỪ HỘI THOẠI × HÀNH TRÌNH 5A
 
 > Trục ngang của cả hệ. Mọi bảng trong dashboard đều cắt theo **CD × 5A**.
-> Nguồn gốc: sheet `1. Chân dung KH` và `2. Hành trình 5A × CD` trong workbook kế hoạch nội dung Kangnam.
+> ⛔ **Sổ này KHÔNG chứa một bộ chân dung có sẵn.** Chân dung của mỗi kỳ được **phác họa từ chính hội thoại đưa vào kỳ đó**, rồi người dùng duyệt ở **CỔNG 0**.
 
 ---
 
-## 1. BẢY CHÂN DUNG
+## 1. CHÂN DUNG LÀ KẾT QUẢ ĐỌC, ⛔ KHÔNG PHẢI DANH SÁCH CHO TRƯỚC
 
-| Mã | Tên | Nhận ra khi khách tự kể | Nỗi sợ chi phối | Giá trị đơn |
-|---|---|---|---|---|
-| **CD0** | ★ **Thăm dò — chưa rõ nhu cầu** | Chỉ hỏi giá / hỏi địa chỉ / chỉ gửi ảnh / chỉ bấm QC, **không tả tình trạng** | Chưa thành hình | ⚠ chưa xác định |
-| **CD1** | **Khuyết điểm** | Tình trạng bẩm sinh, không nhắc đã làm gì | Làm xong xấu hơn · lộ sửa · bị "làm hớ" | Trung bình |
-| **CD2** | **Hot Face** | Nhắc trend, idol, *"giống chị X"*, lên hình | Không lên hình · sưng lâu mất job | Trung bình, chi nhanh |
-| **CD3** | ★ **Sửa lại** | **Đã làm rồi** — *"em nâng 2 năm trước"*, *"bên kia làm hỏng"* | Hỏng lần nữa · không ai chịu trách nhiệm | **Cao** |
-| **CD4** | **Nam giới** | Xưng hô nam, hỏi *"nam làm được không"* | Bị chê "đàn ông đi thẩm mỹ" · lộ, nữ tính | Trung bình |
-| **CD5** | **Phong thủy** | Nhắc vận, tướng số, sự nghiệp, mệnh | Sửa xong phá lộc · hao tài | Khá |
-| **CD6** | ★ **Khó, bệnh lý** | Nhắc triệu chứng y khoa — nghẹt mũi, co rút, viêm, dị tật, sụp mí | Thất bại · biến chứng nặng hơn · mất chức năng | **Cao nhất** |
+### Vì sao bỏ bộ chân dung cố định
 
-### Ba luật gán chân dung
+Bản trước của sổ này chở theo bảy chân dung dựng sẵn cho **dịch vụ nâng mũi** (`khuyết điểm` · `hot face` · `sửa lại` · `nam giới` · `phong thủy` · `khó, bệnh lý`), nhận dạng bằng từ khoá *"mũi tẹt"*, *"nghẹt mũi"*, *"đầu mũi bóng đỏ"*. Chạy thật trên 295 hội thoại kỳ 12–13/10 cho kết quả:
 
 ```
-① CD0 KHÔNG phải rác. Đây thường là nhóm ĐÔNG NHẤT và là nơi quảng cáo
-   đang làm sai: kéo được người vào nhưng không làm họ nói tình trạng.
-
-② CD3 và CD6 ⛔ KHÔNG gộp vào CD1 cho tiện.
-   Hai tệp này nỗi sợ nặng nhất, giá trị đơn cao nhất — gộp đi là mất
-   đúng nhóm đáng làm nhất.
-
-③ Một hội thoại = MỘT chân dung. Khách kể nhiều thứ thì lấy thứ
-   khách nhắc TRƯỚC và nhắc NHIỀU nhất.
+CD0 thăm dò       239 HT   ← 81% cỡ mẫu rơi vào ô "chưa rõ"
+CD3 sửa lại        29 HT
+CD1 khuyết điểm    21 HT
+CD4 · CD6           3 HT mỗi mã
+CD2 · CD5           0 HT   ← hai chân dung không có một người nào
 ```
 
-⚠️ **Chân dung là của khách, không phải của dịch vụ.** Một người hỏi nâng mũi và một người hỏi cắt mí đều có thể là `CD3` nếu cả hai đang đi sửa lại.
+★ Một bộ chân dung đẩy **81% khách vào ô «chưa rõ»** thì không đo khách — nó đo chính cái bộ đó. Và bộ dựng cho mũi thì sang kỳ mắt, kỳ hàm mặt, kỳ da là sai hẳn.
 
-### Khi nào được đẻ chân dung mới
+> Chân dung phải **đi ra từ chữ khách nói trong kỳ**. Kỳ nào khách khác thì chân dung khác — đó là tín hiệu, không phải lỗi.
 
-Chỉ khi **cả ba** điều kiện cùng đúng:
+### Ba điều một chân dung PHẢI có
 
-1. ≥ 15 HT trong một kỳ không xếp được vào CD0–CD6;
-2. nhóm đó có **nỗi sợ riêng** không trùng chân dung nào;
-3. người dùng **đồng ý** ở CỔNG 1.
+```
+① MỘT NỖI SỢ RIÊNG
+   Hai nhóm cùng nỗi sợ là MỘT chân dung, dù họ hỏi hai dịch vụ khác nhau.
+   Không gọi tên được nỗi sợ → chưa phải chân dung, chỉ là một cụm từ khoá.
 
-⛔ Agent tự thêm `CD7` giữa chừng là làm hỏng so sánh với mọi kỳ trước.
+② TÊN VIẾT BẰNG CHỮ CỦA KHÁCH
+   ⛔ Không bằng tính từ marketing. Khách không tìm "đẹp tự nhiên" — khách tìm
+   "đầu mũi bóng đỏ", "sợ chồng biết", "tiểu đường làm được không".
+
+③ TRUY NGƯỢC ĐƯỢC
+   Mỗi chân dung ghi ít nhất một HT-nnn làm bằng. Không truy ngược được = bịa
+   (luật ①). Chân dung dưới 5 HT ⛔ không viết thẻ insight — ghi 👁 quan sát.
+```
+
+⚠️ **Chân dung là của KHÁCH, không phải của DỊCH VỤ.** Một người hỏi nâng mũi và một người hỏi cắt mí có thể cùng một chân dung nếu cả hai đang đi **sửa lại** — nỗi sợ của họ giống nhau. ⛔ Không bao giờ lấy tên dịch vụ làm tên chân dung.
+
+### `CD0` — mã dự trữ, ⛔ không phác họa
+
+`CD0` không phải một chân dung và ⛔ không được khai trong bản phác họa. Đây là ô chứa hội thoại **không khớp dấu hiệu nào**, giữ lại để tổng luôn bằng cỡ mẫu (luật ④).
+
+```
+⛔ CD0 KHÔNG phải "rác".
+   CD0 đông là lỗi của QUẢNG CÁO: kéo được người vào nhưng không làm họ nói
+   tình trạng. Đó là một kết luận, không phải một chỗ để dọn đi.
+
+★ CD0 ≥ 15 HT và nhóm đó có một NỖI SỢ RIÊNG
+   → phác họa thêm một chân dung, xin duyệt lại CỔNG 0.
+   CD0 ≥ 15 HT mà không tách được nỗi sợ nào
+   → để nguyên, và ghi vào tab Phễu rằng quảng cáo chưa làm khách kể.
+```
+
+### Bao nhiêu chân dung một kỳ
+
+| Cỡ mẫu phân tích | Số chân dung nên có |
+|---|---|
+| < 50 HT | 2–3 · gắn nhãn **MẪU NHỎ** |
+| 50–150 HT | 3–5 |
+| 150–300 HT | 4–7 |
+
+⛔ Trên 8 chân dung một kỳ là chẻ quá nhỏ: mỗi ô còn vài HT, không ô nào đủ để làm nội dung.
+
+### Giữ mã giữa các kỳ — điều kiện để so sánh được
+
+```
+Chân dung kỳ này CÙNG NỖI SỢ với một chân dung kỳ trước
+  → GIỮ NGUYÊN MÃ cũ, ghi `ke_thua_tu_ky`.
+Nỗi sợ khác
+  → mã mới, tiếp số sau mã lớn nhất đã dùng.
+```
+
+⛔ **Đổi mã cho cùng một nỗi sợ là mất mọi so sánh với kỳ trước** — cột *"so kỳ trước"* của dashboard khớp theo **mã**, không khớp theo tên.
 
 ---
 
-## 2. NĂM NẤC 5A
+## 2. QUY TRÌNH PHÁC HỌA — BƯỚC B3 · CỔNG 0
+
+```
+① ĐẾM        python tools/id.py doc <file-hoi-thoai.md> --ky <kỳ>
+              → out/nguyen-lieu-chan-dung.json
+                 · cụm 2–3 chữ khách tự nói, đếm theo SỐ HỘI THOẠI chứa cụm
+                 · câu hỏi đầu của từng HT, đã ẩn danh
+                 · phân bố dịch vụ · nấc 5A · rào cản
+              ⚠ Lúc này mọi hội thoại còn cd = null. Tab Chân dung TRỐNG.
+
+② ĐỌC        Agent đọc nguyên liệu + đọc chính hội thoại.
+              ⛔ Cụm chữ đông nhất KHÔNG tự thành chân dung: "nâng mũi" có thể
+                 xuất hiện ở 4/6 HT nhưng đó là DỊCH VỤ, không phải nỗi sợ.
+
+③ PHÁC HỌA   python tools/id.py chan-dung --ky <kỳ> --mau
+              → khuôn out/chan-dung.json, agent điền `tep`:
+                 ma · ten · ho_la_ai · noi_so · dau_hieu · khong_phai
+                 · he_so_gia_tri · trich
+              ★ Xếp chân dung HẸP trước, RỘNG sau — script gán theo dòng
+                ĐẦU TIÊN khớp dấu hiệu.
+
+④ KIỂM       python tools/id.py chan-dung --ky <kỳ> --kiem
+              Thiếu tên · thiếu dấu hiệu · thiếu trích · trùng mã → báo lỗi.
+
+━━━ CỔNG 0 · NGƯỜI DÙNG DUYỆT CHÂN DUNG ━━━
+⑤ DUYỆT      python tools/id.py chan-dung --ky <kỳ> --duyet "<tên người>"
+              ⛔ Agent không tự duyệt thay người dùng, ⛔ không tự điền
+                 `duyet_boi` vào file.
+
+⑥ GÁN LẠI    python tools/id.py doc <file-hoi-thoai.md> --ky <kỳ>
+              → giờ mới có bảng chân dung · ma trận CD×5A · thẻ insight.
+```
+
+★ **CỔNG 0 đứng trước CỔNG 1** vì ma trận ưu tiên xếp theo chân dung. Duyệt ma trận khi chân dung chưa được soát là duyệt một bảng dựng trên cách chia chưa ai đồng ý.
+
+### Khuôn một dòng phác họa
+
+```jsonc
+{
+  "ma": "CD1",
+  "ten": "Đã làm rồi, đi sửa",                 // chữ của khách
+  "ho_la_ai": "Đã can thiệp một lần ở nơi khác, giờ hỏng hoặc không hài lòng",
+  "noi_so": "Hỏng lần nữa, không ai chịu trách nhiệm",
+  "dau_hieu": ["sửa lại", "làm lại", "bên kia làm", "bị hỏng"],
+  "khong_phai": [],                             // cụm loại trừ khi hai CD chồng chữ
+  "he_so_gia_tri": 3,                           // 1 · 2 · 3 — id-G §3
+  "trich": ["HT-002", "HT-047"]                 // ⛔ không được rỗng
+}
+```
+
+---
+
+## 3. NĂM NẤC 5A
 
 | Nấc | Khách đang ở đâu | Câu hỏi đầu tiên có dạng | Nhiệm vụ của nội dung | Loại hook mạnh |
 |---|---|---|---|---|
-| **A1 · AWARE** | Có vấn đề nhưng chưa gọi tên | *"mũi em thế này…"* · gửi ảnh | **Định danh vấn đề**, phá 1 niềm tin sai. ⛔ Không bán | PHỦ ĐỊNH · NGHỊCH LÝ |
-| **A2 · APPEAL** | Đang so phương pháp, lập shortlist | *"nâng cấu trúc là gì"* · *"công nghệ nào tốt"* | Giáo dục giải pháp + cho thấy khác biệt | SO SÁNH A–B · CON SỐ |
+| **A1 · AWARE** | Có vấn đề nhưng chưa gọi tên | tả tình trạng bằng chữ của mình · gửi ảnh | **Định danh vấn đề**, phá 1 niềm tin sai. ⛔ Không bán | PHỦ ĐỊNH · NGHỊCH LÝ |
+| **A2 · APPEAL** | Đang so phương pháp, lập shortlist | *"công nghệ nào tốt"* · *"loại nào khác gì"* | Giáo dục giải pháp + cho thấy khác biệt | SO SÁNH A–B · CON SỐ |
 | **A3 · ASK** ★ | Điểm quyết định — nỗi sợ đạt đỉnh | *"bao nhiêu tiền"* · *"đau không"* · *"bác sĩ nào"* | **Gỡ nỗi sợ** + minh bạch giá + bằng chứng | GỌI TÊN NỖI SỢ · TIẾT LỘ NỘI BỘ |
 | **A4 · ACT** | Đã inbox/đặt lịch, còn có thể huỷ | *"T7 còn suất không"* | Giảm huỷ lịch: checklist, lộ trình theo ngày | CON SỐ · CÂU HỎI THẦM |
 | **A5 · ADVOCATE** | Đã làm, lo hậu phẫu | *"kiêng gì"* · *"bao giờ tái khám"* | Cẩm nang theo mốc · cross-sell 1 hướng · xin review | TIẾT LỘ NỘI BỘ · CON SỐ |
@@ -353,11 +469,13 @@ Chỉ khi **cả ba** điều kiện cùng đúng:
 
 ★ **Tỷ lệ nấc là một chỉ số.** Trên 60% hội thoại rơi `A3` nghĩa là phễu **thiếu nội dung A1–A2** — tệp mới không vào. Kết luận này ⛔ không nhìn ra được từ số liệu ads.
 
+⚠️ Nấc 5A **không phụ thuộc chân dung** — gán được ngay ở B2, trước CỔNG 0. Nhờ vậy tab Phễu và phân bố 5A vẫn đọc được khi chân dung còn trống.
+
 ---
 
-## 3. MA TRẬN CD × 5A — Ô TRỐNG LÀ LỖ HỔNG PHỄU
+## 4. MA TRẬN CD × 5A — Ô TRỐNG LÀ LỖ HỔNG PHỄU
 
-Mỗi kỳ dựng **hai ma trận 7×5** cạnh nhau:
+Mỗi kỳ dựng **hai ma trận `N×5`** cạnh nhau, với `N` = số chân dung đã duyệt **+ 1 dòng `CD0`**:
 
 ```
 TRÁI : số NỘI DUNG ĐANG CÓ cho ô đó
@@ -371,42 +489,60 @@ PHẢI : số HỘI THOẠI rơi vào ô đó trong kỳ
 
 ⚠️ **Ô ③ khó chấp nhận hơn ô ①** vì nó nói rằng kỳ trước khối đã làm nhiều nội dung không ai cần. Vẫn phải ghi ra — không ghi thì kỳ sau lại làm tiếp.
 
----
-
-## 4. THÔNG ĐIỆP THẮNG CÓ SẴN THEO CHÂN DUNG
-
-> Lấy từ kế hoạch nội dung Kangnam — dùng làm **điểm xuất phát**, ⛔ không dán nguyên vào ads khi chưa qua CỔNG 2.
-
-| CD | Thông điệp thắng (1 câu) | Format ưu tiên |
-|---|---|---|
-| CD1 | *"Một lần nâng mũi — Đẹp tự nhiên trọn đời — An toàn là trên hết"* ⚠ chữ *"trọn đời"* đang bị chặn (`id-K`) | `L04` `L06` `L08` |
-| CD2 | *"Lên hình auto xinh, 7 ngày hồi phục"* ⚠ mốc 7 ngày cần BS duyệt | `L05` `L14` `L09` |
-| CD3 | *"Ca càng khó, bác sĩ càng chuyên sâu"* ⚠ bỏ mọi con số bảo hành | `L03` `L02` `L06` |
-| CD4 | *"Mũi chuẩn men — đẹp tự nhiên, không ai biết đã làm"* | `L06` `L04` `L12` |
-| CD5 | *"Đổi dáng mũi — mở cung tài: chuẩn nhân tướng"* ⛔ không hứa đổi vận | `L02` `L06` |
-| CD6 | *"Tái sinh dáng mũi — chữa lành mọi khuyết điểm"* ⛔ không hứa tỷ lệ thành công | `L03` `L07` `L12` |
+⚠️ Ma trận kỳ này so được với kỳ trước **chỉ ở những mã được giữ nguyên** (§1). Mã mới thì ghi `⚠ chưa có mốc so sánh`.
 
 ---
 
-## 5. ĐẦU RA CHUẨN CỦA BƯỚC B3
+## 5. THÔNG ĐIỆP THẮNG — VIẾT TỪ KỲ NÀY, ⛔ KHÔNG LẤY TỪ KHO
+
+Bản trước của sổ này chở một bảng *"thông điệp thắng"* viết sẵn cho từng chân dung mũi. ⛔ **Đã bỏ.** Thông điệp dán sẵn làm hai việc đều sai cùng lúc: nó nói hộ khách, và nó mang theo đúng những câu `id-K` đang chặn (*trọn đời* · *tỷ lệ thành công* · *đổi vận*).
+
+Thay vào đó mỗi chân dung được duyệt viết **một câu dựng tại kỳ**, theo khuôn:
 
 ```
-① BẢNG CHÂN DUNG : CD · tên · số HT · HOT/WARM/COLD · có SĐT · % có SĐT · lịch hẹn · chỉ nhắn
-② THẺ INSIGHT    : mỗi CD ≥5 HT một thẻ — họ là ai · insight · câu hỏi ngầm · tín hiệu nóng · hướng xử lý
-③ MA TRẬN CD×5A  : hai bảng 7×5, đánh dấu ô ① và ô ③
-④ SO KỲ TRƯỚC    : % có SĐT từng CD thay đổi mấy ĐIỂM phần trăm
+<điều khách sợ, bằng chữ của khách>  →  <điều mình làm khác>  →  <bằng chứng>
 ```
 
-⛔ Chân dung dưới **5 HT** không viết thẻ insight — chỉ ghi vào danh sách `quan sát`.
+| Phải có | ⛔ Phải không có |
+|---|---|
+| Một `HT-nnn` truy ngược | Con số bảo hành (`id-K` §3) |
+| Chữ khách dùng, không phải tính từ | Cam kết kết quả chắc chắn |
+| Một điều mình làm khác được | Hứa đổi vận, tài lộc, tỷ lệ thành công |
+| Qua **CỔNG 2** trước khi phát | Giá dịch vụ chưa có bảng hiện hành |
+
+★ Viết bằng **chữ của khách**. Khách không tìm *"đẹp tự nhiên"* — khách tìm *"đầu mũi bóng đỏ"*.
 
 ---
 
-## 6. TỰ KIỂM SỔ NÀY
+## 6. ĐẦU RA CHUẨN CỦA BƯỚC B3
 
-- [ ] Tổng HT của 7 chân dung có **bằng đúng** cỡ mẫu phân tích không?
-- [ ] `CD0` có bị gọi là "rác" hay bị bỏ qua không?
-- [ ] `CD3` / `CD6` có bị gộp vào `CD1` không?
-- [ ] Có chân dung mới nào được tự đẻ ra mà chưa qua CỔNG 1 không?
+```
+① BẢN PHÁC HỌA   : out/chan-dung.json — mã · tên · họ là ai · nỗi sợ · dấu hiệu
+                    · hệ số · trích        → chờ CỔNG 0
+② BẢNG CHÂN DUNG : CD · tên · số HT · HOT/WARM/COLD · có SĐT · % có SĐT
+                    · chốt lịch · bỏ 1 lượt · rơi do trực page   (+ dòng CD0)
+③ THẺ INSIGHT    : mỗi CD ≥5 HT một thẻ — họ là ai · insight · câu hỏi ngầm
+                    · tín hiệu nóng · hướng xử lý
+④ MA TRẬN CD×5A  : hai bảng N×5, đánh dấu ô ① và ô ③
+⑤ SO KỲ TRƯỚC    : % có SĐT từng CD thay đổi mấy ĐIỂM phần trăm
+                    — chỉ với những mã được giữ nguyên
+```
+
+⛔ Chân dung dưới **5 HT** không viết thẻ insight — chỉ ghi vào danh sách `👁 quan sát`.
+
+---
+
+## 7. TỰ KIỂM SỔ NÀY
+
+- [ ] Chân dung kỳ này có được **phác họa từ hội thoại của kỳ này** không, hay chép từ kỳ trước cho nhanh?
+- [ ] Mỗi chân dung có gọi tên được **một nỗi sợ riêng** không?
+- [ ] Có chân dung nào lấy **tên dịch vụ** làm tên không?
+- [ ] Tên chân dung viết bằng **chữ của khách** hay bằng tính từ của người viết?
+- [ ] Mỗi chân dung có ít nhất một `HT-nnn` làm bằng không?
+- [ ] Tổng HT các chân dung **cộng cả `CD0`** có bằng đúng cỡ mẫu phân tích không?
+- [ ] `CD0` có bị gọi là "rác" hay bị bỏ qua không? `CD0` ≥ 15 HT đã xét tách thêm chân dung chưa?
+- [ ] Chân dung cùng nỗi sợ với kỳ trước có **giữ nguyên mã** không?
+- [ ] Bản phác họa đã qua **CỔNG 0** chưa — `duyet_boi` có tên người thật chưa?
 - [ ] Thẻ insight có viết bằng **chữ của khách** không, hay toàn tính từ của người viết?
 
 ---
@@ -1036,7 +1172,7 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 | # | Khối | Mục tiêu | Tập lead xét |
 |---|---|---|---|
 | ① | **TĂNG HOT** | Kéo WARM sát HOT lên HOT | HT `WARM` đạt **3/5 tín hiệu** — thường thiếu ② mốc thời gian hoặc ⑤ khung giờ gọi |
-| ② | **GIẢM COLD** | Làm khách nói được tình trạng ngay từ quảng cáo | HT `COLD` của `CD0` + HT tin đầu chỉ hỏi giá/địa chỉ |
+| ② | **GIẢM COLD** | Làm khách nói được tình trạng ngay từ quảng cáo | HT `COLD` của `CD0` (ô dự trữ — xem `id-C` §1) + HT tin đầu chỉ hỏi giá/địa chỉ |
 | ③ | **TỐI ƯU WARM** | Gỡ rào cản làm WARM đứng lại | HT `WARM` đạt 2/5, có mã `O` rõ |
 
 ★ **Thứ tự này không đảo được.** Khối ① rẻ nhất (lead đã gần chín), khối ② đông nhất nhưng chậm, khối ③ là phần còn lại. Làm ② trước ① là bỏ tiền kéo người lạ trong khi người sắp mua đang đứng ngay đó.
@@ -1051,6 +1187,8 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 
 ### Hệ số giá trị đơn — theo dịch vụ chính khách hỏi
 
+⚠️ Hệ số đi theo **dịch vụ**, ⛔ không đi theo chân dung. Một chân dung có thể khai sẵn `he_so_gia_tri` trong bản phác họa (`id-C` §2) — khi có, hệ số đó thắng, vì nó là kết luận của người đã đọc cả tệp.
+
 | Bậc | Giá trị đơn ước tính | Hệ số |
 |---|---|---|
 | Thấp | < 5 triệu | **1** |
@@ -1063,15 +1201,18 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 ### Ví dụ đọc một dòng
 
 ```
-CD3 · Sửa lại · khối ① Tăng HOT
+CD1 · "Đã làm rồi, đi sửa" · khối ① Tăng HOT
+  (chân dung của kỳ này, đã duyệt ở CỔNG 0 — id-C §2)
   HT mới trong kỳ        : 42
   HT trong tập (WARM 3/5): 11
   Có SĐT                 : 6
-  Hệ số giá trị đơn      : 3  (sửa mũi ≥15tr)
+  Hệ số giá trị đơn      : 3  (ca sửa lại ≥15tr)
   Điểm                   : 11 × 3 = 33
   Dừng ở                 : A3 (7 HT) · A2 (4 HT)
   → Ưu tiên 1 của khối ①, làm nội dung nấc A3
 ```
+
+⚠️ Tên và số mã trong ví dụ là **của một kỳ cụ thể**. Kỳ khác chân dung khác — ⛔ không chép bảng này sang kỳ sau rồi chỉ đổi số.
 
 ---
 
@@ -1118,7 +1259,7 @@ MA TRẬN ƯU TIÊN — KỲ <tu> → <den>          TRẠNG THÁI: ⏳ CHỜ DU
 │ CD  │ Chân dung    │ HT  │ Rơi do trực  │ Lý do                      │
 └─────┴──────────────┴─────┴──────────────┴────────────────────────────┘
 
-👁 QUAN SÁT — dưới 5 HT mới: CD2 (3) · CD5 (2)
+👁 QUAN SÁT — dưới 5 HT mới: CD3 (3) · CD4 (2)
 
 ───────────────────────────────────────────────────────────────────────
 Gõ DUYỆT để agent viết ngân hàng hook và sinh sổ tay.
@@ -1159,6 +1300,7 @@ Agent ghi vào dữ liệu kỳ:
 # id-H · NGÂN HÀNG HOOK — 7 LOẠI HOOK × 16 FORMAT
 
 > Chạy **sau CỔNG 1**. Mỗi hook phải gắn: **1 chân dung · 1 nấc 5A · 1 mã `O` · 1 `HT-nnn` truy ngược · 3 format**.
+> ⚠ Chân dung gắn vào hook là chân dung **đã duyệt ở CỔNG 0 của kỳ này** (`id-C` §1). ⛔ Không viết hook cho một chân dung của kỳ trước mà kỳ này không có.
 > ⛔ Hook không truy ngược được về một dòng hội thoại hoặc một con số là **hook bịa** — loại khỏi ngân hàng.
 
 ---
@@ -1295,7 +1437,7 @@ HT-031: "mũi em nâng rồi mà đầu mũi bị bóng đỏ, giờ còn sửa 
 - ⛔ Hook trả lời **bệnh nền / chống chỉ định** (`O-12`)
 - ⛔ Hook gắn **chức danh, số năm, số ca của bác sĩ chưa đối chiếu chứng chỉ**
 - ⛔ Hook có **giá dịch vụ ngoài mắt** khi chưa có bảng giá hiện hành
-- ⛔ Hook hứa **đổi vận, tài lộc** (`CD5`) hoặc **tỷ lệ thành công** (`CD6`)
+- ⛔ Hook hứa **đổi vận, tài lộc, tướng số** hoặc **tỷ lệ thành công** — cấm với mọi chân dung, kể cả khi chính khách mở lời bằng chuyện đó
 - ⛔ Hook **dìm đối thủ**
 - ⛔ Hook lấy **số từ hook cũ** làm nguồn giá — hook cũ không phải nguồn giá
 
@@ -1504,7 +1646,7 @@ A: <n> · B: <n> · C: <n> · D: <n> · chưa đủ mẫu: <n>
 | # | Tab | Trả lời câu |
 |---|---|---|
 | ① | **Phễu inbox** | Khách vào bao nhiêu, nóng tới đâu, rơi ở đâu và vì sao |
-| ② | **Chân dung & Insight** | Khách là ai, họ sợ gì, câu hỏi ngầm là gì |
+| ② | **Chân dung & Insight** | Khách là ai, họ sợ gì, câu hỏi ngầm là gì. ⏳ Khoá lại khi chân dung chưa qua CỔNG 0 |
 | ③ | ★ **Chấm điểm nhân viên** | Khối trực page đang yếu tiêu chí nào, ai cần kèm |
 | ④ | **Marketing — Facebook** | Chuỗi CPM→CTR→CPI→CPL→CPB, nội dung nào tốt/kém |
 | ⑤ | **Marketing — Google Ads** | ⚠ chờ dữ liệu |
@@ -1567,9 +1709,13 @@ Tiêu đề + chọn kỳ
   },
 
   "chan_dung": {
-    "tep":     [ { "cd","ten","ht","hot","warm","cold","co_sdt","chot_lich","chi_nhan","bo_1_luot","roi" } ],
+    // ⛔ KHÔNG có bộ chân dung mặc định. `tep` rỗng = chưa qua CỔNG 0 (id-C §1).
+    "phac_hoa": { "trang_thai":"chua_phac_hoa|da_duyet", "vi_sao", "file",
+                  "nguyen_lieu", "so_chan_dung", "duyet_boi", "duyet_luc" },
+    "tep":     [ { "cd","ten","ht","quan_sat","hot","warm","cold","co_sdt",
+                   "chot_lich","bo_1_luot","roi_truc","he_so" } ],   // + 1 dòng CD0
     "insight": [ { "cd","ten","nhom","ho_la_ai","insight","cau_hoi_ngam","tin_hieu_nong","huong_xu_ly","trich" } ],
-    "ma_tran_cd_5a": { "noi_dung": {...}, "hoi_thoai": {...} }   // hai bảng 7×5
+    "ma_tran_cd_5a": { "noi_dung": {...}, "hoi_thoai": {...} }   // hai bảng N×5
   },
 
   "nhan_vien": {                                      // ★ tab ③
@@ -1623,6 +1769,10 @@ Tiêu đề + chọn kỳ
 ① KHÔNG CÓ SỐ thì hiện "—", ⛔ không hiện 0.
    0 nghĩa là đã đo và bằng không. "—" nghĩa là chưa đo. Hai thứ khác nhau.
 
+   Cùng luật đó cho CHÂN DUNG: `tep` rỗng thì tab ② hiện một ô khoá
+   "⏳ chân dung chưa được phác họa" kèm lý do, ⛔ không hiện bảng trống và
+   ⛔ không điền tạm một bộ chân dung nào vào cho đủ bảng.
+
 ② MỌI SO SÁNH ghi rõ so với cái gì:
    "▲ 2,1 điểm so kỳ trước"  ·  "mốc gốc 42,7% · ▼ 3,2 điểm"
    Chưa có mốc → "⚠ chưa có mốc so sánh".
@@ -1665,7 +1815,8 @@ Mỗi kỳ mở đầu bằng việc **chấm lại việc kỳ trước**: đ�
 ## 6. TỰ KIỂM SỔ NÀY
 
 - [ ] File JSON có `schema` đúng phiên bản không?
-- [ ] Tổng các cột có khớp `so_ht_phan_tich` không?
+- [ ] Tổng các cột có khớp `so_ht_phan_tich` không? Bảng chân dung đã **cộng cả dòng `CD0`** chưa?
+- [ ] `chan_dung.phac_hoa.duyet_boi` có tên người thật chưa, hay tab ② đang hiện số của một cách chia chưa ai duyệt?
 - [ ] Ô chưa đo có hiện `—` thay vì `0` không?
 - [ ] Mọi so sánh có ghi rõ so với cái gì không?
 - [ ] Tab ③ có bảng xếp hạng có tên lọt ra không?
@@ -1740,7 +1891,7 @@ Mỗi kỳ mở đầu bằng việc **chấm lại việc kỳ trước**: đ�
 
 ```
 "bảo hành nếp mí lên đến 3 NĂM"   ← kịch bản mắt (cụ thể nhất)
-"bảo hành 10 NĂM"                 ← chân dung CD3 mũi
+"bảo hành 10 NĂM"                 ← kịch bản tệp khách đi sửa lại (mũi)
 "bảo hành TRỌN ĐỜI"               ← nhiều hook mũi đang chạy
 
 → BA CÁI NÀY KHÔNG THỂ CÙNG ĐÚNG CHO CÙNG MỘT DỊCH VỤ.

@@ -50,6 +50,6 @@ Chân mọi bảng điểm phải có câu:
 
 ```
 CHẤM RIÊNG: <tên nhân viên>
-Liệt kê từng hội thoại của người này: HT-nnn · chân dung · 22 ô ✓/✗/— ·
+Liệt kê từng hội thoại của người này: HT-nnn · chân dung (bỏ trống nếu chưa qua CỔNG 0) · 22 ô ✓/✗/— ·
 điểm · câu đáng chú ý (một câu làm tốt, một câu làm hỏng, nguyên văn).
 ```

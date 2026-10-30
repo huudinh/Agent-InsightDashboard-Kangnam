@@ -299,8 +299,21 @@ var CHAN_O={'O-07':'⛔ không được tự trả lời','O-12':'⛔ không đ�
 
 /* ───────── ② Chân dung & insight ───────── */
 var TEN_NAC={A1:'A1 · AWARE',A2:'A2 · APPEAL',A3:'A3 · ASK',A4:'A4 · ACT',A5:'A5 · ADVOCATE'};
+function nacChanDung(C){
+  var nac=C.nac||{},tn=Object.keys(nac).reduce(function(s,x){return s+nac[x]},0);
+  return '<h2>Phân bố nấc 5A</h2><div class="card">'+
+    hbars(Object.keys(TEN_NAC).map(function(a){return{nhan:TEN_NAC[a],so:nac[a]||0}}),tn)+
+    '<div class="note" style="margin-top:6px">Trên 60% hội thoại rơi A3 nghĩa là phễu thiếu nội dung '+
+    'A1–A2 — tệp mới không vào. Kết luận này không nhìn ra được từ số liệu ads.</div></div>'}
+
 function tabChanDung(D){
   var C=D.chan_dung||{},tep=C.tep||[],prev=(D.truoc&&D.truoc.tep)||[];
+  var P=C.phac_hoa||{};
+  if(!tep.length) return '<h2 class="top">Chân dung khách hàng</h2>'+
+    '<div class="lock">⏳ <b>Chân dung của kỳ này chưa được phác họa.</b> '+esc(P.vi_sao||'')+
+    '<br>Hệ <b>không có bộ chân dung mặc định</b>: mỗi kỳ, chân dung được phác họa từ chính '+
+    'hội thoại đưa vào rồi người dùng duyệt ở <b>CỔNG 0</b> — xem <code>id-C §1</code>.</div>'+
+    nacChanDung(C);
   var tong=tep.reduce(function(s,r){return s+(r.ht||0)},0);
   var h='<h2 class="top">Cơ cấu nóng theo chân dung</h2>'+
     '<div class="card"><div class="legend"><span><i class="i-hot"></i>HOT</span>'+
@@ -319,7 +332,8 @@ function tabChanDung(D){
 
   h+='<h2>Chỉ số theo chân dung</h2>'+t(tep.map(function(r){
     var ps=r.ht?r.co_sdt/r.ht*100:null,pv=find(prev,'cd',r.cd),pvs=(pv&&pv.ht)?pv.co_sdt/pv.ht*100:null;
-    return '<tr>'+td('<b>'+esc(r.cd)+'</b>')+td(esc(r.ten))+td(num(r.ht,0),'n')+
+    return '<tr>'+td('<b>'+esc(r.cd)+'</b>')+
+      td(esc(r.ten)+(r.quan_sat?' <span class="note">👁 quan sát</span>':''))+td(num(r.ht,0),'n')+
       td(num(r.hot,0),'n')+td(num(r.warm,0),'n')+td(num(r.cold,0),'n')+td(num(r.co_sdt,0),'n')+
       td(pct(ps)+bar(ps,40),'n')+td(delta(ps,pvs,'pct','cao'))+td(num(r.chot_lich,0),'n')+
       td(num(r.bo_1_luot,0),'n')+td(num(r.roi_truc,0),'n')+'</tr>'}),
@@ -327,11 +341,15 @@ function tabChanDung(D){
      {l:'Có SĐT',c:'n'},{l:'% có SĐT',c:'n'},{l:'so kỳ trước'},{l:'Chốt lịch',c:'n'},
      {l:'Bỏ 1 lượt',c:'n'},{l:'Rơi do trực page',c:'n'}]);
 
-  var nac=C.nac||{},tn=Object.keys(nac).reduce(function(s,x){return s+nac[x]},0);
-  h+='<h2>Phân bố nấc 5A</h2><div class="card">'+
-    hbars(Object.keys(TEN_NAC).map(function(a){return{nhan:TEN_NAC[a],so:nac[a]||0}}),tn)+
-    '<div class="note" style="margin-top:6px">Trên 60% hội thoại rơi A3 nghĩa là phễu thiếu nội dung '+
-    'A1–A2 — tệp mới không vào. Kết luận này không nhìn ra được từ số liệu ads.</div></div>';
+  h+='<div class="note">'+(P.duyet_boi
+      ?'Chân dung phác họa từ chính hội thoại của kỳ · duyệt bởi <b>'+esc(P.duyet_boi)+
+       '</b> lúc '+esc(P.duyet_luc||'—')+' (CỔNG 0).'
+      :'⚠ Kỳ này chưa ghi người duyệt chân dung.')+
+    ' Mã <code>CD0</code> là mã dự trự cho hội thoại không khớp dấu hiệu nào — '+
+    '⛔ không phải «rác»: CD0 đông là lỗi của quảng cáo, không phải của khách. '+
+    '👁 <b>quan sát</b> = dưới 5 hội thoại, chưa viết thẻ insight.</div>';
+
+  h+=nacChanDung(C);
 
   var ins=C.insight||[];
   h+='<h2>Insight từng chân dung</h2>';
@@ -588,13 +606,16 @@ function napKy(ds,id){
   try{localStorage.setItem('kn_ky',p.id)}catch(e){}
   fetch(p.file).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
     .then(function(D){render(D,ds,p.id)})
-    .catch(function(){loi('Không tải được dữ liệu kỳ '+p.nhan+'.')});
+    .catch(function(){loi('Không tải được dữ liệu kỳ '+esc(p.nhan)+' ('+esc(p.file)+
+      '). File kỳ không nằm trong git — sinh lại bằng: python tools/id.py bao-cao --ky "'+
+      esc(p.nhan)+'"')});
 }
 var inline=document.getElementById('kn-data').textContent.trim();
 if(inline){try{render(JSON.parse(inline),null,null)}catch(e){loi('Khối dữ liệu trong file bị lỗi: '+e.message)}}
 else fetch('data/index.json').then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
   .then(function(idx){
-    var ds=idx.ky||[]; if(!ds.length){loi('Chưa có kỳ báo cáo nào.');return}
+    var ds=idx.ky||[];
+    if(!ds.length){loi('Chưa có kỳ báo cáo nào. Chạy: python tools/id.py bao-cao --ky "19-25/10"');return}
     var want=null; try{want=localStorage.getItem('kn_ky')}catch(e){}
     napKy(ds,find(ds,'id',want)?want:ds[0].id)})
   .catch(function(){loi('Không tải được danh sách kỳ báo cáo. Chạy: python tools/id.py bao-cao --ky …')});

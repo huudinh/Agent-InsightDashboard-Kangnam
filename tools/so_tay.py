@@ -25,6 +25,21 @@ from collections import Counter, defaultdict
 GOC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RA = os.path.join(GOC, "out")
 THU_MUC = os.path.join(RA, "so-tay")
+PHAC_HOA = os.path.join(RA, "chan-dung.json")
+
+
+def nap_ten_cd():
+    """Tên chân dung lấy từ bản phác họa của kỳ, ⛔ không có bộ mặc định nào."""
+    ten = {"CD0": "chưa đủ dữ kiện để xếp"}
+    if os.path.exists(PHAC_HOA):
+        try:
+            with open(PHAC_HOA, encoding="utf-8") as f:
+                for c in (json.load(f).get("tep") or []):
+                    if c.get("ma"):
+                        ten[c["ma"]] = c.get("ten") or c["ma"]
+        except ValueError:
+            pass
+    return ten
 
 TEN_NHOM = {"N1": "Phản hồi & SLA", "N2": "Khai thác tình trạng",
             "N3": "Trả lời đúng & minh bạch", "N4": "Xử lý rào cản",
@@ -103,7 +118,8 @@ def so_cn(nv, D, rows, ky):
     chon = xep[:SO_VIEC.get(loai, 1)] or [yeu]
     cot_yeu = cot.get(yeu, [])
 
-    cd_chinh = Counter(r["cd"] for r in rs).most_common(1)
+    TEN_CD = nap_ten_cd()
+    cd_chinh = Counter(r["cd"] for r in rs if r["cd"]).most_common(1)
     o_chinh = Counter(o for r in rs for o in (r["ma_o"] or "").split()
                       if o.startswith("O-")).most_common(1)
 
@@ -143,7 +159,10 @@ def so_cn(nv, D, rows, ky):
             for r in bc:
                 tr = [c for c in cot.get(g, []) if r.get(c) == "✗"]
                 a("- `%s` · trượt %s · khách thuộc %s · %s"
-                  % (r["ma"], ", ".join(tr), r["cd"], r["vi_sao_roi"]))
+                  % (r["ma"], ", ".join(tr),
+                     ("%s %s" % (r["cd"], TEN_CD.get(r["cd"], ""))).strip()
+                     if r["cd"] else "chân dung chưa phác họa",
+                     r["vi_sao_roi"]))
             a("")
         a("Làm thế nào — câu dùng được ngay:")
         for c in cau_dung:
@@ -155,8 +174,11 @@ def so_cn(nv, D, rows, ky):
     a("")
     a("## 3 · KHÁCH CỦA BẠN LÀ AI")
     if cd_chinh:
-        a("Chân dung gặp nhiều nhất: **%s** — %d/%d hội thoại"
-          % (cd_chinh[0][0], cd_chinh[0][1], n))
+        a("Chân dung gặp nhiều nhất: **%s · %s** — %d/%d hội thoại"
+          % (cd_chinh[0][0], TEN_CD.get(cd_chinh[0][0], "—"), cd_chinh[0][1], n))
+    else:
+        a("⏳ Chân dung của kỳ **chưa được phác họa** — chờ CỔNG 0 (id-C §1). "
+          "Phần này sẽ điền khi chạy lại sau khi duyệt.")
     if o_chinh:
         a("Họ đang sợ: **%s** — %d lần" % (o_chinh[0][0], o_chinh[0][1]))
     a("")

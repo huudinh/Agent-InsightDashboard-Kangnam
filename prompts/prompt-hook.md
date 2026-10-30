@@ -29,7 +29,8 @@ LUẬT CÂN ĐỐI KỲ:
   ① ≥1 ô CHALLENGER, kể cả kỳ số đẹp
   ② mỗi khối ma trận ≥1 hook
   ③ không quá 50% hook cùng một loại hook
-  ④ mỗi chân dung được chọn ≥1 hook nấc A3
+  ④ mỗi chân dung được chọn ≥1 hook nấc A3 — chân dung của KỲ NÀY,
+     ⛔ không viết cho chân dung kỳ trước mà kỳ này không còn
 
 ⛔ KHÔNG VIẾT:
   hook nói với người xem rằng họ đang có khiếm khuyết (Facebook từ chối)
@@ -37,7 +38,7 @@ LUẬT CÂN ĐỐI KỲ:
   hook trả lời bệnh nền / chống chỉ định (O-12)
   hook gắn chức danh, số năm, số ca của bác sĩ chưa đối chiếu chứng chỉ
   hook có giá dịch vụ ngoài mắt khi chưa có bảng giá hiện hành
-  hook hứa đổi vận (CD5) hoặc tỷ lệ thành công (CD6)
+  hook hứa đổi vận, tài lộc, tướng số · hook hứa tỷ lệ thành công
   hook dìm đối thủ
   ⛔ lấy số từ hook cũ làm nguồn giá — hook cũ không phải nguồn giá
 

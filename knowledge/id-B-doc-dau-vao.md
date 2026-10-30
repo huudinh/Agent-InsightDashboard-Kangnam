@@ -34,7 +34,7 @@ _Cập nhật: 2026-10-13 14:46:52 · NV: <Tên nhân viên> · SĐT: Có|Không
 | `KH:` / `NV <tên>:` | ✅ | Tách hai nửa hội thoại · gán nhân viên |
 | SĐT có/không | ✅ | Chỉ số lõi `% có SĐT` |
 | Page / nguồn quảng cáo | 🔶 nên có | Nối hội thoại ↔ nội dung ads (`id-E` §6) |
-| Dịch vụ khách hỏi | ⬜ tự suy ra | Gán chân dung |
+| Dịch vụ khách hỏi | ⬜ tự suy ra | Tín hiệu nóng ① · hệ số giá trị đơn. ⛔ **Không** dùng để gán chân dung (`id-C` §1) |
 
 ### ⛔ Tám thứ phải bỏ trước khi ghi ra bất cứ đâu
 
@@ -44,10 +44,12 @@ link Facebook cá nhân · mã đơn hàng · tên người nhà khách nhắc t
 ```
 Trích dẫn trong báo cáo phải ở dạng **đã ẩn danh**, chỉ còn `HT-nnn` + nội dung câu hỏi.
 
-### Mười ô tự suy ra, ⛔ không hỏi người dùng
+### Chín ô tự suy ra, ⛔ không hỏi người dùng
 
-`mức nóng` · `nấc 5A` · `chân dung CD` · `mã O` · `rào cản` · `vì sao rơi` ·
+`mức nóng` · `nấc 5A` · `mã O` · `rào cản` · `vì sao rơi` ·
 `có chốt lịch trong chat không` · `tin đầu khách hỏi gì` · `khu vực khách tự nói` · `khách mới hay khách cũ`
+
+⚠️ **`chân dung CD` KHÔNG nằm trong danh sách này.** Chân dung không suy ra được từ một ô dữ liệu: nó được **phác họa từ chữ của khách** rồi người dùng duyệt ở **CỔNG 0** (`id-C` §1–2). Trước khi duyệt, ô `cd` của mọi hội thoại để `null`.
 
 ---
 
@@ -136,7 +138,8 @@ MỐC SO SÁNH: kỳ trước <có/không> · mục tiêu 30 ngày <có/không>
 | Mã | Nghĩa | Định nghĩa ở |
 |---|---|---|
 | `HT-nnn` | Một hội thoại | sổ này |
-| `CD0 … CD6` | Chân dung khách hàng | `id-C` |
+| `CD0` | ★ Mã **dự trữ** — hội thoại không khớp dấu hiệu chân dung nào. ⛔ Không phác họa, ⛔ không đổi nghĩa | `id-C` §1 |
+| `CD1 … CDn` | Chân dung **của từng kỳ**, phác họa từ hội thoại kỳ đó. Số lượng và tên thay đổi theo kỳ; mã giữ nguyên khi cùng nỗi sợ | `id-C` §1 · `out/chan-dung.json` |
 | `A1 … A5` | Nấc hành trình 5A | `id-C` |
 | `O-01 … O-12`, `O-00` | Mã phản đối / rào cản | `id-D` |
 | `L01 … L16` | Format thể hiện | `id-H` |
@@ -145,3 +148,5 @@ MỐC SO SÁNH: kỳ trước <có/không> · mục tiêu 30 ngày <có/không>
 | `V1–V5 / P1–P5` | Ô chiến dịch VIEW / PERF | `id-E` |
 
 ★ Các mã này **được tham chiếu chéo ở 30+ chỗ trong repo và ở hai agent khác**. Đổi tên mã = hỏng cả hệ.
+
+⚠️ Ngoại lệ duy nhất là `CD1 … CDn`: **nội dung** của chúng đổi theo kỳ, chỉ **khuôn mã** là cố định. Gửi số liệu theo chân dung cho người khác thì gửi kèm `out/chan-dung.json` của kỳ, ⛔ không để người đọc tự đoán `CD2` nghĩa là gì.

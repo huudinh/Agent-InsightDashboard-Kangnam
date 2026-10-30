@@ -4,16 +4,27 @@
 id.py · Agent-InsightDashboard-Kangnam
 
 Làm phần ĐẾM ĐƯỢC của quy trình B1–B6:
-  doc     : đọc file hội thoại Caresoft → phân loại CD · 5A · mã O · mức nóng ·
-            rào cản · vì sao rơi · chấm điểm nhân viên N1–N6 · cờ đỏ
-  ads     : đọc file chỉ số quảng cáo Facebook → chuỗi CPM→CTR→CPI→CPL→CPB
-  bao-cao : gộp kết quả thành file JSON cho dashboard
+  doc       : đọc file hội thoại Caresoft → nấc 5A · mã O · mức nóng · rào cản ·
+              vì sao rơi · chấm điểm nhân viên N1–N6 · cờ đỏ
+              + rút NGUYÊN LIỆU PHÁC HỌA CHÂN DUNG (cụm chữ khách tự nói, câu đầu)
+              + gán chân dung NẾU out/chan-dung.json đã qua CỔNG 0
+  chan-dung : quản lý bản phác họa chân dung của kỳ — tạo mẫu · kiểm · duyệt
+  ads       : đọc file chỉ số quảng cáo Facebook → chuỗi CPM→CTR→CPI→CPL→CPB
+  bao-cao   : gộp kết quả thành file JSON cho dashboard
 
-⛔ Script KHÔNG làm phần đọc hiểu: insight, câu hỏi ngầm, hướng nội dung,
-   câu mẫu trong sổ tay. Đó là việc của agent (xem SYSTEM-PROMPT.md §8).
+⛔ Script KHÔNG có sẵn bộ chân dung nào. Chân dung được **phác họa từ chính hội
+   thoại của kỳ** (id-C §1): agent đọc nguyên liệu → viết out/chan-dung.json →
+   người dùng duyệt ở CỔNG 0 → script mới gán được chân dung cho từng hội thoại.
+
+⛔ Script KHÔNG làm phần đọc hiểu: phác họa chân dung, insight, câu hỏi ngầm,
+   hướng nội dung, câu mẫu trong sổ tay. Đó là việc của agent (SYSTEM-PROMPT §8).
 
 Cách dùng:
     python tools/id.py doc du-lieu/hoi-thoai.md --ky 19-25/10
+    python tools/id.py chan-dung --ky 19-25/10 --mau
+    python tools/id.py chan-dung --ky 19-25/10 --kiem
+    python tools/id.py chan-dung --ky 19-25/10 --duyet "Tên người duyệt"
+    python tools/id.py doc du-lieu/hoi-thoai.md --ky 19-25/10      # chạy lại, có CD
     python tools/id.py ads du-lieu/ads.csv --ky 19-25/10
     python tools/id.py bao-cao --ky 19-25/10
 """
@@ -31,6 +42,12 @@ from datetime import datetime
 GOC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TU_DIEN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tu_dien.json")
 RA = os.path.join(GOC, "out")
+PHAC_HOA = os.path.join(RA, "chan-dung.json")           # bản phác họa chân dung của kỳ
+NGUYEN_LIEU = os.path.join(RA, "nguyen-lieu-chan-dung.json")
+
+CD_DU = "CD0"                          # ★ mã DỰ TRỮ, không phác họa, không đặt lại
+TEN_CD_DU = "Chưa đủ dữ kiện để xếp"   # hội thoại không khớp dấu hiệu nào
+CD_TOI_THIEU_DE_DE = 15                # ≥ ngần này HT rơi CD0 → nên phác họa thêm (id-C §1)
 
 GIO_MO, GIO_DONG = 8.5, 22.0          # khung giờ trực page, id-F N1.1
 SLA_PHUT = 2                           # ngưỡng trả lời tin đầu
@@ -72,6 +89,19 @@ def nap_tu_dien():
 
 def pct(a, b):
     return round(a / b * 100, 1) if b else None
+
+
+RE_SDT_TEXT = re.compile(r'(?:\+84|\b0)\d[\d .\-]{7,13}')
+RE_MAIL = re.compile(r'[\w.+-]+@[\w-]+\.\w+')
+RE_LINK = re.compile(r'https?://\S+|\b(?:fb|facebook|zalo|m)\.(?:com|me)/\S+', re.I)
+
+
+def an_danh(s):
+    """★ Luật ⑩. Mọi câu của khách phải qua hàm này trước khi ghi ra file."""
+    s = RE_LINK.sub("«link»", s or "")
+    s = RE_MAIL.sub("«email»", s)
+    s = RE_SDT_TEXT.sub("«sđt»", s)
+    return re.sub(r'\s+', ' ', s).strip()
 
 
 # ─────────────────────────── đọc file hội thoại ──────────────────────────
@@ -193,12 +223,83 @@ def gio_cua(tem):
 
 # ───────────────────────────── phân loại ─────────────────────────────────
 
-def gan_chan_dung(ht, td):
+RE_MA_CD = re.compile(r'^CD[1-9][0-9]*$')
+
+
+def kiem_phac_hoa(pho):
+    """Soát bản phác họa chân dung. Trả về danh sách lỗi — rỗng là sạch."""
+    if not isinstance(pho, dict):
+        return ["file không phải một đối tượng JSON"]
+    loi = []
+    tep = pho.get("tep")
+    if not isinstance(tep, list) or not tep:
+        return ["thiếu danh sách `tep` — phải có ít nhất một chân dung"]
+    da_thay = set()
+    for i, c in enumerate(tep, 1):
+        c = c or {}
+        vt = "dòng %d" % i
+        ma = (c.get("ma") or "").strip()
+        if not RE_MA_CD.match(ma):
+            loi.append("%s: mã «%s» sai khuôn — phải là CD1, CD2, … (CD0 là mã dự trữ)" % (vt, ma))
+        elif ma in da_thay:
+            loi.append("%s: mã «%s» bị trùng" % (vt, ma))
+        da_thay.add(ma)
+        if not (c.get("ten") or "").strip():
+            loi.append("%s «%s»: thiếu `ten`" % (vt, ma))
+        dh = [x for x in (c.get("dau_hieu") or []) if (x or "").strip()]
+        if not dh:
+            loi.append("%s «%s»: thiếu `dau_hieu` — không có dấu hiệu thì script không gán được" % (vt, ma))
+        hs = c.get("he_so_gia_tri")
+        if hs is not None and hs not in (1, 2, 3):
+            loi.append("%s «%s»: `he_so_gia_tri` phải là 1, 2 hoặc 3 (id-G §3)" % (vt, ma))
+        if not (c.get("trich") or []):
+            loi.append("%s «%s»: thiếu `trich` — chân dung phải truy ngược về HT-nnn (luật ①)" % (vt, ma))
+    if pho.get("trang_thai") == "da_duyet" and not (pho.get("duyet_boi") or "").strip():
+        loi.append("`trang_thai` là da_duyet nhưng `duyet_boi` trống "
+                   "— ⛔ agent không tự duyệt thay người dùng")
+    return loi
+
+
+def nap_phac_hoa(ky):
+    """Đọc bản phác họa chân dung của kỳ. Trả về (bản phác họa | None, lý do).
+
+    ⛔ Chỉ nhận bản ĐÃ QUA CỔNG 0. Chưa duyệt thì script không gán chân dung —
+    hội thoại để `cd = null` và agent phải phác họa trước (id-C §1).
+    """
+    if not os.path.exists(PHAC_HOA):
+        return None, "chưa có out/chan-dung.json — chân dung chưa được phác họa"
+    try:
+        with open(PHAC_HOA, encoding="utf-8") as f:
+            pho = json.load(f)
+    except ValueError as e:
+        return None, "out/chan-dung.json không đọc được: %s" % e
+    loi = kiem_phac_hoa(pho)
+    if loi:
+        return None, ("out/chan-dung.json còn %d lỗi — chạy `id.py chan-dung --kiem`" % len(loi))
+    if (pho.get("ky") or "") != ky:
+        return None, ("out/chan-dung.json là của kỳ «%s», không phải «%s»"
+                      % (pho.get("ky") or "trống", ky))
+    if pho.get("trang_thai") != "da_duyet":
+        return None, "chân dung chưa qua CỔNG 0 — chờ `id.py chan-dung --duyet «tên người»`"
+    return pho, None
+
+
+def gan_chan_dung(ht, pho):
+    """Gán theo DẤU HIỆU của bản phác họa đã duyệt, xét từ trên xuống.
+
+    Dòng đầu khớp thì lấy dòng đó → xếp chân dung HẸP trước, RỘNG sau (id-C §1).
+    Không khớp dòng nào → CD0, mã dự trữ, ⛔ không phải "rác".
+    """
+    if not pho:
+        return None
     kh = ht["kh_text"]
-    for cd in ("CD3", "CD6", "CD5", "CD4", "CD2", "CD1"):
-        if co_tu(kh, td["chan_dung"][cd]):
-            return cd
-    return "CD0"
+    for c in pho["tep"]:
+        if not co_tu(kh, c["dau_hieu"]):
+            continue
+        if c.get("khong_phai") and co_tu(kh, c["khong_phai"]):
+            continue
+        return c["ma"]
+    return CD_DU
 
 
 def gan_nac(ht, td):
@@ -285,34 +386,114 @@ def gan_vi_sao_roi(ht, td, diem):
     return "khách tự dừng"
 
 
+# Rào cản suy ra từ mã O. Hai nhãn "đã làm nơi khác" và "chờ ưu đãi" nhận bằng
+# từ khoá ở tu_dien.json → `rao_can`; "chưa nói tình trạng" và "hỏi giá ngay"
+# tính riêng bên dưới.
+# ⛔ Không nhãn nào được suy ra từ CHÂN DUNG. Chân dung của kỳ do người dùng duyệt
+#   ở CỔNG 0 — lấy nó làm căn cứ chấm rào cản là chấm lại hội thoại (luật ③).
 RAO_CAN = {
-    "chưa nói tình trạng": [],   # tính riêng
-    "hỏi giá ngay": [],
     "sợ đau/nghỉ việc": "O-04",
     "ở xa": "O-09",
     "người nhà cản": "O-11",
-    "đã làm nơi khác": None,
     "so giá đối thủ": "O-10",
-    "chờ ưu đãi": None,
     "chưa tin cơ sở": "O-06",
 }
 
 
-def gan_rao_can(ht, td, cd, ma_o):
+def gan_rao_can(ht, td, ma_o):
     rc = []
-    if cd == "CD0":
+    kh = ht["kh_text"]
+    # Khách không nêu được dịch vụ nào và cũng không gửi ảnh tình trạng
+    # → chưa nói tình trạng. ⚠ Đây là tình trạng của HỘI THOẠI, không phải
+    #   của chân dung: quảng cáo kéo được người vào mà không làm họ kể.
+    if not co_tu(kh, sum(td["dich_vu_chinh"].values(), [])) and not ht.get("kh_gui_anh"):
         rc.append("chưa nói tình trạng")
     dau = next((t["text"] for t in ht["tin"] if not t["nv"] and len(t["text"]) > 3), "")
     if co_tu(dau, td["ma_o"]["O-01"]):
         rc.append("hỏi giá ngay")
-    if cd == "CD3":
-        rc.append("đã làm nơi khác")
-    if co_tu(ht["kh_text"], ["đợi ưu đãi", "chờ sale", "khi nào giảm"]):
-        rc.append("chờ ưu đãi")
+    for ten, tu in td.get("rao_can", {}).items():
+        if ten.startswith("_") or not isinstance(tu, list):
+            continue
+        if co_tu(kh, tu):
+            rc.append(ten)
     for ten, ma in RAO_CAN.items():
         if isinstance(ma, str) and ma in ma_o:
             rc.append(ten)
     return sorted(set(rc))
+
+
+# ───────────── nguyên liệu PHÁC HỌA chân dung — bước B3 ──────────────────
+# ⛔ Phần này KHÔNG xếp chân dung. Nó chỉ bày ra chữ của khách để agent đọc và
+#   phác họa, rồi người dùng duyệt ở CỔNG 0 (id-C §1).
+
+RE_TACH_TU = re.compile(r"[^0-9A-Za-zÀ-ỹ]+")
+
+
+def _tach_tu(text):
+    t = unicodedata.normalize("NFC", (text or "")).lower()
+    return [x for x in RE_TACH_TU.split(t) if len(x) > 1]
+
+
+def cum_chu_khach(cap_ht_text, tu_dung, toi_thieu, lay=60):
+    """Cụm 2–3 chữ khách tự nói, đếm theo SỐ HỘI THOẠI chứa cụm.
+
+    ⚠ Đếm theo hội thoại, ⛔ không theo số lần xuất hiện: một người nhắc
+    «đầu mũi bóng đỏ» chín lần không làm cụm đó thành tiếng của chín người.
+    """
+    dem, vi_du = Counter(), defaultdict(list)
+    for ma, text in cap_ht_text:
+        tu = _tach_tu(text)
+        cum = set()
+        for k in (2, 3):
+            for i in range(len(tu) - k + 1):
+                p = tu[i:i + k]
+                if p[0] in tu_dung or p[-1] in tu_dung:
+                    continue          # bỏ cụm mở/đóng bằng từ dừng
+                if all(x in tu_dung for x in p):
+                    continue
+                cum.add(" ".join(p))
+        for c in cum:
+            dem[c] += 1
+            if len(vi_du[c]) < 6:
+                vi_du[c].append(ma)
+    ra = [{"cum": c, "so_ht": v, "ht": vi_du[c]} for c, v in dem.most_common() if v >= toi_thieu]
+    return ra[:lay]
+
+
+def nguyen_lieu_chan_dung(ban_ghi, hts, td, ky, nguon):
+    n = len(ban_ghi)
+    theo_ma = {h["ma"]: h for h in hts}
+    tu_dung = set(td.get("_tu_dung") or [])
+    toi_thieu = max(3, int(round(n * 0.02)))
+    cum = cum_chu_khach([(r["ma"], theo_ma[r["ma"]]["kh_text"]) for r in ban_ghi],
+                        tu_dung, toi_thieu)
+    cau_dau = []
+    for r in ban_ghi:
+        tin = theo_ma[r["ma"]]["tin"]
+        dau = next((t["text"] for t in tin if not t["nv"] and len(t["text"]) > 3), "")
+        cau_dau.append({"ht": r["ma"], "nac": r["nac"], "dich_vu": r["dich_vu"],
+                        "nhiet": r["nhiet"], "ma_o": r["ma_o"], "co_sdt": r["co_sdt"],
+                        "rao_can": r["rao_can"], "cau_dau": an_danh(dau)[:200]})
+    return {
+        "schema": "nguyen-lieu-chan-dung/1",
+        "ky": ky, "nguon": nguon, "so_ht": n,
+        "tao": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "muc_dich": "Nguyên liệu để agent PHÁC HỌA chân dung của kỳ (id-C §1). "
+                    "⛔ Đây CHƯA phải chân dung.",
+        "nguong_cum": toi_thieu,
+        "cum_chu": cum,
+        "dich_vu": dict(Counter(r["dich_vu"] for r in ban_ghi).most_common()),
+        "nac": dict(Counter(r["nac"] for r in ban_ghi)),
+        "rao_can": [{"nhan": a, "so": b} for a, b in
+                    Counter(rc for r in ban_ghi for rc in r["rao_can"]).most_common()],
+        "cau_dau": cau_dau,
+        "ghi_chu": [
+            "Cụm chữ đếm theo SỐ HỘI THOẠI chứa cụm, ngưỡng ≥ %d HT." % toi_thieu,
+            "Câu đầu đã ẩn danh — số điện thoại, email, link thay bằng «…» (luật ⑩).",
+            "⛔ Cụm chữ đông nhất KHÔNG tự thành một chân dung. Chân dung cần một "
+            "NỖI SỢ riêng và truy ngược được về HT-nnn — xem id-C §1.",
+        ],
+    }
 
 
 # ──────────────────────── chấm điểm nhân viên N1–N6 ──────────────────────
@@ -474,16 +655,18 @@ def lenh_doc(args):
     if not hts:
         sys.exit("⛔ Không đọc được hội thoại nào.")
 
+    pho, vi_sao = nap_phac_hoa(args.ky)
+
     ban_ghi, co_do_all = [], []
     for ht in hts:
-        cd = gan_chan_dung(ht, td)
+        cd = gan_chan_dung(ht, pho)          # None khi chưa qua CỔNG 0
         nac = gan_nac(ht, td)
         ma_o = gan_ma_o(ht, td)
         nhiet, tin_hieu = gan_nhiet(ht, td)
         k, diem, co_do = cham_hoi_thoai(ht, td, ma_o)
         ht["chot_lich"] = bool(co_tu(ht["nv_text"], td["nv_moi_lich"]) and co_tu(ht["kh_text"], ["vâng", "ok", "được", "em qua"]))
         roi = gan_vi_sao_roi(ht, td, diem)
-        rc = gan_rao_can(ht, td, cd, ma_o)
+        rc = gan_rao_can(ht, td, ma_o)
         for c in co_do:
             co_do_all.append({"ma": c["ma"], "nguoi": ht["nv"], "ht": ht["ma"], "trich": c["trich"]})
         ban_ghi.append({
@@ -555,8 +738,16 @@ def lenh_doc(args):
         "ma_o": [{"ma": m, "so": sum(1 for r in ban_ghi if m in r["ma_o"]),
                   "pct": pct(sum(1 for r in ban_ghi if m in r["ma_o"]), n)}
                  for m in ["O-%02d" % i for i in range(1, 13)] + ["O-00", "(chưa nêu)"]],
-        "chan_dung": [_dong_cd(ban_ghi, cd) for cd in
-                      ("CD0", "CD1", "CD2", "CD3", "CD4", "CD5", "CD6")],
+        "phac_hoa": {
+            "trang_thai": "da_duyet" if pho else "chua_phac_hoa",
+            "vi_sao": vi_sao,
+            "file": "out/chan-dung.json",
+            "nguyen_lieu": "out/nguyen-lieu-chan-dung.json",
+            "so_chan_dung": len(pho["tep"]) if pho else 0,
+            "duyet_boi": (pho or {}).get("duyet_boi"),
+            "duyet_luc": (pho or {}).get("duyet_luc"),
+        },
+        "chan_dung": _bang_chan_dung(ban_ghi, pho),
         "nac": dict(Counter(r["nac"] for r in ban_ghi)),
         "nhan_vien": {"phan_bo": dict(Counter(c["loai"] for c in ca_nhan)),
                       "nhom": nhom, "ca_nhan": ca_nhan, "co_do": co_do_all,
@@ -567,7 +758,13 @@ def lenh_doc(args):
     with open(os.path.join(RA, "doc-hoi-thoai.json"), "w", encoding="utf-8") as f:
         json.dump(ket, f, ensure_ascii=False, indent=1)
 
-    _in_tom_tat(ket, ban_ghi)
+    # Nguyên liệu phác họa ghi lại MỖI LẦN chạy: kỳ sau chân dung có thể khác,
+    # và bản phác họa cũ phải đối chiếu được với chữ của khách kỳ này.
+    nl = nguyen_lieu_chan_dung(ban_ghi, hts, td, args.ky, os.path.basename(args.file))
+    with open(NGUYEN_LIEU, "w", encoding="utf-8") as f:
+        json.dump(nl, f, ensure_ascii=False, indent=1)
+
+    _in_tom_tat(ket, ban_ghi, nl)
 
 
 def _pct_nhom(rs, ma_nhom):
@@ -577,13 +774,23 @@ def _pct_nhom(rs, ma_nhom):
     return pct(dat, dat + chua)
 
 
-TEN_CD = {"CD0": "Thăm dò — chưa rõ nhu cầu", "CD1": "Khuyết điểm", "CD2": "Hot Face",
-          "CD3": "Sửa lại", "CD4": "Nam giới", "CD5": "Phong thủy", "CD6": "Khó, bệnh lý"}
+def _bang_chan_dung(ban_ghi, pho):
+    """Bảng chân dung dựng theo bản phác họa ĐÃ DUYỆT.
+
+    ⛔ Chưa qua CỔNG 0 → trả về bảng RỖNG. Script không có chân dung mặc định
+    nào để điền vào, và không được bịa ra dòng nào.
+    """
+    if not pho:
+        return []
+    dong = [_dong_cd(ban_ghi, c["ma"], (c.get("ten") or c["ma"]), c) for c in pho["tep"]]
+    dong.append(_dong_cd(ban_ghi, CD_DU, TEN_CD_DU, None))
+    return dong
 
 
-def _dong_cd(ban_ghi, cd):
+def _dong_cd(ban_ghi, cd, ten, dn):
     rs = [r for r in ban_ghi if r["cd"] == cd]
-    return {"cd": cd, "ten": TEN_CD[cd], "ht": len(rs),
+    hs = (dn or {}).get("he_so_gia_tri")
+    return {"cd": cd, "ten": ten, "ht": len(rs), "quan_sat": len(rs) < 5,
             "hot": sum(1 for r in rs if r["nhiet"] == "HOT"),
             "warm": sum(1 for r in rs if r["nhiet"] == "WARM"),
             "cold": sum(1 for r in rs if r["nhiet"] == "COLD"),
@@ -591,7 +798,7 @@ def _dong_cd(ban_ghi, cd):
             "chot_lich": sum(1 for r in rs if r["chot_lich"]),
             "bo_1_luot": sum(1 for r in rs if r["so_luot_kh"] <= 1),
             "roi_truc": sum(1 for r in rs if r["roi"] == "trực page"),
-            "he_so": max([r["he_so"] for r in rs], default=1)}
+            "he_so": hs or max([r["he_so"] for r in rs], default=1)}
 
 
 def _the_tong(ban_ghi):
@@ -614,7 +821,7 @@ def _the_tong(ban_ghi):
     ]
 
 
-def _in_tom_tat(k, ban_ghi):
+def _in_tom_tat(k, ban_ghi, nl):
     p = print
     p("")
     p("═" * 66)
@@ -631,12 +838,36 @@ def _in_tom_tat(k, ban_ghi):
     p("  VÌ SAO RƠI " + " · ".join("%s %d" % (a, b) for a, b in
                                    sorted(k["nguyen_nhan_roi"].items(), key=lambda x: -x[1])))
     p("")
-    p("  CHÂN DUNG")
-    p("    %-5s %-30s %4s %4s %4s %4s %6s %5s" % ("mã", "tên", "HT", "HOT", "WRM", "SĐT", "%SĐT", "lịch"))
-    for c in k["chan_dung"]:
-        p("    %-5s %-30s %4d %4d %4d %4d %5s%% %5d" % (
-            c["cd"], c["ten"][:30], c["ht"], c["hot"], c["warm"], c["co_sdt"],
-            pct(c["co_sdt"], c["ht"]) if c["ht"] else "—", c["chot_lich"]))
+    if k["chan_dung"]:
+        p("  CHÂN DUNG — theo bản phác họa đã duyệt (%s · %s)"
+          % (k["phac_hoa"]["duyet_boi"] or "—", k["phac_hoa"]["duyet_luc"] or "—"))
+        p("    %-5s %-30s %4s %4s %4s %4s %6s %5s" % ("mã", "tên", "HT", "HOT", "WRM", "SĐT", "%SĐT", "lịch"))
+        for c in k["chan_dung"]:
+            p("    %-5s %-30s %4d %4d %4d %4d %5s%% %5d%s" % (
+                c["cd"], c["ten"][:30], c["ht"], c["hot"], c["warm"], c["co_sdt"],
+                pct(c["co_sdt"], c["ht"]) if c["ht"] else "—", c["chot_lich"],
+                "  👁 quan sát" if c["quan_sat"] else ""))
+        du = next((c for c in k["chan_dung"] if c["cd"] == CD_DU), None)
+        if du and du["ht"] >= CD_TOI_THIEU_DE_DE:
+            p("")
+            p("    ⚠ %d HT rơi %s. Nếu nhóm này có một NỖI SỢ riêng thì phác họa thêm"
+              % (du["ht"], CD_DU))
+            p("      một chân dung và xin duyệt lại CỔNG 0 — id-C §1.")
+    else:
+        p("  CHÂN DUNG — ⏳ CHƯA PHÁC HỌA")
+        p("    %s" % (k["phac_hoa"]["vi_sao"] or ""))
+        p("    Nguyên liệu đã ghi: out/nguyen-lieu-chan-dung.json")
+        p("      · %d cụm chữ khách tự nói (ngưỡng ≥ %d HT)"
+          % (len(nl["cum_chu"]), nl["nguong_cum"]))
+        p("      · %d câu hỏi đầu đã ẩn danh" % len(nl["cau_dau"]))
+        if nl["cum_chu"]:
+            p("    Mười cụm đông nhất:")
+            for c in nl["cum_chu"][:10]:
+                p("      %-34s %3d HT  (%s)" % (c["cum"][:34], c["so_ht"], " ".join(c["ht"][:3])))
+        p("")
+        p("    → Agent đọc nguyên liệu, phác họa chân dung của kỳ, ghi out/chan-dung.json")
+        p("      (`id.py chan-dung --ky %s --mau` để lấy khuôn), rồi người dùng duyệt:" % k["ky"])
+        p("      `id.py chan-dung --ky %s --duyet \"<tên>\"` → chạy lại `id.py doc`." % k["ky"])
     p("")
     p("  MÃ O — 5 mã cao nhất")
     for o in sorted(k["ma_o"], key=lambda x: -x["so"])[:5]:
@@ -654,11 +885,126 @@ def _in_tom_tat(k, ban_ghi):
         for c in k["nhan_vien"]["co_do"][:10]:
             p("    %-6s %-24s %s  « %s »" % (c["ma"], c["nguoi"][:24], c["ht"], c["trich"]))
     p("")
-    p("  ⚠ Script chỉ làm phần ĐẾM. Insight, câu hỏi ngầm, hướng nội dung,")
-    p("    câu mẫu trong sổ tay — agent phải đọc và viết, xem SYSTEM-PROMPT §8.")
+    p("  ⚠ Script chỉ làm phần ĐẾM. Phác họa chân dung, insight, câu hỏi ngầm,")
+    p("    hướng nội dung, câu mẫu trong sổ tay — agent phải đọc và viết (SYSTEM-PROMPT §8).")
     p("")
     p("  Đã ghi: out/doc-hoi-thoai.json · out/cham-hoi-thoai.csv")
+    p("          out/nguyen-lieu-chan-dung.json")
     p("")
+
+
+# ──────────────────── lệnh `chan-dung` · CỔNG 0 ──────────────────────────
+
+MAU_PHAC_HOA = {
+    "schema": "chan-dung-ky/1",
+    "ky": None,
+    "nguon": "out/nguyen-lieu-chan-dung.json",
+    "phac_hoa_luc": None,
+    "trang_thai": "cho_duyet",
+    "duyet_boi": None,
+    "duyet_luc": None,
+    "ke_thua_tu_ky": None,
+    "_huong_dan": [
+        "Chân dung của kỳ này phác họa TỪ HỘI THOẠI của kỳ này, ⛔ không chép từ "
+        "một bộ chân dung có sẵn và ⛔ không suy ra từ dịch vụ.",
+        "`ten` viết bằng CHỮ CỦA KHÁCH, ⛔ không bằng tính từ marketing.",
+        "`noi_so` là nỗi sợ chi phối — hai nhóm cùng nỗi sợ thì là MỘT chân dung.",
+        "`dau_hieu` là cụm chữ khách tự nói; script gán theo cụm này, xét TỪ TRÊN "
+        "XUỐNG nên xếp chân dung HẸP trước, RỘNG sau.",
+        "`khong_phai` (không bắt buộc): cụm loại trừ, dùng khi hai chân dung chồng chữ.",
+        "`trich`: ít nhất một HT-nnn cho mỗi chân dung — không truy ngược được là bịa.",
+        "CD0 là mã DỰ TRỮ cho hội thoại không khớp dấu hiệu nào. ⛔ Không khai ở đây, "
+        "⛔ không gọi là «rác» — CD0 đông là lỗi của quảng cáo, không phải của khách.",
+        "Giữ lại mã của kỳ trước cho chân dung CÙNG NỖI SỢ (ghi `ke_thua_tu_ky`) — "
+        "đổi mã giữa hai kỳ là mất mọi so sánh.",
+        "⛔ Agent không tự điền `duyet_boi` / `trang_thai`. Duyệt bằng lệnh "
+        "`id.py chan-dung --ky <kỳ> --duyet \"<tên người>\"`.",
+    ],
+    "tep": [
+        {
+            "ma": "CD1",
+            "ten": "",
+            "ho_la_ai": "",
+            "noi_so": "",
+            "dau_hieu": [],
+            "khong_phai": [],
+            "he_so_gia_tri": None,
+            "trich": [],
+        }
+    ],
+    "ghi_chu": [],
+}
+
+
+def lenh_chan_dung(args):
+    os.makedirs(RA, exist_ok=True)
+
+    if args.mau:
+        if os.path.exists(PHAC_HOA) and not args.ghi_de:
+            sys.exit("⛔ out/chan-dung.json đã có. Thêm --ghi-de nếu muốn ghi lại khuôn trống.")
+        mau = json.loads(json.dumps(MAU_PHAC_HOA))
+        mau["ky"] = args.ky
+        mau["phac_hoa_luc"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+        with open(PHAC_HOA, "w", encoding="utf-8") as f:
+            json.dump(mau, f, ensure_ascii=False, indent=1)
+        print("")
+        print("  Đã ghi khuôn trống out/chan-dung.json cho kỳ %s." % args.ky)
+        print("  → Agent đọc out/nguyen-lieu-chan-dung.json rồi điền `tep`.")
+        print("  → Kiểm: id.py chan-dung --ky %s --kiem" % args.ky)
+        print("")
+        return
+
+    if not os.path.exists(PHAC_HOA):
+        sys.exit("⛔ chưa có out/chan-dung.json. Chạy: id.py chan-dung --ky %s --mau" % args.ky)
+    with open(PHAC_HOA, encoding="utf-8") as f:
+        pho = json.load(f)
+
+    loi = kiem_phac_hoa(pho)
+    if (pho.get("ky") or "") != args.ky:
+        loi.insert(0, "`ky` trong file là «%s», không phải «%s»"
+                   % (pho.get("ky") or "trống", args.ky))
+
+    print("")
+    print("═" * 66)
+    print("  PHÁC HỌA CHÂN DUNG · kỳ %s · %d chân dung + %s dự trữ"
+          % (pho.get("ky") or "—", len(pho.get("tep") or []), CD_DU))
+    print("═" * 66)
+    print("")
+    for c in (pho.get("tep") or []):
+        c = c or {}
+        print("  %-5s %-34s hệ số %s · %d dấu hiệu · %d trích"
+              % (c.get("ma") or "—", (c.get("ten") or "⚠ chưa đặt tên")[:34],
+                 c.get("he_so_gia_tri") or "—",
+                 len(c.get("dau_hieu") or []), len(c.get("trich") or [])))
+        if c.get("noi_so"):
+            print("        nỗi sợ: %s" % c["noi_so"])
+    print("")
+
+    if loi:
+        print("  ⛔ CÒN %d LỖI — chưa duyệt được:" % len(loi))
+        for x in loi:
+            print("     · %s" % x)
+        print("")
+        sys.exit(1)
+
+    if args.duyet:
+        pho["trang_thai"] = "da_duyet"
+        pho["duyet_boi"] = args.duyet.strip()
+        pho["duyet_luc"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+        with open(PHAC_HOA, "w", encoding="utf-8") as f:
+            json.dump(pho, f, ensure_ascii=False, indent=1)
+        print("  ✅ CỔNG 0 ĐÃ MỞ — duyệt bởi %s lúc %s" % (pho["duyet_boi"], pho["duyet_luc"]))
+        print("  → Chạy lại: id.py doc <file-hoi-thoai.md> --ky %s" % args.ky)
+        print("")
+        return
+
+    print("  Bản phác họa sạch lỗi. Trạng thái: %s" % (pho.get("trang_thai") or "—"))
+    if pho.get("trang_thai") != "da_duyet":
+        print("  → Duyệt: id.py chan-dung --ky %s --duyet \"<tên người duyệt>\"" % args.ky)
+        print("  ⛔ Agent không tự duyệt thay người dùng.")
+    else:
+        print("  Đã duyệt bởi %s lúc %s" % (pho.get("duyet_boi"), pho.get("duyet_luc")))
+    print("")
 
 
 # ───────────────────────────── lệnh `ads` ────────────────────────────────
@@ -758,7 +1104,8 @@ def lenh_bao_cao(args):
                  "nhiet_x_sdt": H["nhiet_x_sdt"], "tin_hieu": H["tin_hieu"],
                  "nguyen_nhan_roi": H["nguyen_nhan_roi"], "rao_can": H["rao_can"],
                  "ma_o": H["ma_o"], "van_de": []},
-        "chan_dung": {"tep": H["chan_dung"], "insight": [], "nac": H["nac"]},
+        "chan_dung": {"phac_hoa": H.get("phac_hoa", {}), "tep": H["chan_dung"],
+                      "insight": [], "nac": H["nac"]},
         "nhan_vien": H["nhan_vien"],
         "facebook": ({"nguon": A["nguon"], "don_vi": "đ", "chuoi": A["chuoi"],
                       "dong": A["dong"], "van_de": []} if A else
@@ -770,8 +1117,10 @@ def lenh_bao_cao(args):
         "viec": [],
         "ghi_chu": [
             "Nguồn hội thoại: %s · %d hội thoại phân tích." % (H["nguon"], H["so_ht"]),
-            "Phân loại CD · nấc 5A · mã O · mức nóng · rào cản · vì sao rơi · chấm N1–N6: "
-            "đọc tự động bằng tools/id.py, CHƯA qua người soát.",
+            "Nấc 5A · mã O · mức nóng · rào cản · vì sao rơi · chấm N1–N6: đọc tự động "
+            "bằng tools/id.py, CHƯA qua người soát.",
+            "Chân dung KHÔNG có bộ mặc định: phác họa từ hội thoại của kỳ, gán theo dấu "
+            "hiệu trong out/chan-dung.json sau khi người dùng duyệt ở CỔNG 0 (id-C §1).",
             "N3.2 (thông tin khớp bảng hiện hành) luôn chấm «—» vì cần người đối chiếu "
             "bảng giá hiện hành — xem id-F §3.",
             "Điểm dùng để phân việc kèm cặp. Không phải căn cứ kỷ luật hay xếp hạng công khai.",
@@ -780,6 +1129,11 @@ def lenh_bao_cao(args):
     if H["nhan_vien"]["co_do"]:
         D["canh_bao"].append({"muc": "bad", "text": "Có %d cờ đỏ trong kỳ — xem tab Chấm điểm."
                                                    % len(H["nhan_vien"]["co_do"])})
+    pha = H.get("phac_hoa") or {}
+    if pha.get("trang_thai") != "da_duyet":
+        D["canh_bao"].append({"muc": "bad",
+                              "text": "Chân dung chưa qua CỔNG 0 — tab Chân dung còn trống (%s)."
+                                      % (pha.get("vi_sao") or "chưa phác họa")})
     if not A:
         D["canh_bao"].append({"muc": "warn", "text": "Chưa có file chỉ số quảng cáo — tab Marketing trống."})
     D["canh_bao"].append({"muc": "warn", "text": "Chưa có dữ liệu Google Ads (id-B §4)."})
@@ -816,6 +1170,14 @@ def main():
     a.add_argument("file")
     a.add_argument("--ky", required=True)
     a.set_defaults(fn=lenh_doc)
+
+    d = sp.add_parser("chan-dung", help="CỔNG 0 — khuôn · kiểm · duyệt bản phác họa chân dung")
+    d.add_argument("--ky", required=True)
+    d.add_argument("--mau", action="store_true", help="ghi khuôn trống out/chan-dung.json")
+    d.add_argument("--ghi-de", dest="ghi_de", action="store_true", help="cho --mau ghi đè file cũ")
+    d.add_argument("--kiem", action="store_true", help="soát bản phác họa (mặc định)")
+    d.add_argument("--duyet", metavar="NGUOI", help="mở CỔNG 0 — ghi tên người duyệt")
+    d.set_defaults(fn=lenh_chan_dung)
 
     b = sp.add_parser("ads", help="đọc file chỉ số quảng cáo Facebook")
     b.add_argument("file")

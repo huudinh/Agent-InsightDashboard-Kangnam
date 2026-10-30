@@ -1,5 +1,52 @@
 # CHANGELOG
 
+## v1.1 — 2026-10-30 · ⛔ BỎ BỘ CHÂN DUNG DỰNG SẴN
+
+Chân dung khách hàng **không còn là một danh sách cho trước**. Mỗi kỳ, agent **phác họa chân dung từ chính hội thoại được đưa vào**, người dùng duyệt ở **CỔNG 0** mới gán được.
+
+### Vì sao
+
+Bản `v1.0` chở theo bảy chân dung `CD0–CD6` dựng cho **dịch vụ nâng mũi**, nhận dạng bằng từ khoá *"mũi tẹt"*, *"nghẹt mũi"*, *"đầu mũi bóng đỏ"*. Chạy thật 295 hội thoại (`doc/03-output-mau.md` §4):
+
+```
+CD0 thăm dò     239/295 = 81% mẫu rơi vào ô "chưa rõ"
+CD2 · CD5             0 HT — hai chân dung không có một người nào
+```
+
+★ Một bộ chân dung đẩy 81% khách vào ô *"chưa rõ"* thì không đo khách — nó đo chính nó. Và bộ dựng cho mũi thì sang kỳ mắt, hàm mặt, da là sai hẳn.
+
+### Đổi gì
+
+| Chỗ | Trước | Sau |
+|---|---|---|
+| `knowledge/id-C` | Bảng 7 chân dung + bảng *"thông điệp thắng"* viết sẵn cho từng CD | Phương pháp phác họa: 3 điều một chân dung phải có · `CD0` là mã dự trữ · số chân dung theo cỡ mẫu · luật giữ mã giữa các kỳ · quy trình 6 bước qua CỔNG 0 |
+| `tools/tu_dien.json` | Khối `chan_dung` — 6 danh sách từ khoá về mũi | ⛔ Đã bỏ. Thêm khối `rao_can` *(nhận rào cản bằng chữ của khách, không suy từ CD)* và `_tu_dung` *(từ dừng để rút cụm chữ)* |
+| `tools/id.py` | `gan_chan_dung()` khớp từ khoá · `TEN_CD` 7 tên cố định | Đọc `out/chan-dung.json` **đã duyệt**; chưa duyệt thì `cd = null`. Thêm lệnh `chan-dung` *(`--mau` · `--kiem` · `--duyet`)* và file `out/nguyen-lieu-chan-dung.json` |
+| `gan_rao_can()` | *"chưa nói tình trạng"* suy từ `CD0`, *"đã làm nơi khác"* suy từ `CD3` | Nhận bằng chữ của khách. ⛔ Không nhãn nào suy ra từ chân dung — làm vậy là chấm lại hội thoại (luật ③) |
+| Quy trình | 8 bước · 2 cổng | 8 bước · **3 cổng** — thêm `CỔNG 0` duyệt chân dung, nằm trong B3 |
+| `AUTO` | B1→B5 rồi dừng | Hai chặng: B1→B3 dừng ở CỔNG 0 · `DUYỆT CHÂN DUNG` → B3'→B5 dừng ở CỔNG 1 |
+| Dashboard tab ② | Bảng 7 dòng | Bảng `N` dòng + dòng `CD0` · nhãn `👁 quan sát` cho CD <5 HT · ghi chú người duyệt CỔNG 0 · **ô khoá kèm lý do** khi chưa phác họa |
+| `so_tay.py` | Tên chân dung lấy từ bảng cố định | Lấy từ `out/chan-dung.json` của kỳ; chưa duyệt thì ghi *"chân dung chưa phác họa"* |
+
+### Hai thứ cố ý giữ lại
+
+```
+① CD0 vẫn là mã DỰ TRỮ, không phác họa, không đổi nghĩa.
+   Nhờ nó mà luật ④ "tổng phải khớp" còn đúng khi một hội thoại
+   không khớp dấu hiệu nào. ⛔ CD0 vẫn KHÔNG phải "rác".
+
+② Nấc 5A, mã O, mức nóng, rào cản, vì sao rơi, chấm điểm N1–N6
+   KHÔNG phụ thuộc chân dung → gán được ngay ở B2, trước CỔNG 0.
+   Nhờ vậy tab Phễu và tab Chấm điểm vẫn đọc được khi chân dung còn trống.
+```
+
+### ⚠ Việc còn lại
+
+- `Agent-SeedingPlant` và các agent dùng chung mã cũ vẫn đang hiểu `CD1–CD6` theo bộ cố định. Trao đổi số liệu theo chân dung thì **gửi kèm `out/chan-dung.json` của kỳ** — xem `id-A` §2.
+- Câu mẫu trong `tools/so_tay.py` *(`VIEC` theo nhóm `N`)* vẫn viết theo dịch vụ mũi. Chưa đổi trong bản này.
+
+---
+
 ## v1.0 — 2026-10-30
 
 Dựng mới `Agent-InsightDashboard-Kangnam`.
@@ -10,7 +57,8 @@ Dựng mới `Agent-InsightDashboard-Kangnam`.
 - **11 sổ tri thức** `id-A` … `id-K`
 - **8 prompt mẫu**
 - **Dashboard 9 tab** — trang HTML cố định đọc `data/*.json`, link không đổi giữa các kỳ
-- **4 script chạy thật**: `id.py` *(doc · ads · bao-cao)*, `so_tay.py`, `gop-tham-khao.py`, `dem-ngan.py`
+- **5 script chạy thật**: `id.py` *(doc · ads · bao-cao)*, `so_tay.py`, `gop-tham-khao.py`, `dem-ngan.py`, `trang-huong-dan.py`
+- **Trang hướng dẫn cài đặt & prompt mẫu** — sinh từ `tools/huong-dan.json` bằng generator dùng chung của bộ agent; nút Copy đọc thẳng file nguồn trong repo
 - Đã chạy end-to-end trên **300 hội thoại nâng mũi thật** xuất từ Caresoft — kết quả ở `doc/03-output-mau.md`
 
 ### Ba thứ khiến bản này khác các agent trước trong hệ

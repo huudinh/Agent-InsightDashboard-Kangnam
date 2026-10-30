@@ -33,7 +33,7 @@ Theo id-E, làm năm việc:
    ⛔ Không đổi ≥3 biến cùng lúc.
 
 ④ NỐI HỘI THOẠI ↔ NỘI DUNG
-   Mỗi nội dung: khách vào từ đó thuộc chân dung nào, hỏi mã O nào,
+   Mỗi nội dung: khách vào từ đó thuộc chân dung nào (theo bản đã duyệt CỔNG 0), hỏi mã O nào,
    bao nhiêu % bỏ sau 1 lượt. Gộp mọi ID cùng nội dung về MỘT dòng theo tên nội dung.
    Chiến dịch nhiều mẫu không tách được chi → bảng riêng, ⛔ không chia đều.
 

@@ -36,7 +36,7 @@ VIẾT VIỆC THẾ NÀO:
   Việc không kiểm được là việc không tồn tại.
 
 PHẦN "KHÁCH CỦA BẠN LÀ AI":
-  chân dung gặp nhiều nhất · mã O cao nhất · CÂU HỎI NGẦM ·
+  chân dung gặp nhiều nhất (mã + tên của kỳ này) · mã O cao nhất · CÂU HỎI NGẦM ·
   ba câu trả lời sẵn cho tệp đó (⛔ không chạm O-07, O-12)
 
 ⛔ KIỂM TRƯỚC KHI PHÁT:

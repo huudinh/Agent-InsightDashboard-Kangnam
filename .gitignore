@@ -1,8 +1,10 @@
 # Kết quả chạy — KHÔNG commit
 out/
-dashboard/data/*.json
-!dashboard/data/index.json
-!dashboard/data/MAU_*.json
+
+# Dữ liệu từng kỳ của dashboard — KHÔNG commit, kể cả index.json.
+# Commit index.json mà không commit file kỳ thì bản clone mới sẽ trỏ vào file
+# không tồn tại và dashboard báo lỗi. Chạy `id.py bao-cao` là sinh lại cả hai.
+dashboard/data/
 
 # Dữ liệu thật — KHÔNG commit
 *_that.*

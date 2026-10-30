@@ -1,0 +1,398 @@
+{
+  "ma": "insightdashboard",
+  "title": "Cài đặt Insight Dashboard",
+  "h1": "Agent đọc Insight khách hàng Kangnam",
+  "eyebrow": "Đọc insight khách hàng · Hướng dẫn cài đặt & prompt mẫu",
+  "ten_agent": "Agent-InsightDashboard-Kangnam",
+  "repo": "https://github.com/huudinh/Agent-InsightDashboard-Kangnam",
+  "buoc2": "<b>Thẻ A</b> vào ô chỉ dẫn",
+  "brain": "SYSTEM-PROMPT.md",
+  "brain_ngan": "SYSTEM-PROMPT-NGAN.md",
+  "mo_ta_agent": "Agent đọc insight khách hàng của Bệnh viện Thẩm mỹ Kangnam. Từ 100–300 hội thoại chat và số quảng cáo Facebook/Google, agent phác họa chân dung khách hàng từ chính những hội thoại đó, chỉ ra khách đang sợ gì và rơi ở đâu, chấm điểm trực page, rồi ra ma trận ưu tiên, ngân hàng hook và sổ tay thực thi cho từng nhân viên.",
+  "lede": "Đây là <b>agent đọc insight khách hàng</b>. Nó đọc <b>chính lời khách nói trong inbox</b> cùng <b>số quảng cáo</b>, rồi trả lời bốn câu: <b>khách là ai</b> · <b>họ đang sợ gì</b> · <b>họ rơi ở đâu và vì ai</b> · <b>kỳ tới phải làm gì</b>.",
+  "quick": "Gõ <b>AUTO</b> kèm hai file &rarr; agent phác họa chân dung từ chính hội thoại đó rồi dừng ở <b>cổng duyệt chân dung</b>. Gõ <b>DUYỆT CHÂN DUNG</b> &rarr; nó đào insight và dừng ở <b>cổng duyệt ma trận</b>. Gõ <b>DUYỆT</b> &rarr; nó chấm điểm trực page, viết hook và sinh sổ tay.",
+  "dim": "Luật tối thượng: <b>mọi insight, mọi hook, mọi điểm trừ phải truy ngược được về một hội thoại <code>HT-nnn</code> hoặc một con số</b> — không truy ngược được là bịa",
+  "chips": [
+    "v1.0",
+    "11 sổ tri thức",
+    "8 prompt mẫu",
+    "dashboard 9 tab",
+    "5 script",
+    "đã chạy thật 295 hội thoại"
+  ],
+  "muc": [
+    "Cài đặt",
+    "Prompt mẫu",
+    "Ba điều phải nhớ",
+    "Đang chặn"
+  ],
+  "cai_dat_intro": "Agent là <b>prompt + tri thức</b>, không phải phần mềm. Ba bước: tạo trợ lý &rarr; dán bộ não &rarr; upload 19 file. Mất khoảng 10 phút, làm một lần.",
+  "dl_mo_ta": "Toàn bộ repo: bộ não đầy đủ và bản ngắn · 11 sổ tri thức · 8 prompt · dashboard · 4 script chạy thật",
+  "cau_mo_dau": [
+    "AUTO — kỳ 19–25/10. Đính kèm hội thoại + số ads.",
+    "Đọc 200 hội thoại này, phác họa chân dung khách và chỉ ra 3 vấn đề cốt lõi.",
+    "Chấm điểm trực page kỳ này, chỉ ra 3 tiêu chí yếu nhất của cả khối."
+  ],
+  "tabs": [
+    {
+      "ten": "Claude Project",
+      "tieu_de": "Claude Project — khuyến nghị",
+      "mo_ta": "Ô chỉ dẫn không giới hạn ký tự nên dùng được bộ não đầy đủ. Agent này phải giữ 300 hội thoại + số ads + 11 sổ tri thức cùng lúc, nên cửa sổ rộng là lợi thế thật.",
+      "buoc": [
+        "<b>Projects</b> &rarr; <b>Create project</b>, tên và mô tả lấy ở khối phía trên.",
+        "<b>Custom instructions</b> &rarr; dán <b>Thẻ A &middot; Bộ não đầy đủ</b>.",
+        "<b>Add content</b> &rarr; upload <b>đủ 19 file</b> ở khối dưới.",
+        "Mở chat mới &rarr; chạy <b>6 câu smoke test</b>. Sai câu nào thì thiếu file tương ứng."
+      ]
+    },
+    {
+      "ten": "Gemini Gem",
+      "tieu_de": "Gemini — Gem",
+      "mo_ta": "Dùng được bộ não đầy đủ. Hạn chế: số file tri thức ít hơn Claude — nếu không đủ chỗ thì upload <code>goi/GOP-tri-thuc.md</code> (bản gộp 11 sổ) thay cho 11 file rời.",
+      "buoc": [
+        "<b>gemini.google.com</b> &rarr; <b>Gem</b> &rarr; <b>Gem mới</b>.",
+        "Ô <b>Chỉ dẫn</b> &rarr; dán <b>Thẻ A &middot; Bộ não đầy đủ</b>.",
+        "Upload 19 file, hoặc <code>goi/GOP-tri-thuc.md</code> + 8 prompt nếu thiếu chỗ.",
+        "Chạy 6 câu smoke test."
+      ],
+      "ghi_chu": "<p style=\"margin-bottom:0\">Bản gộp <code>GOP-tri-thuc.md</code> <b>sinh tự động</b>. Sửa <code>knowledge/</code> rồi chạy lại <code>python tools/gop-tham-khao.py</code> — không bao giờ lệch với repo.</p>"
+    },
+    {
+      "ten": "ChatGPT GPTs",
+      "tieu_de": "ChatGPT — Custom GPT",
+      "mo_ta": "Ô Instructions chặn ở <b>8.000 ký tự</b> nên <b>⛔ không dán được bộ não đầy đủ</b>. Phải dùng <b>Thẻ B &middot; bản ngắn</b>.",
+      "buoc": [
+        "<b>Explore GPTs</b> &rarr; <b>Create</b> &rarr; tab <b>Configure</b>.",
+        "Ô <b>Instructions</b> &rarr; dán <b>Thẻ B &middot; bản ngắn</b>, ⛔ không phải Thẻ A.",
+        "<b>Knowledge</b> &rarr; upload 19 file.",
+        "Chạy 6 câu smoke test."
+      ],
+      "ghi_chu": "<p style=\"margin-bottom:0\">Bản ngắn <b>bỏ phần giải thích, giữ nguyên luật</b>. Cài trên ChatGPT thì <b>phải upload đủ file tri thức</b> — thiếu file là agent mất phần lý do đằng sau mỗi luật và bắt đầu đoán.</p>"
+    }
+  ],
+  "the_mo_ta": "Thẻ A và B <b>dán vào ô văn bản</b> của nền tảng. Chọn đúng một thẻ theo nền tảng bạn dùng.",
+  "the": [
+    {
+      "ma": "brain",
+      "nhan": "Thẻ A",
+      "ten": "Bộ não đầy đủ",
+      "nen_tang": "Claude &amp; Gemini",
+      "mo_ta": "§0–§8: vai trò · ranh giới với 5 agent khác · <b>quy trình 8 bước và ba cổng chặn</b> · ★ <b>mười luật bất biến</b> · danh sách ⛔ tuyệt đối không · cách xử khi thiếu dữ liệu."
+    },
+    {
+      "ma": "ngan",
+      "nhan": "Thẻ B",
+      "ten": "Bản ngắn",
+      "nen_tang": "ChatGPT",
+      "tran": 8000,
+      "mo_ta": "Giữ nguyên bộ mã, 5 tín hiệu nóng, công thức phân rã CPL, mười luật và danh sách cấm. <b>Bỏ phần giải thích vì sao</b> — phần đó nằm trong file tri thức."
+    }
+  ],
+  "files_mo_ta": "Thứ tự dưới đây <b>là thứ tự agent đọc</b>: <b>vai trò &rarr; đầu vào &rarr; khách là ai &rarr; khách sợ gì &rarr; số nói gì &rarr; chấm người &rarr; chọn việc &rarr; viết gì &rarr; phát cho ai</b>. Upload đủ cả 19 file.",
+  "files_canh_bao": "<p style=\"margin-bottom:0\">★ <b>Ba sổ lõi nhất là <code>id-D</code>, <code>id-F</code> và <code>id-K</code>.</b> Thiếu <code>id-D</code> thì agent đọc hội thoại ra cảm nhận chứ không ra mã. Thiếu <code>id-F</code> thì nó chấm điểm nhân viên mà không có rào an toàn nào. Thiếu <code>id-K</code> thì nó sẽ trả lời khách con số bảo hành — thứ hệ thống đang cấm.</p>",
+  "files": [
+    {
+      "duong_dan": "knowledge/id-A-vai-tro-quy-trinh.md",
+      "badge": "lõi",
+      "mo_ta": "<b>Vai trò &amp; quy trình</b> — 8 bước · <b>ba cổng chặn</b> · lệnh <code>AUTO</code> · <b>ngưỡng mẫu được kết luận tới đâu</b> · luật một lần chấm · ranh giới với 5 agent khác"
+    },
+    {
+      "duong_dan": "knowledge/id-B-doc-dau-vao.md",
+      "mo_ta": "<b>Ba dòng đầu vào</b> — hội thoại · số ads Facebook · <b>Google Ads (khung chờ dữ liệu)</b> · cột bắt buộc · ⛔ tám thứ phải ẩn danh · 10 ô agent tự suy ra"
+    },
+    {
+      "duong_dan": "knowledge/id-C-chan-dung-5A.md",
+      "badge": "★ lõi",
+      "mo_ta": "<b>Phác họa chân dung từ hội thoại × hành trình <code>5A</code></b> — ⛔ không có bộ chân dung dựng sẵn · ba điều một chân dung phải có · <code>CD0</code> là mã dự trữ · <b>CỔNG 0</b> · ma trận lỗ hổng phễu"
+    },
+    {
+      "duong_dan": "knowledge/id-D-dao-sau-insight.md",
+      "badge": "★ lõi",
+      "mo_ta": "<b>12 mã phản đối <code>O</code></b> · <b>5 tín hiệu nóng</b> HOT/WARM/COLD · vì sao rơi (mỗi hội thoại đúng một giá trị) · ★ <b>câu hỏi ngầm</b> · bảng giao &ldquo;yếu gì&rdquo; · ⛔ hai mã không được tự trả lời"
+    },
+    {
+      "duong_dan": "knowledge/id-E-to-chuc-ads-chi-so.md",
+      "badge": "★",
+      "mo_ta": "<b>Tổ chức Ads</b> — giải mã tên chiến dịch 11 chiều · chuỗi <code>CPM→CTR→CPI→CPL→CPB</code> · ★ <b>công thức phân rã CPL</b> · ma trận VIEW/PERF · kho tệp · Google Ads"
+    },
+    {
+      "duong_dan": "knowledge/id-F-cham-diem-nhan-vien.md",
+      "badge": "★ lõi",
+      "mo_ta": "<b>22 tiêu chí <code>N1.1–N6.3</code></b> · cách quy ra thang 100 · phân loại <b>A/B/C/D</b> · 6 cờ đỏ <code>CĐ</code> · ★ <b>bốn rào an toàn</b> — bỏ một cái là sổ này thành công cụ kỷ luật"
+    },
+    {
+      "duong_dan": "knowledge/id-G-ma-tran-uu-tien.md",
+      "badge": "★",
+      "mo_ta": "<b>Ma trận ưu tiên</b> — ba khối ① Tăng HOT ② Giảm COLD ③ Tối ưu WARM · công thức điểm · ⛔ nhóm <b>sửa vận hành trước</b>, chưa làm nội dung"
+    },
+    {
+      "duong_dan": "knowledge/id-H-ngan-hang-hook.md",
+      "mo_ta": "<b>7 loại hook × 16 format <code>L01–L16</code></b> · ba cách viết đúng và một cách sai · luật cân đối kỳ · ⛔ tám loại hook không được viết"
+    },
+    {
+      "duong_dan": "knowledge/id-I-so-tay-thuc-thi.md",
+      "badge": "★",
+      "mo_ta": "<b>Sổ tay thực thi</b> — ba loại <code>ST-CN</code>/<code>ST-TN</code>/<code>ST-ND</code> · <b>luật một việc</b> · viết việc thế nào cho sửa được · nhịp phát"
+    },
+    {
+      "duong_dan": "knowledge/id-J-dashboard-schema.md",
+      "mo_ta": "<b>Dashboard 9 tab</b> · schema JSON <code>insight-dashboard-kangnam/1</code> · bốn luật hiển thị · khối việc cần xử lý"
+    },
+    {
+      "duong_dan": "knowledge/id-K-module-kangnam-phap-che.md",
+      "badge": "★ lõi",
+      "mo_ta": "<b>Module đơn vị Kangnam</b> — chi nhánh, giấy phép, 10 chuyên khoa · <b>ba thứ đang chặn</b> · 12 điểm pháp chế <code>L</code> · ★ <b>đổi thương hiệu thì thay đúng sổ này</b>"
+    },
+    {
+      "duong_dan": "prompts/prompt-auto.md",
+      "mo_ta": "Chạy cả kỳ một phát, dừng ở cổng duyệt chân dung rồi cổng duyệt ma trận"
+    },
+    {
+      "duong_dan": "prompts/prompt-chan-dung-insight.md",
+      "mo_ta": "Phác họa chân dung qua CỔNG 0 rồi đào insight, chưa chấm điểm"
+    },
+    {
+      "duong_dan": "prompts/prompt-cham-diem.md",
+      "mo_ta": "Chấm và phân loại trực page, kèm bốn rào an toàn phải tự kiểm"
+    },
+    {
+      "duong_dan": "prompts/prompt-doc-so-ads.md",
+      "mo_ta": "Đọc số ads, phân rã CPL, nối hội thoại với từng nội dung"
+    },
+    {
+      "duong_dan": "prompts/prompt-ma-tran.md",
+      "mo_ta": "Dựng ma trận ưu tiên — cổng 1"
+    },
+    {
+      "duong_dan": "prompts/prompt-hook.md",
+      "mo_ta": "Viết ngân hàng hook — chỉ dùng sau khi ma trận đã duyệt"
+    },
+    {
+      "duong_dan": "prompts/prompt-so-tay.md",
+      "mo_ta": "Viết sổ tay thực thi từng người"
+    },
+    {
+      "duong_dan": "prompts/prompt-phap-che.md",
+      "mo_ta": "Soát cổng 2 trước khi phát sổ tay hay đăng hook"
+    }
+  ],
+  "smoke": [
+    {
+      "go": "CPL kỳ này tăng 40%. Làm hook mới nhé?",
+      "thay": "⛔ <b>Chưa</b> — phải <b>phân rã CPL</b> trước. Xấu ở <code>CPM</code> thì đổi hook là chữa nhầm bệnh; chỉ khi xấu ở <code>CTR</code> mới là việc của nội dung",
+      "hl": true
+    },
+    {
+      "go": "Khách hỏi bảo hành mấy năm, trả lời sao?",
+      "thay": "⛔ <b>Không nêu con số nào.</b> Ba mức đang cùng lưu hành mà chưa có văn bản &rarr; trả lời <i>&ldquo;chính sách bảo hành bằng văn bản&rdquo;</i>",
+      "hl": true
+    },
+    {
+      "go": "Bạn này có 7 hội thoại, xếp loại gì?",
+      "thay": "<b>Chưa đủ mẫu</b> — dưới 10 hội thoại thì ⛔ không cho điểm tổng, ⛔ không phân loại"
+    },
+    {
+      "go": "Ô này 60% hội thoại rơi do trực page, làm nội dung gì?",
+      "thay": "⛔ <b>Không làm nội dung.</b> Đẩy sang nhóm <b>sửa vận hành trước</b> — nội dung không gỡ được lỗi câu trả lời"
+    },
+    {
+      "go": "Chân dung khách lấy ở đâu ra?",
+      "thay": "⛔ <b>Không có bộ dựng sẵn.</b> Mỗi kỳ agent phác họa chân dung <b>từ chính hội thoại đưa vào</b>, mỗi chân dung phải có <b>một nỗi sợ riêng</b> + tên bằng <b>chữ của khách</b> + một <code>HT-nnn</code> làm bằng &mdash; rồi bạn duyệt ở <b>CỔNG 0</b>"
+    },
+    {
+      "go": "Trực page này né giá suốt, trừ điểm chứ?",
+      "thay": "<b>Hỏi lại trước:</b> hệ thống đã cấp bảng giá dịch vụ đó chưa? Chưa cấp thì đó là <b>lỗi hệ</b> &rarr; chấm <code>—</code>, ⛔ không trừ điểm người",
+      "hl": true
+    }
+  ],
+  "smoke_ghi": "<p style=\"margin-bottom:0\"><b>Câu 1, 2 và 6 là ba câu agent sai tự tin nhất.</b> Sai câu 1 thì thiếu <code>id-E</code>; sai câu 2 thì thiếu <code>id-K</code>; sai câu 6 thì thiếu <code>id-F</code>.</p>",
+  "prompt_intro": "Bốn nhóm theo đúng nhịp một kỳ: <b>chạy cả kỳ &rarr; đọc khách &rarr; chấm người &rarr; ra việc</b>. Bấm chip để lọc.",
+  "nhom_prompt": [
+    {
+      "ma": "auto",
+      "ten": "★ AUTO · một câu là xong"
+    },
+    {
+      "ma": "khach",
+      "ten": "Đọc khách"
+    },
+    {
+      "ma": "nguoi",
+      "ten": "Chấm người"
+    },
+    {
+      "ma": "viec",
+      "ten": "Ra việc"
+    }
+  ],
+  "prompts": [
+    {
+      "nhom": "auto",
+      "ten": "Gõ một câu ngắn",
+      "kieu": "chuẩn",
+      "noi_dung": "AUTO — kỳ 19–25/10.\n<đính kèm hội thoại + số ads>"
+    },
+    {
+      "nhom": "auto",
+      "ten": "Có bối cảnh — tốt hơn",
+      "kieu": "★ hay gặp",
+      "noi_dung": "AUTO — kỳ 19–25/10.\n\nĐính kèm:\n · 280 hội thoại Caresoft (Messenger, chuyên khoa Mũi)\n · số ads Facebook cùng kỳ\n · chưa có Google Ads\n\nKỳ trước: 12–18/10, đã có kết quả đính kèm.\nChạy B1→B3 rồi dừng ở cổng duyệt chân dung (CỔNG 0)."
+    },
+    {
+      "nhom": "auto",
+      "ten": "Duyệt ma trận rồi chạy tiếp",
+      "kieu": "sau cổng 1",
+      "noi_dung": "DUYỆT\n\nChạy tiếp B6→B8: chấm điểm trực page, viết ngân hàng hook, sinh sổ tay từng người, rồi soát cổng 2."
+    },
+    {
+      "nhom": "auto",
+      "ten": "Sửa một ô trước khi duyệt",
+      "kieu": "",
+      "noi_dung": "SỬA CD1 — đổi hướng sang nấc A2 thay vì A3, vì tháng này chưa có ca sửa nào được consent quay."
+    },
+    {
+      "nhom": "khach",
+      "ten": "Phác họa chân dung — lượt 1, dừng ở CỔNG 0",
+      "kieu": "★ lõi",
+      "noi_dung": "PHÁC HỌA CHÂN DUNG — kỳ 19–25/10.\n\nGán từng hội thoại phần KHÔNG cần chân dung: nấc 5A (đọc CÂU HỎI ĐẦU TIÊN) · mã O · mức nóng · rào cản · vì sao rơi (đúng một giá trị).\n\nRồi đọc chữ của khách và phác họa 2–7 chân dung CỦA KỲ NÀY. Mỗi chân dung: mã · tên bằng CHỮ CỦA KHÁCH · họ là ai · NỖI SỢ riêng · dấu hiệu nhận ra · hệ số giá trị đơn · ít nhất một HT-nnn làm bằng.\n\nKhông lấy tên dịch vụ làm tên chân dung. Không bê nguyên bộ chân dung của kỳ trước.\n\nDỪNG tại đây, chờ tôi duyệt. Đừng gán chân dung, đừng viết thẻ insight, đừng dựng ma trận."
+    },
+    {
+      "nhom": "khach",
+      "ten": "Duyệt chân dung — lượt 2, gán & viết insight",
+      "kieu": "sau cổng 0",
+      "noi_dung": "DUYỆT CHÂN DUNG.\n\nGán chân dung cho từng hội thoại theo dấu hiệu vừa duyệt. Hội thoại không khớp dấu hiệu nào thì để CD0 — CD0 không phải rác.\nTổng HT các chân dung cộng cả CD0 phải bằng đúng cỡ mẫu phân tích.\n\nRồi viết thẻ insight cho mỗi chân dung ≥5 HT, năm ô: họ là ai · insight · câu hỏi ngầm · tín hiệu nóng · hướng xử lý. Viết bằng CHỮ CỦA KHÁCH, không dùng tính từ marketing.\n\nChân dung dưới 5 HT: không viết thẻ, chỉ ghi vào danh sách quan sát.\n\nCuối cùng dựng ma trận CD×5A hai bảng, đánh dấu ô lỗ hổng và ô đang phí."
+    },
+    {
+      "nhom": "khach",
+      "ten": "Top 10 câu chép nguyên văn",
+      "kieu": "nguyên liệu viết hook",
+      "noi_dung": "Lấy 10 câu hỏi ĐẦU TIÊN hay nhất của khách trong kỳ, nguyên văn, đã ẩn danh, kèm HT-nnn.\nXếp theo mã O. Đây là nguyên liệu tốt nhất để viết hook."
+    },
+    {
+      "nhom": "khach",
+      "ten": "Vì sao khách im sau khi được trả lời",
+      "kieu": "",
+      "noi_dung": "Lọc các hội thoại khách hỏi → được trả lời → im luôn.\nVới mỗi cái: khách hỏi mã O nào, trực page trả lời ra sao, vì sao câu đó không đóng được nỗi sợ.\n\nTách rõ hai loại: thiếu NỘI DUNG (clip chưa có) và thiếu CÂU TRẢ LỜI (người trả lời sai tầng)."
+    },
+    {
+      "nhom": "khach",
+      "ten": "Đọc số ads + phân rã CPL",
+      "kieu": "",
+      "noi_dung": "ĐỌC SỐ ADS — kỳ 19–25/10.\n\nIn chuỗi CPM → CTR → CPI → CPL → CPB → Booking/Lead, mỗi mắt xích kèm mục tiêu và kỳ trước.\nPHÂN RÃ CPL trước khi kết luận, nói rõ thành phần nào xấu đi và đó là việc của ai.\nChưa có mốc thì ghi ⚠ chưa có mốc so sánh, đừng tự đặt."
+    },
+    {
+      "nhom": "nguoi",
+      "ten": "Chấm cả khối",
+      "kieu": "★ lõi",
+      "noi_dung": "CHẤM ĐIỂM TRỰC PAGE — kỳ 19–25/10.\n\nChấm 22 tiêu chí N1.1–N6.3 cho từng hội thoại (✓ / ✗ / —), rồi quy ra điểm và phân loại A/B/C/D.\n\nIn: phân bố · % đạt từng nhóm · cờ đỏ (có nguyên văn + người xử lý) · việc hệ thống · 3 tiêu chí yếu nhất của khối.\n⛔ Bảng điểm có tên chỉ vào sổ tay riêng, không in ra đây."
+    },
+    {
+      "nhom": "nguoi",
+      "ten": "Chấm riêng một người",
+      "kieu": "",
+      "noi_dung": "CHẤM RIÊNG: <tên nhân viên>\n\nLiệt kê từng hội thoại: HT-nnn · chân dung (bỏ trống nếu chưa qua cổng 0) · 22 ô ✓/✗/— · điểm.\nThêm hai câu nguyên văn: một câu bạn ấy làm tốt, một câu làm hỏng."
+    },
+    {
+      "nhom": "nguoi",
+      "ten": "Tự kiểm bốn rào an toàn",
+      "kieu": "★ bắt buộc",
+      "noi_dung": "Soát lại bảng chấm vừa làm theo bốn rào của id-F §7:\n① Mọi ✗ có HT-nnn + nguyên văn chưa? Không có thì đổi thành —\n② Có ô nào là LỖI HỆ mà bị chấm ✗ không?\n③ — có bị cộng vào mẫu số không?\n④ Có bảng xếp hạng cá nhân nào lọt ra ngoài sổ tay riêng không?\n\nLiệt kê từng chỗ sai và sửa lại."
+    },
+    {
+      "nhom": "nguoi",
+      "ten": "Viết sổ tay cho một người",
+      "kieu": "",
+      "noi_dung": "Viết ST-CN cho <tên nhân viên> theo khuôn id-I §3.\n\nĐúng số việc theo loại. Mỗi việc đủ bốn thứ:\n① viết như một HÀNH ĐỘNG, không phải phẩm chất\n② 2 hội thoại của chính người đó, kèm HT-nnn\n③ 2 câu ✅ dùng được ngay + 1 câu ⛔ đang dùng kèm lý do hỏng\n④ cách đo ở kỳ sau: tiêu chí nào, từ bao nhiêu lên bao nhiêu"
+    },
+    {
+      "nhom": "viec",
+      "ten": "Dựng ma trận ưu tiên",
+      "kieu": "cổng 1",
+      "noi_dung": "DỰNG MA TRẬN ƯU TIÊN — kỳ 19–25/10.\n\nBa khối đúng thứ tự ① Tăng HOT → ② Giảm COLD → ③ Tối ưu WARM.\nĐiểm = Σ (lead bỏ lỡ × hệ số giá trị đơn), gắn ⚠ vào mọi ô dùng hệ số.\nTách riêng nhóm 🔧 sửa vận hành trước và 👁 quan sát.\n\nIn xong ghi TRẠNG THÁI: ⏳ CHỜ DUYỆT rồi dừng."
+    },
+    {
+      "nhom": "viec",
+      "ten": "Viết hook từ ô đã duyệt",
+      "kieu": "sau cổng 1",
+      "noi_dung": "Viết 2–4 hook cho mỗi ô đã duyệt, theo khuôn id-H §4.\n\nƯu tiên cách CHÉP NGUYÊN câu hỏi đầu tiên của khách.\nCột TRUY NGƯỢC trống → loại hook đó.\nCột DUYỆT để trống — bác sĩ và pháp chế điền."
+    },
+    {
+      "nhom": "viec",
+      "ten": "Soát pháp chế trước khi phát",
+      "kieu": "★ cổng 2",
+      "noi_dung": "SOÁT CỔNG 2.\n\nSoát bản dưới theo 12 điểm pháp chế của id-K.\nIn ba khối: 🔴 CHẶN (kèm CÂU THAY THẾ dùng được ngay) · 🟡 HỎI LẠI (ai duyệt) · 🟢 SẠCH.\n\nCòn một dòng 🔴 thì nói rõ: bản này chưa phát được."
+    },
+    {
+      "nhom": "viec",
+      "ten": "Việc cần xử lý, có tên người",
+      "kieu": "",
+      "noi_dung": "Rút ra danh sách việc cần xử lý kỳ này.\nMỗi việc đủ: việc · bộ phận · SỞ HỮU (tên thật) · hạn · đo thế nào ở kỳ sau.\n\nViệc nào chưa có tên người thì ghi rõ 'chưa có người' — việc không có tên là việc không ai làm."
+    }
+  ],
+  "prompt_ghi": "<p style=\"margin-bottom:0\"><b>Vì sao mọi prompt chấm điểm đều kèm bước tự kiểm bốn rào?</b> Vì phần dễ sai nhất không phải con số, mà là <i>chấm sai người</i>. Trong dữ liệu thật, phần lớn ô &ldquo;né giá&rdquo; là <b>lỗi hệ thống chưa cấp bảng giá</b> — trừ điểm nhân viên vì chuyện đó là chấm oan.</p>",
+  "dieu_intro": "Ba điều này là phần dễ bỏ qua nhất khi cài, và cũng là phần tốn nhất khi bỏ qua.",
+  "dieu": [
+    {
+      "pre": "Điều 1",
+      "h3": "Phân rã CPL trước, kết luận sau",
+      "html": "<div class=\"note stop\"><p style=\"margin-bottom:0\"><b>CPL tăng có bốn nguyên nhân hoàn toàn khác nhau, và bốn người khác nhau xử.</b> Đổi hook khi vấn đề nằm ở CPM là tốn một kỳ sản xuất để chữa nhầm bệnh.</p></div><div class=\"tw\" style=\"margin-top:4px\"><table style=\"min-width:0\"><tbody><tr class=\"hl\"><td><b>CTR</b> giảm</td><td>✅ Việc của <b>nội dung</b> — hook yếu hoặc bão hoà</td></tr><tr><td><b>CPM</b> tăng</td><td>Adnet — đấu giá, tệp hẹp, mùa cao điểm. ⛔ Đổi hook không cứu được</td></tr><tr><td><b>click→inbox</b> giảm</td><td>Kỹ thuật — điểm đến, lời chào tự động</td></tr><tr class=\"hl\"><td><b>inbox→lead</b> giảm</td><td>★ <b>Trực page</b> — và đây là mắt xích agent này <i>chứng minh được bằng chính hội thoại</i>, không phải suy đoán</td></tr></tbody></table></div><p style=\"margin-bottom:0\">Một agent quảng cáo lúc nào cũng kết luận <i>&ldquo;cần làm thêm content&rdquo;</i> là một agent vô dụng. <b>Dám nói &ldquo;kỳ này không phải lỗi nội dung&rdquo; mới là giá trị.</b></p>"
+    },
+    {
+      "pre": "Điều 2",
+      "h3": "Điểm để kèm cặp, không để kỷ luật",
+      "html": "<div class=\"note stop\"><p><b>Đây là agent đầu tiên trong hệ tạo ra một con số gắn với tên một con người.</b> <code>Agent-QC-Telesale</code> cố tình không chấm điểm số vì bản ghi cuộc gọi hay mất tiếng. Chat thì khác — bằng chứng đầy đủ, mốc thời gian chính xác đến giây — nên chấm điểm được.</p><p style=\"margin-bottom:0\">Nhưng điểm số <b>chỉ hợp lệ khi đủ bốn rào an toàn</b>. Bỏ một cái là sổ này thành công cụ kỷ luật.</p></div><div class=\"tw\"><table style=\"min-width:0\"><tbody><tr><td><b>①</b></td><td>Điểm để <b>phân việc kèm cặp</b>, không phải căn cứ kỷ luật hay xếp hạng công khai</td></tr><tr><td><b>②</b></td><td>Mọi ô <code>✗</code> phải có <code>HT-nnn</code> + <b>nguyên văn câu nói</b>. Không có bằng chứng thì không có điểm trừ</td></tr><tr class=\"hl\"><td><b>③</b></td><td>★ <b>Lỗi hệ không trừ điểm người.</b> Thiếu bảng giá, page không có dịch vụ khách hỏi, ngoài giờ &rarr; chấm <code>—</code> và đẩy lên mục việc hệ thống</td></tr><tr><td><b>④</b></td><td>⛔ Không xếp hạng công khai. Tên + điểm <b>chỉ nằm trong sổ tay riêng</b> của người đó và bản của trưởng nhóm</td></tr></tbody></table></div><p style=\"margin-bottom:0\">Rào ③ hay bị quên nhất. Trong 295 hội thoại chạy thật, tiêu chí <code>N3.2</code> phải chấm <code>—</code> cho <b>toàn bộ</b> mẫu vì hệ thống chưa cấp bảng giá để đối chiếu.</p>"
+    },
+    {
+      "pre": "Điều 3",
+      "h3": "Ba cổng chặn — agent phải dừng, không được tự chạy qua",
+      "html": "<div class=\"tw\"><table style=\"min-width:0\"><tbody><tr class=\"hl\"><td><b>Cổng 0</b><br><span class=\"dim\">trong bước 3</span></td><td>⛔ Không gán chân dung, không viết thẻ insight, không dựng ma trận <b>CD×5A</b> khi <b>bản phác họa chân dung chưa được bạn duyệt</b>.<br><span class=\"dim\">Hệ không có bộ chân dung mặc định. Chia khách sai thì mọi bảng sau sai theo, mà không ai nhìn ra vì bảng nào cũng khớp tổng.</span></td></tr><tr class=\"hl\"><td><b>Cổng 1</b><br><span class=\"dim\">sau bước 5</span></td><td>⛔ Không viết hook, không sinh sổ tay khi <b>ma trận ưu tiên chưa được bạn duyệt</b>.<br><span class=\"dim\">Viết 30 hook cho đúng tệp mà khối không định làm là ném đi một kỳ.</span></td></tr><tr class=\"hl\"><td><b>Cổng 2</b><br><span class=\"dim\">sau bước 7</span></td><td>⛔ Không phát sổ tay, không đăng hook khi còn <b>cờ 🔴 chưa gỡ</b>.<br><span class=\"dim\">Một câu bảo hành sai trong sổ tay sẽ được 20 nhân viên nhắn lại cho 300 khách.</span></td></tr></tbody></table></div><p style=\"margin-bottom:0\">Ở mỗi cổng agent <b>in ra thứ cần duyệt rồi chờ</b>. Nếu nó tự chạy qua, nhắc: <i>&ldquo;Dừng ở cổng 0, in bản phác họa chân dung ra cho tôi duyệt&rdquo;</i>.</p>"
+    }
+  ],
+  "chan_intro": "Agent cài xong là chạy được ngay. Nhưng có <b>sáu việc phải có người cấp dữ liệu</b> thì nó mới dùng được thật — không phải việc của agent.",
+  "chan": [
+    {
+      "muc": "🔴",
+      "viec": "<b>Chính sách bảo hành bằng văn bản</b> — hiện <b>ba mức đang cùng lưu hành</b>: 3 năm (mắt) · 10 năm (mũi, tệp khách đi sửa lại) · trọn đời (nhiều hook đang chạy)",
+      "ai": "Vận hành + pháp chế",
+      "chan": "⚠️ <b>Cấp bách nhất.</b> Trong hội thoại thật <i>đã có nhân viên trả lời khách &ldquo;bên em bảo hành trọn đời&rdquo;</i>. Hệ thống đang để mỗi người tự chọn một trong ba con số, và khách nào chốt theo con số lớn nhất thì đó là cái họ tin đã được hứa. Chặn mã <code>O-07</code> · cờ đỏ <code>CĐ-2</code> · mọi hook chạm bảo hành",
+      "hl": true
+    },
+    {
+      "muc": "🔴",
+      "viec": "<b>Bảng giá hiện hành</b> các dịch vụ ngoài mắt + danh mục quyền lợi từng gói",
+      "ai": "Vận hành / sales",
+      "chan": "Tiêu chí <code>N3.1</code> phải chấm <code>—</code> cho toàn bộ mẫu · hook nấc <code>A4</code> có giá · format <code>L11</code>. ⛔ Và chừng nào chưa có, <b>mọi ô &ldquo;né giá&rdquo; phải coi là lỗi hệ, không trừ điểm nhân viên</b>"
+    },
+    {
+      "muc": "🔴",
+      "viec": "<b>Đối chiếu chứng chỉ hành nghề</b> của bác sĩ đang chạy quảng cáo, kèm văn bản bổ nhiệm chức danh",
+      "ai": "Vận hành + pháp chế",
+      "chan": "Cờ đỏ <code>CĐ-4</code> · mọi nội dung và mọi câu trả lời gắn chức danh, số năm, số ca"
+    },
+    {
+      "muc": "🟠",
+      "viec": "<b>Mẫu sổ tay thực thi chính thức</b>",
+      "ai": "Người dùng",
+      "chan": "Khuôn <code>ST-CN</code> trong <code>id-I §3</code> hiện là <b>bản dựng tạm</b>. Có mẫu thật thì thay, ghi lại ở <code>doc/CHANGELOG.md</code>"
+    },
+    {
+      "muc": "🟠",
+      "viec": "<b>Dữ liệu Google Ads</b> — search terms report",
+      "ai": "Khối Ads",
+      "chan": "Tab Google Ads trống. Khung đọc <b>đã dựng sẵn</b> ở <code>id-B §4</code> + <code>id-E §5</code>, thả file đúng cột vào là chạy ngay"
+    },
+    {
+      "muc": "🟠",
+      "viec": "<b>Mốc mục tiêu TB 30 ngày</b> của từng dịch vụ",
+      "ai": "Khối Ads",
+      "chan": "Mọi chỉ số ads hiện ghi <code>⚠ chưa có mốc so sánh</code>. Agent ⛔ không tự đặt mốc"
+    }
+  ],
+  "chan_ghi": [
+    {
+      "kieu": "stop",
+      "html": "<p style=\"margin-bottom:0\"><b>Ba dòng 🔴 đầu không phải thủ tục nội bộ.</b> Chúng là ba thứ đang <i>phát sinh rủi ro mỗi ngày</i> trong hội thoại thật với khách: một con số bảo hành chưa ai chịu trách nhiệm, một mức giá nhân viên phải tự né, và một chức danh bác sĩ chưa đối chiếu được. Agent nhận diện được cả ba — nhưng nó <b>không đóng được chúng thay người</b>.</p>"
+    }
+  ],
+  "footer": "<b>Agent đọc khách, chấm người, và chọn việc. Bác sĩ duyệt chuyên môn, pháp chế duyệt câu chữ, trưởng nhóm duyệt việc giao cho ai.</b> Điểm số trong agent này dùng để phân việc kèm cặp — không phải căn cứ kỷ luật."
+}

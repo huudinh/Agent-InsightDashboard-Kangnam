@@ -30,4 +30,10 @@ def main():
 
 
 if __name__ == "__main__":
+    # Console Windows mặc định cp1252 — không in nổi ★ ⛔ ✅. Chuyển sang UTF-8.
+    if sys.stdout.encoding and sys.stdout.encoding.lower() not in ("utf-8", "utf8"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
     main()

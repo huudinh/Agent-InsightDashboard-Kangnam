@@ -11,10 +11,10 @@ Theo id-G, dựng ba khối ĐÚNG THỨ TỰ:
 
 ① TĂNG HOT      tập: HT WARM đạt 3/5 tín hiệu (thường thiếu ② mốc thời gian ≤14 ngày
                 hoặc ⑤ đồng ý khung giờ gọi)
-② GIẢM COLD     tập: HT COLD của CD0 + HT tin đầu chỉ hỏi giá / hỏi địa chỉ
+② GIẢM COLD     tập: HT COLD của CD0 (ô dự trữ) + HT tin đầu chỉ hỏi giá / hỏi địa chỉ
 ③ TỐI ƯU WARM   tập: HT WARM đạt 2/5, có mã O rõ
 
-Mỗi dòng một chân dung, các cột:
+Mỗi dòng một chân dung **đã duyệt ở CỔNG 0** (⛔ không tự thêm chân dung ở bước này), các cột:
   CD · tên · HT mới · HT trong tập · có SĐT · hệ số giá trị đơn · ĐIỂM · nấc ·
   hướng nội dung (một câu, cụ thể) · chọn hay không · số thứ tự ưu tiên
 
