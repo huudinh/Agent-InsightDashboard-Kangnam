@@ -1,0 +1,602 @@
+<title>Chân dung khách Kangnam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+/* Hệ token dùng chung với báo cáo KNB hiện hành — cùng một gia đình hình thức,
+   thêm 4 màu bậc A/B/C/D cho khối chấm điểm. */
+:root{
+  --bg:#f5f4f0; --card:#fff; --ink:#1f1e1b; --mute:#6a675f; --line:#e3e0d8; --chip:#efece5;
+  --acc:#7a4f26; --acc-ink:#fff;
+  --ok:#2d7a4c; --mid:#a77b1f; --bad:#b03a3a; --hl:#f3d34a; --hl-ink:#1f1e1b;
+  --hot:#c0462f; --warm:#d39a2c; --cold:#c9c4b8;
+  --bA:#2d7a4c; --bB:#3f6f8f; --bC:#a77b1f; --bD:#b03a3a;
+  --f:"Be Vietnam Pro",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#161614; --card:#1f1f1c; --ink:#ebe9e3; --mute:#a29f97; --line:#34322d; --chip:#2a2925;
+  --acc:#d5a370; --acc-ink:#1a1611;
+  --ok:#5dbd85; --mid:#d8ac55; --bad:#e26d6d; --hl:#d9b93a; --hl-ink:#1a1611;
+  --hot:#e2725c; --warm:#d8ac55; --cold:#4a4740;
+  --bA:#5dbd85; --bB:#7fb0d4; --bC:#d8ac55; --bD:#e26d6d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#161614; --card:#1f1f1c; --ink:#ebe9e3; --mute:#a29f97; --line:#34322d; --chip:#2a2925;
+  --acc:#d5a370; --acc-ink:#1a1611;
+  --ok:#5dbd85; --mid:#d8ac55; --bad:#e26d6d; --hl:#d9b93a; --hl-ink:#1a1611;
+  --hot:#e2725c; --warm:#d8ac55; --cold:#4a4740;
+  --bA:#5dbd85; --bB:#7fb0d4; --bC:#d8ac55; --bD:#e26d6d; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.55 var(--f);margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding-block:20px 64px;
+      padding-left:max(16px,env(safe-area-inset-left,0px));
+      padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font-size:22px;line-height:1.25;margin:0;font-weight:700;text-wrap:balance}
+h2{font-size:16px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);font-weight:600}
+h2.top{margin-top:14px}
+h3{font-size:14.5px;margin:0 0 6px;font-weight:600}
+.head{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;justify-content:space-between}
+.sub{color:var(--mute);font-size:12.5px;margin-top:4px}
+.picker{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mute)}
+.picker select{font:inherit;font-size:14px;color:var(--ink);background:var(--card);
+  border:1px solid var(--line);border-radius:8px;padding:7px 10px;min-width:200px}
+select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+.alerts{display:grid;gap:6px}
+.alert{border:1px solid var(--line);border-left:4px solid var(--mid);background:var(--card);
+  border-radius:8px;padding:8px 12px;font-size:13px}
+.alert.bad{border-left-color:var(--bad)}
+details.fold{margin:8px 0}
+details.fold>summary{cursor:pointer;color:var(--acc);font-size:13.5px;font-weight:600;
+  list-style:none;display:flex;gap:6px;align-items:baseline;padding:4px 0}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::before{content:"▶";font-size:10px;display:inline-block;transition:transform .15s}
+details.fold[open]>summary::before{transform:rotate(90deg)}
+details.fold>summary .cnt{color:var(--mute);font-weight:400;font-size:12.5px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:16px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;
+  display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi .l{color:var(--mute);font-size:12px}
+.kpi b{font-size:22px;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi .s{color:var(--mute);font-size:12px}
+.kpi.canh{border-left:4px solid var(--bad)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.cols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start}
+@media (max-width:860px){.cols2{grid-template-columns:minmax(0,1fr)}}
+
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;background:var(--chip);
+  margin:0 4px 4px 0;white-space:nowrap}
+.tag.wrap{white-space:normal}
+.t-bad{background:var(--bad);color:#fff}.t-mid{background:var(--mid);color:#fff}
+.t-ok{background:var(--ok);color:#fff}.t-acc{background:var(--acc);color:var(--acc-ink)}
+.note{font-size:12px;color:var(--mute)}
+.nb{margin-bottom:8px}
+
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 6px;position:sticky;
+  top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5}
+.tabs button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);
+  color:var(--ink);padding:6px 12px;border-radius:99px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+
+.tbl{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.tbl.flat{border:0;border-radius:0;background:transparent}
+.tbl.flat th{background:transparent}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{background:var(--card);font-weight:600;white-space:nowrap;font-size:12.5px}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.c,th.c{text-align:center}
+tr.pick td{background:color-mix(in srgb,var(--hl) 14%,transparent)}
+.dim{color:var(--mute)}
+
+.bar{display:inline-block;width:70px;height:6px;background:var(--chip);border-radius:3px;
+  vertical-align:middle;margin-left:6px}
+.bar i{display:block;height:6px;border-radius:3px}
+.b-ok{background:var(--ok)}.b-mid{background:var(--mid)}.b-bad{background:var(--bad)}
+.hbar{display:grid;grid-template-columns:minmax(0,1fr) 46px 84px;gap:8px;align-items:center;
+  padding:3px 0;font-size:13px}
+.hbar b{text-align:right;font-variant-numeric:tabular-nums}
+.hbar .bar{width:84px;margin:0}
+
+.mix{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr) 96px;gap:8px;align-items:center;
+  font-size:12.5px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.mix:last-of-type{border-bottom:0}
+.mix .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mix .stk{display:flex;height:12px;border-radius:4px;overflow:hidden;background:var(--chip)}
+.mix .stk i{display:block;height:12px}
+.mix .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--mute);white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--mute);margin:4px 0 8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.i-hot{background:var(--hot)}.i-warm{background:var(--warm)}.i-cold{background:var(--cold)}
+
+/* thẻ vấn đề — sọc mức nặng bên trái, không phải thẻ bo tròn giống nhau */
+.issue{display:grid;gap:6px;align-content:start;border-left:4px solid var(--line)}
+.issue.sev-nghiem_trong{border-left-color:var(--bad)}
+.issue.sev-nang{border-left-color:var(--mid)}
+.issue .rank{font-size:12px;color:var(--mute);font-weight:600}
+
+/* chấm điểm */
+.bands{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.band{border:1px solid var(--line);border-top:4px solid var(--line);border-radius:8px;
+  padding:10px 12px;background:var(--card)}
+.band b{font-size:26px;font-variant-numeric:tabular-nums;display:block;line-height:1.1}
+.band.A{border-top-color:var(--bA)}.band.B{border-top-color:var(--bB)}
+.band.C{border-top-color:var(--bC)}.band.D{border-top-color:var(--bD)}
+.band .l{font-size:12px;color:var(--mute)}
+.crit{display:grid;grid-template-columns:52px minmax(0,1fr) 54px 84px;gap:8px;align-items:center;
+  padding:4px 0;border-bottom:1px dashed var(--line);font-size:12.5px}
+.crit:last-child{border-bottom:0}
+.crit .ma{font-weight:600;font-variant-numeric:tabular-nums}
+.crit .v{text-align:right;font-variant-numeric:tabular-nums}
+.crit .bar{width:84px;margin:0}
+.lock{padding:22px 16px;text-align:center;color:var(--mute);border:1px dashed var(--line);
+  border-radius:10px;background:var(--card)}
+.empty{padding:28px 16px;text-align:center;color:var(--mute)}
+.loading{padding:60px 0;text-align:center;color:var(--mute)}
+ul.plain,ol.plain{margin:0;padding-left:18px;display:grid;gap:5px}
+.sub2{font-size:12.5px;color:var(--mute);font-weight:600;margin:10px 0 4px}
+.ev{font-size:12px;color:var(--mute);border-left:3px solid var(--line);padding-left:8px;
+  margin:4px 0;overflow-wrap:anywhere}
+.ins .lab{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);
+  font-weight:600;margin-top:6px}
+.ins p{margin:0;font-size:13.5px}
+@media (max-width:600px){
+  h1{font-size:19px}.kpi b{font-size:19px}.picker,.picker select{width:100%;min-width:0}
+  .mix{grid-template-columns:minmax(0,110px) minmax(0,1fr) 80px}
+  .crit{grid-template-columns:46px minmax(0,1fr) 46px 60px}.crit .bar{width:60px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap" id="app"><div class="loading">Đang tải báo cáo…</div></div>
+
+<!-- Bản một kỳ (dự phòng): tools/id.py có thể nhúng JSON vào đây.
+     Để trống thì trang đọc data/index.json — link cố định, xem được nhiều kỳ.
+     Schema: insight-dashboard-kangnam/1 -->
+<script type="application/json" id="kn-data"></script>
+
+<script>
+(function(){
+"use strict";
+var app=document.getElementById('app');
+
+/* ───────── định dạng ───────── */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function num(v,d){return v==null||v===''?'—':Number(v).toLocaleString('vi-VN',
+  {maximumFractionDigits:d==null?1:d,minimumFractionDigits:0})}
+function pct(v){return v==null?'—':num(v,1)+'%'}
+function k(v){return v==null?'<span class="dim">—</span>':num(Math.round(v/1000),0)}
+function find(a,key,val){if(!a)return null;for(var i=0;i<a.length;i++)if(a[i][key]===val)return a[i];return null}
+function objList(o){if(!o)return[];if(Array.isArray(o))return o;
+  return Object.keys(o).map(function(x){return{nhan:x,so:o[x]}}).sort(function(a,b){return (b.so||0)-(a.so||0)})}
+
+function delta(cur,prev,kieu,tot){
+  if(cur==null||prev==null)return '<span class="dim" style="font-size:12px">kỳ trước —</span>';
+  var x=cur-prev; if(Math.abs(x)<1e-9)return '<span class="dim" style="font-size:12px">= kỳ trước</span>';
+  var tot_hon=(tot==='thap')?x<0:x>0;
+  var v=kieu==='pct'?num(Math.abs(x),1)+' điểm':num(Math.abs(x),0);
+  return '<span style="font-size:12px;font-variant-numeric:tabular-nums;color:'+
+    (tot?(tot_hon?'var(--ok)':'var(--bad)'):'var(--mute)')+'">'+(x>0?'▲':'▼')+' '+v+'</span>';
+}
+function barCls(v,chuan){if(v==null)return 'b-mid';var c=chuan||70;
+  return v>=c?'b-ok':(v>=c*0.6?'b-mid':'b-bad')}
+function bar(v,chuan){if(v==null)return '';
+  return '<span class="bar" aria-hidden="true"><i class="'+barCls(v,chuan)+
+    '" style="width:'+Math.max(0,Math.min(100,v))+'%"></i></span>'}
+function t(rows,head,cls){
+  return '<div class="tbl'+(cls?' '+cls:'')+'"><table><thead><tr>'+head.map(function(h){
+    return '<th'+(h.c?' class="'+h.c+'"':'')+'>'+esc(h.l)+'</th>'}).join('')+'</tr></thead><tbody>'+
+    (rows.length?rows.join(''):'<tr><td colspan="'+head.length+'" class="empty">Không có dữ liệu kỳ này</td></tr>')+
+    '</tbody></table></div>'}
+function td(v,c){return '<td'+(c?' class="'+c+'"':'')+'>'+v+'</td>'}
+function hbars(list,tong){
+  list=objList(list); if(!list.length)return '<div class="note">—</div>';
+  var mx=tong||Math.max.apply(null,list.map(function(x){return x.so||0}))||1;
+  return list.map(function(x){
+    return '<div class="hbar"><span>'+esc(x.nhan)+'</span><b>'+num(x.so,0)+
+      '</b><span class="bar" aria-hidden="true"><i class="b-mid" style="width:'+
+      ((x.so||0)/mx*100)+'%"></i></span></div>'}).join('')}
+function fold(title,cnt,body,open){
+  return '<details class="fold"'+(open?' open':'')+'><summary>'+esc(title)+
+    (cnt?' <span class="cnt">'+esc(cnt)+'</span>':'')+'</summary><div>'+body+'</div></details>'}
+function bullets(a){return '<ul class="plain">'+(a||[]).map(function(x){
+  return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'}
+
+var SEV={nghiem_trong:['nghiêm trọng','t-bad'],nang:['nặng','t-mid'],nhe:['nhẹ','']};
+var NHAN={da_do:['đã đo','t-ok'],gia_thuyet:['giả thuyết','t-mid']};
+function chip(map,key){var x=map[key]||[key,''];return key?'<span class="tag '+x[1]+'">'+esc(x[0])+'</span>':''}
+
+function vanDe(arr,title,top){
+  arr=arr||[];
+  return '<h2'+(top?' class="top"':'')+'>'+esc(title||'Vấn đề cốt lõi')+'</h2>'+
+    (arr.length?'<div class="g3">'+arr.map(function(x,i){
+      var s=SEV[x.muc]||['',''];
+      return '<div class="card issue sev-'+esc(x.muc)+'"><div class="rank">#'+(i+1)+
+        (x.anh_huong!=null?' · ảnh hưởng '+num(x.anh_huong,0)+' HT':'')+'</div><div>'+
+        '<span class="tag '+s[1]+'">'+s[0]+'</span>'+chip(NHAN,x.nhan_do)+'</div><h3>'+esc(x.tieu_de)+'</h3>'+
+        '<div><b>Số liệu:</b> '+esc(x.so_lieu)+'</div><div><b>Đề xuất:</b> '+esc(x.de_xuat)+'</div>'+
+        '<div class="note">Người làm: '+esc(x.so_huu||'—')+'</div></div>'}).join('')+'</div>'
+     :'<div class="card empty">Agent chưa ghi vấn đề cốt lõi cho khối này</div>')}
+
+/* ───────── đầu trang ───────── */
+function header(D,ky_ds,id){
+  var ky=D.ky||{},sel='';
+  if(ky_ds&&ky_ds.length>1)sel='<label class="picker" for="ky-select">Kỳ báo cáo<select id="ky-select">'+
+    ky_ds.map(function(p){return '<option value="'+esc(p.id)+'"'+(p.id===id?' selected':'')+'>'+
+      esc(p.nhan)+'</option>'}).join('')+'</select></label>';
+  var meta=['Kỳ '+esc(ky.nhan||''),ky.tao?'tạo '+esc(ky.tao):'',ky.nguon?'nguồn '+esc(ky.nguon):'']
+    .filter(Boolean).join(' · ');
+  return '<div class="head"><div><h1>Chân dung khách &amp; chất lượng trực page · Kangnam</h1>'+
+    '<div class="sub">'+meta+'<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát</div>'+
+    '</div>'+sel+'</div>'}
+
+function canhBao(D){
+  var a=(D.canh_bao||[]).map(function(x){
+    return '<div class="alert'+(x.muc==='bad'?' bad':'')+'">'+esc(x.text||x)+'</div>'});
+  return a.length?fold(a.length+' lưu ý dữ liệu','','<div class="alerts">'+a.join('')+'</div>'):''}
+
+function theTong(D){
+  var P=(D.truoc&&D.truoc.the_tong)||[];
+  return '<div class="kpis">'+(D.the_tong||[]).map(function(x){
+    var p=find(P,'id',x.id);
+    var v=x.kieu==='pct'?pct(x.gia_tri):num(x.gia_tri,0);
+    var canh=x.id==='nong_chua_sdt'&&x.gia_tri>0;
+    return '<div class="kpi'+(canh?' canh':'')+'"><span class="l">'+esc(x.nhan)+'</span><b>'+v+'</b>'+
+      '<span class="s">'+esc(x.phu||'')+'</span>'+delta(x.gia_tri,p?p.gia_tri:null,x.kieu,x.tot)+'</div>'
+  }).join('')+'</div>'}
+
+/* ───────── ① Phễu inbox ───────── */
+function tabPheu(D){
+  var P=D.pheu||{},N=P.nhiet||{},n=P.so_ht_phan_tich||0;
+  var h=vanDe(P.van_de,'Vấn đề cốt lõi cần xử ngay',true);
+
+  var nx=P.nhiet_x_sdt||[];
+  var trai='<div class="card"><h3>Mức nóng × trạng thái SĐT</h3>'+
+    '<div class="note nb">HOT = 4–5 tín hiệu · WARM = 2–3 · COLD = 0–1 (id-D §2)</div>'+
+    t(nx.map(function(r){
+      var nong=(r.muc!=='COLD'&&(r.chua||0)>0);
+      return '<tr>'+td('<b>'+esc(r.muc)+'</b>')+
+        td(nong?'<b style="color:var(--bad)">'+num(r.chua,0)+'</b>':num(r.chua,0),'n')+
+        td(num(r.co,0),'n')+td(num((r.chua||0)+(r.co||0),0),'n')+'</tr>'}),
+      [{l:'Mức'},{l:'Chưa có SĐT',c:'n'},{l:'Có SĐT',c:'n'},{l:'Tổng',c:'n'}],'flat')+
+    '<div class="note" style="margin:6px 0 12px">Ô HOT/WARM chưa có SĐT (đỏ) = lead nóng chưa vào tay telesale.</div>'+
+    '<h3>Năm tín hiệu nóng — số HT đạt</h3>'+hbars(P.tin_hieu,n)+
+    '<div class="note">② mốc thời gian ≤14 ngày và ⑤ đồng ý khung giờ gọi là hai tín hiệu hiếm nhất — '+
+    'đó là lý do HOT luôn ít, và là hai việc sửa được ngay.</div></div>';
+
+  var phai='<div class="card"><h3>Vì sao khách rơi</h3>'+
+    '<div class="note nb">Mỗi hội thoại đúng MỘT giá trị — tổng = '+num(n,0)+' HT.</div>'+
+    hbars(P.nguyen_nhan_roi,n)+
+    '<h3 style="margin-top:14px">Rào cản quan sát được</h3>'+
+    '<div class="note nb">Một hội thoại có thể mang nhiều rào cản.</div>'+hbars(P.rao_can)+'</div>';
+  h+='<h2>Mức nóng · vì sao rơi · rào cản</h2><div class="cols2">'+trai+phai+'</div>';
+
+  var mo=(P.ma_o||[]).filter(function(x){return x.so});
+  h+='<h2>Mười hai mã phản đối</h2>'+
+    '<div class="note nb">«(chưa nêu)» = khách chưa nói đủ để có phản đối — ⛔ không gộp với O-00. '+
+    'O-00 vượt 10% mẫu là tín hiệu phải bổ sung từ điển (id-D §1).</div>'+
+    t(mo.map(function(r){
+      var canh=(r.ma==='O-00'&&r.pct>10);
+      return '<tr'+(canh?' class="pick"':'')+'>'+td('<span class="tag">'+esc(r.ma)+'</span>')+
+        td(esc(TEN_O[r.ma]||''))+td(num(r.so,0),'n')+td(pct(r.pct)+bar(r.pct,20),'n')+
+        td(canh?'<span class="tag t-mid">vượt ngưỡng 10% — bổ sung từ điển</span>':
+           (CHAN_O[r.ma]?'<span class="tag t-bad">'+CHAN_O[r.ma]+'</span>':''))+'</tr>'}),
+      [{l:'Mã'},{l:'Tên'},{l:'Số HT',c:'n'},{l:'% mẫu',c:'n'},{l:'Ghi chú'}]);
+  return h}
+
+var TEN_O={'O-01':'Giá & phát sinh','O-02':'Sợ kết quả xấu hơn','O-03':'Sợ lộ sửa',
+  'O-04':'Đau · sưng · nghỉ việc','O-05':'Nghi tay nghề bác sĩ','O-06':'Nghi địa chỉ, uy tín',
+  'O-07':'Bảo hành & trách nhiệm','O-08':'Không biết mình cần gì','O-09':'Thời gian · khoảng cách',
+  'O-10':'So sánh đối thủ','O-11':'Người nhà phản đối','O-12':'Bệnh nền',
+  'O-00':'Không xếp được','(chưa nêu)':'Khách chưa nêu phản đối nào'};
+var CHAN_O={'O-07':'⛔ không được tự trả lời','O-12':'⛔ không được tự trả lời'};
+
+/* ───────── ② Chân dung & insight ───────── */
+var TEN_NAC={A1:'A1 · AWARE',A2:'A2 · APPEAL',A3:'A3 · ASK',A4:'A4 · ACT',A5:'A5 · ADVOCATE'};
+function tabChanDung(D){
+  var C=D.chan_dung||{},tep=C.tep||[],prev=(D.truoc&&D.truoc.tep)||[];
+  var tong=tep.reduce(function(s,r){return s+(r.ht||0)},0);
+  var h='<h2 class="top">Cơ cấu nóng theo chân dung</h2>'+
+    '<div class="card"><div class="legend"><span><i class="i-hot"></i>HOT</span>'+
+    '<span><i class="i-warm"></i>WARM</span><span><i class="i-cold"></i>COLD</span>'+
+    '<span>· độ dài thanh theo số HT</span></div>';
+  var mx=Math.max.apply(null,tep.map(function(r){return r.ht||0}).concat([1]));
+  h+=tep.map(function(r){
+    var tt=(r.hot||0)+(r.warm||0)+(r.cold||0)||1,wd=Math.max(6,(r.ht||0)/mx*100);
+    return '<div class="mix"><span class="nm" title="'+esc(r.ten)+'"><b>'+esc(r.cd)+'</b> '+esc(r.ten)+
+      '</span><span><span class="stk" style="width:'+wd+'%" aria-label="HOT '+r.hot+', WARM '+r.warm+
+      ', COLD '+r.cold+'"><i class="i-hot" style="width:'+(r.hot/tt*100)+'%"></i>'+
+      '<i class="i-warm" style="width:'+(r.warm/tt*100)+'%"></i>'+
+      '<i class="i-cold" style="width:'+(r.cold/tt*100)+'%"></i></span></span>'+
+      '<span class="v">'+num(r.ht,0)+' · '+num(r.hot,0)+'/'+num(r.warm,0)+'/'+num(r.cold,0)+
+      '</span></div>'}).join('')+'<div class="note" style="margin-top:6px">Số bên phải: HT · HOT/WARM/COLD.</div></div>';
+
+  h+='<h2>Chỉ số theo chân dung</h2>'+t(tep.map(function(r){
+    var ps=r.ht?r.co_sdt/r.ht*100:null,pv=find(prev,'cd',r.cd),pvs=(pv&&pv.ht)?pv.co_sdt/pv.ht*100:null;
+    return '<tr>'+td('<b>'+esc(r.cd)+'</b>')+td(esc(r.ten))+td(num(r.ht,0),'n')+
+      td(num(r.hot,0),'n')+td(num(r.warm,0),'n')+td(num(r.cold,0),'n')+td(num(r.co_sdt,0),'n')+
+      td(pct(ps)+bar(ps,40),'n')+td(delta(ps,pvs,'pct','cao'))+td(num(r.chot_lich,0),'n')+
+      td(num(r.bo_1_luot,0),'n')+td(num(r.roi_truc,0),'n')+'</tr>'}),
+    [{l:'Mã'},{l:'Chân dung'},{l:'Số HT',c:'n'},{l:'HOT',c:'n'},{l:'WARM',c:'n'},{l:'COLD',c:'n'},
+     {l:'Có SĐT',c:'n'},{l:'% có SĐT',c:'n'},{l:'so kỳ trước'},{l:'Chốt lịch',c:'n'},
+     {l:'Bỏ 1 lượt',c:'n'},{l:'Rơi do trực page',c:'n'}]);
+
+  var nac=C.nac||{},tn=Object.keys(nac).reduce(function(s,x){return s+nac[x]},0);
+  h+='<h2>Phân bố nấc 5A</h2><div class="card">'+
+    hbars(Object.keys(TEN_NAC).map(function(a){return{nhan:TEN_NAC[a],so:nac[a]||0}}),tn)+
+    '<div class="note" style="margin-top:6px">Trên 60% hội thoại rơi A3 nghĩa là phễu thiếu nội dung '+
+    'A1–A2 — tệp mới không vào. Kết luận này không nhìn ra được từ số liệu ads.</div></div>';
+
+  var ins=C.insight||[];
+  h+='<h2>Insight từng chân dung</h2>';
+  if(!ins.length) h+='<div class="lock">Agent chưa viết thẻ insight. Đây là phần <b>đọc hiểu</b>, '+
+    'script không làm thay — xem <code>id-C §5</code>.</div>';
+  else h+='<div class="g2">'+ins.map(function(x){
+    var r=find(tep,'cd',x.cd)||{};
+    return '<div class="card ins"><div class="note">'+esc(x.cd)+(x.nhom?' · '+esc(x.nhom):'')+'</div>'+
+      '<h3>'+esc(x.ten)+'</h3><div class="note">'+num(r.ht,0)+' HT · '+num(r.hot,0)+' HOT · '+
+      num(r.warm,0)+' WARM · '+num(r.co_sdt,0)+' có SĐT</div>'+
+      [['Họ là ai',x.ho_la_ai],['Insight',x.insight],['Câu hỏi ngầm',x.cau_hoi_ngam],
+       ['Tín hiệu nóng',x.tin_hieu_nong],['Hướng xử lý',x.huong_xu_ly]].map(function(s){
+        return s[1]?'<div class="lab">'+s[0]+'</div><p>'+esc(s[1])+'</p>':''}).join('')+
+      (x.trich?'<div class="ev">'+esc(x.trich)+'</div>':'')+'</div>'}).join('')+'</div>';
+  return h}
+
+/* ───────── ③ Chấm điểm nhân viên ───────── */
+var TEN_CD_DO={'CĐ-1':'Cam kết kết quả','CĐ-2':'Nêu con số bảo hành','CĐ-3':'Trả lời câu bệnh nền',
+  'CĐ-4':'Nói quá về bác sĩ','CĐ-5':'Lộ thông tin khách khác','CĐ-6':'Dìm đối thủ / gắt với khách'};
+function tabNhanVien(D){
+  var V=D.nhan_vien||{},pb=V.phan_bo||{};
+  var h='<h2 class="top">Phân bố nhân viên trực page</h2><div class="bands">'+
+    ['A','B','C','D'].map(function(b){
+      return '<div class="band '+b+'"><span class="l">Loại '+b+'</span><b>'+num(pb[b]||0,0)+'</b>'+
+        '<span class="l">'+({A:'≥85 điểm',B:'70–84',C:'55–69',D:'<55'})[b]+'</span></div>'}).join('')+
+    '<div class="band"><span class="l">Chưa đủ mẫu</span><b>'+num(pb['chưa đủ mẫu']||0,0)+
+    '</b><span class="l">dưới 10 HT</span></div></div>'+
+    '<div class="note" style="margin-top:8px">'+esc(V.ghi_chu||'')+'</div>';
+
+  h+='<h2>Sáu nhóm tiêu chí — % đạt của cả khối</h2>'+
+    '<div class="note nb">% đạt = ✓ ÷ (✓ + ✗). Ô «—» (không phát sinh, hoặc lỗi hệ) ⛔ không tính là trượt.</div>'+
+    '<div class="g2">'+(V.nhom||[]).map(function(g){
+      return '<div class="card"><h3>'+esc(g.ma)+' · '+esc(g.ten)+
+        ' <span class="dim" style="font-weight:400">('+num(g.diem_toi_da,0)+' điểm)</span></h3>'+
+        '<div class="crit" style="border-bottom:1px solid var(--line);color:var(--mute)">'+
+        '<span class="ma">Mã</span><span>Tiêu chí</span><span class="v">đ</span><span class="v">% đạt</span></div>'+
+        (g.tieu_chi||[]).map(function(c){
+          return '<div class="crit"><span class="ma">'+esc(c.ma)+'</span><span>'+esc(c.ten)+
+            (c.khong_ap_dung?'<div class="note">'+num(c.khong_ap_dung,0)+' HT không áp dụng</div>':'')+
+            '</span><span class="v">'+num(c.diem,0)+'</span><span class="v">'+pct(c.pct_dat)+
+            bar(c.pct_dat,70)+'</span></div>'}).join('')+'</div>'}).join('')+'</div>';
+
+  var cd=V.co_do||[];
+  h+='<h2>Cờ đỏ</h2>';
+  if(!cd.length) h+='<div class="card empty">Không có cờ đỏ trong kỳ</div>';
+  else h+=t(cd.map(function(r){
+    return '<tr>'+td('<span class="tag t-bad">'+esc(r.ma)+'</span>')+td(esc(TEN_CD_DO[r.ma]||''))+
+      td(esc(r.nguoi))+td('<span class="dim">'+esc(r.ht)+'</span>')+
+      td('<span class="ev">'+esc(r.trich||'')+'</span>')+td(esc(r.nguoi_xu_ly||'—'))+'</tr>'}),
+    [{l:'Mã'},{l:'Cờ đỏ'},{l:'Nhân viên'},{l:'Hội thoại'},{l:'Trích'},{l:'Người xử lý'}]);
+
+  var vh=V.viec_he_thong||[];
+  if(vh.length)h+='<h2>Việc hệ thống — ⛔ không trừ điểm nhân viên</h2>'+
+    t(vh.map(function(r){return '<tr>'+td(esc(r.nguyen_nhan))+td(num(r.so_ht,0),'n')+
+      td(esc(r.so_huu||'—'))+'</tr>'}),[{l:'Nguyên nhân'},{l:'Số HT',c:'n'},{l:'Sở hữu'}]);
+
+  h+='<h2>Bảng điểm cá nhân</h2><div class="lock">⛔ Bảng điểm có tên <b>không hiển thị ở đây</b>. '+
+    'Nó chỉ nằm trong sổ tay riêng của từng người và bản của trưởng nhóm — rào an toàn ④ của '+
+    '<code>id-F §7</code>.<br><span class="note">Đã chấm '+num((V.ca_nhan||[]).length,0)+
+    ' nhân viên · xem <code>out/cham-hoi-thoai.csv</code> và <code>out/so-tay/</code>.</span></div>';
+  return h}
+
+/* ───────── ④ Marketing Facebook ───────── */
+function tabFacebook(D){
+  var F=D.facebook||{};
+  if(F.co_du_lieu===false||!F.chuoi)
+    return '<h2 class="top">Quảng cáo Facebook</h2><div class="card empty">'+
+      esc(F.ghi_chu||'⚠ chưa có dữ liệu quảng cáo Facebook')+'</div>';
+  var P=(D.truoc&&D.truoc.chuoi)||[];
+  var h='<h2 class="top">Chuỗi chỉ số</h2><div class="note nb">'+
+    'CPM → CTR → CPI → CPL → CPB → Booking/Lead. ⛔ Chưa phân rã CPL thì chưa kết luận lỗi nội dung '+
+    '(id-E §1). Nguồn: '+esc(F.nguon||'—')+'</div><div class="kpis">'+
+    F.chuoi.map(function(c){
+      var pv=find(P,'ma',c.ma);
+      var v=c.kieu==='pct'?pct(c.gia_tri):(c.gia_tri==null?'—':num(c.gia_tri,0)+' đ');
+      return '<div class="kpi"><span class="l">'+esc(c.nhan)+'</span><b>'+v+'</b><span class="s">'+
+        (c.muc_tieu==null?'⚠ chưa có mốc so sánh':'mục tiêu '+num(c.muc_tieu,0))+'</span>'+
+        delta(c.gia_tri,pv?pv.gia_tri:(c.ky_truoc!=null?c.ky_truoc:null),c.kieu,c.tot)+'</div>'}).join('')+'</div>';
+
+  var dg={tot:['tốt','t-ok'],kem:['kém','t-bad'],giu:['giữ','']};
+  h+='<h2>Đánh giá từng nội dung</h2>'+
+    '<div class="note nb">🟢 TỐT = CTR ≥ trung vị và CPL ≤ trung vị → nhân bản · '+
+    '🔴 KÉM → giữ ý bỏ hook, hoặc bỏ hẳn (id-E §4). Tiền: nghìn đồng.</div>'+
+    t((F.dong||[]).map(function(r){
+      var d=dg[r.danh_gia]||[r.danh_gia||'—',''];
+      return '<tr>'+td('<b>'+esc(r.noi_dung||r.ten)+'</b>')+td(k(r.chi),'n')+td(num(r.inbox,0),'n')+
+        td(num(r.deal,0),'n')+td(num(r.bk,0),'n')+td(k(r.cpi),'n')+td(k(r.cpl),'n')+td(k(r.cpb),'n')+
+        td('<span class="tag '+d[1]+'">'+esc(d[0])+'</span>')+'</tr>'}),
+      [{l:'Nội dung'},{l:'Chi',c:'n'},{l:'Inbox',c:'n'},{l:'Lead',c:'n'},{l:'Booking',c:'n'},
+       {l:'CPI',c:'n'},{l:'CPL',c:'n'},{l:'CPB',c:'n'},{l:'Đánh giá'}]);
+  if((F.van_de||[]).length)h+=vanDe(F.van_de,'Vấn đề trọng tâm');
+  return h}
+
+/* ───────── ⑤ Google Ads ───────── */
+function tabGoogle(D){
+  var G=D.google||{};
+  if(G.co_du_lieu===false||!G.chuoi)
+    return '<h2 class="top">Google Ads</h2><div class="lock">'+esc(G.ghi_chu||'⚠ chưa có dữ liệu Google Ads')+
+      '<div class="note" style="margin-top:10px">Khung đọc đã dựng sẵn ở <code>id-B §4</code> và '+
+      '<code>id-E §5</code>. Thả file đúng cột vào <code>du-lieu/google-ads.csv</code> là chạy được ngay.<br>'+
+      'Ba câu Google trả lời được mà Facebook không: khách gõ chữ gì · truy vấn nào tốn tiền không ra số · '+
+      'truy vấn nào có người tìm mà Kangnam chưa có trang.</div></div>';
+  return '<h2 class="top">Google Ads</h2>'+t((G.search_term||[]).map(function(r){
+    return '<tr>'+td(esc(r.tu_khoa))+td(k(r.chi),'n')+td(num(r.click,0),'n')+
+      td(num(r.chuyen_doi,0),'n')+td('<span class="tag">'+esc(r.ma_o||'—')+'</span>')+
+      td(esc(r.quyet_dinh||''))+'</tr>'}),
+    [{l:'Truy vấn'},{l:'Chi',c:'n'},{l:'Click',c:'n'},{l:'Chuyển đổi',c:'n'},{l:'Mã O'},{l:'Quyết định'}])}
+
+/* ───────── ⑥ Ma trận ưu tiên ───────── */
+function tabMaTran(D){
+  var M=D.ma_tran||{};
+  var duyet=M.trang_thai==='da_duyet';
+  var h='<h2 class="top">Ma trận ưu tiên sản xuất nội dung</h2><div class="card">'+
+    (duyet?'<span class="tag t-ok">Đã duyệt</span> '+esc(M.duyet_boi||'')+
+      (M.duyet_luc?' · '+esc(M.duyet_luc):'')
+     :'<span class="tag t-mid">⏳ Chờ người dùng duyệt</span> Hook và sổ tay chỉ được viết sau khi ma trận được duyệt — cổng 1 của <code>id-A §3</code>.')+
+    (M.cach_xep?'<div class="note" style="margin-top:8px">'+esc(M.cach_xep)+'</div>':'')+'</div>';
+
+  if(!(M.khoi||[]).length)
+    return h+'<div class="lock" style="margin-top:12px">Agent chưa dựng ma trận. '+
+      'Chạy <code>AUTO</code> rồi xem lại trang này.</div>';
+
+  (M.khoi||[]).forEach(function(B){
+    h+='<h2>'+esc(B.ten)+'</h2><div class="note nb">'+esc(B.muc_tieu||'')+
+      (B.tap_lead?' · tập: '+esc(B.tap_lead):'')+'</div>'+
+      t((B.dong||[]).map(function(r){
+        return '<tr'+(r.chon?' class="pick"':'')+'>'+
+          td(r.chon?'<b>'+esc(r.uu_tien)+'</b>':'<span class="dim">—</span>','c')+
+          td('<b>'+esc(r.cd)+'</b>')+td(esc(r.ten))+td(num(r.ht,0),'n')+td(num(r.lead,0),'n')+
+          td(num(r.co_sdt,0),'n')+td('<span class="note">'+esc(r.he_so)+'</span>')+
+          td('<b>'+num(r.diem,0)+'</b>','n')+td(r.nac?'<span class="tag t-acc">'+esc(r.nac)+'</span>':'')+
+          td(esc(r.huong||r.ly_do||''))+'</tr>'}),
+        [{l:'Ưu tiên',c:'c'},{l:'Mã'},{l:'Chân dung'},{l:'HT',c:'n'},{l:'Trong tập',c:'n'},
+         {l:'Có SĐT',c:'n'},{l:'Hệ số'},{l:'Điểm',c:'n'},{l:'Nấc'},{l:'Hướng nội dung'}])});
+
+  if((M.sua_van_hanh||[]).length)
+    h+='<h2>🔧 Sửa vận hành trước — ⛔ chưa làm nội dung</h2>'+
+      '<div class="note nb">Ô có ≥50% HT rơi do trực page. Nội dung không gỡ được lỗi câu trả lời.</div>'+
+      t(M.sua_van_hanh.map(function(r){
+        return '<tr>'+td('<b>'+esc(r.cd)+'</b>')+td(esc(r.ten))+td(num(r.ht,0),'n')+
+          td(num(r.truc,0),'n')+td(esc(r.ly_do))+'</tr>'}),
+        [{l:'Mã'},{l:'Chân dung'},{l:'HT',c:'n'},{l:'Rơi do trực page',c:'n'},{l:'Lý do'}]);
+
+  if((M.quan_sat||[]).length)
+    h+='<div class="card" style="margin-top:12px"><h3>👁 Quan sát — dưới 5 HT</h3>'+
+      M.quan_sat.map(function(r){return '<span class="tag">'+esc(r.cd)+' · '+esc(r.ten)+
+        ' · '+num(r.ht,0)+' HT</span>'}).join(' ')+'</div>';
+  return h}
+
+/* ───────── ⑦ Ngân hàng hook ───────── */
+function tabHook(D){
+  var H=D.hook||{},M=D.ma_tran||{};
+  if(M.trang_thai!=='da_duyet'||!(H.dong||[]).length)
+    return '<h2 class="top">Ngân hàng hook</h2><div class="lock">'+
+      esc(H.ghi_chu||'chưa viết — ma trận chưa được duyệt')+
+      '<div class="note" style="margin-top:10px">Mỗi hook phải gắn 1 chân dung · 1 nấc · 1 mã O · '+
+      '1 HT truy ngược · 3 format. Cột <b>Duyệt</b> do bác sĩ và pháp chế điền, ⛔ agent không tự điền '+
+      '(<code>id-H §4</code>).</div></div>';
+  return '<h2 class="top">Ngân hàng hook — '+num(H.dong.length,0)+' hook</h2>'+
+    t(H.dong.map(function(r){
+      return '<tr>'+td('<span class="tag">'+esc(r.ma)+'</span>')+td(esc(r.cd))+td(esc(r.nac))+
+        td('<span class="tag">'+esc(r.ma_o)+'</span>')+td('<b>'+esc(r.hook)+'</b>')+
+        td(esc(r.loai_hook))+td((r.fm||[]).map(function(f){return '<span class="tag">'+esc(f)+
+          '</span>'}).join(''))+td(esc(r.cta))+
+        td(r.truy_nguoc?'<span class="dim">'+esc(r.truy_nguoc)+'</span>':
+           '<span class="tag t-bad">trống — loại</span>')+
+        td(r.co_phap_che&&r.co_phap_che!=='🟢'?'<span class="tag t-bad">'+esc(r.co_phap_che)+
+           '</span>':'<span class="tag t-ok">sạch</span>')+
+        td(r.duyet?esc(r.duyet):'<span class="dim">chờ BS + pháp chế</span>')+'</tr>'}),
+      [{l:'Mã'},{l:'CD'},{l:'Nấc'},{l:'Mã O'},{l:'Hook 3 giây'},{l:'Loại'},{l:'Format'},{l:'CTA'},
+       {l:'Truy ngược'},{l:'Cờ'},{l:'Duyệt'}])}
+
+/* ───────── ⑧ Sổ tay & việc cần xử lý ───────── */
+function tabViec(D){
+  var S=D.so_tay||{},V=D.viec||[],K=D.ket_luan||{},L=D.theo_doi||[];
+  var h='<h2 class="top">Sổ tay thực thi</h2>';
+  h+=S.da_sinh?'<div class="card"><b>'+num(S.so_ban,0)+' bản</b> đã sinh tại <code>'+
+      esc(S.duong_dan)+'</code><div class="note" style="margin-top:6px">⛔ Sổ tay cá nhân phát riêng '+
+      'từng người, ⛔ không đính kèm nhiều bản trong một file, ⛔ không gửi vào nhóm chat chung '+
+      '(<code>id-I §7</code>).</div></div>'
+    :'<div class="lock">Chưa sinh sổ tay. Duyệt ma trận rồi chạy <code>python tools/so_tay.py --ky …</code></div>';
+
+  var bo=[['marketing','Marketing'],['truc_page','Trực page'],['he_thong','Hệ thống']];
+  var co=bo.some(function(g){return (K[g[0]]||[]).length});
+  if(co){
+    h+='<h2>Kết luận kỳ — việc trọng tâm mỗi bộ phận</h2><div class="g3">'+bo.map(function(g){
+      var arr=K[g[0]]||[];
+      return '<div class="card"><h3>'+g[1]+'</h3>'+(arr.length?'<ol class="plain">'+arr.map(function(v){
+        return '<li><b>'+esc(v.viec)+'</b>'+(v.ly_do?'<div class="note">'+esc(v.ly_do)+'</div>':'')+
+          (v.so_huu?'<div class="note">Người làm: '+esc(v.so_huu)+'</div>':'')+
+          (v.do_ky_sau?'<div class="note">Đo kỳ sau: '+esc(v.do_ky_sau)+'</div>':'')+
+          chip(NHAN,v.nhan)+'</li>'}).join('')+'</ol>':'<div class="note">Không có việc trọng tâm kỳ này.</div>')+
+        '</div>'}).join('')+'</div>';
+  }
+
+  h+='<h2>Việc cần xử lý — '+num(V.length,0)+' việc</h2>';
+  h+=V.length?t(V.map(function(r){
+      var st={moi:['mới',''],dang:['đang làm','t-mid'],dat:['đạt','t-ok'],chua:['chưa đạt','t-bad']}[r.trang_thai]||[r.trang_thai||'—',''];
+      return '<tr>'+td(num(r.so,0),'n')+td('<b>'+esc(r.viec)+'</b>')+td(esc(r.bo_phan))+
+        td(r.so_huu?esc(r.so_huu):'<span class="tag t-bad">chưa có người</span>')+td(esc(r.han||'—'))+
+        td(esc(r.do_the_nao||'—'))+td('<span class="tag '+st[1]+'">'+st[0]+'</span>')+'</tr>'}),
+      [{l:'#',c:'n'},{l:'Việc'},{l:'Bộ phận'},{l:'Sở hữu'},{l:'Hạn'},{l:'Đo thế nào'},{l:'Trạng thái'}])
+    :'<div class="card empty">Agent chưa ghi việc nào. Việc không có tên người là việc không ai làm.</div>';
+
+  if(L.length)h+='<h2>Theo dõi việc kỳ trước</h2>'+t(L.map(function(r){
+    var s=r.dat===true?['đạt','t-ok']:(r.dat===false?['chưa đạt','t-bad']:['chưa đo','']);
+    return '<tr>'+td(esc(r.bo_phan))+td(esc(r.viec))+td(esc(r.muc_tieu))+td(esc(r.ket_qua))+
+      td('<span class="tag '+s[1]+'">'+s[0]+'</span>'+
+        (r.lan>=2&&r.dat===false?' <span class="tag t-bad">2 kỳ — đẩy BU</span>':''))+'</tr>'}),
+    [{l:'Bộ phận'},{l:'Việc'},{l:'Mục tiêu'},{l:'Kết quả kỳ này'},{l:'Trạng thái'}]);
+  return h}
+
+/* ───────── ⑨ Ghi chú dữ liệu ───────── */
+function tabGhiChu(D){
+  return '<h2 class="top">Ghi chú dữ liệu</h2>'+
+    '<div class="note nb">Báo cáo không nói được số đến từ đâu thì không ai dám dùng để ra quyết định.</div>'+
+    '<div class="card">'+bullets(D.ghi_chu)+'</div>'}
+
+/* ───────── khung ───────── */
+var TABS=[['pheu','Phễu inbox',tabPheu],['chan-dung','Chân dung & insight',tabChanDung],
+  ['nhan-vien','Chấm điểm nhân viên',tabNhanVien],['facebook','Facebook Ads',tabFacebook],
+  ['google','Google Ads',tabGoogle],['ma-tran','Ma trận ưu tiên',tabMaTran],
+  ['hook','Ngân hàng hook',tabHook],['viec','Sổ tay & việc',tabViec],
+  ['ghi-chu','Ghi chú dữ liệu',tabGhiChu]];
+
+function chonTab(id){
+  app.querySelectorAll('.tabs button').forEach(function(b){
+    b.setAttribute('aria-selected',String(b.dataset.p===id))});
+  app.querySelectorAll('section[role=tabpanel]').forEach(function(p){p.hidden=(p.id!=='p-'+id)});
+  try{localStorage.setItem('kn_tab',id)}catch(e){}
+}
+function render(D,ky_ds,id){
+  var tab=(location.hash||'').replace('#','');
+  try{if(!tab)tab=localStorage.getItem('kn_tab')||''}catch(e){}
+  if(!TABS.some(function(x){return x[0]===tab}))tab=TABS[0][0];
+  var h=header(D,ky_ds,id)+canhBao(D)+theTong(D);
+  h+='<div class="tabs" role="tablist">'+TABS.map(function(x){
+    return '<button role="tab" id="tab-'+x[0]+'" data-p="'+x[0]+'" aria-selected="'+
+      (x[0]===tab)+'">'+esc(x[1])+'</button>'}).join('')+'</div>';
+  TABS.forEach(function(x){
+    var body;
+    try{body=x[2](D)}catch(e){body='<div class="card empty">Không dựng được phần này: '+esc(e.message)+'</div>'}
+    h+='<section role="tabpanel" id="p-'+x[0]+'" aria-labelledby="tab-'+x[0]+'"'+
+      (x[0]===tab?'':' hidden')+'>'+body+'</section>'});
+  app.innerHTML=h;
+  app.querySelectorAll('.tabs button').forEach(function(b){
+    b.addEventListener('click',function(){chonTab(b.dataset.p)})});
+  var s=document.getElementById('ky-select');
+  if(s)s.addEventListener('change',function(){napKy(ky_ds,s.value)});
+}
+function loi(msg){app.innerHTML='<div class="card empty">'+esc(msg)+'</div>'}
+function napKy(ds,id){
+  var p=find(ds,'id',id)||ds[0];
+  try{localStorage.setItem('kn_ky',p.id)}catch(e){}
+  fetch(p.file).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+    .then(function(D){render(D,ds,p.id)})
+    .catch(function(){loi('Không tải được dữ liệu kỳ '+p.nhan+'.')});
+}
+var inline=document.getElementById('kn-data').textContent.trim();
+if(inline){try{render(JSON.parse(inline),null,null)}catch(e){loi('Khối dữ liệu trong file bị lỗi: '+e.message)}}
+else fetch('data/index.json').then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+  .then(function(idx){
+    var ds=idx.ky||[]; if(!ds.length){loi('Chưa có kỳ báo cáo nào.');return}
+    var want=null; try{want=localStorage.getItem('kn_ky')}catch(e){}
+    napKy(ds,find(ds,'id',want)?want:ds[0].id)})
+  .catch(function(){loi('Không tải được danh sách kỳ báo cáo. Chạy: python tools/id.py bao-cao --ky …')});
+})();
+</script>

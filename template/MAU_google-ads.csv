@@ -1,0 +1,10 @@
+ngay,chien_dich,nhom_quang_cao,search_term,loai_doi_sanh,chi,hien_thi,click,chuyen_doi,loai_chuyen_doi,diem_chat_luong,ty_le_hien_thi_top
+,,,,,,,,,,,
+# ⚠ KHUNG CHỜ DỮ LIỆU — chưa có file Google Ads thật (id-B §4).,,,,,,,,,,,
+# Khi có: xuất Search terms report từ Google Ads UI, đổi tên cột cho khớp hàng 1,,,,,,,,,,,
+# rồi đặt file ở du-lieu/google-ads.csv. ⛔ Không điền số ước lượng vào đây.,,,,,,,,,,,
+# ,,,,,,,,,,,
+# Ba câu Google trả lời được mà Facebook không:,,,,,,,,,,,
+#   1. Khách gõ CHỮ GÌ trước khi vào — search term là insight trực tiếp,,,,,,,,,,,
+#   2. Truy vấn nào tốn tiền mà không ra chuyển đổi — cắt được trong ngày,,,,,,,,,,,
+#   3. Truy vấn nào có người tìm mà Kangnam chưa có trang trả lời,,,,,,,,,,,

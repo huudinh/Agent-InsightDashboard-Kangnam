@@ -1,0 +1,19 @@
+# Kết quả chạy — KHÔNG commit
+out/
+dashboard/data/*.json
+!dashboard/data/index.json
+!dashboard/data/MAU_*.json
+
+# Dữ liệu thật — KHÔNG commit
+*_that.*
+hoi-thoai-*.md
+!template/MAU_*
+du-lieu/
+*.xlsx
+!template/*.xlsx
+
+# Rác
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
