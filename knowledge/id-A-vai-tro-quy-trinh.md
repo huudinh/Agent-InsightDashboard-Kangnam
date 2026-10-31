@@ -49,7 +49,7 @@ B3  PHÁC HỌA CHÂN DUNG       → đọc chữ của khách, phác họa châ
 ━━━ CỔNG 0 · NGƯỜI DÙNG DUYỆT CHÂN DUNG ━━━
 B3' GÁN & VIẾT THẺ           → gán CD cho từng HT, viết "họ là ai / insight /
                                câu hỏi ngầm", dựng ma trận CD×5A
-B4  ĐỌC SỐ ADS               → FB + Google: CPM→CTR→CPI→CPL→CPB, so mục tiêu & kỳ trước
+B4  ĐỌC SỐ ADS               → FB + Google: chi → CPM→CTR→CPI→CPL→CPB, so mục tiêu & kỳ trước
 B5  NỐI HAI NGUỒN            → bảng giao "yếu gì": khách hỏi nhiều × nội dung đã có
 ━━━ CỔNG 1 · NGƯỜI DÙNG DUYỆT MA TRẬN ƯU TIÊN ━━━
 B6  CHẤM ĐIỂM NHÂN VIÊN      → 6 nhóm · thang 100 · phân loại A/B/C/D · cờ đỏ

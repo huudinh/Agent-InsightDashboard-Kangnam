@@ -3,7 +3,7 @@
 > Bản gộp **sinh tự động** từ `knowledge/`. ⛔ Không sửa file này —
 > sửa file gốc rồi chạy lại `python tools/gop-tham-khao.py`.
 
-Gộp ngày 2026-10-30 · 11 sổ
+Gộp ngày 2026-10-31 · 11 sổ
 
 ## Mục lục
 
@@ -74,7 +74,7 @@ B3  PHÁC HỌA CHÂN DUNG       → đọc chữ của khách, phác họa châ
 ━━━ CỔNG 0 · NGƯỜI DÙNG DUYỆT CHÂN DUNG ━━━
 B3' GÁN & VIẾT THẺ           → gán CD cho từng HT, viết "họ là ai / insight /
                                câu hỏi ngầm", dựng ma trận CD×5A
-B4  ĐỌC SỐ ADS               → FB + Google: CPM→CTR→CPI→CPL→CPB, so mục tiêu & kỳ trước
+B4  ĐỌC SỐ ADS               → FB + Google: chi → CPM→CTR→CPI→CPL→CPB, so mục tiêu & kỳ trước
 B5  NỐI HAI NGUỒN            → bảng giao "yếu gì": khách hỏi nhiều × nội dung đã có
 ━━━ CỔNG 1 · NGƯỜI DÙNG DUYỆT MA TRẬN ƯU TIÊN ━━━
 B6  CHẤM ĐIỂM NHÂN VIÊN      → 6 nhóm · thang 100 · phân loại A/B/C/D · cờ đỏ
@@ -237,7 +237,7 @@ Cột tối thiểu (khớp bản xuất Meta mà khối đang dùng):
 ### Chuỗi chỉ số bắt buộc giữ đúng thứ tự
 
 ```
-CPM → CTR → CPI (Inbox) → CPL (Lead) → CPB (Booking) → Booking/Lead
+Chi phí tổng → CPM → CTR → CPI (Inbox) → CPL (Lead) → CPB (Booking) → Booking/Lead
 ```
 Mỗi mắt xích hiển thị **ba thứ**: giá trị · so **mục tiêu** · so **kỳ trước**.
 Mốc mục tiêu lấy **trung bình 30 ngày của chính dịch vụ đó**; chưa đủ 30 ngày → `⚠ chưa có mốc so sánh`.
@@ -514,13 +514,44 @@ Thay vào đó mỗi chân dung được duyệt viết **một câu dựng tạ
 
 ---
 
-## 6. ĐẦU RA CHUẨN CỦA BƯỚC B3
+## 6. ★ CƠ HỘI WIN — XẾP HẠNG CHÂN DUNG ĐỂ BIẾT DỒN SỨC VÀO ĐÂU
+
+Bảng chân dung nói *có những ai*. Nó ⛔ không nói *làm ai trước*. Xếp theo số HT là xếp theo nhóm ĐÔNG nhất, không phải nhóm **đáng làm nhất**.
+
+```
+Điểm win = lead đang bỏ lỡ × hệ số giá trị đơn × tỷ lệ ĐANG CHỐT ĐƯỢC của chính nhóm
+```
+
+| Thành phần | Là gì | Lấy ở đâu |
+|---|---|---|
+| **lead đang bỏ lỡ** | HT của nhóm **chưa có SĐT** — phần còn lấy lại được | bảng chân dung |
+| **hệ số giá trị đơn** | 1 · 2 · 3 | bản phác họa (`id-G` §3) |
+| **tỷ lệ đang chốt được** | `% có SĐT` quan sát được của chính nhóm đó | bảng chân dung |
+
+★ **Cả ba đều là số ĐÃ ĐO của kỳ.** ⛔ Không có hệ số nào tự đặt — đó là điều kiện để bảng này còn cãi được (luật ⑨).
+
+★ **Vì sao nhân với tỷ lệ đang chốt được.** Một nhóm đã chốt tốt là nhóm mà công sức bỏ thêm sinh lời nhanh nhất. Nhóm đang chốt kém *vì câu trả lời của trực page* thì điểm thấp là ĐÚNG — việc của nó nằm ở ô `🔧 sửa vận hành` của ma trận, **sửa câu trả lời trước, làm nội dung sau**. Hai việc khác nhau, ⛔ không trộn vào một bảng xếp hạng.
+
+```
+⛔ CD0 KHÔNG được xếp hạng — nó là mã dự trữ, không phải một chân dung (§1).
+   Vẫn để trong bảng để tổng còn khớp, nhưng luôn nằm cuối và không chiếm một bậc.
+
+★ Thẻ insight xếp theo ĐÚNG thứ hạng này, mỗi thẻ mang theo hạng của mình.
+   Người đọc lướt từ trên xuống là đang đọc theo thứ tự đáng làm.
+```
+
+⚠️ Điểm win là **đề xuất thứ tự**, ⛔ không thay CỔNG 1. Ma trận ưu tiên vẫn do người dùng duyệt.
+
+---
+
+## 7. ĐẦU RA CHUẨN CỦA BƯỚC B3
 
 ```
 ① BẢN PHÁC HỌA   : out/chan-dung.json — mã · tên · họ là ai · nỗi sợ · dấu hiệu
                     · hệ số · trích        → chờ CỔNG 0
 ② BẢNG CHÂN DUNG : CD · tên · số HT · HOT/WARM/COLD · có SĐT · % có SĐT
                     · chốt lịch · bỏ 1 lượt · rơi do trực page   (+ dòng CD0)
+②' CƠ HỘI WIN    : hạng · lead bỏ lỡ · hệ số · đang chốt · điểm win  (§6)
 ③ THẺ INSIGHT    : mỗi CD ≥5 HT một thẻ — họ là ai · insight · câu hỏi ngầm
                     · tín hiệu nóng · hướng xử lý
 ④ MA TRẬN CD×5A  : hai bảng N×5, đánh dấu ô ① và ô ③
@@ -532,7 +563,7 @@ Thay vào đó mỗi chân dung được duyệt viết **một câu dựng tạ
 
 ---
 
-## 7. TỰ KIỂM SỔ NÀY
+## 8. TỰ KIỂM SỔ NÀY
 
 - [ ] Chân dung kỳ này có được **phác họa từ hội thoại của kỳ này** không, hay chép từ kỳ trước cho nhanh?
 - [ ] Mỗi chân dung có gọi tên được **một nỗi sợ riêng** không?
@@ -544,6 +575,8 @@ Thay vào đó mỗi chân dung được duyệt viết **một câu dựng tạ
 - [ ] Chân dung cùng nỗi sợ với kỳ trước có **giữ nguyên mã** không?
 - [ ] Bản phác họa đã qua **CỔNG 0** chưa — `duyet_boi` có tên người thật chưa?
 - [ ] Thẻ insight có viết bằng **chữ của khách** không, hay toàn tính từ của người viết?
+- [ ] Thẻ insight có xếp theo **điểm cơ hội win** không, hay vẫn xếp theo số HT?
+- [ ] Có hệ số nào trong công thức win là **tự đặt** không?
 
 ---
 
@@ -751,19 +784,22 @@ Câu ngầm : "Tôi phải nghỉ mấy ngày, ở đâu, ai đưa tôi về?"
 ## 1. CHUỖI CHỈ SỐ — GIỮ ĐÚNG THỨ TỰ
 
 ```
-CPM → CTR → CPI (Inbox) → CPL (Lead) → CPB (Booking) → Booking/Lead
+Chi phí tổng → CPM → CTR → CPI (Inbox) → CPL (Lead) → CPB (Booking) → Booking/Lead
 ```
 
 Mỗi mắt xích hiện **ba thứ**: giá trị · so **mục tiêu** · so **kỳ trước**.
 
 | Chỉ số | Công thức | Mục tiêu lấy từ đâu |
 |---|---|---|
+| ★ **Chi phí tổng** | Σ chi của kỳ | ngân sách kỳ · ⛔ không có «mốc tốt/xấu» |
 | **CPM** | chi ÷ hiển thị × 1.000 | TB 30 ngày của dịch vụ |
 | **CTR** | click ÷ hiển thị | TB 30 ngày của dịch vụ |
 | **CPI** | chi ÷ inbox | TB 30 ngày của dịch vụ |
 | **CPL** | chi ÷ lead SĐT hợp lệ | TB 30 ngày của dịch vụ |
 | **CPB** | chi ÷ booking | TB 30 ngày của dịch vụ |
 | **Booking/Lead** | booking ÷ lead | so kỳ trước, tính bằng **điểm %** |
+
+★ **Mắt xích 0 là số tiền đã tiêu.** CPI, CPL, CPB đều là thương của cùng một tử số — không nhìn tử số thì đang đọc tỷ lệ trong chân không. ⚠ **CPL giảm mà chi cũng giảm theo thì chưa chắc đã tốt lên**: có thể chỉ là chạy ít đi. Ô này đi kèm số nội dung · hiển thị · inbox · lead · booking của kỳ để thấy ngay quy mô.
 
 ⚠️ Chưa đủ 30 ngày → ghi `⚠ chưa có mốc so sánh`. ⛔ **Không tự đặt mốc.**
 ⚠️ Ngày có **dưới 3 kết quả** thì ⛔ không vẽ điểm CPB/CPL của ngày đó — số đó là nhiễu, không phải tín hiệu.
@@ -1648,12 +1684,39 @@ A: <n> · B: <n> · C: <n> · D: <n> · chưa đủ mẫu: <n>
 | ① | **Phễu inbox** | Khách vào bao nhiêu, nóng tới đâu, rơi ở đâu và vì sao |
 | ② | **Chân dung & Insight** | Khách là ai, họ sợ gì, câu hỏi ngầm là gì. ⏳ Khoá lại khi chân dung chưa qua CỔNG 0 |
 | ③ | ★ **Chấm điểm nhân viên** | Khối trực page đang yếu tiêu chí nào, ai cần kèm |
-| ④ | **Marketing — Facebook** | Chuỗi CPM→CTR→CPI→CPL→CPB, nội dung nào tốt/kém |
+| ④ | **Marketing — Facebook** | Chuỗi chi → CPM→CTR→CPI→CPL→CPB, nội dung nào tốt/kém |
 | ⑤ | **Marketing — Google Ads** | ⚠ chờ dữ liệu |
 | ⑥ | **Ma trận ưu tiên** | Kỳ tới làm 5 việc nào |
 | ⑦ | **Ngân hàng hook** | Viết gì, cho ai, format nào |
 | ⑧ | **Sổ tay & việc cần xử lý** | Ai làm gì, hạn bao giờ, đo thế nào |
 | ⑨ | **Ghi chú dữ liệu** | Mọi con số đến từ đâu, loại gì ra, vì sao |
+
+### Ba bố cục — ⛔ vẫn chỉ MỘT bản trang
+
+Chín tab ở trên là bản **đầy đủ**. Cùng một trang và cùng một file kỳ còn dựng được hai báo cáo hẹp hơn cho hai người đọc khác nhau — chọn bằng trường `bo_cuc` trong `data/index.json`:
+
+| `bo_cuc` | Tên báo cáo | Tab | Thẻ số tổng |
+|---|---|---|---|
+| *(không khai)* · `day-du` | Chân dung khách & chất lượng trực page | cả 9 | cả 6 |
+| `insight` | **Insight khách** — khách là ai · họ sợ gì · kỳ tới làm nội dung gì | ① ② ⑥ ⑦ ⑨ | HT · bỏ 1 lượt · có SĐT · HOT/WARM chưa SĐT |
+| `truc-page` | **Chất lượng trực page** — khối yếu gì · ai cần kèm · sửa câu nào | ③ ① ② ⑧ ⑨ | HT · trả lời lượt đầu · rơi do trực page · bỏ 1 lượt · HOT/WARM chưa SĐT |
+
+```
+⛔ Tách báo cáo KHÔNG được đẻ thêm một bản trang.
+   Hai bản trang là hai chỗ phải sửa mỗi lần đổi, và sẽ lệch nhau sau hai kỳ.
+   Trang đọc `bo_cuc`, tự lọc tab và thẻ số, tự đổi tiêu đề.
+
+★ Thứ tự tab đi theo ĐÚNG thứ tự khai trong bố cục, không theo thứ tự 9 tab gốc:
+   bản `truc-page` mở bằng tab Chấm điểm vì đó là việc của người đọc nó.
+
+⚠ Hai bố cục hẹp dùng CHUNG một file kỳ. Số liệu chỉ có một bản —
+   ⛔ không bao giờ có chuyện hai báo cáo nói hai con số khác nhau.
+
+★ `insight` ⛔ KHÔNG có hai tab quảng cáo. Đầu vào của nó là HỘI THOẠI; số chi
+   phí tới từ một nguồn khác (`id.py ads`) và chỉ nằm ở bản `day-du`. Bỏ tab
+   không phải để giấu — thiếu nguồn nào vẫn phải ghi ở tab ⑨ và ở ô lưu ý
+   đầu trang, đúng luật ① bên dưới.
+```
 
 ### Đầu trang — luôn hiện, không nằm trong tab nào
 
@@ -1663,7 +1726,7 @@ Tiêu đề + chọn kỳ
 5 thẻ số tổng            (giá trị · so kỳ trước · so mốc gốc)
 ```
 
-### Năm thẻ số tổng
+### Sáu thẻ số tổng
 
 | Thẻ | Kiểu | Tốt là |
 |---|---|---|
@@ -1671,6 +1734,7 @@ Tiêu đề + chọn kỳ
 | `Bỏ sau 1 lượt` | % | thấp |
 | `Có SĐT` | % | cao |
 | `Trả lời tin đầu ≤2′` | % | cao · chuẩn ≥90% |
+| `Rơi do trực page` | % | thấp — câu trả lời làm khách dừng |
 | ★ `HOT/WARM chưa có SĐT` | số | **thấp** — lead nóng chưa vào tay telesale |
 
 ⚠️ Tab ⑨ **không phải tab phụ**. Báo cáo không nói được số đến từ đâu thì không ai dám dùng để ra quyết định.
@@ -1715,6 +1779,10 @@ Tiêu đề + chọn kỳ
     "tep":     [ { "cd","ten","ht","quan_sat","hot","warm","cold","co_sdt",
                    "chot_lich","bo_1_luot","roi_truc","he_so" } ],   // + 1 dòng CD0
     "insight": [ { "cd","ten","nhom","ho_la_ai","insight","cau_hoi_ngam","tin_hieu_nong","huong_xu_ly","trich" } ],
+    // xếp theo điểm win; mỗi ô là gạch đầu dòng — dòng mở đầu "- " thành <li> (id-C §6)
+    "co_hoi_win":    [ { "cd","ten","ht","lead_bo_lo","he_so","pct_sdt","diem","hang",
+                         "uu_tien","roi_truc","ghi_chu" } ],   // CD0 luôn cuối, hang = null
+    "cach_tinh_win": "công thức, viết ra để người đọc cãi được",
     "ma_tran_cd_5a": { "noi_dung": {...}, "hoi_thoai": {...} }   // hai bảng N×5
   },
 
@@ -1731,7 +1799,9 @@ Tiêu đề + chọn kỳ
 
   "facebook": {
     "nguon","ky","ky_truoc","don_vi":"nghìn đ",
-    "chuoi": [ { "ma":"CPM|CTR|CPI|CPL|CPB|BK_LEAD","nhan","gia_tri","muc_tieu","ky_truoc","kieu","tot" } ],
+    "chuoi": [ { "ma":"CHI|CPM|CTR|CPI|CPL|CPB|BK_LEAD","nhan","gia_tri","muc_tieu","ky_truoc",
+                 "kieu","tot","phu" } ],   // CHI = chi phí tổng, mở đầu chuỗi; `phu` thay
+                                           // dòng "mục tiêu" khi ô không có mốc tốt/xấu
     "theo_ngay": [ { "ngay","booking","cpb","du_ket_qua":true } ],
     "dong":      [ { "ten","cap","chi","inbox","inbox_moi","deal","bk","cpi","cpl","cpb","ty_trong" } ],
     "noi_dung":  [ { "noi_dung","cum","danh_gia":"tot|giu|kem","tong":{...},"nhan_xet" } ],

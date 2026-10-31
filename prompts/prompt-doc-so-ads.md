@@ -12,7 +12,7 @@ KỲ: <tu> → <den>  ·  KỲ TRƯỚC: <...>
 Theo id-E, làm năm việc:
 
 ① CHUỖI CHỈ SỐ — giữ ĐÚNG thứ tự
-   CPM → CTR → CPI → CPL → CPB → Booking/Lead
+   Chi phí tổng → CPM → CTR → CPI → CPL → CPB → Booking/Lead
    Mỗi mắt xích ba thứ: giá trị · so MỤC TIÊU (TB 30 ngày của dịch vụ) · so KỲ TRƯỚC.
    Chưa có mốc → ghi "⚠ chưa có mốc so sánh". ⛔ Không tự đặt mốc.
    Ngày dưới 3 kết quả → ⛔ không vẽ lên đường CPB/CPL.

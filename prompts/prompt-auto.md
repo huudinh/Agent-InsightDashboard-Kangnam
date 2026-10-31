@@ -70,7 +70,8 @@ In ra đúng bốn khối:
    xếp theo SỐ HỘI THOẠI BỊ ẢNH HƯỞNG, mỗi vấn đề: mức · số liệu · đề xuất · ai làm
 
 ⑦ CHUỖI CHỈ SỐ ADS (nếu có file)
-   CPM → CTR → CPI → CPL → CPB → Booking/Lead, mỗi mắt xích kèm mục tiêu + kỳ trước
+   Chi phí tổng → CPM → CTR → CPI → CPL → CPB → Booking/Lead, mỗi mắt xích kèm mục tiêu + kỳ trước
+   ★ Ô chi phí tổng kèm số nội dung · hiển thị · inbox · lead · booking của kỳ
    ⛔ Phân rã CPL TRƯỚC khi kết luận. Nếu thành phần hỏng không phải CTR thì
       nói thẳng "kỳ này không phải vấn đề nội dung".
 

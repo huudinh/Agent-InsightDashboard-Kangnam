@@ -8,19 +8,22 @@
 ## 1. CHUỖI CHỈ SỐ — GIỮ ĐÚNG THỨ TỰ
 
 ```
-CPM → CTR → CPI (Inbox) → CPL (Lead) → CPB (Booking) → Booking/Lead
+Chi phí tổng → CPM → CTR → CPI (Inbox) → CPL (Lead) → CPB (Booking) → Booking/Lead
 ```
 
 Mỗi mắt xích hiện **ba thứ**: giá trị · so **mục tiêu** · so **kỳ trước**.
 
 | Chỉ số | Công thức | Mục tiêu lấy từ đâu |
 |---|---|---|
+| ★ **Chi phí tổng** | Σ chi của kỳ | ngân sách kỳ · ⛔ không có «mốc tốt/xấu» |
 | **CPM** | chi ÷ hiển thị × 1.000 | TB 30 ngày của dịch vụ |
 | **CTR** | click ÷ hiển thị | TB 30 ngày của dịch vụ |
 | **CPI** | chi ÷ inbox | TB 30 ngày của dịch vụ |
 | **CPL** | chi ÷ lead SĐT hợp lệ | TB 30 ngày của dịch vụ |
 | **CPB** | chi ÷ booking | TB 30 ngày của dịch vụ |
 | **Booking/Lead** | booking ÷ lead | so kỳ trước, tính bằng **điểm %** |
+
+★ **Mắt xích 0 là số tiền đã tiêu.** CPI, CPL, CPB đều là thương của cùng một tử số — không nhìn tử số thì đang đọc tỷ lệ trong chân không. ⚠ **CPL giảm mà chi cũng giảm theo thì chưa chắc đã tốt lên**: có thể chỉ là chạy ít đi. Ô này đi kèm số nội dung · hiển thị · inbox · lead · booking của kỳ để thấy ngay quy mô.
 
 ⚠️ Chưa đủ 30 ngày → ghi `⚠ chưa có mốc so sánh`. ⛔ **Không tự đặt mốc.**
 ⚠️ Ngày có **dưới 3 kết quả** thì ⛔ không vẽ điểm CPB/CPL của ngày đó — số đó là nhiễu, không phải tín hiệu.

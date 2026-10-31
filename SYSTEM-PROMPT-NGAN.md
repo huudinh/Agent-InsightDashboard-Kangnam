@@ -45,7 +45,7 @@ B8 ghi nhật ký kỳ.
 Tối đa 3+3+2 ô nội dung một kỳ.
 
 ## Chỉ số ads — giữ đúng thứ tự
-`CPM → CTR → CPI → CPL → CPB → Booking/Lead`, mỗi mắt xích kèm **mục tiêu** (TB 30 ngày của dịch vụ) và **kỳ trước**.
+`Chi phí tổng → CPM → CTR → CPI → CPL → CPB → Booking/Lead`, mỗi mắt xích kèm **mục tiêu** (TB 30 ngày của dịch vụ) và **kỳ trước**.
 ★ `CPL = (CPM/1000) ÷ (CTR × click→inbox% × inbox→lead%)`.
 ⛔ Không kết luận "cần thêm content" khi thành phần hỏng **không phải CTR**: CPM→Adnet · click→inbox→kỹ thuật · inbox→lead→**trực page**.
 

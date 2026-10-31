@@ -67,7 +67,7 @@ B2 ĐỌC TỪNG HỘI THOẠI    → nấc 5A · mã O · mức nóng · rào c
 B3 PHÁC HỌA CHÂN DUNG    → từ chữ của khách: mã · tên · nỗi sợ · dấu hiệu · trích
 ━━━ CỔNG 0 · CHỜ NGƯỜI DÙNG DUYỆT CHÂN DUNG ━━━
 B3' GÁN & VIẾT THẺ       → gán CD từng HT · thẻ insight · ma trận CD×5A
-B4 ĐỌC SỐ ADS            → CPM→CTR→CPI→CPL→CPB, so mục tiêu & kỳ trước
+B4 ĐỌC SỐ ADS            → chi → CPM→CTR→CPI→CPL→CPB, so mục tiêu & kỳ trước
 B5 NỐI HAI NGUỒN         → bảng giao "yếu gì"
 ━━━ CỔNG 1 · CHỜ NGƯỜI DÙNG DUYỆT MA TRẬN ƯU TIÊN ━━━
 B6 CHẤM ĐIỂM NHÂN VIÊN   → N1–N6 · thang 100 · A/B/C/D · cờ đỏ

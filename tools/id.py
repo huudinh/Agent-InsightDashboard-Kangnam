@@ -9,7 +9,7 @@ Làm phần ĐẾM ĐƯỢC của quy trình B1–B6:
               + rút NGUYÊN LIỆU PHÁC HỌA CHÂN DUNG (cụm chữ khách tự nói, câu đầu)
               + gán chân dung NẾU out/chan-dung.json đã qua CỔNG 0
   chan-dung : quản lý bản phác họa chân dung của kỳ — tạo mẫu · kiểm · duyệt
-  ads       : đọc file chỉ số quảng cáo Facebook → chuỗi CPM→CTR→CPI→CPL→CPB
+  ads       : đọc file chỉ số quảng cáo Facebook → chi → CPM→CTR→CPI→CPL→CPB
   bao-cao   : gộp kết quả thành file JSON cho dashboard
 
 ⛔ Script KHÔNG có sẵn bộ chân dung nào. Chân dung được **phác họa từ chính hội
@@ -807,6 +807,7 @@ def _the_tong(ban_ghi):
     sdt = sum(1 for r in ban_ghi if r["co_sdt"])
     sla = [r for r in ban_ghi if r["cham"].get("N1.1") in ("✓", "✗")]
     nong_chua = sum(1 for r in ban_ghi if r["nhiet"] in ("HOT", "WARM") and not r["co_sdt"])
+    roi_truc = sum(1 for r in ban_ghi if r["roi"] == "trực page")
     return [
         {"id": "ht", "nhan": "Hội thoại phân tích", "gia_tri": n, "kieu": "n"},
         {"id": "bo_1", "nhan": "Bỏ sau 1 lượt", "gia_tri": pct(bo1, n), "kieu": "pct",
@@ -816,6 +817,9 @@ def _the_tong(ban_ghi):
         {"id": "sla", "nhan": "Trả lời tin đầu ≤2′", "gia_tri":
             pct(sum(1 for r in sla if r["cham"]["N1.1"] == "✓"), len(sla)), "kieu": "pct",
          "tot": "cao", "phu": "trong khung 8h30–22h · chuẩn ≥90%"},
+        {"id": "roi_truc", "nhan": "Rơi do trực page", "gia_tri": pct(roi_truc, n),
+         "kieu": "pct", "tot": "thap",
+         "phu": "%d/%d HT — câu trả lời của trực page làm khách dừng" % (roi_truc, n)},
         {"id": "nong_chua_sdt", "nhan": "HOT/WARM chưa có SĐT", "gia_tri": nong_chua,
          "kieu": "n", "tot": "thap", "phu": "lead nóng chưa vào tay telesale"},
     ]
@@ -1023,7 +1027,17 @@ def lenh_ads(args):
             return 0.0
 
     tong = {c: sum(s(r, c) for r in rows) for c in ("chi", "hien_thi", "click", "inbox", "lead", "booking")}
+    def _n(x):
+        return "{:,.0f}".format(x).replace(",", ".")
+
     chuoi = [
+        # ★ Mắt xích 0: tiêu bao nhiêu. Mọi chỉ số sau đều là thương của con số này,
+        #   nên đọc chuỗi mà không thấy mẫu số là đọc tỷ lệ trong chân không.
+        {"ma": "CHI", "nhan": "Chi phí tổng", "gia_tri": tong["chi"] or None,
+         "phu": "%d nội dung · %s hiển thị · %s inbox · %s lead · %s booking"
+                % (len({(r.get("noi_dung") or r.get("chien_dich") or "(không tên)").strip()
+                        for r in rows}), _n(tong["hien_thi"]), _n(tong["inbox"]),
+                   _n(tong["lead"]), _n(tong["booking"]))},
         {"ma": "CPM", "nhan": "CPM", "gia_tri": _chia(tong["chi"], tong["hien_thi"] / 1000), "tot": "thap"},
         {"ma": "CTR", "nhan": "CTR", "gia_tri": _chia(tong["click"] * 100, tong["hien_thi"]), "tot": "cao", "kieu": "pct"},
         {"ma": "CPI", "nhan": "CPI — chi / inbox", "gia_tri": _chia(tong["chi"], tong["inbox"]), "tot": "thap"},
@@ -1056,7 +1070,9 @@ def lenh_ads(args):
     os.makedirs(RA, exist_ok=True)
     ket = {"ky": args.ky, "nguon": os.path.basename(args.file), "don_vi": "đ",
            "tong": tong, "chuoi": chuoi, "dong": dong,
-           "ghi_chu": ["⚠ Mốc mục tiêu chưa có — cần TB 30 ngày của từng dịch vụ (id-E §1).",
+           "ghi_chu": ["Ô «Chi phí tổng» là mẫu số chung của CPI, CPL và CPB — "
+                       "CPL giảm mà chi cũng giảm theo thì chưa chắc đã tốt lên (id-E §1).",
+                       "⚠ Mốc mục tiêu chưa có — cần TB 30 ngày của từng dịch vụ (id-E §1).",
                        "⛔ Chưa phân rã CPL thì chưa kết luận lỗi nội dung (id-E §1)."]}
     with open(os.path.join(RA, "doc-ads.json"), "w", encoding="utf-8") as f:
         json.dump(ket, f, ensure_ascii=False, indent=1)
@@ -1067,8 +1083,9 @@ def lenh_ads(args):
     print("═" * 66)
     for c in chuoi:
         v = c["gia_tri"]
-        print("    %-24s %12s   mục tiêu: ⚠ chưa có mốc so sánh" %
-              (c["nhan"], "—" if v is None else ("%.1f%%" % v if c["kieu"] == "pct" else "{:,.0f} đ".format(v))))
+        so = "—" if v is None else ("%.1f%%" % v if c["kieu"] == "pct" else "{:,.0f} đ".format(v))
+        print("    %-24s %12s   %s" %
+              (c["nhan"], so, c.get("phu") or "mục tiêu: ⚠ chưa có mốc so sánh"))
     print("")
     print("  %d nội dung · đã ghi out/doc-ads.json" % len(dong))
     print("")

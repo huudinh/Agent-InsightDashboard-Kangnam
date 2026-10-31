@@ -109,7 +109,7 @@ Một dòng trong `tep`:
 
 ## `id.py ads`
 
-Đọc CSV theo cột ở `id-B §3`, ra `out/doc-ads.json` + chuỗi `CPM → CTR → CPI → CPL → CPB → Booking/Lead` trên màn hình.
+Đọc CSV theo cột ở `id-B §3`, ra `out/doc-ads.json` + chuỗi `Chi phí tổng → CPM → CTR → CPI → CPL → CPB → Booking/Lead` trên màn hình.
 
 ⚠️ Cột `muc_tieu` luôn `null` cho tới khi có mốc TB 30 ngày của từng dịch vụ. Script ⛔ **không tự đặt mốc**.
 
@@ -122,6 +122,8 @@ Ghi `dashboard/data/<ky>.json` + cập nhật `dashboard/data/index.json`.
 Ma trận luôn khởi tạo ở `trang_thai: "cho_duyet"` → tab **Ngân hàng hook** và **Sổ tay** còn khoá. Agent điền `da_duyet` sau CỔNG 1.
 
 Chân dung chưa qua CỔNG 0 → `chan_dung.tep` rỗng, dashboard khoá tab ② lại kèm lý do, và một cảnh báo đỏ hiện ở đầu trang.
+
+Muốn tách thành báo cáo hẹp cho từng người đọc thì thêm `"bo_cuc": "insight"` hoặc `"bo_cuc": "truc-page"` vào `dashboard/data/index.json` — trang tự lọc tab, thẻ số và đổi tiêu đề. Không khai thì ra bản đầy đủ 9 tab (`id-J` §1).
 
 ---
 

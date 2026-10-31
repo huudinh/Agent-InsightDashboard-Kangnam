@@ -113,7 +113,7 @@ Chi tiết: [`doc/01-cai-dat.md`](doc/01-cai-dat.md)
 # đọc hội thoại → phân loại CD · 5A · mã O · nhiệt · vì sao rơi · chấm N1–N6
 python tools/id.py doc du-lieu/hoi-thoai.md --ky "19-25/10"
 
-# đọc số quảng cáo Facebook → CPM→CTR→CPI→CPL→CPB
+# đọc số quảng cáo Facebook → chi → CPM→CTR→CPI→CPL→CPB
 python tools/id.py ads du-lieu/ads-facebook.csv --ky "19-25/10"
 
 # gộp thành JSON cho dashboard

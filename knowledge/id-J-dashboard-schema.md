@@ -12,12 +12,41 @@
 | ① | **Phễu inbox** | Khách vào bao nhiêu, nóng tới đâu, rơi ở đâu và vì sao |
 | ② | **Chân dung & Insight** | Khách là ai, họ sợ gì, câu hỏi ngầm là gì. ⏳ Khoá lại khi chân dung chưa qua CỔNG 0 |
 | ③ | ★ **Chấm điểm nhân viên** | Khối trực page đang yếu tiêu chí nào, ai cần kèm |
-| ④ | **Marketing — Facebook** | Chuỗi CPM→CTR→CPI→CPL→CPB, nội dung nào tốt/kém |
+| ④ | **Marketing — Facebook** | Chuỗi chi → CPM→CTR→CPI→CPL→CPB, nội dung nào tốt/kém |
 | ⑤ | **Marketing — Google Ads** | ⚠ chờ dữ liệu |
 | ⑥ | **Ma trận ưu tiên** | Kỳ tới làm 5 việc nào |
 | ⑦ | **Ngân hàng hook** | Viết gì, cho ai, format nào |
 | ⑧ | **Sổ tay & việc cần xử lý** | Ai làm gì, hạn bao giờ, đo thế nào |
 | ⑨ | **Ghi chú dữ liệu** | Mọi con số đến từ đâu, loại gì ra, vì sao |
+
+### Ba bố cục — ⛔ vẫn chỉ MỘT bản trang
+
+Chín tab ở trên là bản **đầy đủ**. Cùng một trang và cùng một file kỳ còn dựng được hai báo cáo hẹp hơn cho hai người đọc khác nhau — chọn bằng trường `bo_cuc` trong `data/index.json`:
+
+| `bo_cuc` | Tên báo cáo | Tab | Thẻ số tổng |
+|---|---|---|---|
+| *(không khai)* · `day-du` | Chân dung khách & chất lượng trực page | cả 9 | cả 6 |
+| `insight` | **Insight khách** — khách là ai · họ sợ gì · kỳ tới làm nội dung gì | ① ② ⑥ ⑦ | HT · bỏ 1 lượt · có SĐT · HOT/WARM chưa SĐT |
+| `truc-page` | **Chất lượng trực page** — khối yếu gì · ai cần kèm · sửa câu nào | ③ ① ② ⑧ ⑨ | HT · trả lời lượt đầu · rơi do trực page · bỏ 1 lượt · HOT/WARM chưa SĐT |
+
+```
+⛔ Tách báo cáo KHÔNG được đẻ thêm một bản trang.
+   Hai bản trang là hai chỗ phải sửa mỗi lần đổi, và sẽ lệch nhau sau hai kỳ.
+   Trang đọc `bo_cuc`, tự lọc tab và thẻ số, tự đổi tiêu đề.
+
+★ Thứ tự tab đi theo ĐÚNG thứ tự khai trong bố cục, không theo thứ tự 9 tab gốc:
+   bản `truc-page` mở bằng tab Chấm điểm vì đó là việc của người đọc nó.
+
+⚠ Hai bố cục hẹp dùng CHUNG một file kỳ. Số liệu chỉ có một bản —
+   ⛔ không bao giờ có chuyện hai báo cáo nói hai con số khác nhau.
+
+★ Bố cục bỏ tab ⑨ thì ghi chú dữ liệu **chuyển lên ô gập đầu trang**, ⛔ không biến mất. Tab ⑨ là tab bắt buộc của bản đầy đủ; bỏ nó khỏi thanh tab là để trang gọn, ⛔ không phải để thôi nói số đến từ đâu.
+
+★ `insight` ⛔ KHÔNG có hai tab quảng cáo. Đầu vào của nó là HỘI THOẠI; số chi
+   phí tới từ một nguồn khác (`id.py ads`) và chỉ nằm ở bản `day-du`. Bỏ tab
+   không phải để giấu — thiếu nguồn nào vẫn phải ghi ở tab ⑨ và ở ô lưu ý
+   đầu trang, đúng luật ① bên dưới.
+```
 
 ### Đầu trang — luôn hiện, không nằm trong tab nào
 
@@ -27,7 +56,7 @@ Tiêu đề + chọn kỳ
 5 thẻ số tổng            (giá trị · so kỳ trước · so mốc gốc)
 ```
 
-### Năm thẻ số tổng
+### Sáu thẻ số tổng
 
 | Thẻ | Kiểu | Tốt là |
 |---|---|---|
@@ -35,6 +64,7 @@ Tiêu đề + chọn kỳ
 | `Bỏ sau 1 lượt` | % | thấp |
 | `Có SĐT` | % | cao |
 | `Trả lời tin đầu ≤2′` | % | cao · chuẩn ≥90% |
+| `Rơi do trực page` | % | thấp — câu trả lời làm khách dừng |
 | ★ `HOT/WARM chưa có SĐT` | số | **thấp** — lead nóng chưa vào tay telesale |
 
 ⚠️ Tab ⑨ **không phải tab phụ**. Báo cáo không nói được số đến từ đâu thì không ai dám dùng để ra quyết định.
@@ -79,6 +109,10 @@ Tiêu đề + chọn kỳ
     "tep":     [ { "cd","ten","ht","quan_sat","hot","warm","cold","co_sdt",
                    "chot_lich","bo_1_luot","roi_truc","he_so" } ],   // + 1 dòng CD0
     "insight": [ { "cd","ten","nhom","ho_la_ai","insight","cau_hoi_ngam","tin_hieu_nong","huong_xu_ly","trich" } ],
+    // xếp theo điểm win; mỗi ô là gạch đầu dòng — dòng mở đầu "- " thành <li> (id-C §6)
+    "co_hoi_win":    [ { "cd","ten","ht","lead_bo_lo","he_so","pct_sdt","diem","hang",
+                         "uu_tien","roi_truc","ghi_chu" } ],   // CD0 luôn cuối, hang = null
+    "cach_tinh_win": "công thức, viết ra để người đọc cãi được",
     "ma_tran_cd_5a": { "noi_dung": {...}, "hoi_thoai": {...} }   // hai bảng N×5
   },
 
@@ -95,7 +129,9 @@ Tiêu đề + chọn kỳ
 
   "facebook": {
     "nguon","ky","ky_truoc","don_vi":"nghìn đ",
-    "chuoi": [ { "ma":"CPM|CTR|CPI|CPL|CPB|BK_LEAD","nhan","gia_tri","muc_tieu","ky_truoc","kieu","tot" } ],
+    "chuoi": [ { "ma":"CHI|CPM|CTR|CPI|CPL|CPB|BK_LEAD","nhan","gia_tri","muc_tieu","ky_truoc",
+                 "kieu","tot","phu" } ],   // CHI = chi phí tổng, mở đầu chuỗi; `phu` thay
+                                           // dòng "mục tiêu" khi ô không có mốc tốt/xấu
     "theo_ngay": [ { "ngay","booking","cpb","du_ket_qua":true } ],
     "dong":      [ { "ten","cap","chi","inbox","inbox_moi","deal","bk","cpi","cpl","cpb","ty_trong" } ],
     "noi_dung":  [ { "noi_dung","cum","danh_gia":"tot|giu|kem","tong":{...},"nhan_xet" } ],

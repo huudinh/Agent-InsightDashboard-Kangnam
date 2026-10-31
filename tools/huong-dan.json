@@ -113,7 +113,7 @@
     {
       "duong_dan": "knowledge/id-E-to-chuc-ads-chi-so.md",
       "badge": "★",
-      "mo_ta": "<b>Tổ chức Ads</b> — giải mã tên chiến dịch 11 chiều · chuỗi <code>CPM→CTR→CPI→CPL→CPB</code> · ★ <b>công thức phân rã CPL</b> · ma trận VIEW/PERF · kho tệp · Google Ads"
+      "mo_ta": "<b>Tổ chức Ads</b> — giải mã tên chiến dịch 11 chiều · chuỗi <code>chi→CPM→CTR→CPI→CPL→CPB</code> · ★ <b>công thức phân rã CPL</b> · ma trận VIEW/PERF · kho tệp · Google Ads"
     },
     {
       "duong_dan": "knowledge/id-F-cham-diem-nhan-vien.md",
@@ -278,7 +278,7 @@
       "nhom": "khach",
       "ten": "Đọc số ads + phân rã CPL",
       "kieu": "",
-      "noi_dung": "ĐỌC SỐ ADS — kỳ 19–25/10.\n\nIn chuỗi CPM → CTR → CPI → CPL → CPB → Booking/Lead, mỗi mắt xích kèm mục tiêu và kỳ trước.\nPHÂN RÃ CPL trước khi kết luận, nói rõ thành phần nào xấu đi và đó là việc của ai.\nChưa có mốc thì ghi ⚠ chưa có mốc so sánh, đừng tự đặt."
+      "noi_dung": "ĐỌC SỐ ADS — kỳ 19–25/10.\n\nIn chuỗi Chi phí tổng → CPM → CTR → CPI → CPL → CPB → Booking/Lead, mỗi mắt xích kèm mục tiêu và kỳ trước.\nPHÂN RÃ CPL trước khi kết luận, nói rõ thành phần nào xấu đi và đó là việc của ai.\nChưa có mốc thì ghi ⚠ chưa có mốc so sánh, đừng tự đặt."
     },
     {
       "nhom": "nguoi",

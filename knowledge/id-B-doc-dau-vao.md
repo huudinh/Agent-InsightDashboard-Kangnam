@@ -74,7 +74,7 @@ Cột tối thiểu (khớp bản xuất Meta mà khối đang dùng):
 ### Chuỗi chỉ số bắt buộc giữ đúng thứ tự
 
 ```
-CPM → CTR → CPI (Inbox) → CPL (Lead) → CPB (Booking) → Booking/Lead
+Chi phí tổng → CPM → CTR → CPI (Inbox) → CPL (Lead) → CPB (Booking) → Booking/Lead
 ```
 Mỗi mắt xích hiển thị **ba thứ**: giá trị · so **mục tiêu** · so **kỳ trước**.
 Mốc mục tiêu lấy **trung bình 30 ngày của chính dịch vụ đó**; chưa đủ 30 ngày → `⚠ chưa có mốc so sánh`.
