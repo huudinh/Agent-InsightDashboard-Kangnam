@@ -68,8 +68,30 @@ Thư mục chứa lẫn bảng tính hay tài liệu khác cũng được: `apiK
    - *Who has access*: **Anyone with Google account** (hoặc trong tổ chức).
 7. Mở Web app URL.
 
-Sửa `Code.gs` hay `trang.html` xong phải **Deploy → Manage deployments → ✏️ Edit
-→ Version: New**, không thì bản cũ vẫn chạy.
+## ★ Cập nhật code — ⛔ ĐỪNG bấm «New deployment»
+
+Sửa `Code.gs` hay `trang.html` xong:
+
+```
+Deploy → Manage deployments → ✏️ Edit → Version: New → Deploy
+```
+
+| Bấm cái này | Ra cái gì |
+|---|---|
+| **Manage deployments → ✏️ Edit → Version: New** | ✅ **Giữ nguyên link**, chỉ nạp code mới |
+| ⛔ **New deployment** | Sinh **link MỚI** — link cũ vẫn sống và **vẫn chạy code cũ** |
+
+⚠ Không bấm *Version: New* thì link vẫn trả **bản cũ**, dù đã dán code mới vào editor.
+⛔ Bấm *New deployment* mỗi lần sửa là cách sinh ra một đống link lạc hậu: bản mở cho
+*Anyone* mà chạy code cũ là bản **ghi sai mà không báo lỗi**. Có bao nhiêu link cũ thì
+*Manage deployments → ⋮ → Archive* hết, chỉ giữ một.
+
+★ `?bo_cuc=…` ⛔ **không phải link khác** — cùng một deploy, chỉ thêm tham số:
+
+```
+<web app url>/exec                ← bố cục mặc định (insight)
+<web app url>/exec?bo_cuc=sale    ← cùng link đó, xem bản Sale
+```
 
 ## Kiểm nhanh
 
