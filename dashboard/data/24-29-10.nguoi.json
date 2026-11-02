@@ -1,0 +1,1125 @@
+{
+ "_ghi_chu": "CHỮ NGƯỜI của kỳ này — phủ lên bản máy sinh mỗi lần chạy `id.py bao-cao`. ⛔ Con số trong này KHÔNG tự cập nhật: sửa số thì sửa cả câu.",
+ "_schema": "insight-dashboard-kangnam#nguoi/1",
+ "ky": {
+  "tu": "2026-10-24",
+  "den": "2026-10-29",
+  "crawl": "30/10/2026 14:16 · extension KNB 1.3.0 · quét 10.530 hội thoại",
+  "nguon": "KNB_1_toan_bo_24-10_den_29-10.txt · line Da · Caresoft/Messenger"
+ },
+ "ket_luan": {
+  "marketing": [
+   {
+    "viec": "Làm bảng khoảng giá theo VÙNG cho CD4 (ấn đường · rãnh cười · thái dương · hốc mắt · má hóp) kèm thời gian duy trì",
+    "ly_do": "139 HT — nhóm lớn nhất kỳ, 63 HT hỏi giá ngay, chỉ 22,3% cho SĐT",
+    "so_huu": "Khối Marketing",
+    "do_ky_sau": "% có SĐT của CD4 từ 22,3% lên ≥30%",
+    "nhan": "da_do"
+   },
+   {
+    "viec": "Nhân tuyến nội dung làm khách TẢ TÌNH TRẠNG (kiểu CD5), cắt nội dung chỉ treo con số rẻ",
+    "ly_do": "CD5 cho SĐT 33,3% — cao gấp 3 lần CD0 (10,8%) và CD6 (9,4%)",
+    "so_huu": "Khối Marketing",
+    "do_ky_sau": "số HT rơi CD0 từ 74 xuống dưới 50",
+    "nhan": "da_do"
+   },
+   {
+    "viec": "Mọi thẻ quảng cáo có con số (999k · 199k · combo) phải in kèm điều kiện áp dụng",
+    "ly_do": "CD2: 40 HT, 18 HT tưởng mình đang đăng ký (nấc A4), khách tự hỏi «có phát sinh thêm ko»",
+    "so_huu": "Khối Marketing",
+    "do_ky_sau": "số HT CD2 rơi do trực page từ 21 xuống dưới 10",
+    "nhan": "da_do"
+   }
+  ],
+  "truc_page": [
+   {
+    "viec": "Khi khách hỏi địa chỉ: HỎI LẠI tỉnh trước khi dán địa chỉ",
+    "ly_do": "CD6: 64 HT, 35 HT ở nấc A4, 34 HT rơi do trực page, chỉ 9,4% cho SĐT",
+    "so_huu": "Trưởng khối trực page",
+    "do_ky_sau": "% có SĐT của CD6 từ 9,4% lên ≥20%",
+    "nhan": "da_do"
+   },
+   {
+    "viec": "Xin số luôn kèm lý do cụ thể, và hỏi khung giờ nghe máy trước khi kết thúc",
+    "ly_do": "N5.1 đạt 67.6%, N5.3 đạt 4.9% — hai tín hiệu kéo HOT xuống còn 3 HT",
+    "so_huu": "Trưởng khối trực page",
+    "do_ky_sau": "N5.1 lên ≥40% · tín hiệu ⑤ lên ≥50 HT",
+    "nhan": "da_do"
+   },
+   {
+    "viec": "Nhắn lại một câu hỏi tình trạng khi khách im — không để khách bỏ sau 1 lượt",
+    "ly_do": "N1.2 đạt 54.7% · 224/494 HT khách chỉ nhắn một lượt rồi im",
+    "so_huu": "Trưởng khối trực page",
+    "do_ky_sau": "«bỏ sau 1 lượt» từ 45.3% xuống dưới 55%",
+    "nhan": "da_do"
+   }
+  ],
+  "he_thong": [
+   {
+    "viec": "Cấp bảng giá hiện hành line Da bằng văn bản",
+    "ly_do": "N3.2 đang chấm «—» toàn bộ 494 HT; 134 HT hỏi giá mà không có nguồn giá chính thức để đối chiếu",
+    "so_huu": "Vận hành + pháp chế",
+    "do_ky_sau": "N3.2 chấm được ✓/✗ thay vì «—»",
+    "nhan": "da_do"
+   },
+   {
+    "viec": "Phân một người trực page nói được tiếng Anh nhận toàn bộ inbox tiếng nước ngoài",
+    "ly_do": "CD1: 29 HT, 21 HT rơi mã O-00 vì không ai trả lời được bằng tiếng của khách",
+    "so_huu": "Trưởng khối trực page",
+    "do_ky_sau": "% có SĐT của CD1 từ 24,1% lên ≥40%",
+    "nhan": "da_do"
+   },
+   {
+    "viec": "Cấp bảng chi nhánh theo tỉnh + luồng chuyển bác sĩ cho hội thoại chạm bệnh nền",
+    "ly_do": "CD6 64 HT cần bảng chi nhánh; 12 HT mang O-12 mà nhân viên ⛔ không được tự trả lời",
+    "so_huu": "Vận hành + Bác sĩ line Da",
+    "do_ky_sau": "0 HT O-12 bị nhân viên tự trả lời",
+    "nhan": "da_do"
+   }
+  ],
+  "bu_quyet": [
+   {
+    "viec": "Chốt bảng giá và chính sách phát sinh cho line Da",
+    "chi_tiet": "Ba thứ đang chặn cùng lúc: chưa có bảng giá hiện hành · chưa có điều kiện áp dụng cho các con số 999k/199k đang chạy · chưa có văn bản về cam kết kết quả. Chưa có ba thứ này thì mọi hook chạm giá đều phải gắn 🔴."
+   }
+  ]
+ },
+ "canh_bao": [
+  {
+   "muc": "bad",
+   "text": "Chưa có bảng giá hiện hành line Da — mọi dòng chạm giá gắn 🔴, tiêu chí N3.2 chấm «—» toàn bộ."
+  },
+  {
+   "muc": "bad",
+   "text": "Mã O-00 chiếm 28.3% mẫu (ngưỡng 10%) — từ điển 12 mã chưa phủ được line Da, nhất là 29 HT khách nước ngoài."
+  },
+  {
+   "muc": "warn",
+   "text": "Chân dung của kỳ do agent phác họa từ chính 494 hội thoại này và đã được duyệt ở CỔNG 0 — xem id-C §1."
+  },
+  {
+   "muc": "warn",
+   "text": "343/494 hội thoại có từ 2 nhân viên trực — ⛔ không gán điểm cả hội thoại cho một người, nên 343 HT đó bị loại khỏi phần xếp loại cá nhân (vẫn tính vào chỉ số cả đội). Chỉ 6 người có ≥10 hội thoại TỰ TRỰC MỘT MÌNH nên được xếp loại; 13 người còn lại ghi «chưa đủ mẫu» (id-F §6)."
+  },
+  {
+   "muc": "warn",
+   "text": "Báo cáo này đọc từ HỘI THOẠI — ⛔ không có số chi quảng cáo nên không dựng được chuỗi CPM → CTR → CPI → CPL → CPB. Bản xuất KNB có số hội thoại theo từng quảng cáo và từng nhóm quảng cáo (da 160 · lamday 115 · sacto 106 · trehoa 22) nhưng không có số chi; cần file chi phí riêng thì mới đọc được phần quảng cáo."
+  },
+  {
+   "muc": "warn",
+   "text": "Chưa có kỳ trước của line Da — mọi cột «so kỳ trước» hiện ⚠ chưa có mốc so sánh."
+  }
+ ],
+ "pheu": {
+  "van_de": [
+   {
+    "muc": "nghiem_trong",
+    "tieu_de": "Hai phần ba hội thoại dừng ở nấc A1 — phễu không có nội dung giải thích, chỉ có nội dung báo giá",
+    "nhan_do": "da_do",
+    "anh_huong": 329,
+    "so_lieu": "329/494 HT (67%) ở nấc A1 · chỉ 1 HT ở A2 · HOT chỉ 3 HT trên 494",
+    "de_xuat": "Làm nội dung A1–A2 cho CD4 và CD3 trước: định danh vùng / phân mức nám, kèm số buổi và thời gian duy trì. ⛔ Không thêm nội dung báo giá.",
+    "so_huu": "Khối Marketing"
+   },
+   {
+    "muc": "nghiem_trong",
+    "tieu_de": "Khách ở tỉnh đã sẵn sàng đi nhưng bị trả lời bằng một địa chỉ rồi dừng",
+    "nhan_do": "da_do",
+    "anh_huong": 64,
+    "so_lieu": "CD6: 64 HT · 35 HT ở nấc A4 · 70 HT mang O-09 · chỉ 9.4% cho SĐT · 34/64 rơi do trực page",
+    "de_xuat": "Một việc duy nhất: khi khách hỏi địa chỉ, HỎI LẠI tỉnh trước khi dán địa chỉ. Cấp bảng chi nhánh theo tỉnh + mẫu câu «làm xong trong ngày».",
+    "so_huu": "Trưởng khối trực page + Vận hành"
+   },
+   {
+    "muc": "nang",
+    "tieu_de": "74 HT vào rồi không kể gì — quảng cáo kéo được người, không làm họ nói tình trạng",
+    "nhan_do": "da_do",
+    "anh_huong": 74,
+    "so_lieu": "CD0: 74 HT (15.0%) · 110 HT mang «(chưa nêu)» · 58/74 rơi do trực page (78%) · 10.8% cho SĐT",
+    "de_xuat": "Đối chiếu CD0 với CD5: nhóm TẢ được tình trạng cho SĐT 33,3%, nhóm không kể gì chỉ 10,8%. Nhân nội dung kiểu CD5, cắt nội dung chỉ treo con số.",
+    "so_huu": "Khối Marketing"
+   },
+   {
+    "muc": "nang",
+    "tieu_de": "Mã O-00 vượt xa ngưỡng 10% — từ điển 12 mã chưa phủ được line Da",
+    "nhan_do": "da_do",
+    "anh_huong": 140,
+    "so_lieu": "O-00: 140/494 HT (28.3%) — ngưỡng cảnh báo của id-D §1 là 10%. Riêng CD1 (khách nước ngoài) đã 21/29 HT rơi O-00.",
+    "de_xuat": "Bổ sung từ điển cho line Da: «tái lại», «bao nhiêu buổi», «duy trì được bao lâu», «có đúng giá quảng cáo không», và một nhánh tiếng Anh. ⛔ Không tự thêm mã O mới.",
+    "so_huu": "Người giữ tools/tu_dien.json"
+   },
+   {
+    "muc": "nghiem_trong",
+    "tieu_de": "12 HT khách tự nêu bệnh nền hoặc tuổi cao — ⛔ nhân viên không được tự trả lời",
+    "nhan_do": "da_do",
+    "anh_huong": 12,
+    "so_lieu": "O-12: 12 HT. Bằng: HT-4bd51d86b1 « Tôi 75 tuổi có làm đc liệu trình này ko? » · HT-fb1e71983c « Có ảnh hưởng gì sức khỏe không bác »",
+    "de_xuat": "Luồng chuyển bác sĩ cho mọi HT chạm bệnh nền, và một câu mẫu từ chối trả lời đúng cách. Dưới ngưỡng 15 HT nên ⛔ chưa tách thành chân dung riêng (id-C §1).",
+    "so_huu": "Bác sĩ phụ trách line Da"
+   },
+   {
+    "muc": "nang",
+    "tieu_de": "Xin số gần như không bao giờ kèm lý do, và không ai hỏi khung giờ gọi",
+    "nhan_do": "da_do",
+    "anh_huong": 494,
+    "so_lieu": "N5.1 «xin số có lý do cụ thể» đạt 67.6% · N5.3 «hỏi khung giờ nghe máy» đạt 4.9% · tín hiệu ⑤ khung giờ chỉ xuất hiện 1/494 HT",
+    "de_xuat": "Hai mẫu câu cho cả khối: xin số kèm lý do, và hỏi khung giờ nghe máy. Đây là hai tín hiệu đang kéo HOT xuống còn 3 HT.",
+    "so_huu": "Trưởng khối trực page"
+   }
+  ]
+ },
+ "nhan_vien": {
+  "viec_he_thong": [
+   {
+    "nguyen_nhan": "Chưa có bảng giá hiện hành line Da → N3.2 chấm «—» toàn bộ, mọi dòng chạm giá gắn 🔴",
+    "so_ht": 134,
+    "so_huu": "Vận hành + pháp chế"
+   },
+   {
+    "nguyen_nhan": "Không có người trực page trả lời được tiếng Anh / Pháp",
+    "so_ht": 29,
+    "so_huu": "Trưởng khối trực page"
+   },
+   {
+    "nguyen_nhan": "Chưa có bảng chi nhánh theo tỉnh để trả khách ngoài HN/HCM",
+    "so_ht": 64,
+    "so_huu": "Vận hành"
+   },
+   {
+    "nguyen_nhan": "Hội thoại chỉ có BOT trả lời, không nhân viên nào vào",
+    "so_ht": 2,
+    "so_huu": "Trưởng khối trực page"
+   },
+   {
+    "nguyen_nhan": "Lượt khách trong giờ trực bị bỏ sót, không ai trả lời",
+    "so_ht": 6,
+    "so_huu": "Trưởng khối trực page"
+   },
+   {
+    "nguyen_nhan": "Khách nêu bệnh nền / tuổi cao (mã O-12) — ⛔ nhân viên KHÔNG được tự trả lời, phải chuyển bác sĩ",
+    "so_ht": 12,
+    "so_huu": "Bác sĩ phụ trách line Da"
+   }
+  ]
+ },
+ "facebook": {
+  "co_du_lieu": false,
+  "ghi_chu": "⚠ chưa có dữ liệu chi phí quảng cáo Facebook. Bản xuất KNB có số hội thoại theo từng quảng cáo và từng nhóm quảng cáo (da 160 · lamday 115 · sacto 106 · trehoa 22 trên mẫu này) nhưng KHÔNG có số chi, nên ⛔ không dựng được CPM → CTR → CPI → CPL → CPB. Thả file chi phí đúng cột vào du-lieu/ads-facebook.csv là tab này chạy được ngay."
+ },
+ "chan_dung": {
+  "insight": [
+   {
+    "cd": "CD4",
+    "ho_la_ai": "- Phụ nữ thấy mặt mình chùng xuống, vào từ quảng cáo lamday và trehoa.\n- Họ không nói «trẻ hóa» — họ gọi thẳng tên vùng cần sửa.\n- Nhận ra ở câu đầu: có tên một VÙNG, kèm chữ «bao nhiêu».\n- Vùng hay gặp: ấn đường, rãnh cười, thái dương, hốc mắt, má hóp.",
+    "insight": "- Sợ tiêm xong người quen nhận ra.\n- Sợ vài tháng là về như cũ, lại mất tiền lần nữa.\n- Hỏi «được bao lâu» là đang lấy tiền chia cho số tháng.",
+    "cau_hoi_ngam": "» «Tiêm vùng này hết bao nhiêu, giữ mấy tháng, có ai nhìn ra không?»",
+    "tin_hieu_nong": "- Nóng lên khi nghe khoảng giá của ĐÚNG vùng mình hỏi.\n- Kèm số tháng duy trì thì nóng thêm.\n- Nguội ngay khi bị đẩy sang «qua viện khám rồi bác sĩ báo giá».\n- ⚠ 139 hội thoại, không một ca HOT nào.\n- Lý do: gần như không ai hỏi họ mốc thời gian và khung giờ gọi.",
+    "cau_mo": "» «Dạ chị đang muốn làm vùng nào ạ — ấn đường, rãnh cười hay thái dương?»",
+    "thu_tu": "- 1. Hỏi vùng trước, đừng hỏi số trước.\n- 2. Khoảng giá của đúng vùng đó.\n- 3. Giữ được bao lâu.\n- 4. Mời lịch kèm ngày và giờ cụ thể.\n- 5. Hỏi khung giờ nghe máy trước khi kết thúc.",
+    "tranh": "- «Qua viện khám mới báo giá được» khi chưa đưa được khoảng nào.\n- Nói số tháng duy trì khi chưa có văn bản — 🔴 bảng giá chưa cấp.",
+    "viec_nd": "- Bảng khoảng giá THEO VÙNG, để trực page dán trong 2 phút đầu.",
+    "trich": "HT-e3d28ef24f « Xoá nhăn Ấn đường và rảnh cười chi phí bao nhiêu? U 70 có làm đc ko? Hiệu quả bao lâu ạ? » · HT-7a12fa80bb « Cấy mợ tự thân đc bao nhiêu thời gian bao nhiêu tiền vậy tôi muốn cấy rãnh cười thái dương hóc mắt »",
+    "ten": "Tiêm vào mặt, sợ lộ và sợ hết thuốc là về như cũ",
+    "nhom": "ưu tiên 1/7 · điểm win 48,2"
+   },
+   {
+    "cd": "CD3",
+    "ho_la_ai": "- Khách nám, tàn nhang, đồi mồi — vào từ quảng cáo sacto.\n- Nhận ra ở chỗ họ TỰ XẾP LOẠI mình trước khi hỏi.\n- Chữ của họ: «nám nhẹ hai bên má».\n- Chữ của họ: «chỉ có đốm li ti, không phải nám nguyên mảng».\n- Chữ của họ: «bị từ hồi bé».",
+    "insight": "- Họ đã đi trị ở đâu đó rồi và không ăn thua.\n- Câu họ hỏi không phải «có trị được không».\n- Mà là «loại nám CỦA TÔI có trị được không».\n- Sợ nhận thêm một liệu trình nữa rồi lại không ra kết quả.",
+    "cau_hoi_ngam": "» «Nám kiểu của tôi mất mấy buổi, hết bao nhiêu, trị xong có tái không?»",
+    "tin_hieu_nong": "- Nóng lên khi nghe SỐ BUỔI cho đúng mức độ họ vừa tả.\n- Nóng thêm khi có mốc nhìn thấy kết quả.\n- 23 hội thoại rơi vào kiểu «chưa biết mình cần gì».\n- Họ chờ được xếp loại, không chờ được bán.",
+    "cau_mo": "» «Chị tả là đốm li ti chứ chưa thành mảng đúng không ạ?»\n» «Chị gửi em một tấm ảnh mặt mộc, đủ sáng giúp em nhé.»",
+    "thu_tu": "- 1. Xếp mức nám: li ti, mảng, hay chân sâu.\n- 2. Số buổi của đúng mức đó.\n- 3. Mốc thấy kết quả.\n- 4. Mời lịch kèm ngày và giờ.",
+    "tranh": "- Hứa «hết hẳn» hoặc «không tái» — 🔴 chưa có văn bản của bác sĩ.\n- Báo một con số buổi chung cho mọi mức nám.",
+    "viec_nd": "- Một bài phân ba mức nám × số buổi × mốc thấy kết quả.",
+    "trich": "HT-45d62e1b3f « mình chỉ có đốm li ti không phải nám nguyên mảng có làm được không ạ » · HT-64e672035e « Một liệu trình giá bao và liệu trình như vậy là mấy buổi da mình nám nhẹ hai bên má có vài đốm nâu »",
+    "ten": "Trị nám rồi vẫn tái",
+    "nhom": "ưu tiên 2/7 · điểm win 33,4"
+   },
+   {
+    "cd": "CD1",
+    "ho_la_ai": "- Việt kiều và khách quốc tế, nhắn bằng tiếng Anh hoặc tiếng Pháp.\n- Nhận ra ngay: câu đầu không phải tiếng Việt.\n- Có người đang ở Phú Quốc.\n- Có người 68 tuổi ở Anh, hỏi căng da cổ.\n- Có người 54 tuổi xin báo giá căng da mặt.",
+    "insight": "- Không phải họ không có nhu cầu.\n- Họ đang chờ một câu trả lời bằng tiếng của mình.\n- 21 trong 29 người chưa nêu được phản đối nào.\n- Vì chưa ai nói chuyện được với họ.",
+    "cau_hoi_ngam": "» «Is there anyone there who speaks my language?»\n» «Can I book before I fly over?»",
+    "tin_hieu_nong": "- Dù gần như không được phục vụ, vẫn có 7 trong 29 người để lại số.\n- Trả lời đúng tiếng thì đây là nhóm dễ chốt nhất kỳ.\n- Hệ số giá trị đơn cao, mà đang được phục vụ kém nhất.",
+    "cau_mo": "» «Hi, I'll take care of this for you. Which treatment are you asking about?»\n» «When are you arriving in Vietnam?»",
+    "thu_tu": "- 1. Trả lời bằng đúng ngôn ngữ khách dùng.\n- 2. Hỏi tuần họ về Việt Nam.\n- 3. Giữ một suất khám quanh ngày đó.\n- 4. Gửi địa chỉ kèm cách đi từ sân bay.",
+    "tranh": "- Để trống khung chat vì không ai đọc được.\n- Trả lời bằng tiếng Việt rồi mong khách tự dịch.",
+    "viec_nd": "- Một trang tiếng Anh: dịch vụ, khoảng giá, cách đặt lịch từ nước ngoài.",
+    "trich": "HT-1394630aed « Hello, I would like to get a quote for a facelift. I am 54 years old… » · HT-bd44d912a6 « I'm in phuquoc and i want to know how much im gonna pay before i go there to your clinic.. »",
+    "ten": "Khách nói tiếng nước ngoài",
+    "nhom": "ưu tiên 3/7 · điểm win 10,6"
+   },
+   {
+    "cd": "CD2",
+    "ho_la_ai": "- Khách bấm thẻ quảng cáo có con số rẻ.\n- Họ nhắn lại đúng câu in trên thẻ.\n- Nhận ra ở câu đầu: có một con số — 999k, 199k, combo, mua 1 tặng 1.\n- 18 trong 40 người tưởng mình ĐANG ĐĂNG KÝ, không phải đang hỏi.",
+    "insight": "- Khách tự nói ra điều mình sợ, không cần ai đoán.\n- Nguyên văn: «có đúng ko ạh, có phát sinh thêm ko ạh».\n- Con số rẻ kéo được người vào.\n- Nhưng đẩy toàn bộ việc giải thích sang trực page.",
+    "cau_hoi_ngam": "» «Con số đó có thật không, hay vào rồi mới biết phải mua cả liệu trình?»",
+    "tin_hieu_nong": "- Ấm nhất kỳ: 25 trong 40 người ở mức WARM.\n- Nguội ngay nếu câu trả lời đầu không nhắc lại đúng con số họ vừa bấm.",
+    "cau_mo": "» «Dạ đúng rồi ạ, gói chị vừa xem là «…».»\n» «Em nói rõ gồm những gì giúp mình nhé.»",
+    "thu_tu": "- 1. Xác nhận đúng con số khách vừa bấm.\n- 2. Gói gồm gì, mấy buổi.\n- 3. Có phát sinh gì không.\n- 4. Rồi MỚI hỏi tình trạng.\n- 5. Mời lịch.",
+    "tranh": "- Lờ con số đi rồi báo một mức giá khác.\n- Tự xác nhận điều kiện áp dụng — 🔴 bảng giá chưa cấp.",
+    "viec_nd": "- Thẻ quảng cáo nào có con số thì in kèm điều kiện áp dụng ngay trên thẻ.",
+    "trich": "HT-39dc42229c « trị nám 999k có đúng ko ạh , có phát sinh thêm ko ạh » · HT-3028950d9b « Nano Gold Extra buổi đầu trải nghiệm là 199k đúng không? »",
+    "ten": "Bấm vào con số rẻ trong quảng cáo",
+    "nhom": "ưu tiên 4/7 · điểm win 7,0"
+   },
+   {
+    "cd": "CD5",
+    "ho_la_ai": "- Khách tự tả tình trạng da bằng chữ của mình.\n- Chữ của họ: mụn thịt ở mặt và cổ, quầng thâm bẩm sinh.\n- Chữ của họ: sẹo lồi, lỗ chân lông to, da nhiều dầu.\n- Nhiều người gửi kèm ảnh ngay từ đầu.",
+    "insight": "- Nhóm nhỏ nhất nhưng để lại số nhiều nhất: 10 trong 30 người.\n- Gấp hơn ba lần nhóm chỉ hỏi địa chỉ.\n- Kể được tình trạng ra là bước làm khách sẵn sàng.\n- Không phải báo giá.",
+    "cau_hoi_ngam": "» «Tình trạng của tôi thì phải làm cái gì?»\n» «Làm xong có bị nặng thêm không?»",
+    "tin_hieu_nong": "- Nóng lên khi được gọi tên đúng tình trạng vừa tả.\n- Nóng thêm khi được chỉ MỘT hướng.\n- Nguội khi nhận một danh sách dịch vụ rồi phải tự chọn.",
+    "cau_mo": "» «Chị tả là mụn thịt ở mặt và cổ đúng không ạ?»\n» «Chị gửi em một tấm ảnh vùng đó nhé.»",
+    "thu_tu": "- 1. Gọi tên đúng tình trạng khách vừa tả.\n- 2. Chỉ MỘT hướng xử lý.\n- 3. Nói rõ cần mấy buổi.\n- 4. Mời lịch kèm ngày và giờ.",
+    "tranh": "- Đưa một danh sách dịch vụ rồi để khách tự chọn.",
+    "viec_nd": "- Bài nào làm khách TẢ TÌNH TRẠNG thì làm thêm.\n- Bài chỉ treo con số thì cắt.",
+    "trich": "HT-65fe73e4b5 « Chị muốn tư vấn điều trị mụn thịt ở mặt, cổ, trị thâm ở người lớn và sẹo lồi nhẹ ở da trẻ em (7 tuổi) » · HT-b451932a01 « Viện ơi cho em hỏi có cách nào xử lí quầng thâm mắt bẩm sinh không ạ »",
+    "ten": "Da đang có vấn đề mà chưa biết phải làm gì",
+    "nhom": "ưu tiên 5/7 · điểm win 6,7"
+   },
+   {
+    "cd": "CD6",
+    "ho_la_ai": "- Khách ngoài Hà Nội và TP.HCM.\n- Hay gặp: Hải Phòng, Nghệ An, Thanh Hóa, Đà Nẵng, Gò Vấp, Bảo Lộc.\n- Nhận ra ngay: câu đầu chỉ có mấy chữ về địa chỉ.\n- 35 trong 64 người đã ở nấc A4: sẵn sàng đến, chỉ cần biết đến đâu.",
+    "insight": "- Khách NÓNG đang bị tưởng là khách lạnh.\n- Họ hỏi địa chỉ vì đang tính đường đi, không phải vì tò mò.\n- Dán địa chỉ Hà Nội rồi dừng là mất họ.\n- 34 trong 64 người rơi ngay ở đó.",
+    "cau_hoi_ngam": "» «Có chỗ nào gần tôi không?»\n» «Nếu lên Hà Nội thì đi một chuyến có làm xong trong ngày không?»",
+    "tin_hieu_nong": "- Nóng lên ngay khi được hỏi lại «mình đang ở tỉnh nào».\n- Nóng thêm khi nhận đúng chi nhánh gần nhất.\n- ⚠ Chỉ 6 trong 64 người để lại số — thấp nhất kỳ.",
+    "cau_mo": "» «Dạ chị đang ở tỉnh nào để em báo chi nhánh gần nhất giúp mình ạ?»",
+    "thu_tu": "- 1. Hỏi tỉnh TRƯỚC, đừng dán địa chỉ ngay.\n- 2. Chi nhánh gần nhất, hoặc nói thẳng là chưa có.\n- 3. Làm xong trong ngày hay phải ở lại.\n- 4. Mời lịch kèm ngày và giờ.\n- 5. Hỏi khung giờ nghe máy.",
+    "tranh": "- Dán «190 A+B Trường Chinh» rồi im.",
+    "viec_nd": "- Việc hệ thống: cấp bảng chi nhánh theo tỉnh.\n- Chưa có bảng thì ⛔ không trừ điểm người trực.",
+    "trich": "HT-87bb361597 « Tôi ở Gò Vấp TPHCM cos chi nhánh nào gần không? » · HT-6f4626ea76 « Địa chỉ Hải Phòng cụ thể là ở đâu ạ? »",
+    "ten": "Ở tỉnh, hỏi có chi nhánh nào gần không",
+    "nhom": "ưu tiên 6/7 · điểm win 5,5"
+   },
+   {
+    "cd": "CD7",
+    "ho_la_ai": "- Gõ đúng một câu hỏi giá rồi thôi.\n- Chữ của họ: «Xin giá» · «Bn tiền» · «Giá bao nhiêu à».\n- Không tả tình trạng, không nói đang ở đâu.\n- Không hỏi gì thêm.",
+    "insight": "- Khác nhóm bấm giá mồi: họ không bấm con số nào.\n- Họ đang đi so giá giữa các nơi.\n- Kể tình trạng ra là mở cửa cho một cuộc gọi bán hàng.\n- Nên họ không kể.",
+    "cau_hoi_ngam": "» «Cho tôi một con số để so đã.»\n» «Tôi chưa muốn kể gì và chưa muốn ai gọi.»",
+    "tin_hieu_nong": "- Nóng lên khi nhận được một KHOẢNG giá ngay, không kèm điều kiện.\n- Dừng hẳn khi bị hỏi số điện thoại trước khi có con số nào.",
+    "cau_mo": "» «Dịch vụ này đang ở khoảng «…», tuỳ tình trạng cụ thể của mình ạ.»\n» 🔴 Chỉ dùng được khi đã có bảng giá line Da.",
+    "thu_tu": "- 1. Cho khoảng giá trước.\n- 2. Xin số sau, và phải kèm lý do.\n- 3. Lý do mẫu: gửi bảng giá chi tiết và giữ suất khám.\n- 4. ⚠ Cả kỳ chỉ 67.6% lượt xin số có kèm lý do.",
+    "tranh": "- Hỏi số điện thoại khi chưa đưa được con số nào.",
+    "viec_nd": "- Nội dung A1–A2 làm khách kể tình trạng trước khi hỏi giá.",
+    "trich": "HT-5f37ac31fd « Giá bao nhiêu à. Và đc thời gian bao lâu » · HT-e92e605f40 « Bao nhiêu tiền một liệu trình khuôn mặt »",
+    "ten": "Chỉ hỏi giá, không kể gì thêm",
+    "nhom": "ưu tiên 7/7 · điểm win 2,7"
+   }
+  ],
+  "co_hoi_win": [
+   {
+    "cd": "CD4",
+    "ten": "Tiêm vào mặt, sợ lộ và sợ hết thuốc là về như cũ",
+    "ht": 139,
+    "lead_bo_lo": 108,
+    "he_so": 2,
+    "pct_sdt": 22.3,
+    "diem": 48.2,
+    "roi_truc": 50,
+    "ghi_chu": "Đông nhất và còn nhiều lead nhất — làm trước thì thu về nhiều nhất",
+    "ly_do_chon": "108 lead bỏ lỡ × hệ số 2 — trần thu về lớn nhất kỳ",
+    "uu_tien": 1,
+    "hang": 1
+   },
+   {
+    "cd": "CD3",
+    "ten": "Trị nám rồi vẫn tái",
+    "ht": 91,
+    "lead_bo_lo": 69,
+    "he_so": 2,
+    "pct_sdt": 24.2,
+    "diem": 33.4,
+    "roi_truc": 23,
+    "ghi_chu": "Tệp tự xếp loại, chốt khá — chỉ thiếu số buổi và mốc kết quả",
+    "ly_do_chon": "chốt 24,2% — cao nhất trong nhóm hệ số 2",
+    "uu_tien": 2,
+    "hang": 2
+   },
+   {
+    "cd": "CD1",
+    "ten": "Khách nói tiếng nước ngoài",
+    "ht": 29,
+    "lead_bo_lo": 22,
+    "he_so": 2,
+    "pct_sdt": 24.1,
+    "diem": 10.6,
+    "roi_truc": 7,
+    "ghi_chu": "Ít người nhưng hệ số cao và chốt tốt — rào cản là ngôn ngữ, không phải nhu cầu",
+    "ly_do_chon": "hệ số 2, vẫn chốt 24,1% dù chưa ai trả lời đúng tiếng",
+    "uu_tien": 3,
+    "hang": 3
+   },
+   {
+    "cd": "CD2",
+    "ten": "Bấm vào con số rẻ trong quảng cáo",
+    "ht": 40,
+    "lead_bo_lo": 31,
+    "he_so": 1,
+    "pct_sdt": 22.5,
+    "diem": 7.0,
+    "roi_truc": 21,
+    "ghi_chu": "Ấm nhất kỳ nhưng hỏng ở lời hứa giá — sửa thẻ quảng cáo là lên ngay",
+    "ly_do_chon": "hỏng ở thẻ quảng cáo — sửa lời hứa giá trước mới đo được nội dung",
+    "uu_tien": null,
+    "hang": 4
+   },
+   {
+    "cd": "CD5",
+    "ten": "Da đang có vấn đề mà chưa biết phải làm gì",
+    "ht": 30,
+    "lead_bo_lo": 20,
+    "he_so": 1,
+    "pct_sdt": 33.3,
+    "diem": 6.7,
+    "roi_truc": 12,
+    "ghi_chu": "Ít người, chốt cao nhất kỳ — đáng NHÂN LÊN bằng nội dung, không đáng dồn người",
+    "ly_do_chon": "chỉ 20 lead bỏ lỡ — trần quá thấp để dồn người, nhân bằng nội dung thì đáng",
+    "uu_tien": null,
+    "hang": 5
+   },
+   {
+    "cd": "CD6",
+    "ten": "Ở tỉnh, hỏi có chi nhánh nào gần không",
+    "ht": 64,
+    "lead_bo_lo": 58,
+    "he_so": 1,
+    "pct_sdt": 9.4,
+    "diem": 5.5,
+    "roi_truc": 34,
+    "ghi_chu": "⚠ Điểm thấp vì đang hỏng ở câu trả lời, không phải vì khách nguội — ô 🔧",
+    "ly_do_chon": "34/64 rơi ở câu trả lời — thuộc ô 🔧 sửa vận hành, nội dung không gỡ được",
+    "uu_tien": null,
+    "hang": 6
+   },
+   {
+    "cd": "CD7",
+    "ten": "Chỉ hỏi giá, không kể gì thêm",
+    "ht": 27,
+    "lead_bo_lo": 24,
+    "he_so": 1,
+    "pct_sdt": 11.1,
+    "diem": 2.7,
+    "roi_truc": 12,
+    "ghi_chu": "Chưa chịu kể gì — gỡ bằng nội dung A1–A2, chưa phải chỗ dồn sức",
+    "ly_do_chon": "trần 24 lead, chốt 11,1% — cần nội dung A1–A2 trước",
+    "uu_tien": null,
+    "hang": 7
+   },
+   {
+    "cd": "CD0",
+    "ten": "Chưa đủ dữ kiện để xếp",
+    "ht": 74,
+    "lead_bo_lo": 66,
+    "he_so": 1,
+    "pct_sdt": 10.8,
+    "diem": 7.1,
+    "roi_truc": 58,
+    "ghi_chu": "⛔ Không xếp hạng — mã dự trữ, không phải chân dung. Khách chưa kể gì nên chưa phác họa được; việc nằm ở quảng cáo và ở câu MỞ của trực page",
+    "ly_do_chon": "mã dự trữ, không phải chân dung",
+    "uu_tien": null,
+    "hang": null
+   }
+  ],
+  "cach_tinh_win": "Điểm win = lead đang bỏ lỡ × hệ số giá trị đơn × tỷ lệ đang chốt được của chính nhóm. Cả ba đều là số ĐÃ ĐO của kỳ này — ⛔ không có hệ số nào tự đặt. Nhóm rơi chủ yếu ở câu trả lời của trực page thì điểm thấp là đúng: việc của nó nằm ở ô 🔧 sửa vận hành, sửa câu trước rồi mới làm nội dung."
+ },
+ "ma_tran": {
+  "trang_thai": "da_duyet",
+  "duyet_boi": "Trần Hữu Đinh",
+  "duyet_luc": "2026-11-02 14:32",
+  "cach_xep": "Điểm ô = số lead bỏ lỡ trong ô × hệ số giá trị đơn (id-G §3). Khối ① nhắm HOT nên lead bỏ lỡ = cả tập (WARM chưa thành HOT); khối ② và ③ nhắm SĐT nên lead bỏ lỡ = HT chưa có SĐT. Hệ số ⚠ ước từ bảng giá chuẩn, chưa phải doanh thu thật. Tối đa 3 + 3 + 2 ô nội dung một kỳ.",
+  "ghi_chu_duyet": "CỔNG 1 mở theo yêu cầu trực tiếp của người dùng ngày 31/10 («đã cung cấp đủ dữ liệu mà ngân hàng hook chưa có gì»), ⚠ không phải lệnh DUYỆT gõ theo khuôn. Muốn soát lại ma trận trước khi dùng hook thì nói, tôi đóng cổng lại.",
+  "khoi": [
+   {
+    "ma": "tang_hot",
+    "ten": "① TĂNG HOT — kéo WARM sát HOT lên HOT",
+    "muc_tieu": "Bù hai tín hiệu đang thiếu: ② mốc thời gian và ⑤ khung giờ gọi",
+    "tap_lead": "HT WARM đạt ≥3/5 tín hiệu",
+    "dong": [
+     {
+      "cd": "CD4",
+      "ten": "Tiêm vào mặt, sợ lộ và sợ hết thuốc là về như cũ",
+      "ht": 139,
+      "lead": 7,
+      "co_sdt": 7,
+      "he_so": 2,
+      "diem": 14,
+      "nac": "A3 (6) · A1 (1)",
+      "huong": "Bảng khoảng giá THEO VÙNG (ấn đường · rãnh cười · thái dương · hốc mắt · má hóp) kèm thời gian duy trì — dán được trong 2 phút đầu",
+      "chon": true,
+      "uu_tien": 1
+     },
+     {
+      "cd": "CD3",
+      "ten": "Trị nám rồi vẫn tái",
+      "ht": 91,
+      "lead": 4,
+      "co_sdt": 4,
+      "he_so": 2,
+      "diem": 8,
+      "nac": "A3 (3) · A1 (1)",
+      "huong": "Phân mức nám (li ti / mảng / chân sâu) × số buổi × mốc thấy kết quả",
+      "chon": true,
+      "uu_tien": 2
+     },
+     {
+      "cd": "CD1",
+      "ten": "Khách nói tiếng nước ngoài",
+      "ht": 29,
+      "lead": 3,
+      "co_sdt": 2,
+      "he_so": 2,
+      "diem": 6,
+      "nac": "A1 (3)",
+      "huong": "Một trang khoảng giá + mẫu câu tiếng Anh, giao cho người trực nói được tiếng Anh",
+      "chon": true,
+      "uu_tien": 3
+     },
+     {
+      "cd": "CD5",
+      "ten": "Da đang có vấn đề mà chưa biết phải làm gì",
+      "ht": 30,
+      "lead": 2,
+      "co_sdt": 2,
+      "he_so": 1,
+      "diem": 2,
+      "nac": "A1 (2)",
+      "huong": "Nhân nội dung làm khách TẢ TÌNH TRẠNG — nhóm này cho SĐT cao nhất kỳ (33,3%)",
+      "chon": false,
+      "uu_tien": null
+     },
+     {
+      "cd": "CD7",
+      "ten": "Chỉ hỏi giá, không kể gì thêm",
+      "ht": 27,
+      "lead": 1,
+      "co_sdt": 1,
+      "he_so": 1,
+      "diem": 1,
+      "nac": "A1 (1)",
+      "huong": "Cho khoảng giá trước, xin số sau — xin số phải kèm lý do cụ thể",
+      "chon": false,
+      "uu_tien": null
+     }
+    ]
+   },
+   {
+    "ma": "giam_cold",
+    "ten": "② GIẢM COLD — làm khách nói được tình trạng ngay từ quảng cáo",
+    "muc_tieu": "Kéo khách ra khỏi trạng thái chỉ hỏi giá / chỉ hỏi địa chỉ",
+    "tap_lead": "HT COLD mang O-01, O-09 hoặc chưa nêu được phản đối nào",
+    "dong": [
+     {
+      "cd": "CD4",
+      "ten": "Tiêm vào mặt, sợ lộ và sợ hết thuốc là về như cũ",
+      "ht": 139,
+      "lead": 61,
+      "co_sdt": 2,
+      "he_so": 2,
+      "diem": 118,
+      "nac": "A3 (34) · A1 (23)",
+      "huong": "Bảng khoảng giá THEO VÙNG (ấn đường · rãnh cười · thái dương · hốc mắt · má hóp) kèm thời gian duy trì — dán được trong 2 phút đầu",
+      "chon": true,
+      "uu_tien": 1
+     },
+     {
+      "cd": "CD3",
+      "ten": "Trị nám rồi vẫn tái",
+      "ht": 91,
+      "lead": 24,
+      "co_sdt": 0,
+      "he_so": 2,
+      "diem": 48,
+      "nac": "A1 (12) · A3 (10)",
+      "huong": "Phân mức nám (li ti / mảng / chân sâu) × số buổi × mốc thấy kết quả",
+      "chon": true,
+      "uu_tien": 2
+     },
+     {
+      "cd": "CD7",
+      "ten": "Chỉ hỏi giá, không kể gì thêm",
+      "ht": 27,
+      "lead": 20,
+      "co_sdt": 0,
+      "he_so": 1,
+      "diem": 20,
+      "nac": "A3 (11) · A1 (9)",
+      "huong": "Cho khoảng giá trước, xin số sau — xin số phải kèm lý do cụ thể",
+      "chon": true,
+      "uu_tien": 3
+     },
+     {
+      "cd": "CD5",
+      "ten": "Da đang có vấn đề mà chưa biết phải làm gì",
+      "ht": 30,
+      "lead": 10,
+      "co_sdt": 0,
+      "he_so": 1,
+      "diem": 10,
+      "nac": "A1 (7) · A3 (2)",
+      "huong": "Nhân nội dung làm khách TẢ TÌNH TRẠNG — nhóm này cho SĐT cao nhất kỳ (33,3%)",
+      "chon": false,
+      "uu_tien": null
+     },
+     {
+      "cd": "CD1",
+      "ten": "Khách nói tiếng nước ngoài",
+      "ht": 29,
+      "lead": 4,
+      "co_sdt": 0,
+      "he_so": 2,
+      "diem": 8,
+      "nac": "A1 (4)",
+      "huong": "Một trang khoảng giá + mẫu câu tiếng Anh, giao cho người trực nói được tiếng Anh",
+      "chon": false,
+      "uu_tien": null
+     }
+    ]
+   },
+   {
+    "ma": "toi_uu_warm",
+    "ten": "③ TỐI ƯU WARM — gỡ rào cản làm WARM đứng lại",
+    "muc_tieu": "Trả lời đúng tầng mã O khách đã nêu",
+    "tap_lead": "HT WARM đạt 2/5 tín hiệu, có mã O rõ",
+    "dong": [
+     {
+      "cd": "CD3",
+      "ten": "Trị nám rồi vẫn tái",
+      "ht": 91,
+      "lead": 20,
+      "co_sdt": 8,
+      "he_so": 2,
+      "diem": 24,
+      "nac": "A1 (10) · A3 (9)",
+      "huong": "Phân mức nám (li ti / mảng / chân sâu) × số buổi × mốc thấy kết quả",
+      "chon": true,
+      "uu_tien": 1
+     },
+     {
+      "cd": "CD4",
+      "ten": "Tiêm vào mặt, sợ lộ và sợ hết thuốc là về như cũ",
+      "ht": 139,
+      "lead": 19,
+      "co_sdt": 12,
+      "he_so": 2,
+      "diem": 14,
+      "nac": "A1 (9) · A3 (7)",
+      "huong": "Bảng khoảng giá THEO VÙNG (ấn đường · rãnh cười · thái dương · hốc mắt · má hóp) kèm thời gian duy trì — dán được trong 2 phút đầu",
+      "chon": true,
+      "uu_tien": 2
+     },
+     {
+      "cd": "CD7",
+      "ten": "Chỉ hỏi giá, không kể gì thêm",
+      "ht": 27,
+      "lead": 6,
+      "co_sdt": 2,
+      "he_so": 1,
+      "diem": 4,
+      "nac": "A1 (3) · A3 (3)",
+      "huong": "Cho khoảng giá trước, xin số sau — xin số phải kèm lý do cụ thể",
+      "chon": false,
+      "uu_tien": null
+     },
+     {
+      "cd": "CD5",
+      "ten": "Da đang có vấn đề mà chưa biết phải làm gì",
+      "ht": 30,
+      "lead": 6,
+      "co_sdt": 5,
+      "he_so": 1,
+      "diem": 1,
+      "nac": "A1 (3) · A3 (2)",
+      "huong": "Nhân nội dung làm khách TẢ TÌNH TRẠNG — nhóm này cho SĐT cao nhất kỳ (33,3%)",
+      "chon": false,
+      "uu_tien": null
+     }
+    ]
+   }
+  ],
+  "sua_van_hanh": [
+   {
+    "cd": "CD2",
+    "ten": "Bấm vào con số rẻ trong quảng cáo",
+    "ht": 40,
+    "truc": 21,
+    "ly_do": "21/40 HT (52%) rơi ngay ở câu trả lời của trực page — nội dung không gỡ được lỗi câu trả lời. ⚠ Ô này lỗi ở CẢ HAI phía: thẻ quảng cáo hứa con số mà không kèm điều kiện — việc phía quảng cáo đã ghi ở Kết luận · Marketing."
+   },
+   {
+    "cd": "CD6",
+    "ten": "Ở tỉnh, hỏi có chi nhánh nào gần không",
+    "ht": 64,
+    "truc": 34,
+    "ly_do": "34/64 HT (53%) rơi ngay ở câu trả lời của trực page — nội dung không gỡ được lỗi câu trả lời. Phần lớn khách đã ở nấc A4: chỉ cần HỎI LẠI tỉnh trước khi dán địa chỉ."
+   },
+   {
+    "cd": "CD0",
+    "ten": "Chưa đủ dữ kiện để xếp",
+    "ht": 74,
+    "truc": 58,
+    "ly_do": "58/74 HT (78%) rơi ngay ở câu trả lời của trực page — nội dung không gỡ được lỗi câu trả lời. Khách chưa kể gì nên ⛔ chưa có gì để làm nội dung — việc nằm ở phía quảng cáo và ở câu MỞ của trực page."
+   }
+  ],
+  "quan_sat": []
+ },
+ "hook": {
+  "dong": [
+   {
+    "ma": "KN-2429-001",
+    "khoi": "① Tăng HOT",
+    "cd": "CD4",
+    "nac": "A3",
+    "ma_o": "O-01",
+    "insight": "Hỏi «được bao lâu» không phải hỏi kỹ thuật — họ đang lấy tiền chia cho số tháng",
+    "hook": "Xóa ấn đường và rãnh cười — bao lâu thì hết dấu, và giữ được mấy tháng?",
+    "loai_hook": "GỌI TÊN NỖI SỢ",
+    "fm": [
+     "L03",
+     "L02",
+     "L05"
+    ],
+    "cta": "Nhắn em VÙNG chị muốn làm + TUẦN chị rảnh, em xếp lịch khám đúng giờ.",
+    "truy_nguoc": "HT-e3d28ef24f · HT-7a12fa80bb",
+    "nhiet": "Warm",
+    "co_phap_che": "🟡",
+    "ly_do_co": "Số tháng duy trì là thông tin chuyên môn — cần BS xác nhận",
+    "duyet": "",
+    "muc_tieu": "Lấy cho được mốc thời gian và khung giờ gọi",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-002",
+    "khoi": "① Tăng HOT",
+    "cd": "CD4",
+    "nac": "A4",
+    "ma_o": "O-03",
+    "insight": "Sợ tiêm xong người quen nhận ra",
+    "hook": "Có ai tiêm xong về sợ người nhà nhìn ra không — mấy ngày thì hết dấu?",
+    "loai_hook": "CÂU HỎI THẦM",
+    "fm": [
+     "L05",
+     "L07",
+     "L12"
+    ],
+    "cta": "Nhắn em ngày chị tiện qua, em giữ khung giờ vắng người giúp chị.",
+    "truy_nguoc": "HT-657149a039 · CD4 nỗi sợ «sợ lộ»",
+    "nhiet": "Warm",
+    "co_phap_che": "🟢",
+    "ly_do_co": "",
+    "duyet": "",
+    "muc_tieu": "Lấy cho được mốc thời gian và khung giờ gọi",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-003",
+    "khoi": "① Tăng HOT",
+    "cd": "CD3",
+    "nac": "A3",
+    "ma_o": "O-01",
+    "insight": "Khách tự xếp loại mức nám của mình trước khi hỏi",
+    "hook": "Nám nhẹ hai bên má, vài đốm nâu — mất mấy buổi thì thấy rõ?",
+    "loai_hook": "GỌI TÊN NỖI SỢ",
+    "fm": [
+     "L03",
+     "L05",
+     "L08"
+    ],
+    "cta": "Gửi em ảnh mặt mộc + tuần chị rảnh, em báo số buổi đúng mức nám của chị.",
+    "truy_nguoc": "HT-64e672035e (chép nguyên)",
+    "nhiet": "Warm",
+    "co_phap_che": "🟡",
+    "ly_do_co": "Số buổi và mốc kết quả cần BS xác nhận",
+    "duyet": "",
+    "muc_tieu": "Lấy cho được mốc thời gian và khung giờ gọi",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-004",
+    "khoi": "① Tăng HOT",
+    "cd": "CD3",
+    "nac": "A3",
+    "ma_o": "O-08",
+    "insight": "Họ chờ được XẾP LOẠI, không chờ được bán — 23 HT mang O-08",
+    "hook": "Bác sĩ phân nám làm mấy mức trước khi bắn — mức của chị nằm ở đâu?",
+    "loai_hook": "TIẾT LỘ NỘI BỘ",
+    "fm": [
+     "L01",
+     "L03",
+     "L02"
+    ],
+    "cta": "Gửi ảnh mặt mộc, em xếp mức giúp chị ngay trong hôm nay.",
+    "truy_nguoc": "HT-45d62e1b3f · 23 HT mã O-08 trong CD3",
+    "nhiet": "Warm",
+    "co_phap_che": "🟡",
+    "ly_do_co": "Cách phân mức nám là phác đồ — cần BS xác nhận",
+    "duyet": "",
+    "muc_tieu": "Lấy cho được mốc thời gian và khung giờ gọi",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-005",
+    "khoi": "① Tăng HOT",
+    "cd": "CD1",
+    "nac": "A1",
+    "ma_o": "O-00",
+    "insight": "Họ đang chờ một câu trả lời bằng tiếng của mình, không phải chờ giá",
+    "hook": "Flying home for treatment — can you book me before I land?",
+    "loai_hook": "CÂU HỎI THẦM",
+    "fm": [
+     "L12",
+     "L06",
+     "L01"
+    ],
+    "cta": "Tell us your arrival week — we'll hold a consultation slot for you.",
+    "truy_nguoc": "HT-bd44d912a6 (chép nguyên) · HT-1394630aed",
+    "nhiet": "Cold",
+    "co_phap_che": "🟢",
+    "ly_do_co": "",
+    "duyet": "",
+    "muc_tieu": "Lấy cho được mốc thời gian và khung giờ gọi",
+    "local_hoa": "Y",
+    "ly_do_local": "cần bản tiếng Anh và tiếng Pháp"
+   },
+   {
+    "ma": "KN-2429-006",
+    "khoi": "① Tăng HOT",
+    "cd": "CD1",
+    "nac": "A1",
+    "ma_o": "O-09",
+    "insight": "Họ về một chuyến, phải gói cả khám và làm vào chuyến đó",
+    "hook": "One trip home, one window — plan the visit before you fly.",
+    "loai_hook": "CON SỐ",
+    "fm": [
+     "L12",
+     "L07",
+     "L10"
+    ],
+    "cta": "Send your travel dates — we'll map the visit around them.",
+    "truy_nguoc": "HT-9cee3f7123 · HT-bd44d912a6",
+    "nhiet": "Cold",
+    "co_phap_che": "🟢",
+    "ly_do_co": "",
+    "challenger": true,
+    "duyet": "",
+    "muc_tieu": "Lấy cho được mốc thời gian và khung giờ gọi",
+    "local_hoa": "Y",
+    "ly_do_local": "cần bản tiếng Anh và tiếng Pháp"
+   },
+   {
+    "ma": "KN-2429-007",
+    "khoi": "② Giảm COLD",
+    "cd": "CD4",
+    "nac": "A1",
+    "ma_o": "O-08",
+    "insight": "Cùng một câu «cấy HA bao nhiêu» nhưng mỗi khuôn mặt cần một lượng khác",
+    "hook": "Cùng câu hỏi «cấy HA bao nhiêu» — vì sao mỗi khuôn mặt lại ra một con số khác?",
+    "loai_hook": "NGHỊCH LÝ",
+    "fm": [
+     "L01",
+     "L09",
+     "L03"
+    ],
+    "cta": "Chụp một tấm chính diện và một tấm nghiêng, em chỉ đúng vùng cần làm trước.",
+    "truy_nguoc": "HT-344e3d1dc4 · HT-e1798f4625",
+    "nhiet": "Cold",
+    "co_phap_che": "🟡",
+    "ly_do_co": "Chạm tới cách tính giá — chờ bảng giá line Da",
+    "duyet": "",
+    "muc_tieu": "Làm khách KỂ TÌNH TRẠNG thay vì chỉ hỏi giá",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-008",
+    "khoi": "② Giảm COLD",
+    "cd": "CD4",
+    "nac": "A1",
+    "ma_o": "O-00",
+    "insight": "Khách hỏi HA là chất làm đầy hay tăng sinh collagen — họ chưa phân biệt được",
+    "hook": "Cấy HA và tiêm filler khác nhau chỗ nào — hỏi đúng cái mình đang cần.",
+    "loai_hook": "SO SÁNH A–B",
+    "fm": [
+     "L09",
+     "L02",
+     "L01"
+    ],
+    "cta": "Nhắn em vùng chị muốn cải thiện, em nói rõ cái nào hợp với vùng đó.",
+    "truy_nguoc": "HT-e1798f4625 (chép nguyên) · HT-b9d1ae2142",
+    "nhiet": "Cold",
+    "co_phap_che": "🟢",
+    "ly_do_co": "",
+    "duyet": "",
+    "muc_tieu": "Làm khách KỂ TÌNH TRẠNG thay vì chỉ hỏi giá",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-009",
+    "khoi": "② Giảm COLD",
+    "cd": "CD3",
+    "nac": "A1",
+    "ma_o": "O-00",
+    "insight": "Khách tự phân biệt «đốm li ti» với «nám nguyên mảng» — nhưng không ai xác nhận cho họ",
+    "hook": "Đốm li ti chưa chắc là nám — và cách xử lý cũng không giống nám.",
+    "loai_hook": "PHỦ ĐỊNH",
+    "fm": [
+     "L01",
+     "L03",
+     "L09"
+    ],
+    "cta": "Gửi em ảnh mặt mộc, em nói chị đang ở loại nào trước khi bàn tới liệu trình.",
+    "truy_nguoc": "HT-45d62e1b3f (chép nguyên)",
+    "nhiet": "Cold",
+    "co_phap_che": "🟡",
+    "ly_do_co": "Phân biệt đốm / nám là chẩn đoán — cần BS xác nhận",
+    "duyet": "",
+    "muc_tieu": "Làm khách KỂ TÌNH TRẠNG thay vì chỉ hỏi giá",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-010",
+    "khoi": "② Giảm COLD",
+    "cd": "CD7",
+    "nac": "A3",
+    "ma_o": "O-01",
+    "insight": "«Cho tôi một con số để so đã. Tôi chưa muốn kể gì và chưa muốn ai gọi»",
+    "hook": "Có ai muốn biết khoảng giá trước, chưa muốn ai gọi không?",
+    "loai_hook": "CÂU HỎI THẦM",
+    "fm": [
+     "L11",
+     "L01",
+     "L06"
+    ],
+    "cta": "Nhắn chữ «khoảng giá» — em gửi khung giá trước, chưa cần số điện thoại.",
+    "truy_nguoc": "HT-5f37ac31fd · HT-e92e605f40 · 21/27 HT mã O-01",
+    "nhiet": "Cold",
+    "co_phap_che": "🔴",
+    "ly_do_co": "⛔ CTA hứa gửi khung giá mà line Da CHƯA có bảng giá hiện hành (id-K §3). Cấp bảng giá là gỡ được ngay — đây là hook đáng nhất của khối ②.",
+    "duyet": "",
+    "muc_tieu": "Làm khách KỂ TÌNH TRẠNG thay vì chỉ hỏi giá",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-011",
+    "khoi": "② Giảm COLD",
+    "cd": "CD7",
+    "nac": "A1",
+    "ma_o": "O-08",
+    "insight": "Họ hỏi tiền vì không biết hỏi gì khác — chưa ai đưa cho họ một đơn vị để so",
+    "hook": "Một liệu trình khuôn mặt gồm mấy buổi — hỏi số buổi trước khi hỏi tiền.",
+    "loai_hook": "CON SỐ",
+    "fm": [
+     "L10",
+     "L09",
+     "L02"
+    ],
+    "cta": "Nhắn vùng chị quan tâm, em gửi số buổi của đúng vùng đó.",
+    "truy_nguoc": "HT-e92e605f40 (chép nguyên) · HT-4c23c8f0f0",
+    "nhiet": "Cold",
+    "co_phap_che": "🟡",
+    "ly_do_co": "Số buổi của mỗi liệu trình cần BS xác nhận",
+    "duyet": "",
+    "muc_tieu": "Làm khách KỂ TÌNH TRẠNG thay vì chỉ hỏi giá",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-012",
+    "khoi": "③ Tối ưu WARM",
+    "cd": "CD3",
+    "nac": "A3",
+    "ma_o": "O-06",
+    "insight": "Họ đã trị ở nơi khác và không ăn thua — sợ lặp lại đúng chuyện đó",
+    "hook": "Trị nám xong vẫn tái — điều gì quyết định có tái hay không?",
+    "loai_hook": "TIẾT LỘ NỘI BỘ",
+    "fm": [
+     "L03",
+     "L02",
+     "L06"
+    ],
+    "cta": "Kể em chị từng trị ở đâu và bằng cách nào, em nói chị nghe khác biệt nằm ở đâu.",
+    "truy_nguoc": "HT-64e672035e (O-06) · CD3 nỗi sợ «tái lại»",
+    "nhiet": "Warm",
+    "co_phap_che": "🟡",
+    "ly_do_co": "⛔ Nội dung không được ngả sang hứa «không tái» — cần BS duyệt câu trả lời",
+    "duyet": "",
+    "muc_tieu": "Gỡ đúng rào cản đang giữ khách đứng lại",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-013",
+    "khoi": "③ Tối ưu WARM",
+    "cd": "CD4",
+    "nac": "A3",
+    "ma_o": "O-01",
+    "insight": "Khách gọi tên VÙNG chứ không gọi tên dịch vụ",
+    "hook": "Ba vùng khách hỏi nhiều nhất tuần này: ấn đường, rãnh cười, thái dương.",
+    "loai_hook": "CON SỐ",
+    "fm": [
+     "L04",
+     "L08",
+     "L05"
+    ],
+    "cta": "Chị đang vướng vùng nào? Nhắn tên vùng, em gửi đúng phần đó.",
+    "truy_nguoc": "139 HT của CD4 · HT-7a12fa80bb · HT-921327a8aa",
+    "nhiet": "Warm",
+    "co_phap_che": "🟢",
+    "ly_do_co": "",
+    "duyet": "",
+    "muc_tieu": "Gỡ đúng rào cản đang giữ khách đứng lại",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   },
+   {
+    "ma": "KN-2429-014",
+    "khoi": "③ Tối ưu WARM",
+    "cd": "CD4",
+    "nac": "A1",
+    "ma_o": "O-03",
+    "insight": "Họ tả bằng chữ của mình: má hóp, hốc mắt trũng",
+    "hook": "Má hóp, hốc mắt trũng — nhìn mệt mỏi dù ngủ đủ.",
+    "loai_hook": "GỌI TÊN NỖI SỢ",
+    "fm": [
+     "L04",
+     "L08",
+     "L03"
+    ],
+    "cta": "Gửi em một tấm ảnh nghiêng, em chỉ vùng nên làm đầy trước.",
+    "truy_nguoc": "HT-7a12fa80bb (chép nguyên «rãnh cười thái dương hóc mắt»)",
+    "nhiet": "Cold",
+    "co_phap_che": "🟢",
+    "ly_do_co": "",
+    "duyet": "",
+    "muc_tieu": "Gỡ đúng rào cản đang giữ khách đứng lại",
+    "local_hoa": "N",
+    "ly_do_local": ""
+   }
+  ],
+  "ghi_chu": "Viết theo id-H sau khi CỔNG 1 mở. Cách viết: §3 cách 1 CHÉP NGUYÊN câu khách và cách 2 GỘP TẦN SUẤT.",
+  "tu_kiem": [
+   "14 hook · 7 loại hook · loại nhiều nhất «GỌI TÊN NỖI SỢ» chiếm 3/14 (21%), ngưỡng id-H §5③ là 50%.",
+   "Mỗi khối ma trận đều có hook: ① Tăng HOT 6 · ② Giảm COLD 5 · ③ Tối ưu WARM 3.",
+   "⚠ CD1 chưa có hook nấc A3 (luật id-H §5④). Lý do: cả tệp này không có một hội thoại nào ở nấc A3 — ⛔ không bịa một hook không truy ngược được. Khi kỳ sau có HT ở A3 thì bổ sung.",
+   "Ô CHALLENGER: KN-2429-006 (id-H §5①).",
+   "Cờ pháp chế: 🔴 1 · 🟡 7 · 🟢 6. ⛔ Hook 🔴 KHÔNG được phát: KN-2429-010.",
+   "Cột DUYỆT để trống — bác sĩ và pháp chế điền. ⛔ Chỉ hook DUYỆT = XANH mới lên ads (id-H §4).",
+   "Mọi hook đều truy ngược được về HT-nnn hoặc một con số của kỳ (luật ①)."
+  ]
+ },
+ "so_tay": {
+  "da_sinh": false,
+  "so_ban": 0,
+  "duong_dan": "out/so-tay/"
+ },
+ "viec": [
+  {
+   "so": 1,
+   "viec": "Làm bảng khoảng giá theo VÙNG cho CD4 (ấn đường · rãnh cười · thái dương · hốc mắt · má hóp) kèm thời gian duy trì",
+   "bo_phan": "Marketing",
+   "so_huu": "Khối Marketing",
+   "han": "05/11/2026",
+   "do_the_nao": "% có SĐT của CD4 từ 22,3% lên ≥30%",
+   "trang_thai": "moi"
+  },
+  {
+   "so": 2,
+   "viec": "Nhân tuyến nội dung làm khách TẢ TÌNH TRẠNG (kiểu CD5), cắt nội dung chỉ treo con số rẻ",
+   "bo_phan": "Marketing",
+   "so_huu": "Khối Marketing",
+   "han": "05/11/2026",
+   "do_the_nao": "số HT rơi CD0 từ 74 xuống dưới 50",
+   "trang_thai": "moi"
+  },
+  {
+   "so": 3,
+   "viec": "Mọi thẻ quảng cáo có con số (999k · 199k · combo) phải in kèm điều kiện áp dụng",
+   "bo_phan": "Marketing",
+   "so_huu": "Khối Marketing",
+   "han": "05/11/2026",
+   "do_the_nao": "số HT CD2 rơi do trực page từ 21 xuống dưới 10",
+   "trang_thai": "moi"
+  },
+  {
+   "so": 4,
+   "viec": "Khi khách hỏi địa chỉ: HỎI LẠI tỉnh trước khi dán địa chỉ",
+   "bo_phan": "Trực page",
+   "so_huu": "Trưởng khối trực page",
+   "han": "05/11/2026",
+   "do_the_nao": "% có SĐT của CD6 từ 9,4% lên ≥20%",
+   "trang_thai": "moi"
+  },
+  {
+   "so": 5,
+   "viec": "Xin số luôn kèm lý do cụ thể, và hỏi khung giờ nghe máy trước khi kết thúc",
+   "bo_phan": "Trực page",
+   "so_huu": "Trưởng khối trực page",
+   "han": "05/11/2026",
+   "do_the_nao": "N5.1 lên ≥40% · tín hiệu ⑤ lên ≥50 HT",
+   "trang_thai": "moi"
+  },
+  {
+   "so": 6,
+   "viec": "Nhắn lại một câu hỏi tình trạng khi khách im — không để khách bỏ sau 1 lượt",
+   "bo_phan": "Trực page",
+   "so_huu": "Trưởng khối trực page",
+   "han": "05/11/2026",
+   "do_the_nao": "«bỏ sau 1 lượt» từ 45.3% xuống dưới 55%",
+   "trang_thai": "moi"
+  },
+  {
+   "so": 7,
+   "viec": "Cấp bảng giá hiện hành line Da bằng văn bản",
+   "bo_phan": "Hệ thống",
+   "so_huu": "Vận hành + pháp chế",
+   "han": "05/11/2026",
+   "do_the_nao": "N3.2 chấm được ✓/✗ thay vì «—»",
+   "trang_thai": "moi"
+  },
+  {
+   "so": 8,
+   "viec": "Phân một người trực page nói được tiếng Anh nhận toàn bộ inbox tiếng nước ngoài",
+   "bo_phan": "Hệ thống",
+   "so_huu": "Trưởng khối trực page",
+   "han": "05/11/2026",
+   "do_the_nao": "% có SĐT của CD1 từ 24,1% lên ≥40%",
+   "trang_thai": "moi"
+  },
+  {
+   "so": 9,
+   "viec": "Cấp bảng chi nhánh theo tỉnh + luồng chuyển bác sĩ cho hội thoại chạm bệnh nền",
+   "bo_phan": "Hệ thống",
+   "so_huu": "Vận hành + Bác sĩ line Da",
+   "han": "05/11/2026",
+   "do_the_nao": "0 HT O-12 bị nhân viên tự trả lời",
+   "trang_thai": "moi"
+  }
+ ],
+ "ghi_chu": [
+  "Nguồn: KNB_1_toan_bo_24-10_den_29-10.txt — bản xuất Caresoft/Messenger qua extension KNB 1.3.0, crawl 30/10/2026 14:16, đã quét 10.530 hội thoại, phạm vi line Da (K12 §1).",
+  "Bộ lọc của bản xuất: giữ 668 hội thoại. Loại trước khi tới tay agent: 2.643 HT theo page ngoài phạm vi · 2.279 HT không có tin khách/QC trong kỳ · 4.925 HT không thuộc Beauty · 490 HT quảng cáo không gắn tag · 39 HT khách nhắc dịch vụ khác.",
+  "Mẫu phân tích = 494 HT. Từ 668 HT, loại 161 HT khách cũ (138 quay lại qua quảng cáo + 23 nhắn lại) theo luật của bản xuất «mọi tỷ lệ của kỳ phải tính lại trên khách mới», và loại 13 HT khách mới có dưới 2 tin thật.",
+  "Tin BOT, thẻ QC và thông báo hệ thống ⛔ KHÔNG tính là lượt của khách và ⛔ không ghi cho nhân viên nào — 2 HT chỉ có BOT trả lời, các HT đó rơi vào nhóm «hệ thống».",
+  "«Trả lời tin đầu ≤2′» lấy theo cờ ⏱ của bản xuất: đồng hồ chỉ cộng phần chờ TRONG giờ trực 08:30–22:00, và tin BOT không dừng đồng hồ. 104 HT ngoài giờ chấm «—», ⛔ không tính là trượt.",
+  "Chân dung: ⛔ hệ không có bộ chân dung dựng sẵn. 7 chân dung dưới đây được phác họa từ chính 494 hội thoại này (id-C §1–2), mỗi chân dung có một nỗi sợ riêng, tên viết bằng chữ của khách và ít nhất một HT-nnn làm bằng; CD0 là mã dự trữ cho hội thoại không khớp dấu hiệu nào.",
+  "Tổng HT của 7 chân dung cộng cả CD0 = 494, bằng đúng cỡ mẫu phân tích (luật ④).",
+  "Phân loại nấc 5A · mã O · mức nóng · rào cản · vì sao rơi · chấm N1–N6: chạy tự động bằng logic của tools/id.py trên khuôn KNB, CHƯA qua người soát.",
+  "N3.2 «thông tin khớp bảng hiện hành» chấm «—» toàn bộ vì cần người đối chiếu bảng giá hiện hành của line Da — bảng này chưa có (id-F §3).",
+  "Khách hàng đã ẩn danh ngay từ bản xuất: không tên khách (mã KH-…), không tên nhân viên (mã NV-…), SĐT/email/link cá nhân đã che, ảnh không tải.",
+  "⚠ Chưa có kỳ trước của line Da nên mọi so sánh ghi «⚠ chưa có mốc so sánh», ⛔ không tự đặt mốc."
+ ],
+ "the_phu": {
+  "ht": "668 xuất ra · 494 khách mới đủ điều kiện",
+  "bo_1": "224/494 HT",
+  "co_sdt": "96/494 HT · khách tự cho",
+  "sla": "lượt ĐẦU TIÊN của mỗi hội thoại · trong khung 8h30–22h · 104 HT ngoài giờ chấm «—» · ⚠ bản xuất tính trên 1.440 LƯỢT khách thì được 63%",
+  "roi_truc": "217/494 HT — câu trả lời của trực page làm khách dừng",
+  "nong_chua_sdt": "lead nóng chưa vào tay telesale"
+ }
+}

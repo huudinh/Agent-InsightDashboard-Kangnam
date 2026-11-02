@@ -5,7 +5,7 @@
 
 ---
 
-## 1. CHÍN TAB
+## 1. MƯỜI TAB
 
 | # | Tab | Trả lời câu |
 |---|---|---|
@@ -18,24 +18,30 @@
 | ⑦ | **Ngân hàng hook** | Viết gì, cho ai, format nào |
 | ⑧ | **Sổ tay & việc cần xử lý** | Ai làm gì, hạn bao giờ, đo thế nào |
 | ⑨ | **Ghi chú dữ liệu** | Mọi con số đến từ đâu, loại gì ra, vì sao |
+| ⑩ | ★ **Hàng chờ gọi** | Sale gọi ai trước · ai phải xin số ngay · thang điểm hụt ở đâu |
 
-### Ba bố cục — ⛔ vẫn chỉ MỘT bản trang
+### Bốn bố cục — ⛔ vẫn chỉ MỘT bản trang
 
-Chín tab ở trên là bản **đầy đủ**. Cùng một trang và cùng một file kỳ còn dựng được hai báo cáo hẹp hơn cho hai người đọc khác nhau — chọn bằng trường `bo_cuc` trong `data/index.json`:
+Mười tab ở trên là bản **đầy đủ**. Cùng một trang và cùng một file kỳ còn dựng được hai báo cáo hẹp hơn cho hai người đọc khác nhau — chọn bằng trường `bo_cuc` trong `data/index.json`:
 
 | `bo_cuc` | Tên báo cáo | Tab | Thẻ số tổng |
 |---|---|---|---|
-| *(không khai)* · `day-du` | Chân dung khách & chất lượng trực page | cả 9 | cả 6 |
+| *(không khai)* · `day-du` | Chân dung khách & chất lượng trực page | cả 10 | cả 7 |
 | `insight` | **Insight khách** — khách là ai · họ sợ gì · kỳ tới làm nội dung gì | ② ⑥ ⑦ · ẩn khối `nac-5a` | HT · bỏ 1 lượt · có SĐT · HOT/WARM chưa SĐT |
-| `truc-page` | **Chất lượng trực page** — khối yếu gì · ai cần kèm · sửa câu nào | ③ ① ② ⑧ ⑨ | HT · trả lời lượt đầu · rơi do trực page · bỏ 1 lượt · HOT/WARM chưa SĐT |
+| `truc-page` | **Chất lượng trực page** — khối yếu gì · ai cần kèm · sửa câu nào | ③ ⑩ ① ② ⑧ ⑨ | HT · trả lời lượt đầu · rơi do trực page · bỏ 1 lượt · HOT/WARM chưa SĐT |
+| ★ `sale` | **Hàng chờ gọi** — gọi ai trước · ai phải xin số ngay | ⑩ ① ② ⑨ | HT · có SĐT · HOT/WARM chưa SĐT · hàng chờ Sale |
 
 ```
 ⛔ Tách báo cáo KHÔNG được đẻ thêm một bản trang.
    Hai bản trang là hai chỗ phải sửa mỗi lần đổi, và sẽ lệch nhau sau hai kỳ.
    Trang đọc `bo_cuc`, tự lọc tab và thẻ số, tự đổi tiêu đề.
 
-★ Thứ tự tab đi theo ĐÚNG thứ tự khai trong bố cục, không theo thứ tự 9 tab gốc:
-   bản `truc-page` mở bằng tab Chấm điểm vì đó là việc của người đọc nó.
+★ Thứ tự tab đi theo ĐÚNG thứ tự khai trong bố cục, không theo thứ tự 10 tab gốc:
+   bản `truc-page` mở bằng tab Chấm điểm, bản `sale` mở bằng tab Hàng chờ gọi —
+   vì đó là việc của người đọc từng bản.
+
+⛔ Bố cục `sale` KHÔNG có tab ③ Chấm điểm nhân viên. Sale ⛔ không phải người
+   xử lý con số đó, và id-F §7 rào ④ giới hạn chỗ con số gắn tên người được xuất hiện.
 
 ⚠ Hai bố cục hẹp dùng CHUNG một file kỳ. Số liệu chỉ có một bản —
    ⛔ không bao giờ có chuyện hai báo cáo nói hai con số khác nhau.
@@ -65,7 +71,7 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
 
 ★ Hai ô gập nằm ở **chân trang**, sau mọi tab, và hiện ở mọi tab. Đầu trang để dành cho con số và thanh tab — thứ người đọc cần thấy trong hai giây đầu. ⚠ Chúng gập lại nên ⛔ không thay được cho cảnh báo thật sự chặn: lỗi phải dừng bản phát hành thì gắn cờ 🔴 vào đúng dòng chạm tới, không để riêng dưới chân trang.
 
-### Sáu thẻ số tổng
+### Bảy thẻ số tổng
 
 | Thẻ | Kiểu | Tốt là |
 |---|---|---|
@@ -75,16 +81,22 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
 | `Trả lời tin đầu ≤2′` | % | cao · chuẩn ≥90% |
 | `Rơi do trực page` | % | thấp — câu trả lời làm khách dừng |
 | ★ `HOT/WARM chưa có SĐT` | số | **thấp** — lead nóng chưa vào tay telesale |
+| ★ `Hàng chờ Sale gọi ≤15′` | số | — · số lead nhóm `GOI_NGAY` của bộ KF-60 (§2b) |
 
 ⚠️ Tab ⑨ **không phải tab phụ**. Báo cáo không nói được số đến từ đâu thì không ai dám dùng để ra quyết định.
 
 ---
 
-## 2. SCHEMA DỮ LIỆU — `insight-dashboard-kangnam/1`
+## 2. SCHEMA DỮ LIỆU — `insight-dashboard-kangnam/2`
+
+> **Đổi gì ở `/2`:** thêm khối `lead` (§2b) và `pheu.chot_lich` ·
+> `nhan_vien.du_mau` · `nhan_vien.ht_khong_xep`.
+> File `/1` vẫn đọc được: thiếu khối `lead` thì tab ⑩ hiện **ô khoá**,
+> ⛔ không hiện 0 — luật ① của §3.
 
 ```jsonc
 {
-  "schema": "insight-dashboard-kangnam/1",
+  "schema": "insight-dashboard-kangnam/2",
   "ky":   { "id","tu","den","tu_hien","den_hien","nhan","tao","nguon","crawl" },
   "chan": { "van_ban","het_han","con_hieu_luc" },   // văn bản ưu đãi đang đối chiếu
   "chi_phi": { "co_file": true, "nguon": "..." },
@@ -107,8 +119,27 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
     "nguyen_nhan_roi": { "nội dung":0,"trực page":0,"hệ thống":0,"khách tự dừng":0,"không rơi":0 },
     "rao_can":    [ { "nhan","so" } ],
     "ma_o":       [ { "ma","ten","so","pct","noi_dung_da_co","ket_luan" } ],
-    "chot_lich":  0,
+    "chot_lich":  0,                                 // /2 — máy sinh
     "van_de":     [ { "muc","tieu_de","nhan_do","so_lieu","de_xuat","so_huu","anh_huong" } ]
+  },
+
+  // ★ /2 · KHỐI LEAD — tab ⑩. Chi tiết ở §2b.
+  "lead": {
+    "bo_cham": "KF-60/1.1",
+    "nguong_nuoi": 17,
+    "so_cham": 0,
+    "phan_luong":  [ { "ma":"LEAD|N1a|N1b|N2|N3|N4|N5", "ten", "so" } ],
+    "nhom_goi":    [ { "ma":"GOI_NGAY|XIN_SO|NUOI|KHONG", "ten", "so", "pct" } ],
+    "chua_so": 0,
+    "ghi_de":      [ { "ma","ten","so" } ],
+    "nhom_diem":   [ { "nhan":"A…E", "trung_binh", "toi_da", "cao_nhat" } ],
+    "diem": { "trung_vi":0, "cao_nhat":0, "goc_cao_nhat":0 },
+    "doi_chieu":   [ { "id_d":"HOT|WARM|COLD", "nhom":{ "GOI_NGAY":0,… } } ],
+    "bat_bien": { "goi_ngay_thieu_sdt":0, "id_d_hot_roi_khong":0, "dat":true,
+                  "ht_v1":[], "ht_v2":[] },
+    "hang_cho":    [ { "ht","cd","dich_vu","he_so","nhom_goi","id_d","diem",
+                       "uu_tien","co_sdt","ma_o","ghi_de","gio_im","viec" } ],
+    "ghi_chu": [ "…" ]
   },
 
   "chan_dung": {
@@ -127,7 +158,12 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
 
   "nhan_vien": {                                      // ★ tab ③
     "du_mau": true,
-    "phan_bo": { "A":0,"B":0,"C":0,"D":0,"chua_du_mau":0 },
+    // ⛔ Luôn đủ 5 khoá. `0` = ĐÃ ĐO và bằng không, khác hẳn "chưa đo".
+    "phan_bo": { "A":0,"B":0,"C":0,"D":0,"chưa đủ mẫu":0 },
+    // ★ /2 — hội thoại ⛔ KHÔNG gán được cho một người, nên bị loại khỏi phần
+    //   xếp loại cá nhân (vẫn tính vào `nhom` của cả đội). Một hội thoại có từ
+    //   hai nhân viên trực thì điểm của nó ⛔ không phải việc của riêng ai.
+    "ht_khong_xep": { "(nhiều người)":0, "(không rõ)":0 },
     "nhom":    [ { "ma":"N1","ten","diem_toi_da":20,"pct_dat":0,
                    "tieu_chi":[ { "ma":"N1.1","ten","diem":8,"dat":0,"chua":0,"khong_ap_dung":0 } ] } ],
     "ca_nhan": [ { "ten","ht","diem","loai","yeu_nhat","manh_nhat","co_do":[] } ],   // ⛔ chỉ vào sổ tay riêng
@@ -169,6 +205,62 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
   "moc_goc": { "ky","nguon","dong":[...] }
 }
 ```
+
+### 2b. KHỐI `lead` — ⛔ MỘT BÁO CÁO CHỈ CÓ MỘT NHÃN NÓNG
+
+```
+Nhãn HOT / WARM / COLD của kỳ  →  pheu.nhiet   (5 tín hiệu · id-D §2)
+Việc phải làm với từng lead     →  lead.nhom_goi (bốn nhóm · KF-60)
+```
+
+⛔ **Khối `lead` KHÔNG phát nhãn HOT/WARM/COLD thứ hai.** Bản nháp KF-60 từng
+định làm thế; chấm thật 493 hội thoại cho thấy ⛔ không cặp ngưỡng nào làm hai
+nhãn khớp nhau — lệch thấp nhất 12,8%, và cấu hình đó chỉ cho 5 lead vào hàng
+chờ. Hai bộ đo hai thứ khác nhau **có chủ ý**: `id-D` đếm 5 tín hiệu nhị phân,
+KF-60 cân 19 tiêu chí. ⚠ Hai nơi cùng gọi một hội thoại là HOT theo hai cách
+khác nhau thì không ai còn tin con số nào.
+
+| Nhóm | Ai làm · SLA |
+|---|---|
+| `GOI_NGAY` | **Sale gọi ≤15′** — có SĐT và khớp luật ghi đè |
+| `XIN_SO` | **Trực page xin số ≤15′** — nóng mà chưa có SĐT |
+| `NUOI` | Sale/CSKH · 24–72h theo mã `O` |
+| `KHONG` | Marketing · remarketing tự động |
+
+★ **`bat_bien` là cổng chặn phát hành**, thay cho luật «lệch nhãn ≤5%» đã bỏ:
+
+```
+① ⛔ Mọi HT nhóm GOI_NGAY phải CÓ SĐT — không có số thì không gọi được.
+② ⛔ HT mà id-D xếp HOT phải KHÔNG nằm trong nhóm KHONG.
+
+Khác 0 là LỖI CODE, ⛔ không phải chuyện ngưỡng → báo cáo tự gắn cờ 🔴 ở
+đầu trang và ⛔ KHÔNG được phát hàng chờ.
+```
+
+⚠️ `hang_cho` ⛔ **không chứa chữ của khách**: chỉ mã `HT`, chân dung, dịch vụ,
+mã `O` và việc. Nội dung hội thoại ở lại `out/ban-ghi.json` — ⛔ không lên trang.
+⚠️ `nhom_diem` phải được đọc cùng `diem`: nhóm nào trung bình dưới 10% trần là
+nhóm **gần như không ghi điểm**, nghĩa là thang điểm chưa phân biệt được lead
+trên tệp đó. Kỳ 24–29/10: nhóm B đạt **1,4/35**.
+
+---
+
+## 2c. HAI FILE MỘT KỲ — ⛔ CHẠY LẠI KHÔNG ĐƯỢC XOÁ CHỮ NGƯỜI
+
+| File | Ai viết | Chạy lại `bao-cao` |
+|---|---|---|
+| `data/<ky>.json` | **máy sinh** từ `out/doc-hoi-thoai.json` | ghi lại toàn bộ |
+| `data/<ky>.nguoi.json` | ★ **người và agent** — phần đọc hiểu | ⛔ không chạm, chỉ **phủ lên** |
+
+Lớp phủ giữ: `ket_luan` · `theo_doi` · `canh_bao` · `pheu.van_de` ·
+`chan_dung.insight` · `co_hoi_win` · `cach_tinh_win` · `ma_tran_cd_5a` ·
+`ma_tran` · `hook` · `so_tay` · `viec` · `ghi_chu` · `facebook` ·
+`nhan_vien.viec_he_thong` · `ky.tu/den/crawl/nguon` · `the_phu` (chữ dưới mỗi thẻ số).
+
+★ Kỳ đã có file mà **chưa** có lớp phủ: lần chạy đầu `id.py bao-cao` **tự rút**
+chữ người ra `.nguoi.json` rồi mới ghi — ⛔ không mất gì.
+⚠️ Con số nằm trong câu của lớp phủ ⛔ **không tự cập nhật**. Mẫu đổi thì phải
+sửa cả câu, ⛔ đừng để câu cũ nói một số mà bảng bên dưới nói số khác.
 
 ---
 
@@ -231,3 +323,9 @@ Mỗi kỳ mở đầu bằng việc **chấm lại việc kỳ trước**: đ�
 - [ ] Tab ③ có bảng xếp hạng có tên lọt ra không?
 - [ ] Mỗi việc ở khối cuối trang có **tên người thật** không?
 - [ ] Tab ⑨ có đủ: nguồn · đã loại gì · vì sao loại không?
+- [ ] Báo cáo có đúng **một** nhãn HOT/WARM/COLD không, hay khối `lead` đang phát nhãn thứ hai?
+- [ ] `lead.bat_bien.dat` có bằng `true` không? Bằng `false` thì đã **dừng phát hàng chờ** chưa?
+- [ ] `hang_cho` có lọt chữ của khách, tên hay SĐT vào không?
+- [ ] Chạy lại `bao-cao` xong, phần chữ người còn đủ không — `ket_luan`, `van_de`, `hook`, `viec`?
+- [ ] Câu trong `.nguoi.json` có nói con số nào đã lệch so với bảng máy sinh không?
+- [ ] `nhan_vien.ht_khong_xep` có được nói ra không, hay bảng xếp loại đang im lặng gán điểm hội thoại nhiều người cho một người?

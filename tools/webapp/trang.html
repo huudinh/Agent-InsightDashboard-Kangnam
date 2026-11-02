@@ -1809,6 +1809,108 @@ function tabHook(D){
       bullets(H.tu_kiem)+'</div>':'')}
 
 /* ───────── ⑧ Sổ tay & việc cần xử lý ───────── */
+/* ───────── ⑩ Hàng chờ gọi — khối lead KF-60 (id-J §2b) ───────── */
+/* ⛔ Tab này KHÔNG phát nhãn HOT/WARM/COLD thứ hai. Nhãn của kỳ là nhãn 5 tín
+   hiệu ở tab Phễu. Ở đây chỉ có BỐN NHÓM VIỆC và thứ tự gọi trong nhóm. */
+var TEN_NHOM={GOI_NGAY:['Sale gọi ≤15′','t-bad'],XIN_SO:['Trực page xin số ≤15′','t-mid'],
+  NUOI:['Chăm sóc 24–72h',''],KHONG:['Remarketing tự động','']};
+function nhomTag(m){var x=TEN_NHOM[m]||[m,''];
+  return '<span class="tag '+x[1]+'">'+esc(x[0])+'</span>'}
+
+function tabHangCho(D){
+  var L=D.lead;
+  if(!L)return '<h2 class="top">Hàng chờ gọi</h2>'+
+    '<div class="lock">⏳ <b>Kỳ này chưa chấm lead scoring.</b> File kỳ còn ở '+
+    '<code>schema /1</code> — chưa có khối <code>lead</code>.<br>Sinh lại bằng: '+
+    '<code>python tools/knb.py &lt;file&gt; --ky "…"</code> rồi '+
+    '<code>python tools/id.py bao-cao --ky "…"</code>. Bộ chấm: '+
+    '<code>doc/KF-60-lead-scoring-hoi-thoai-inbox-v1.1.md</code>.</div>';
+
+  var n=L.so_cham||0,h='';
+  var bb=L.bat_bien||{};
+  if(bb.dat===false)
+    h+='<div class="alert bad"><b>⛔ Khối lead sai bất biến — đừng phát hàng chờ.</b><br>'+
+      num(bb.goi_ngay_thieu_sdt,0)+' HT vào hàng gọi mà không có SĐT · '+
+      num(bb.id_d_hot_roi_khong,0)+' HT nhãn HOT rơi xuống Remarketing. '+
+      'Hai số này phải bằng 0 — khác 0 là lỗi code, ⛔ không phải chuyện ngưỡng.</div>';
+
+  /* ① Bốn nhóm việc — thứ người đọc cần thấy trong hai giây đầu */
+  h+='<h2 class="top">Bốn nhóm việc · '+num(n,0)+' hội thoại được chấm'+
+    '<span class="tag" style="margin-left:8px;font-weight:400">'+esc(L.bo_cham||'KF-60')+
+    '</span></h2>'+
+    '<div class="kpis">'+(L.nhom_goi||[]).map(function(x){
+      var gap=(x.ma==='GOI_NGAY'||x.ma==='XIN_SO');   /* việc trong 15 phút */
+      return '<div class="kpi'+(gap&&x.so?' canh':'')+'"><span class="l">'+
+        esc((TEN_NHOM[x.ma]||[x.ma])[0])+'</span><b>'+num(x.so,0)+'</b>'+
+        '<span class="s">'+pct(x.pct)+' mẫu</span></div>'}).join('')+'</div>'+
+    '<div class="note nb">Hai nhóm đầu là <b>việc trong 15 phút</b>. '+
+    '⚠ Người xin số là <b>trực page</b>, ⛔ không phải Sale — hai hàng chờ khác nhau.</div>';
+
+  /* ② Luật ghi đè + phân luồng */
+  var trai='<div class="card"><h3>Luật ghi đè đã chạy</h3>'+
+    t((L.ghi_de||[]).map(function(x){return '<tr>'+td('<span class="tag">'+esc(x.ma)+'</span>')+
+      td(esc(x.ten))+td(num(x.so,0),'n')+'</tr>'}),
+      [{l:'Mã'},{l:'Luật'},{l:'Số HT',c:'n'}],'flat')+
+    '<div class="note" style="margin-top:8px">⛔ Ba luật HOT_* là thứ duy nhất đưa được '+
+    'hội thoại vào hàng gọi: điểm thuần không ai vượt nổi ngưỡng (xem ④).</div></div>';
+  var phai='<div class="card"><h3>Phân luồng trước khi chấm</h3>'+
+    hbars((L.phan_luong||[]).filter(function(x){return x.so}),null)+
+    '<div class="note" style="margin-top:8px"><b>N1b</b> = khách <b>đã được trả lời</b> rồi mới '+
+    'im. ⛔ Không phải «chưa tương tác» — đó là lead thật, và là bằng chứng lỗi câu trả lời.</div></div>';
+  h+='<div class="cols2">'+trai+phai+'</div>';
+
+  /* ③ Hai bộ đo nói gì về cùng một tệp */
+  h+='<h2>Nhóm việc × nhãn 5 tín hiệu</h2>'+
+    '<div class="note nb">⚠ Bảng này ⛔ <b>không phải</b> bảng kiểm xem hai bộ có khớp nhau. '+
+    'Chúng đo hai thứ khác nhau có chủ ý: <code>id-D</code> đếm 5 tín hiệu nhị phân, '+
+    'KF-60 cân 19 tiêu chí. Bảng cho thấy mỗi nhãn đổ vào việc nào.</div>'+
+    t((L.doi_chieu||[]).map(function(r){
+      var tong=0,k; for(k in (r.nhom||{}))tong+=r.nhom[k];
+      return '<tr>'+td('<b>'+esc(r.id_d)+'</b>')+
+        ['GOI_NGAY','XIN_SO','NUOI','KHONG'].map(function(k2){
+          var v=(r.nhom||{})[k2]||0;
+          return td(v?num(v,0):'<span class="note">0</span>','n')}).join('')+
+        td(num(tong,0),'n')+'</tr>'}),
+      [{l:'Nhãn id-D'},{l:'Gọi ngay',c:'n'},{l:'Xin số',c:'n'},{l:'Nuôi',c:'n'},
+       {l:'Remarketing',c:'n'},{l:'Tổng',c:'n'}]);
+
+  /* ④ Năm nhóm điểm — chỗ lộ ra thang điểm hụt ở đâu */
+  var nd=L.nhom_diem||[],dm=L.diem||{};
+  h+='<h2>Năm nhóm điểm — trung bình so với tối đa</h2>'+
+    t(nd.map(function(x){
+      var tr=x.toi_da<0?null:(x.trung_binh==null?null:x.trung_binh/x.toi_da*100);
+      var chet=(tr!=null&&tr<10);
+      return '<tr'+(chet?' class="pick"':'')+'>'+td('<b>'+esc(x.nhan)+'</b>')+
+        td(num(x.trung_binh,1),'n')+td(num(x.toi_da,0),'n')+td(num(x.cao_nhat,0),'n')+
+        td(tr==null?'—':pct(tr)+bar(tr,100),'n')+
+        td(chet?'<span class="tag t-bad">nhóm gần như không ghi điểm</span>':'')+'</tr>'}),
+      [{l:'Nhóm'},{l:'Trung bình',c:'n'},{l:'Tối đa',c:'n'},{l:'Cao nhất thực',c:'n'},
+       {l:'% dùng tới',c:'n'},{l:'Ghi chú'}])+
+    '<div class="note">Điểm sau hệ số thời gian: trung vị <b>'+num(dm.trung_vi,1)+
+    '</b> · cao nhất <b>'+num(dm.cao_nhat,1)+'</b> (điểm gốc cao nhất '+num(dm.goc_cao_nhat,0)+
+    '/100). Ngưỡng nuôi ≥'+num(L.nguong_nuoi,0)+' là p75 của phân bố này — '+
+    '⚠ <b>ngưỡng tạm</b>, chưa đối chiếu booking thật.</div>';
+
+  /* ⑤ Hàng chờ */
+  var hc=L.hang_cho||[];
+  h+='<h2>Hàng chờ gọi — '+num(hc.length,0)+' dòng</h2>'+
+    '<div class="note nb">Xếp theo nhóm việc rồi theo điểm ưu tiên (điểm × hệ số giá trị đơn). '+
+    '⛔ Không có chữ của khách trong bảng này — truy ngược bằng mã <code>HT</code>.</div>'+
+    t(hc.map(function(r,i){
+      return '<tr>'+td(String(i+1),'n')+td('<code>'+esc(r.ht)+'</code>')+
+        td(nhomTag(r.nhom_goi))+td('<span class="tag">'+esc(r.id_d||'—')+'</span>')+
+        td(esc(r.cd||'—'))+td(esc(r.dich_vu||'—'))+td(num(r.he_so,0),'n')+
+        td(num(r.diem,1),'n')+td('<b>'+num(r.uu_tien,1)+'</b>','n')+
+        td(r.gio_im==null?'—':num(r.gio_im,0)+'h','n')+
+        td((r.ma_o||[]).map(function(m){return '<span class="tag">'+esc(m)+'</span>'}).join(' '))+
+        '</tr>'}),
+      [{l:'#',c:'n'},{l:'HT'},{l:'Việc'},{l:'id-D'},{l:'CD'},{l:'Dịch vụ'},
+       {l:'Hệ số',c:'n'},{l:'Điểm',c:'n'},{l:'Ưu tiên',c:'n'},{l:'Im',c:'n'},{l:'Mã O'}]);
+
+  if(L.ghi_chu&&L.ghi_chu.length)
+    h+=fold('Khối lead đọc thế nào',L.ghi_chu.length+' ghi chú',bullets(L.ghi_chu));
+  return h}
+
 function tabViec(D){
   var S=D.so_tay||{},V=D.viec||[],K=D.ket_luan||{},L=D.theo_doi||[];
   var h='<h2 class="top">Sổ tay thực thi</h2>';
@@ -1862,8 +1964,8 @@ function tabGhiChu(D){
 var BC='day-du';
 var BO_CUC={
   'day-du':{ten:'Chân dung khách & chất lượng trực page · Kangnam',
-    tab:['pheu','chan-dung','nhan-vien','facebook','google','ma-tran','hook','theo-doi',
-         'viec','ghi-chu']},
+    tab:['pheu','hang-cho','chan-dung','nhan-vien','facebook','google','ma-tran','hook',
+         'theo-doi','viec','ghi-chu']},
   // ⛔ Bố cục này KHÔNG có tab quảng cáo: đầu vào của nó là HỘI THOẠI.
   //    Số chi phí đến từ nguồn khác (id.py ads) và ở bản `day-du`.
   'insight':{ten:'Insight khách · line Da · Kangnam',
@@ -1873,9 +1975,17 @@ var BO_CUC={
     an:['nac-5a']},   // khối ẩn ở bố cục này — vẫn còn ở `day-du` (id-J §1)
   'truc-page':{ten:'Chất lượng trực page · Kangnam',
     phu:'Khối đang yếu tiêu chí nào · ai cần kèm · tuần tới sửa câu nào',
-    tab:['nhan-vien','pheu','chan-dung','viec','ghi-chu'],
+    tab:['nhan-vien','hang-cho','pheu','chan-dung','viec','ghi-chu'],
     the:['ht','sla','roi_truc','bo_1','nong_chua_sdt'],
-    nhan:{'pheu':'Khách rơi ở đâu','chan-dung':'Khách là ai · câu mở mẫu'}}
+    nhan:{'pheu':'Khách rơi ở đâu','chan-dung':'Khách là ai · câu mở mẫu',
+          'hang-cho':'Lead phải xin số ngay'}},
+  /* ★ Bố cục cho Sale: mở bằng hàng chờ, vì đó là việc của người đọc nó.
+     ⛔ Không có tab chấm điểm nhân viên — Sale ⛔ không phải người xử lý số đó. */
+  'sale':{ten:'Hàng chờ gọi · Kangnam',
+    phu:'Gọi ai trước · ai phải xin số ngay · khách đang sợ gì',
+    tab:['hang-cho','pheu','chan-dung','ghi-chu'],
+    the:['ht','co_sdt','nong_chua_sdt','goi_ngay'],
+    nhan:{'pheu':'Khách nóng tới đâu','chan-dung':'Khách là ai · họ sợ gì'}}
 };
 function bc(){return BO_CUC[BC]||BO_CUC['day-du']}
 /* Ẩn một KHỐI bên trong tab, khác với bỏ cả tab. ⛔ Khối bị ẩn ở bố cục này thì
@@ -1890,6 +2000,7 @@ var TABS=[['pheu','Phễu inbox',tabPheu],['chan-dung','Chân dung & insight',ta
   ['nhan-vien','Chấm điểm nhân viên',tabNhanVien],['facebook','Facebook Ads',tabFacebook],
   ['google','Google Ads',tabGoogle],['ma-tran','Ma trận ưu tiên',tabMaTran],
   ['hook','Ngân hàng hook',tabHook],['theo-doi','Hook đã gửi',tabTheoDoi],
+  ['hang-cho','Hàng chờ gọi',tabHangCho],
   ['viec','Sổ tay & việc',tabViec],
   ['ghi-chu','Ghi chú dữ liệu',tabGhiChu]];
 

@@ -114,11 +114,23 @@ file order* · *Khoá cột Duyệt*. Phần này chạy ⛔ không cần deploy
 Thả file JSON mới vào thư mục Drive. Trang đọc lại danh sách mỗi lần mở, kỳ mới
 sửa gần nhất đứng đầu — ⛔ không phải deploy lại, không phải sửa code.
 
+⚠ **Sinh lại một kỳ đã có trên Drive thì phải thay file trên Drive**, nếu không
+web app vẫn đọc bản cũ. Dấu hiệu: tab **Hàng chờ gọi** hiện ô khoá
+*«kỳ này chưa chấm lead scoring»* — đó là file `schema /1`, tức bản chưa thay.
+
+★ Một kỳ có **hai** file trong repo, nhưng chỉ **một** file lên Drive:
+
+| File | Lên Drive? |
+|---|---|
+| `dashboard/data/<ky>.json` | ✅ — đây là file web app đọc |
+| `dashboard/data/<ky>.nguoi.json` | ⛔ **không** — lớp phủ chữ người, đã được trộn sẵn vào file trên |
+
 ## Bố cục
 
 Mặc định là bố cục `insight`. Xem bản khác bằng tham số URL:
 
 ```
+<web app url>?bo_cuc=sale        ← hàng chờ gọi, cho Sale
 <web app url>?bo_cuc=truc-page
-<web app url>?bo_cuc=day-du
+<web app url>?bo_cuc=day-du      ← cả 10 tab
 ```

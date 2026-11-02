@@ -13,7 +13,7 @@
 
 > Trang hướng dẫn có **nút Copy từng file**: 2 thẻ bộ não · 19 file tri thức · 16 prompt mẫu lọc theo nhóm · 6 câu smoke test. Người mới vào khối thì **mở trang này trước, đừng đọc README**.
 >
-> Dashboard: 9 tab · hội thoại thật *(12–13/10)*, số quảng cáo mô phỏng, **tên nhân viên đã thay bằng mã `NV-nn`**.
+> Dashboard: 10 tab · hội thoại thật *(12–13/10)*, số quảng cáo mô phỏng, **tên nhân viên đã thay bằng mã `NV-nn`**.
 
 ---
 
@@ -27,7 +27,8 @@
 | ④ **Ma trận ưu tiên** | 3 khối: Tăng HOT → Giảm COLD → Tối ưu WARM, có công thức điểm |
 | ⑤ **Ngân hàng hook** | 7 loại hook × 16 format, mỗi hook **truy ngược được** về một hội thoại |
 | ⑥ ★ **Sổ tay thực thi cá nhân hoá** | Một trang cho mỗi người: một việc, câu mẫu dùng ngay, cách đo kỳ sau |
-| ⑦ **Dashboard 9 tab** | Trang HTML cố định, mỗi kỳ chỉ thêm một file JSON — **link không đổi** |
+| ⑦ **Dashboard 10 tab** | Trang HTML cố định, mỗi kỳ chỉ thêm một file JSON — **link không đổi** |
+| ⑧ ★ **Hàng chờ gọi** | Chấm từng hội thoại theo bộ **KF-60** → bốn nhóm việc: Sale gọi ≤15′ · trực page xin số ≤15′ · nuôi · remarketing |
 
 ⛔ **Đây KHÔNG phải agent chấm cuộc gọi điện thoại** *(`Agent-QC-Telesale`)*, ⛔ **không phải agent lên kế hoạch quay theo bác sĩ** *(`Agent-SeedingPlant`)*, ⛔ **không phải agent chẩn đoán ads theo 30 mã cảnh báo** *(`Agent-AdsReport`)*.
 
@@ -100,7 +101,7 @@ Chi tiết: [`doc/01-cai-dat.md`](doc/01-cai-dat.md)
 | ★ [`id-G`](knowledge/id-G-ma-tran-uu-tien.md) | **Ma trận ưu tiên** — 3 khối, công thức điểm, nhóm *sửa vận hành trước* |
 | [`id-H`](knowledge/id-H-ngan-hang-hook.md) | Ngân hàng hook — 7 loại × 16 format · 3 cách viết, 1 cách sai |
 | ★ [`id-I`](knowledge/id-I-so-tay-thuc-thi.md) | **Sổ tay thực thi** — 3 loại · luật một việc · viết việc thế nào cho sửa được |
-| [`id-J`](knowledge/id-J-dashboard-schema.md) | Dashboard 9 tab · schema JSON · 4 luật hiển thị |
+| [`id-J`](knowledge/id-J-dashboard-schema.md) | Dashboard 10 tab · schema JSON `/2` · khối `lead` · lớp phủ chữ người · 4 luật hiển thị |
 | ★ [`id-K`](knowledge/id-K-module-kangnam-phap-che.md) | **Module đơn vị Kangnam** · 12 điểm pháp chế · ba thứ đang chặn |
 
 ★ **Đổi thương hiệu → thay đúng [`id-K`](knowledge/id-K-module-kangnam-phap-che.md), ⛔ không sửa lõi `id-A`…`id-J`.**

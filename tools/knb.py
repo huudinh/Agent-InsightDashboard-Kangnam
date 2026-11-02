@@ -225,9 +225,16 @@ def main():
             c["nguoi"] = next((t["ten"] for t in ht["tin"]
                                if t["nv"] and I.co_tu(t["text"], [c["trich"]])), "(không rõ)")
 
+        # ⛔ Một hội thoại có TỪ HAI nhân viên trở lên thì ⛔ không gán được cho
+        #    ai: điểm của cả hội thoại không phải việc của một người. Gán cho
+        #    người nói nhiều nhất là tạo ra một con số sai GẮN VỚI TÊN NGƯỜI —
+        #    đúng thứ id-F §7 rào ② cấm. Những HT đó vào rổ «(nhiều người)» và
+        #    bị loại khỏi phần xếp loại cá nhân, vẫn tính vào chỉ số cả đội.
         nv_dem = Counter(t["ten"] for t in ht["tin"] if t["nv"] and t["ten"])
+        nv_ten = (list(nv_dem)[0] if len(nv_dem) == 1
+                  else ("(nhiều người)" if nv_dem else "(không rõ)"))
         ban_ghi.append({
-            "ma": ht["ma"], "nv": (nv_dem.most_common(1) or [("(không rõ)", 0)])[0][0],
+            "ma": ht["ma"], "nv": nv_ten,
             "cd": cd, "nac": nac, "ma_o": ma_o, "nhiet": nhiet, "tin_hieu": tin_hieu,
             "co_sdt": ht["co_sdt"], "chot_lich": ht["chot_lich"], "roi": roi,
             "rao_can": rc, "dich_vu": ht["dich_vu_knb"], "he_so": hs,
@@ -264,9 +271,12 @@ def main():
     print("\nĐã ghi %s/doc-hoi-thoai.json · ban-ghi.json · nguyen-lieu-chan-dung.json"
           % os.path.basename(a.ra))
     print("  nhiệt id-D   :", ket["nhiet"])
-    print("  nhãn KF-60   :", L["nhan"], "· chưa có SĐT:", L["chua_so"])
-    print("  lệch nhãn    : %d HT (%s%%) — ngưỡng soát 5%%"
-          % (L["doi_chieu"]["lech"], L["doi_chieu"]["pct"]))
+    print("  nhóm gọi     :", " · ".join("%s %d" % (x["ma"], x["so"])
+                                        for x in L["nhom_goi"]))
+    bb = L["bat_bien"]
+    print("  bất biến     :", "✓ đạt" if bb["dat"] else
+          "⛔ GOI_NGAY thiếu SĐT %d · id-D HOT rơi KHONG %d"
+          % (bb["goi_ngay_thieu_sdt"], bb["id_d_hot_roi_khong"]))
     print("  hàng chờ gọi : %d dòng" % len(L["hang_cho"]))
     print("  vì sao rơi   :", ket["nguyen_nhan_roi"])
     print("\n  Bước tiếp: python tools/id.py bao-cao --ky \"%s\"" % a.ky)

@@ -1016,9 +1016,10 @@ def ghi_csv(ban_ghi):
                  "C1", "C2", "C3", "D1", "D2", "D3", "E1", "E2", "E3", "E4", "E5"]
         w.writerow(["ma", "nv", "cd", "nac", "ma_o", "nhiet", "co_sdt", "chot_lich",
                     "vi_sao_roi", "rao_can", "dich_vu", "he_so", "diem", "co_do",
-                    # ── KF-60: nhãn thứ hai đứng CẠNH nhãn id-D, không thay nó
-                    "luong", "lead_goc", "lead_hs_tg", "lead_nhiet", "lead_nhan",
-                    "lead_ghi_de", "lead_uu_tien", "lech_nhan", "gio_im"]
+                    # ── KF-60: VIỆC phải làm, đứng CẠNH nhãn id-D ở cột `nhiet`.
+                    #    ⛔ Không có cột nhãn HOT/WARM/COLD thứ hai.
+                    "luong", "lead_goc", "lead_hs_tg", "lead_diem", "lead_nhom_goi",
+                    "lead_ghi_de", "lead_uu_tien", "gio_im"]
                    + cot + o_cot)
         for r in ban_ghi:
             L = r.get("lead") or {}
@@ -1028,9 +1029,9 @@ def ghi_csv(ban_ghi):
                         r["diem"] if r["diem"] is not None else "",
                         " ".join(_ma_co_do(r)),
                         L.get("route", ""), L.get("goc", ""), L.get("he_so_tg", ""),
-                        L.get("nhiet", ""), L.get("nhan", "") or "",
+                        L.get("diem", ""), L.get("nhom_goi", "") or "",
                         " ".join(L.get("ghi_de") or []), L.get("uu_tien", ""),
-                        "Lệch" if L.get("lech") else "", L.get("gio_im", "")]
+                        L.get("gio_im", "")]
                        + [r["cham"].get(c, "") for c in cot]
                        + [(L.get("o") or {}).get(c, "") for c in o_cot])
 
@@ -1048,8 +1049,14 @@ def gom_doc(ban_ghi, ky, nguon, pho, vi_sao):
                  for r in ban_ghi for c in (r.get("co_do") or [])
                  if isinstance(c, dict)]
     # tổng hợp nhân viên
+    # ⛔ Hai rổ dưới đây ⛔ KHÔNG được xếp loại: hội thoại nhiều người trực thì
+    #    điểm không thuộc về ai, hội thoại không rõ người thì không có bằng
+    #    chứng. Chúng vẫn nằm trong chỉ số CẢ ĐỘI (`nhom`) — chỗ đó không có tên.
+    KHONG_XEP = ("(nhiều người)", "(không rõ)")
     theo_nv = defaultdict(list)
     for r in ban_ghi:
+        if r["nv"] in KHONG_XEP:
+            continue
         theo_nv[r["nv"]].append(r)
     ca_nhan = []
     for nv, rs in sorted(theo_nv.items(), key=lambda x: -len(x[1])):
@@ -1102,7 +1109,14 @@ def gom_doc(ban_ghi, ky, nguon, pho, vi_sao):
         },
         "chan_dung": _bang_chan_dung(ban_ghi, pho),
         "nac": dict(Counter(r["nac"] for r in ban_ghi)),
-        "nhan_vien": {"phan_bo": dict(Counter(c["loai"] for c in ca_nhan)),
+        "chot_lich": sum(1 for r in ban_ghi if r["chot_lich"]),
+        # ⚠ Luôn ghi đủ 5 khoá: ở đây `0` nghĩa là ĐÃ ĐO và bằng không, khác
+        #   hẳn "chưa đo". Thiếu khoá thì trang không phân biệt được hai thứ đó.
+        "nhan_vien": {"du_mau": any(c["loai"] != "chưa đủ mẫu" for c in ca_nhan),
+                      "ht_khong_xep": {k: sum(1 for r in ban_ghi if r["nv"] == k)
+                                       for k in KHONG_XEP},
+                      "phan_bo": dict({k: 0 for k in ("A", "B", "C", "D", "chưa đủ mẫu")},
+                                      **Counter(c["loai"] for c in ca_nhan)),
                       "nhom": nhom, "ca_nhan": ca_nhan, "co_do": co_do_all,
                       "ghi_chu": "Điểm dùng để phân việc kèm cặp. "
                                  "Không phải căn cứ kỷ luật hay xếp hạng công khai."},
@@ -1155,7 +1169,7 @@ def _the_tong(ban_ghi):
     nong_chua = sum(1 for r in ban_ghi if r["nhiet"] in ("HOT", "WARM") and not r["co_sdt"])
     roi_truc = sum(1 for r in ban_ghi if r["roi"] == "trực page")
     goi_ngay = sum(1 for r in ban_ghi
-                   if (r.get("lead") or {}).get("nhan") == "HOT" and r["co_sdt"])
+                   if (r.get("lead") or {}).get("nhom_goi") == "GOI_NGAY")
     return [
         {"id": "ht", "nhan": "Hội thoại phân tích", "gia_tri": n, "kieu": "n"},
         {"id": "bo_1", "nhan": "Bỏ sau 1 lượt", "gia_tri": pct(bo1, n), "kieu": "pct",
@@ -1170,7 +1184,7 @@ def _the_tong(ban_ghi):
          "phu": "%d/%d HT — câu trả lời của trực page làm khách dừng" % (roi_truc, n)},
         {"id": "nong_chua_sdt", "nhan": "HOT/WARM chưa có SĐT", "gia_tri": nong_chua,
          "kieu": "n", "tot": "thap", "phu": "lead nóng chưa vào tay telesale"},
-        {"id": "goi_ngay", "nhan": "Hot có số — gọi ≤15′", "gia_tri": goi_ngay,
+        {"id": "goi_ngay", "nhan": "Hàng chờ Sale gọi ≤15′", "gia_tri": goi_ngay,
          "kieu": "n", "phu": "hàng chờ Sale theo KF-60 · %s" % KF60},
     ]
 
@@ -1447,21 +1461,106 @@ def _chia(a, b):
 
 # ─────────────────────────── lệnh `bao-cao` ──────────────────────────────
 
+
+# ═══════════ lớp phủ CHỮ NGƯỜI — ⛔ chạy lại báo cáo không được xoá ═══════════
+# Phần ĐẾM ĐƯỢC do script sinh lại mỗi lần chạy. Phần ĐỌC HIỂU — vấn đề cốt
+# lõi, thẻ insight, ma trận, hook, sổ tay, việc, ghi chú kỳ — do agent và người
+# viết. Trước v2, chạy lại `bao-cao` ghi đè sạch phần thứ hai.
+#
+# Nay phần chữ người nằm ở `dashboard/data/<ky>.nguoi.json` và được phủ LÊN
+# bản máy sinh. Lần chạy đầu trên một kỳ đã có file, script TỰ RÚT phần chữ
+# người ra lớp phủ rồi mới ghi — ⛔ không mất gì.
+
+NGUOI_DUONG = [
+    ("ky", "tu"), ("ky", "den"), ("ky", "tu_hien"), ("ky", "den_hien"),
+    ("ky", "crawl"), ("ky", "nguon"),
+    ("chan",), ("chi_phi",), ("ket_luan",), ("theo_doi",),
+    ("canh_bao",),                      # cảnh báo do người viết, cụ thể hơn bản máy
+    ("pheu", "van_de"),
+    ("nhan_vien", "viec_he_thong"),     # lỗi hệ, gom theo nguyên nhân — id-F §8 ⑤
+    ("facebook",),                      # ⚠ gồm cả câu "kỳ này không có số quảng cáo"
+    ("chan_dung", "insight"), ("chan_dung", "co_hoi_win"),
+    ("chan_dung", "cach_tinh_win"), ("chan_dung", "ma_tran_cd_5a"),
+    ("ma_tran",), ("hook",), ("so_tay",), ("viec",),
+    ("facebook", "van_de"), ("truoc",), ("moc_goc",), ("ghi_chu",),
+]
+
+
+def _lay(d, duong):
+    for k in duong:
+        if not isinstance(d, dict) or k not in d:
+            return None
+        d = d[k]
+    return d
+
+
+def _dat(d, duong, v):
+    for k in duong[:-1]:
+        d = d.setdefault(k, {})
+    d[duong[-1]] = v
+
+
+def _rong(v):
+    return v is None or v == [] or v == {} or v == ""
+
+
+def rut_lop_phu(cu):
+    """Rút phần chữ người từ một file kỳ đã có."""
+    lp = {"_ghi_chu": "CHỮ NGƯỜI của kỳ này — phủ lên bản máy sinh mỗi lần chạy "
+                      "`id.py bao-cao`. ⛔ Con số trong này KHÔNG tự cập nhật: "
+                      "sửa số thì sửa cả câu.",
+          "_schema": "insight-dashboard-kangnam#nguoi/1"}
+    for duong in NGUOI_DUONG:
+        v = _lay(cu, duong)
+        if not _rong(v):
+            _dat(lp, duong, v)
+    phu = {t["id"]: t["phu"] for t in (cu.get("the_tong") or [])
+           if t.get("id") and t.get("phu")}
+    if phu:
+        lp["the_phu"] = phu
+    return lp
+
+
+def _phu_sau(may, lp):
+    """Phủ dict `lp` lên dict `may`; dict thì đệ quy, còn lại thì lp thắng."""
+    for k, v in lp.items():
+        if k.startswith("_") or k == "the_phu":
+            continue
+        if isinstance(v, dict) and isinstance(may.get(k), dict):
+            _phu_sau(may[k], v)
+        else:
+            may[k] = v
+
+
+def phu_nguoi(D, lp):
+    _phu_sau(D, lp)
+    for t in D.get("the_tong") or []:
+        if t.get("id") in (lp.get("the_phu") or {}):
+            t["phu"] = lp["the_phu"][t["id"]]
+    return D
+
+
 def lenh_bao_cao(args):
     ht_f = os.path.join(RA, "doc-hoi-thoai.json")
     if not os.path.exists(ht_f):
         sys.exit("⛔ Chưa có out/doc-hoi-thoai.json. Chạy `id.py doc` trước.")
     with open(ht_f, encoding="utf-8") as f:
         H = json.load(f)
-    A = None
+    A, ads_lech = None, None
     ads_f = os.path.join(RA, "doc-ads.json")
     if os.path.exists(ads_f):
         with open(ads_f, encoding="utf-8") as f:
             A = json.load(f)
+        # ⛔ Số quảng cáo của kỳ khác ⛔ KHÔNG được lẫn vào báo cáo kỳ này.
+        #    Bản cũ nhận bất cứ doc-ads.json nào có trong out/ — một kỳ cũ còn
+        #    sót lại là đủ để dựng cả chuỗi CPM→CPB sai mà không ai thấy.
+        if (A.get("ky") or "") != args.ky:
+            ads_lech = A.get("ky") or "trống"
+            A = None
 
     ky_id = args.ky.replace("/", "-").replace(" ", "")
     D = {
-        "schema": "insight-dashboard-kangnam/1",
+        "schema": "insight-dashboard-kangnam/2",
         "ky": {"id": ky_id, "nhan": args.ky, "tao": H["tao"], "nguon": H["nguon"]},
         "canh_bao": [],
         "the_tong": H["the_tong"],
@@ -1470,7 +1569,10 @@ def lenh_bao_cao(args):
         "pheu": {"so_ht_phan_tich": H["so_ht"], "nhiet": H["nhiet"],
                  "nhiet_x_sdt": H["nhiet_x_sdt"], "tin_hieu": H["tin_hieu"],
                  "nguyen_nhan_roi": H["nguyen_nhan_roi"], "rao_can": H["rao_can"],
-                 "ma_o": H["ma_o"], "van_de": []},
+                 "ma_o": H["ma_o"], "chot_lich": H.get("chot_lich"), "van_de": []},
+        # ★ Khối lead — tab «Hàng chờ gọi». Thiếu khối này (file schema /1)
+        #   thì trang hiện ô khoá, ⛔ không hiện 0 (id-J §3 luật ①).
+        "lead": H.get("lead"),
         "chan_dung": {"phac_hoa": H.get("phac_hoa", {}), "tep": H["chan_dung"],
                       "insight": [], "nac": H["nac"]},
         "nhan_vien": H["nhan_vien"],
@@ -1501,13 +1603,46 @@ def lenh_bao_cao(args):
         D["canh_bao"].append({"muc": "bad",
                               "text": "Chân dung chưa qua CỔNG 0 — tab Chân dung còn trống (%s)."
                                       % (pha.get("vi_sao") or "chưa phác họa")})
-    if not A:
+    if ads_lech:
+        D["canh_bao"].append({"muc": "bad", "text":
+            "⛔ Bỏ qua out/doc-ads.json: file đó là của kỳ «%s», không phải «%s». "
+            "Tab Marketing để trống — ⛔ không lấy số kỳ khác gán sang." % (ads_lech, args.ky)})
+    elif not A:
         D["canh_bao"].append({"muc": "warn", "text": "Chưa có file chỉ số quảng cáo — tab Marketing trống."})
     D["canh_bao"].append({"muc": "warn", "text": "Chưa có dữ liệu Google Ads (id-B §4)."})
+    L = H.get("lead") or {}
+    bb = L.get("bat_bien") or {}
+    if L and not bb.get("dat", True):
+        # ⛔ Hai bất biến này sai là LỖI CODE, không phải chuyện ngưỡng.
+        D["canh_bao"].append({"muc": "bad", "text":
+            "Khối lead sai bất biến: %d HT vào hàng gọi mà không có SĐT · "
+            "%d HT nhãn HOT rơi xuống nhóm Remarketing — ⛔ đừng phát hàng chờ."
+            % (bb.get("goi_ngay_thieu_sdt", 0), bb.get("id_d_hot_roi_khong", 0))})
+    if L:
+        D["ghi_chu"].append(
+            "Hàng chờ gọi chấm bằng bộ %s. Nhãn HOT/WARM/COLD của kỳ vẫn là nhãn "
+            "5 tín hiệu (id-D §2) — KF-60 ⛔ không phát nhãn thứ hai, nó chia tệp "
+            "thành bốn nhóm việc và xếp thứ tự trong nhóm." % L.get("bo_cham", "KF-60"))
 
     dd = os.path.join(GOC, "dashboard", "data")
     os.makedirs(dd, exist_ok=True)
     fp = os.path.join(dd, ky_id + ".json")
+    lp_p = os.path.join(dd, ky_id + ".nguoi.json")
+
+    # ① Chưa có lớp phủ mà kỳ đã có file → RÚT chữ người ra trước khi ghi đè.
+    if not os.path.exists(lp_p) and os.path.exists(fp):
+        with open(fp, encoding="utf-8") as f:
+            cu = json.load(f)
+        lp = rut_lop_phu(cu)
+        with open(lp_p, "w", encoding="utf-8") as f:
+            json.dump(lp, f, ensure_ascii=False, indent=1)
+        print("  ✓ đã rút chữ người của kỳ ra %s.nguoi.json" % ky_id)
+
+    # ② Phủ chữ người lên bản máy sinh.
+    if os.path.exists(lp_p):
+        with open(lp_p, encoding="utf-8") as f:
+            D = phu_nguoi(D, json.load(f))
+
     with open(fp, "w", encoding="utf-8") as f:
         json.dump(D, f, ensure_ascii=False, indent=1)
 

@@ -4,7 +4,12 @@ out/
 # Dữ liệu từng kỳ của dashboard — KHÔNG commit, kể cả index.json.
 # Commit index.json mà không commit file kỳ thì bản clone mới sẽ trỏ vào file
 # không tồn tại và dashboard báo lỗi. Chạy `id.py bao-cao` là sinh lại cả hai.
-dashboard/data/
+dashboard/data/*
+
+# ★ TRỪ lớp phủ chữ người. Phần máy sinh thì chạy lại là có; phần ĐỌC HIỂU —
+# vấn đề cốt lõi, thẻ insight, ma trận, hook, sổ tay, việc, cảnh báo — do người
+# và agent viết, ⛔ KHÔNG sinh lại được. Mất file này là mất cả kỳ phân tích.
+!dashboard/data/*.nguoi.json
 
 # Dữ liệu thật — KHÔNG commit
 *_that.*
