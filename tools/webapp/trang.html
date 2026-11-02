@@ -464,8 +464,11 @@ function header(D,ky_ds,id){
   return '<div class="head"><div><h1>'+esc(L.ten)+'</h1>'+
     '<div class="sub">'+(L.phu?esc(L.phu)+'<br>':'')+meta+
     '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát'+
-    '<br><span class="note">trang sinh 02/11 19:49 — số này ⛔ không đổi khi bấm '+
-    'Deploy; nó chỉ đổi khi bạn dán lại trang.html mới. Thấy mốc cũ = bản deploy còn cũ.</span></div>'+
+    '<br><span class="note">trang sinh 02/11 19:56 — số này ⛔ không đổi khi bấm '+
+    'Deploy; nó chỉ đổi khi bạn dán lại trang.html mới. Thấy mốc cũ = bản deploy còn cũ.</span>'+
+    (BC_SAI?'<br><span style="color:var(--bad)">⛔ Không có bố cục «'+esc(BC_SAI)+
+      '» — đang hiện bản «'+esc(BC)+'». Tên đúng: sale · truc-page · day-du · insight.</span>':'')+
+    '</div>'+
     '</div>'+sel+'</div>'}
 
 function canhBao(D){
@@ -2156,11 +2159,16 @@ noiGas().then(function(ok){if(!ok&&VE_LAI)VE_LAI()});
    google.script.run. Nhánh connector giữ nguyên trong mã nhưng không bao giờ
    chạy — khoCo() thấy GAS_TT==='ok' là xong. */
 
-/* Bố cục cố định ở bản web app: đây là báo cáo insight cho khối nội dung.
-   Đổi bằng ?bo_cuc=truc-page trên URL khi cần xem bản khác. */
+/* Bố cục mặc định ở bản web app là `insight` — báo cáo cho khối nội dung.
+   Đổi bằng ?bo_cuc=sale · truc-page · day-du trên URL. */
+var BC_SAI='';
 (function(){
-  var m=/[?&]bo_cuc=([^&]+)/.exec(location.search||'');
-  BC=(m&&BO_CUC[decodeURIComponent(m[1])])?decodeURIComponent(m[1]):'insight';
+  var m=/[?&]bo_cuc=([^&]+)/.exec(location.search||''),x=m?decodeURIComponent(m[1]):'';
+  /* ⛔ Gõ sai tên bố cục mà trang lặng lẽ lùi về `insight` là cách người đọc
+     ngồi nhìn SAI báo cáo mà không biết — «sale3» ra bản insight, ⛔ không có
+     tab Hàng chờ gọi, mà trông vẫn như một trang bình thường. Nói ra. */
+  if(x&&!BO_CUC[x])BC_SAI=x;
+  BC=(x&&BO_CUC[x])?x:'insight';
   try{document.title=bc().ten}catch(e){}
 })();
 

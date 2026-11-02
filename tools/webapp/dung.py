@@ -129,11 +129,16 @@ else fetch('data/index.json').then(function(r){if(!r.ok)throw new Error(r.status
     var want=null; try{want=localStorage.getItem('kn_ky')}catch(e){}
     napKy(ds,find(ds,'id',want)?want:ds[0].id)})
   .catch(function(){loi('Không tải được danh sách kỳ báo cáo. Chạy: python tools/id.py bao-cao --ky …')});""",
-"""/* Bố cục cố định ở bản web app: đây là báo cáo insight cho khối nội dung.
-   Đổi bằng ?bo_cuc=truc-page trên URL khi cần xem bản khác. */
+"""/* Bố cục mặc định ở bản web app là `insight` — báo cáo cho khối nội dung.
+   Đổi bằng ?bo_cuc=sale · truc-page · day-du trên URL. */
+var BC_SAI='';
 (function(){
-  var m=/[?&]bo_cuc=([^&]+)/.exec(location.search||'');
-  BC=(m&&BO_CUC[decodeURIComponent(m[1])])?decodeURIComponent(m[1]):'insight';
+  var m=/[?&]bo_cuc=([^&]+)/.exec(location.search||''),x=m?decodeURIComponent(m[1]):'';
+  /* ⛔ Gõ sai tên bố cục mà trang lặng lẽ lùi về `insight` là cách người đọc
+     ngồi nhìn SAI báo cáo mà không biết — «sale3» ra bản insight, ⛔ không có
+     tab Hàng chờ gọi, mà trông vẫn như một trang bình thường. Nói ra. */
+  if(x&&!BO_CUC[x])BC_SAI=x;
+  BC=(x&&BO_CUC[x])?x:'insight';
   try{document.title=bc().ten}catch(e){}
 })();
 
@@ -186,7 +191,10 @@ DAU_SINH = datetime.datetime.now().strftime("%d/%m %H:%M")
 thay("""    '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát</div>'+""",
      """    '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát'+
     '<br><span class="note">trang sinh """ + DAU_SINH + """ — số này ⛔ không đổi khi bấm '+
-    'Deploy; nó chỉ đổi khi bạn dán lại trang.html mới. Thấy mốc cũ = bản deploy còn cũ.</span></div>'+""",
+    'Deploy; nó chỉ đổi khi bạn dán lại trang.html mới. Thấy mốc cũ = bản deploy còn cũ.</span>'+
+    (BC_SAI?'<br><span style="color:var(--bad)">⛔ Không có bố cục «'+esc(BC_SAI)+
+      '» — đang hiện bản «'+esc(BC)+'». Tên đúng: sale · truc-page · day-du · insight.</span>':'')+
+    '</div>'+""",
      "dau-sinh")
 
 # ── ⑥ bỏ phần đầu/cuối của trang độc lập, giữ thân cho HtmlService ──────
