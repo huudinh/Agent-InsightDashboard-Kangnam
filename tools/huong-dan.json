@@ -150,8 +150,8 @@
     },
     {
       "duong_dan": "knowledge/id-N-chon-tep-tang-noi-dung-kf64.md",
-      "badge": "🔴 chưa duyệt",
-      "mo_ta": "<b>Chọn tệp tập trung & tầng nội dung KF-64</b> — 3 trục <i>quy mô · chất lượng · chuyển đổi</i> · ma trận 4 ô ngân sách · tầng <code>A1–A4</code> TOF/MOF/BOF · ★ luật <b>A2 cấp dịch vụ</b> chạy được ngay (9/10 dịch vụ vượt ngưỡng) · ⛔ phần xếp hạng chân dung CHƯA duyệt, bản chạy là <code>id-M</code> §7"
+      "badge": "★★ lõi",
+      "mo_ta": "<b>Chọn tệp tập trung & tầng nội dung KF-64</b> — ★ <b>thay <code>id-M</code> §7</b> làm bảng xếp hạng chân dung · 3 trục <i>quy mô · chất lượng · chuyển đổi</i> · ma trận 4 ô ngân sách · tầng <code>T1–T4</code> · ★ luật <b>T2 cấp dịch vụ</b> chạy ngay (9/10 dịch vụ vượt ngưỡng) · ⚠ khối Sale để trống 4 chỗ, repo tự chốt ở §2"
     },
     {
       "duong_dan": "prompts/prompt-auto.md",

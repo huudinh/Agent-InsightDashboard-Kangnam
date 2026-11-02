@@ -948,6 +948,291 @@ TIEU_CHI = [
 DIEM = {ma: d for _, _, ds in TIEU_CHI for ma, _, d in ds}
 
 
+
+# ══════════ bộ chọn tệp & tầng nội dung KF-64 v1.0 — XẾP HẠNG CHÂN DUNG ══════════
+# ★ Bộ này THAY công thức của `id-M` §7. ⛔ Không chạy song song hai bảng xếp
+#   hạng chân dung: đó đúng là lỗi đã phải bỏ sổ `id-C` §4.
+#
+# ⚠ KF-64 v1.0 là bản khối Sale gửi sang, và nó ⛔ KHÔNG trả lời đủ bốn chỗ
+#   dưới đây. Người dùng chốt 02/11/2026 «không chờ duyệt nữa», nên repo tự
+#   chốt bốn cái — ghi ra đây để còn cãi lại được, ⛔ không chôn trong code:
+#
+#   ① MẪU SỐ «trung bình dịch vụ» = TIỀN TỐ MÃ KF-62 (18 dịch vụ), ⛔ không
+#     phải cột `dich_vu` của `id-G` §3. Lý do: chân dung được ĐỊNH NGHĨA bên
+#     trong dịch vụ KF-62 (`id-M` §2); lấy mẫu số kia thì một chân dung bị so
+#     với những chân dung không cùng dịch vụ với nó. Cột `dich_vu` vẫn giữ —
+#     nó là chỗ lấy hệ số 1/2/3, ⛔ không phải trục chân dung.
+#
+#   ② `%Hot` của CẢ DỊCH VỤ bằng 0 thì BỎ chỉ số đó, tính Chất lượng bằng
+#     nhiệt độ một mình. ⛔ Không tính `%Hot` thành 0: khi mẫu số bằng 0 thì
+#     tỷ lệ là KHÔNG XÁC ĐỊNH, ⛔ không phải bằng không. Tính thành 0 là chia
+#     đôi Chất lượng của mọi chân dung trong dịch vụ đó — kỳ 24-29/10 có 3 HOT
+#     trên 494 nên 6/10 dịch vụ rơi vào đúng cảnh này.
+#
+#   ③ `điểm hiệu quả` ⛔ KHÔNG có bản dự phòng trong KF-64, mà Chuyển đổi
+#     chiếm 62,5% của nó. Dùng đúng cách KF-64 đã làm cho «chỉ số tạm»: chuẩn
+#     hoá lại trên những trục ĐO ĐƯỢC → chưa có CRM thì hiệu quả = Chất lượng.
+#     ⚠ Ô ③ lúc này đọc là «đông nhưng NGUỘI», ⛔ chưa phải «đông nhưng YẾU» —
+#     mọi dòng gắn `tam=True`.
+#
+#   ④ TÊN TẦNG: giữ `5A` của `id-D` §3, trục phễu của KF-64 đặt `T1…T4`.
+#     Lý do: cùng 494 hội thoại, `A2` theo `id-D` = 1 HT, theo KF-64 = 324 HT.
+#     ⛔ Một nhãn hai nghĩa thì không bảng nào đọc được. Bảng quy đổi ở KF64_TANG.
+
+KF64 = "KF-64/1.0"
+KF64_TS = (0.2, 0.3, 0.5)        # quy mô · chất lượng · chuyển đổi (§3.1)
+KF64_TS_TAM = (0.4, 0.6)         # chưa có booking CRM → quy mô · chất lượng
+KF64_TRAN = 2.0                  # mỗi trục chặn ở 2,0 — mẫu nhỏ ⛔ không kéo lệch
+KF64_MIN_HT = 30                 # dưới ngần này: «chưa đủ dữ liệu», ⛔ không xếp hạng
+KF64_MIN_BOOKING = 5
+KF64_NGHEN = 0.8                 # bước yếu nhất phải < mốc này mới gọi là nghẽn
+KF64_MOC = (110, 90)             # ≥110 CAO · 90–109 TRUNG BÌNH · <90 THẤP
+KF64_SAT_MOC = 5.0               # |hiệu quả − 100| nhỏ hơn ngần này: ô ⛔ không chốt được
+
+# Trục phễu của KF-64 — ⛔ KHÔNG dùng tên A1…A4 (xem quyết định ④).
+KF64_TANG = {
+    "T1": ("T1 · TOF", "Mở tệp — nội dung nhận biết vấn đề", "A1 của id-D"),
+    "T2": ("T2 · TOF→MOF", "Nội dung tự phân loại «bạn thuộc kiểu nào»",
+           "⚠ đo ở CẤP DỊCH VỤ, ⛔ không ở cấp chân dung"),
+    "T3": ("T3 · MOF", "Gỡ rào cản chính · bác sĩ · ca thật · so sánh phương án",
+           "A2+A3 của id-D"),
+    "T4": ("T4 · BOF", "Giá · ưu đãi có hạn · lịch trống · tốc độ gọi",
+           "A4 của id-D"),
+}
+# Cơ cấu ngân sách khởi điểm theo ô ma trận (§3.2). Ràng buộc KF-50 giữ nguyên:
+# BOF ≥ 10% và remarketing ≤ 40% tổng chi của dịch vụ.
+KF64_O = {
+    "①": ("① Trụ cột", "Lớn + Tốt", "Scale có kiểm soát +15–20%/3 ngày (KF-49)", (30, 40, 30)),
+    "②": ("② Ngách hiệu quả", "Nhỏ + Tốt", "Mở rộng tệp — tăng TOF kéo thêm ĐÚNG người", (45, 35, 20)),
+    "③": ("③ Đông nhưng yếu", "Lớn + Chưa tốt", "⛔ KHÔNG tăng ngân sách kéo khách — sửa MOF, kịch bản, tốc độ Sale", (15, 55, 30)),
+    "④": ("④ Duy trì tối thiểu", "Nhỏ + Chưa tốt", "Giữ remarketing + nội dung nền, xem lại sau 30 ngày", (20, 40, 40)),
+}
+
+
+def _kf64_dv(r):
+    """Dịch vụ KF-62 của một bản ghi — quyết định ① ở trên.
+
+    Lấy từ `dich_vu_kf62` nếu khuôn đầu vào có khai (đường KNB); không có thì
+    suy từ TIỀN TỐ của mã chân dung. ⛔ Không dùng cột `dich_vu`.
+    """
+    dv = r.get("dich_vu_kf62")
+    if dv:
+        return dv
+    cd = r.get("cd") or CD_DU
+    if cd == CD_DU or "-" not in cd:
+        return None
+    return cd.split("-")[0]
+
+
+def _kf64_ti(so, mau):
+    """Chỉ số tương đối, chặn ở KF64_TRAN. Mẫu số 0 → None (⛔ KHÔNG phải 0)."""
+    if not mau:
+        return None
+    return min(KF64_TRAN, 1.0 * so / mau)
+
+
+def _kf64_muc(x):
+    if x is None:
+        return None
+    return "CAO" if x >= KF64_MOC[0] else ("TRUNG BÌNH" if x >= KF64_MOC[1] else "THẤP")
+
+
+def gom_kf64(ban_ghi):
+    """Khối `kf64` — chọn tệp tập trung và tầng nội dung ưu tiên.
+
+    ⛔ Đây là khối MÁY SINH, ⛔ không phải lớp phủ chữ người: mọi con số đều
+    suy ra được từ bản ghi, nên để người gõ tay là mở đường cho số không cãi
+    được. Phần đọc hiểu đi vào `pheu.van_de` và `ket_luan` như cũ.
+    """
+    tv = nap_thu_vien()
+    ten_dv = {k: v.get("ten", k) for k, v in tv["dich_vu"].items()}
+    # ⛔ Chỉ đếm chân dung THẬT: mỗi dịch vụ còn một dòng <DV>-CHUA_XAC_DINH
+    #    không có từ nhận dạng — 103 dòng JSON = 85 chân dung + 18 dòng dự trữ.
+    so_cd_tv = {k: sum(1 for c in (v.get("chan_dung") or []) if c.get("tu"))
+                for k, v in tv["dich_vu"].items()}
+
+    def chua_ro(r):
+        cd = r.get("cd") or CD_DU
+        return cd == CD_DU or cd.endswith("CHUA_XAC_DINH")
+
+    def nhiet_tb(rs):
+        v = [(r.get("lead") or {}).get("diem") for r in rs]
+        v = [x for x in v if x is not None]
+        return (sum(v) / len(v)) if v else None
+
+    # ── cấp dịch vụ ──────────────────────────────────────────────────────
+    theo_dv = {}
+    for r in ban_ghi:
+        theo_dv.setdefault(_kf64_dv(r), []).append(r)
+
+    dich_vu, chan_dung = [], []
+    for dv, rs in sorted(theo_dv.items(), key=lambda kv: -len(kv[1])):
+        cr = sum(1 for r in rs if chua_ro(r))
+        pct = 100.0 * cr / len(rs)
+        dich_vu.append({
+            "ma": dv or CD_DU,
+            "ten": ten_dv.get(dv, CD_DU if dv is None else dv),
+            "ht": len(rs), "chua_ro": cr, "pct_chua_ro": round(pct, 1),
+            "ma_thu_vien": so_cd_tv.get(dv, 0),
+            # ★ Luật T2 cấp dịch vụ (§4.2) — chạy được ngay, ⛔ không cần CRM.
+            "uu_tien_t2": bool(dv and pct >= 30),
+            "la_du_tru": dv is None,
+        })
+        if dv is None:
+            continue
+
+        thuc = [r for r in rs if not chua_ro(r)]
+        ma_cd = sorted({r["cd"] for r in thuc})
+        if not ma_cd:
+            continue
+        N = len(thuc)
+        H = sum(1 for r in thuc if r["nhiet"] == "HOT")
+        W = sum(1 for r in thuc if r["nhiet"] == "WARM")
+        tb_hot = 100.0 * H / N
+        tb_nhiet = nhiet_tb(thuc)
+        tb_s3 = 1.0 * (H + W) / N
+        tb_s4 = (1.0 * H / (H + W)) if (H + W) else None
+        chia_deu = 1.0 / len(ma_cd)
+
+        for m in ma_cd:
+            g = [r for r in thuc if r["cd"] == m]
+            n = len(g)
+            hot = sum(1 for r in g if r["nhiet"] == "HOT")
+            warm = sum(1 for r in g if r["nhiet"] == "WARM")
+            dm = nhiet_tb(g)
+
+            quy_mo = min(KF64_TRAN, (1.0 * n / N) / chia_deu)
+            ti_nhiet = _kf64_ti(dm or 0, tb_nhiet)
+            # Quyết định ②: dịch vụ không có HOT nào → BỎ chỉ số %Hot.
+            ti_hot = _kf64_ti(100.0 * hot / n, tb_hot)
+            co = [x for x in (ti_hot, ti_nhiet) if x is not None]
+            chat_luong = min(KF64_TRAN, sum(co) / len(co)) if co else None
+
+            du_mau = n >= KF64_MIN_HT
+            if chat_luong is None:
+                chi_so = None
+            else:
+                a, b = KF64_TS_TAM
+                chi_so = round(100.0 * (a * quy_mo + b * chat_luong), 1)
+            # Quyết định ③: chưa có CRM → hiệu quả = Chất lượng, gắn `tam`.
+            hieu_qua = None if chat_luong is None else round(100.0 * chat_luong, 1)
+
+            # ⛔ Dưới ngưỡng mẫu thì KHÔNG gán ô ma trận và KHÔNG gán mức.
+            #    Ô ma trận là một PHÁT BIỂU XẾP HẠNG («trụ cột», «đông nhưng
+            #    yếu») — gán nó cho một mã 1 hội thoại là nói sai bằng con số.
+            #    KF-64 §7 đã dặn: mẫu nhỏ thì chỉ đánh giá ở CẤP DỊCH VỤ.
+            o = None
+            if hieu_qua is not None and du_mau:
+                lon = quy_mo >= 1.0
+                tot = hieu_qua >= 100
+                o = "①" if (lon and tot) else ("③" if lon else ("②" if tot else "④"))
+
+            # ── năm bước chuyển tầng: S1 S3 S4 đo được, S5 S6 cần CRM ──
+            s3 = _kf64_ti(1.0 * (hot + warm) / n, tb_s3)
+            s4 = (_kf64_ti(1.0 * hot / (hot + warm), tb_s4)
+                  if (hot + warm) and tb_s4 else None)
+            buoc = [("S1", quy_mo, "T1"), ("S3", s3, "T3"), ("S4", s4, "T3")]
+            co_b = [(v, ma, tg) for ma, v, tg in buoc if v is not None]
+            tang, yeu_nhat, ma_yeu = None, None, None
+            if co_b:
+                v, ma_yeu, tg = min(co_b)
+                yeu_nhat = round(v, 2)
+                # ⛔ Dưới ngưỡng mẫu thì không đề xuất tầng nội dung: một mã
+                #    1 hội thoại ⛔ chưa đáng làm nội dung riêng, và bước yếu
+                #    của nó là nhiễu chứ không phải điểm nghẽn.
+                if v < KF64_NGHEN and du_mau:
+                    tang = tg
+            chan_dung.append({
+                "cd": m, "ten": (lambda: next(
+                    (c["ten"] for c in tv["dich_vu"][dv]["chan_dung"] if c["ma"] == m), m))(),
+                "dich_vu": dv, "ten_dich_vu": ten_dv.get(dv, dv),
+                "ht": n, "hot": hot, "warm": warm, "co_sdt": sum(1 for r in g if r["co_sdt"]),
+                "roi_truc": sum(1 for r in g if r["roi"] == "trực page"),
+                "he_so": max([r["he_so"] for r in g], default=1),
+                "quy_mo": round(quy_mo, 2), "nhiet_tb": None if dm is None else round(dm, 1),
+                "pct_hot": round(100.0 * hot / n, 1),
+                "chat_luong": None if chat_luong is None else round(chat_luong, 2),
+                "bo_pct_hot": ti_hot is None,
+                "chuyen_doi": None, "booking": None,
+                "chi_so": chi_so, "muc": _kf64_muc(chi_so) if du_mau else None,
+                "hieu_qua": hieu_qua, "o": o,
+                # ★ Ô ma trận chốt bằng một mốc CỨNG ở 100. Sát mốc thì
+                #   ⛔ không chốt được: hai bên mốc là hai chiến lược trái
+                #   nhau (scale +15–20% vs duy trì tối thiểu).
+                "o_sat_moc": bool(o and abs(hieu_qua - 100) < KF64_SAT_MOC),
+                "s1": round(quy_mo, 2), "s3": None if s3 is None else round(s3, 2),
+                "s4": None if s4 is None else round(s4, 2),
+                "s5": None, "s6": None,
+                "buoc_yeu": ma_yeu, "buoc_yeu_tri": yeu_nhat,
+                "tang": tang, "co_van_hanh": False,
+                "co_cau": list(KF64_O[o][3]) if o else None,
+                "du_mau": du_mau, "tam": True,
+            })
+
+    # ⛔ Mã ĐỦ MẪU lên trước, rồi mới tới mã «chưa đủ dữ liệu». Trộn lẫn thì
+    #    một mã 3 hội thoại ngồi trên một mã 41 hội thoại, và bảng trông y như
+    #    một bảng xếp hạng dù ba phần tư dòng ⛔ không được xếp hạng.
+    chan_dung.sort(key=lambda x: (not x["du_mau"], x["chi_so"] is None,
+                                  -(x["chi_so"] or 0)))
+    for i, x in enumerate([c for c in chan_dung if c["du_mau"]], 1):
+        x["hang"] = i
+
+    du = [c for c in chan_dung if c["du_mau"]]
+    return {
+        "bo": KF64, "trang_thai": "dang_chay",
+        "duyet": "02/11/2026 · người dùng chốt bỏ bước chờ anh UY duyệt",
+        "thay_the": "id-M §7",
+        "trong_so": {"quy_mo": KF64_TS[0], "chat_luong": KF64_TS[1],
+                     "chuyen_doi": KF64_TS[2]},
+        "trong_so_dang_dung": {"quy_mo": KF64_TS_TAM[0], "chat_luong": KF64_TS_TAM[1]},
+        "co_crm": False,
+        "min_ht": KF64_MIN_HT, "min_booking": KF64_MIN_BOOKING,
+        "nghen": KF64_NGHEN,
+        "tang": {k: {"nhan": v[0], "viec": v[1], "quy_doi": v[2]}
+                 for k, v in KF64_TANG.items()},
+        "o": {k: {"nhan": v[0], "dieu_kien": v[1], "chien_luoc": v[2],
+                  "co_cau": list(v[3])} for k, v in KF64_O.items()},
+        "dich_vu": dich_vu,
+        "chan_dung": chan_dung,
+        "so_du_mau": len(du), "so_co_khach": len(chan_dung),
+        "so_thu_vien": sum(so_cd_tv.values()),
+        "quyet_dinh": [
+            "① Mẫu số «trung bình dịch vụ» = tiền tố mã KF-62 (18 dịch vụ), ⛔ không "
+            "phải cột dich_vu của id-G §3 — chân dung được định nghĩa bên trong dịch "
+            "vụ KF-62. Đổi mẫu số là đổi mọi chỉ số: FILLER-BOTOX_LAN_DAU có Quy mô "
+            "1,87 theo cột dich_vu nhưng 0,85 theo tiền tố KF-62.",
+            "② %Hot của cả dịch vụ bằng 0 thì BỎ chỉ số đó, ⛔ không tính thành 0 — "
+            "mẫu số 0 là KHÔNG XÁC ĐỊNH. Kỳ này 3 HOT trên 494 nên nhiều dịch vụ "
+            "rơi vào cảnh đó; tính thành 0 là chia đôi Chất lượng của mọi chân dung.",
+            "③ KF-64 ⛔ không cho bản dự phòng cho «điểm hiệu quả» mà Chuyển đổi "
+            "chiếm 62,5%. Đang chuẩn hoá lại trên trục đo được → hiệu quả = Chất "
+            "lượng. ⚠ Ô ③ vì vậy đọc là «đông nhưng NGUỘI», ⛔ chưa phải «đông "
+            "nhưng YẾU». Mọi dòng gắn tam=true.",
+            "④ Trục phễu KF-64 đặt tên T1…T4, ⛔ không dùng A1…A4: cùng 494 hội "
+            "thoại, A2 theo id-D §3 = 1 HT, theo KF-64 = 324 HT. Nấc 5A của id-D "
+            "⛔ không đổi — bảng quy đổi ở khối `tang`.",
+        ],
+        "ghi_chu": [
+            "Chỉ số đang là BẢN TẠM 0,4 Quy mô + 0,6 Chất lượng — trục Chuyển đổi "
+            "(50%% của bản đủ) trống vì chưa có dòng booking CRM nào. ⛔ Không dùng "
+            "để chia ngân sách lớn.",
+            "%d/%d mã có khách trong kỳ đạt ngưỡng %d hội thoại nên được xếp hạng; "
+            "%d mã còn lại ghi «chưa đủ dữ liệu». Ngưỡng chính thức còn cần ≥%d "
+            "booking nên hiện 0 mã nào đạt."
+            % (len(du), len(chan_dung), KF64_MIN_HT,
+               len(chan_dung) - len(du), KF64_MIN_BOOKING),
+            "Mỗi chân dung so với TRUNG BÌNH DỊCH VỤ KF-62 của nó, ⛔ không tính các "
+            "dòng CHUA_XAC_DINH và KHONG_XAC_DINH_DV vào trung bình đó.",
+            "Bước S5 (Hot→booking) và S6 (booking→đến khám) ⛔ chưa đo được — thiếu "
+            "CRM. Nên cờ «Vận hành/Sale» của KF-64 §4.2 luật ③ chưa bao giờ bật, và "
+            "mọi tầng ưu tiên hiện ra đều là T1 hoặc T3.",
+            "Bảng 5 bước của KF-64 v1.0 đánh số S1 · S3 · S4 · S5 · S6 — ⛔ thiếu S2. "
+            "Đọc §4.2 thì S2 gần như chắc là «nói rõ nhu cầu», nhưng nó được mô tả ở "
+            "cấp dịch vụ nên ⛔ không có dòng ở cấp chân dung.",
+        ],
+    }
+
+
 def cham_hoi_thoai(ht, td, ma_o):
     """Trả về (bảng ✓/✗/—, điểm 0-100 hoặc None, danh sách cờ đỏ)."""
     k = {}
@@ -1245,6 +1530,9 @@ def gom_doc(ban_ghi, ky, nguon, pho, vi_sao):
         "the_tong": _the_tong(ban_ghi),
         # ★ Khối lead: xếp HÀNG CHỜ GỌI. Nhãn id-D ở trên ⛔ không bị thay.
         "lead": gom_lead(ban_ghi),
+        # ★ Khối kf64: XẾP HẠNG CHÂN DUNG + tầng nội dung. Thay `id-M` §7 —
+        #   ⛔ không để hai bảng xếp hạng cùng sống (bài học `id-C` §4).
+        "kf64": gom_kf64(ban_ghi),
     }
     return ket
 
@@ -1692,7 +1980,7 @@ def lenh_bao_cao(args):
 
     ky_id = args.ky.replace("/", "-").replace(" ", "")
     D = {
-        "schema": "insight-dashboard-kangnam/2",
+        "schema": "insight-dashboard-kangnam/3",
         "ky": {"id": ky_id, "nhan": args.ky, "tao": H["tao"], "nguon": H["nguon"]},
         "canh_bao": [],
         "the_tong": H["the_tong"],
@@ -1705,6 +1993,9 @@ def lenh_bao_cao(args):
         # ★ Khối lead — tab «Hàng chờ gọi». Thiếu khối này (file schema /1)
         #   thì trang hiện ô khoá, ⛔ không hiện 0 (id-J §3 luật ①).
         "lead": H.get("lead"),
+        # ★ Khối kf64 — bảng xếp hạng chân dung CỦA RECORD từ 02/11/2026.
+        #   `chan_dung.co_hoi_win` là bản proxy cũ của `id-M` §7, đã nghỉ.
+        "kf64": H.get("kf64"),
         "chan_dung": {"phac_hoa": H.get("phac_hoa", {}), "tep": H["chan_dung"],
                       "insight": [], "nac": H["nac"]},
         "nhan_vien": H["nhan_vien"],
@@ -1727,6 +2018,32 @@ def lenh_bao_cao(args):
             "Điểm dùng để phân việc kèm cặp. Không phải căn cứ kỷ luật hay xếp hạng công khai.",
         ],
     }
+    # ⛔ Ô ma trận KF-64 chốt bằng mốc cứng 100, mà kỳ này `hiệu quả` chỉ còn
+    #    MỘT trục (Chất lượng) vì chưa có booking CRM. Chất lượng lại so với
+    #    trung bình của chính dịch vụ mình, nên khi một dịch vụ chỉ có vài chân
+    #    dung thì mọi chỉ số dồn về đúng 100 — ô rơi bên nào là chuyện may rủi.
+    K = H.get("kf64") or {}
+    sat = [c for c in (K.get("chan_dung") or []) if c.get("o_sat_moc")]
+    if sat:
+        D["canh_bao"].append({"muc": "bad", "may": 1, "text":
+            "⛔ Ma trận 4 ô của KF-64 CHƯA chốt được kỳ này: %d/%d chân dung được "
+            "xếp hạng có «điểm hiệu quả» lệch mốc 100 dưới %g điểm (%s). Hai bên "
+            "mốc là hai chiến lược trái nhau — ô ① scale +15–20%%/3 ngày, ô ④ duy "
+            "trì tối thiểu. Lý do không phải mốc sai mà là `hiệu quả` đang chỉ còn "
+            "MỘT trục: Chuyển đổi (62,5%% trọng số) trống vì chưa có booking CRM, "
+            "và Chất lượng thì so với trung bình chính dịch vụ mình nên vài chân "
+            "dung trong một dịch vụ luôn dồn về quanh 100. ⛔ Đừng dùng ô ma trận "
+            "để chia ngân sách trước khi CRM gắn mã chân dung (id-N §10 ①)."
+            % (len(sat), K.get("so_du_mau", 0), KF64_SAT_MOC,
+               " · ".join("%s %.1f" % (c["cd"], c["hieu_qua"]) for c in sat))})
+    if K.get("chan_dung") and not any(c.get("tang") for c in K["chan_dung"]):
+        D["canh_bao"].append({"muc": "warn", "may": 1, "text":
+            "⚠ KF-64 ⛔ không tìm ra tầng nội dung ưu tiên nào ở cấp chân dung: "
+            "không bước nào tụt dưới %g so với trung bình dịch vụ. Nhưng hai bước "
+            "hay nghẽn nhất — S5 (Hot→booking) và S6 (booking→đến khám) — ⛔ chưa "
+            "đo được vì thiếu CRM, nên kết quả này ⛔ KHÔNG có nghĩa là phễu không "
+            "nghẽn. Việc đọc được ngay là luật T2 ở cấp dịch vụ (id-N §5)."
+            % KF64_NGHEN})
     if H["nhan_vien"]["co_do"]:
         D["canh_bao"].append({"muc": "bad", "text": "Có %d cờ đỏ trong kỳ — xem tab Chấm điểm."
                                                    % len(H["nhan_vien"]["co_do"])})

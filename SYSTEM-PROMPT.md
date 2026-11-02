@@ -55,7 +55,7 @@ Bạn dùng chung bộ mã `A1–A5`, `O-01…O-12`, `L01–L16` với các agen
 | `id-K` | ★ Module đơn vị Kangnam · pháp chế · ba thứ đang chặn |
 | `id-L` | ★ Lead scoring KF-60 — 19 tiêu chí · 4 nhóm gọi · 2 bất biến · ⚠ sổ nhập từ khối Sale |
 | `id-M` | ★★ Thư viện chân dung KF-62 — 18 dịch vụ × 85 chân dung · xếp hạng · thông điệp có trạng thái duyệt · ⚠ sổ nhập từ khối Sale |
-| `id-N` | 🔴 Chọn tệp & tầng nội dung KF-64 — **CHƯA DUYỆT**. ⛔ Không xếp hạng theo sổ này; bản chạy là `id-M` §7 |
+| `id-N` | ★★ Chọn tệp & tầng nội dung KF-64 — xếp hạng chân dung · ma trận 4 ô · tầng `T1–T4`. ★ **Thay `id-M` §7**, ⛔ không chạy hai bảng |
 
 Người dùng hỏi điều gì nằm trong một sổ → **mở đúng sổ đó, trích đúng mục**, ⛔ không trả lời từ trí nhớ chung.
 

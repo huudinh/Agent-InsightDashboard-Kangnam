@@ -169,12 +169,23 @@ không bao giờ xuất hiện trong nội dung phát ra ngoài.
 
 ---
 
-## 7. ★ XẾP HẠNG CHÂN DUNG — DỒN SỨC VÀO ĐÂU
+## 7. ⛔ XẾP HẠNG CHÂN DUNG — ĐÃ NGHỈ 02/11/2026
+
+> ⛔ **Mục này KHÔNG còn chạy.** Xếp hạng chân dung nay do **KF-64**
+> ([`id-N`](id-N-chon-tep-tang-noi-dung-kf64.md)) quyết — nó là bản **mở rộng**
+> của đúng công thức dưới đây, chen thêm trục **Quy mô 20%** vào trước.
+>
+> Bảng «Cơ hội win» đã **gỡ khỏi dashboard**; `chan_dung.co_hoi_win` để rỗng,
+> bản proxy lưu ở `_luu_co_hoi_win_idM7` của lớp phủ. ⛔ Một bảng xếp hạng,
+> không hai — đó là lỗi đã phải bỏ `id-C` §4.
+>
+> Giữ nguyên văn dưới đây để **đối chiếu được**: `30:50` của KF-64 chính là
+> `40:60` ở đây.
 
 Bảng chân dung nói *có những ai*. Nó ⛔ không nói *làm ai trước*. Xếp theo số HT
 là xếp theo nhóm **đông nhất**, ⛔ không phải nhóm **đáng làm nhất**.
 
-### Công thức chính thức — anh UY chốt 02/11/2026 · ★ BẢN ĐANG CHẠY
+### Công thức anh UY chốt 02/11/2026 — ⛔ nay là bản THAM CHIẾU
 
 ```
 Chỉ số ưu tiên = nhiệt độ trung bình (id-L) × 40%  +  tỷ lệ booking CRM × 60%
@@ -188,11 +199,11 @@ Dưới 30 hội thoại HOẶC dưới 5 booking → ghi «chưa đủ dữ li�
 
 ⚠️ **Chưa chạy được**: chưa có dòng CRM nào về. Mốc có số thật là tuần 3–4 (§10).
 
-🔴 **Đã có bản kế tiếp đang chờ duyệt.** KF-64 ([`id-N`](id-N-chon-tep-tang-noi-dung-kf64.md))
-chen thêm trục **Quy mô 20%** vào trước, thành `20/30/50` — và chính nó khai
-rằng `30:50` giữ đúng tương quan `40:60` ở đây. Khi anh UY duyệt thì KF-64
-**thay** công thức này, ⛔ không chạy song song. Đến lúc đó ⛔ đừng để hai
-bảng xếp hạng cùng sống — đúng lỗi đã làm phải bỏ `id-C` §4.
+⛔ **Và từ 02/11/2026 thì mục này đã nghỉ hẳn.** KF-64
+([`id-N`](id-N-chon-tep-tang-noi-dung-kf64.md)) chen thêm trục **Quy mô 20%**
+vào trước, thành `20/30/50` — và chính nó khai rằng `30:50` giữ đúng tương quan
+`40:60` ở đây. Người dùng chốt bỏ bước chờ duyệt, nên KF-64 **đã thay** công
+thức này. ⛔ Hai bảng xếp hạng cùng sống là đúng lỗi đã làm phải bỏ `id-C` §4.
 
 ### Bản tạm khi chưa có CRM — ⚠ là PROXY, ⛔ không phải bản chính
 
@@ -571,7 +582,7 @@ hỏi 2 câu vàng ở tin **thứ 1** so với tin **thứ 3**.
 - [ ] Chân dung nào chưa khai `hanh_dong` mà đã lên hàng chờ? Dòng đó có gắn nhãn **«lời mặc định»** chưa?
 - [ ] Có ai tự thêm chân dung ngoài KF-62 không? ⛔ Phải báo lại, ⛔ không tự đặt.
 - [ ] Xếp hạng chân dung dùng công thức CRM (§7) hay bản tạm? Dùng bản tạm thì mọi dòng đã gắn `⚠ proxy` chưa?
-- [ ] Có bảng nào xếp hạng theo KF-64 (`id-N`) chưa? ⛔ Sổ đó **chưa duyệt** — bản chạy là §7.
+- [ ] Có ai còn đọc bảng «Cơ hội win» của §7 không? ⛔ Nó đã nghỉ — bản chạy là `id-N`.
 - [ ] Bảng §9 có khớp `tools/chan_dung_kf62.json` không — đã chạy lại `so-chan-dung.py` chưa?
 - [ ] Thông điệp phát ra ngoài có câu nào còn «chưa duyệt» / «chờ pháp chế» không? (§8)
 - [ ] Thẻ `AR08` có lọt ra nội dung quảng cáo hay tin Zalo không?

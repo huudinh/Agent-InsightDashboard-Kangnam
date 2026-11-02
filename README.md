@@ -104,12 +104,12 @@ Chi tiết: [`doc/01-cai-dat.md`](doc/01-cai-dat.md)
 | [`id-J`](knowledge/id-J-dashboard-schema.md) | Dashboard 10 tab · schema JSON `/2` · khối `lead` · lớp phủ chữ người · 4 luật hiển thị |
 | ★ [`id-K`](knowledge/id-K-module-kangnam-phap-che.md) | **Module đơn vị Kangnam** · 12 điểm pháp chế · ba thứ đang chặn |
 | ★ [`id-L`](knowledge/id-L-lead-scoring-kf60.md) | **Lead scoring KF-60** — 4 nhóm gọi · 2 bất biến · hàng chờ Sale · ⚠ sổ nhập từ khối Sale |
-| 🔴 [`id-N`](knowledge/id-N-chon-tep-tang-noi-dung-kf64.md) | **Chọn tệp & tầng nội dung KF-64** — 3 trục · ma trận quy mô × hiệu quả · tầng `A1–A4` · ⛔ **chưa duyệt** |
+| ★★ [`id-N`](knowledge/id-N-chon-tep-tang-noi-dung-kf64.md) | **Chọn tệp & tầng nội dung KF-64** — 3 trục · ma trận 4 ô · tầng `T1–T4` · ★ **thay `id-M` §7** |
 | ★★ [`id-M`](knowledge/id-M-thu-vien-chan-dung-kf62.md) | **Thư viện chân dung KF-62** — 18 dịch vụ · 85 chân dung · 12 thẻ `AR` · 5 cổng · **xếp hạng chân dung** · ⚠ sổ nhập từ khối Sale |
 
 ★ **Đổi thương hiệu → thay đúng [`id-K`](knowledge/id-K-module-kangnam-phap-che.md), ⛔ không sửa lõi `id-A`…`id-J`.**
 ⚠ [`id-L`](knowledge/id-L-lead-scoring-kf60.md) · [`id-M`](knowledge/id-M-thu-vien-chan-dung-kf62.md) · [`id-N`](knowledge/id-N-chon-tep-tang-noi-dung-kf64.md) là **văn bản của khối Sale** nhập vào, ⛔ không phải sổ của repo.
-🔴 Riêng `id-N` **chưa được duyệt** — đọc để biết sắp đổi gì, ⛔ không dùng để ra quyết định.
+⚠ Riêng `id-N`: khối Sale để trống **bốn chỗ**, repo đã tự chốt ở §2 — ⛔ chưa ai bên Sale xác nhận.
 `id-L` có bản sinh đôi trong `tools/id.py` → sửa tiêu chí phải sửa **cả hai**.
 `id-M` thì ⛔ **không** — danh mục chân dung sinh thẳng từ `tools/chan_dung_kf62.json` bằng `python tools/so-chan-dung.py`.
 

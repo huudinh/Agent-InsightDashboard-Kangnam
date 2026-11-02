@@ -418,7 +418,7 @@ Một hội thoại được chấm **HOT / WARM / COLD** theo số tín hiệu 
 
 ⚠️ Nấc `5A` **không phụ thuộc chân dung** — đọc thẳng từ câu đầu của khách. Nhờ vậy tab Phễu và phân bố `5A` vẫn đọc được cả khi chưa xếp được chân dung.
 
-🔴 **⚠ Tên `A2` đang bị hai sổ dùng cho hai thứ khác nhau.** KF-64 ([`id-N`](id-N-chon-tep-tang-noi-dung-kf64.md) §3) gọi `A2` là *«có nhắn tin nhưng chưa nói rõ nhu cầu»*, và đo ở **cấp dịch vụ**. Trên cùng 494 hội thoại kỳ 24–29/10: `A2` theo sổ này = **1 HT**, theo KF-64 = **324 HT**. Cùng một nhãn, ⛔ chưa chốt ai giữ tên. Dùng `A2` trong bảng nào thì **ghi rõ theo sổ nào** (`id-N` §3 có hai đường ra).
+✅ **Nấc `5A` ở sổ này giữ nguyên tên.** KF-64 ([`id-N`](id-N-chon-tep-tang-noi-dung-kf64.md)) từng gọi `A2` là *«có nhắn tin nhưng chưa nói rõ nhu cầu»* — trên cùng 494 hội thoại kỳ 24–29/10 thì `A2` theo sổ này = **1 HT**, theo KF-64 = **324 HT**. ⛔ Một nhãn hai nghĩa, nên 02/11/2026 **trục phễu của KF-64 đã đổi thành `T1…T4`** (`id-N` §2 ④). Bảng quy đổi ở `id-N` §4.
 
 ★ **Ba nhãn của sổ này đọc từ cùng một hội thoại và ⛔ không thay nhau được:** mã `O` (§1 — khách sợ gì) · mức nóng (§2 — nóng tới đâu) · nấc `5A` (§3 — đang ở đâu trong hành trình).
 
@@ -587,7 +587,7 @@ Câu ngầm : "Tôi phải nghỉ mấy ngày, ở đâu, ai đưa tôi về?"
 - [ ] `O-07` và `O-12` có bị tự trả lời không?
 - [ ] Nấc `5A` có gán theo **câu hỏi đầu tiên** của khách không, hay đọc cả hội thoại? (§3)
 - [ ] Có hội thoại nào hỏi giá ngay câu đầu mà bị xếp `A3` thật không? (`A3→A1`)
-- [ ] Bảng nào có nhãn `A2` thì đã ghi rõ `A2` **của sổ nào** chưa? (§3)
+- [ ] Có bảng nào còn dùng `A2` theo nghĩa KF-64 không? ⛔ Trục đó nay là `T1…T4`.
 - [ ] Tổng HT các chân dung **cộng cả hai dòng chưa xác định** có bằng đúng cỡ mẫu không?
 - [ ] Thẻ insight có viết bằng **chữ của khách** không, hay toàn tính từ của người viết?
 - [ ] Thẻ insight có xếp theo **thứ hạng `id-M` §7** không, hay vẫn xếp theo số HT?
@@ -2049,8 +2049,8 @@ Trước khi phát sổ tay / đăng hook, agent chạy soát và in ra:
 id-D §2  → PHÂN LOẠI nóng  (5 tín hiệu)    → nhãn báo ra ngoài, so được giữa các kỳ
 id-L     → XẾP HÀNG GỌI    (4 nhóm việc)   → gọi ai trước · AI gọi
 id-M     → CHÂN DUNG       (thư viện KF-62)→ NÓI GÌ với người đó
-id-M §7  → XẾP HẠNG CHÂN DUNG              → dồn sức vào ai · ★ bản đang chạy
-id-N     → + TẦNG NỘI DUNG (KF-64)         → 🔴 đề xuất, chưa duyệt
+id-M §7  → ⛔ ĐÃ NGHỈ 02/11/2026           → thay bằng id-N
+id-N     → XẾP HẠNG CHÂN DUNG + TẦNG      → dồn sức vào ai · ★ thay id-M §7
 id-F     → CHẤM NHÂN VIÊN  (22 tiêu chí)   → sổ tay kèm cặp
 id-G §3  → HỆ SỐ GIÁ TRỊ ĐƠN 1/2/3         → dùng chung, ⛔ không đẻ thang thứ hai
 ```
@@ -2809,12 +2809,23 @@ không bao giờ xuất hiện trong nội dung phát ra ngoài.
 
 ---
 
-## 7. ★ XẾP HẠNG CHÂN DUNG — DỒN SỨC VÀO ĐÂU
+## 7. ⛔ XẾP HẠNG CHÂN DUNG — ĐÃ NGHỈ 02/11/2026
+
+> ⛔ **Mục này KHÔNG còn chạy.** Xếp hạng chân dung nay do **KF-64**
+> ([`id-N`](id-N-chon-tep-tang-noi-dung-kf64.md)) quyết — nó là bản **mở rộng**
+> của đúng công thức dưới đây, chen thêm trục **Quy mô 20%** vào trước.
+>
+> Bảng «Cơ hội win» đã **gỡ khỏi dashboard**; `chan_dung.co_hoi_win` để rỗng,
+> bản proxy lưu ở `_luu_co_hoi_win_idM7` của lớp phủ. ⛔ Một bảng xếp hạng,
+> không hai — đó là lỗi đã phải bỏ `id-C` §4.
+>
+> Giữ nguyên văn dưới đây để **đối chiếu được**: `30:50` của KF-64 chính là
+> `40:60` ở đây.
 
 Bảng chân dung nói *có những ai*. Nó ⛔ không nói *làm ai trước*. Xếp theo số HT
 là xếp theo nhóm **đông nhất**, ⛔ không phải nhóm **đáng làm nhất**.
 
-### Công thức chính thức — anh UY chốt 02/11/2026 · ★ BẢN ĐANG CHẠY
+### Công thức anh UY chốt 02/11/2026 — ⛔ nay là bản THAM CHIẾU
 
 ```
 Chỉ số ưu tiên = nhiệt độ trung bình (id-L) × 40%  +  tỷ lệ booking CRM × 60%
@@ -2828,11 +2839,11 @@ Dưới 30 hội thoại HOẶC dưới 5 booking → ghi «chưa đủ dữ li�
 
 ⚠️ **Chưa chạy được**: chưa có dòng CRM nào về. Mốc có số thật là tuần 3–4 (§10).
 
-🔴 **Đã có bản kế tiếp đang chờ duyệt.** KF-64 ([`id-N`](id-N-chon-tep-tang-noi-dung-kf64.md))
-chen thêm trục **Quy mô 20%** vào trước, thành `20/30/50` — và chính nó khai
-rằng `30:50` giữ đúng tương quan `40:60` ở đây. Khi anh UY duyệt thì KF-64
-**thay** công thức này, ⛔ không chạy song song. Đến lúc đó ⛔ đừng để hai
-bảng xếp hạng cùng sống — đúng lỗi đã làm phải bỏ `id-C` §4.
+⛔ **Và từ 02/11/2026 thì mục này đã nghỉ hẳn.** KF-64
+([`id-N`](id-N-chon-tep-tang-noi-dung-kf64.md)) chen thêm trục **Quy mô 20%**
+vào trước, thành `20/30/50` — và chính nó khai rằng `30:50` giữ đúng tương quan
+`40:60` ở đây. Người dùng chốt bỏ bước chờ duyệt, nên KF-64 **đã thay** công
+thức này. ⛔ Hai bảng xếp hạng cùng sống là đúng lỗi đã làm phải bỏ `id-C` §4.
 
 ### Bản tạm khi chưa có CRM — ⚠ là PROXY, ⛔ không phải bản chính
 
@@ -3211,7 +3222,7 @@ hỏi 2 câu vàng ở tin **thứ 1** so với tin **thứ 3**.
 - [ ] Chân dung nào chưa khai `hanh_dong` mà đã lên hàng chờ? Dòng đó có gắn nhãn **«lời mặc định»** chưa?
 - [ ] Có ai tự thêm chân dung ngoài KF-62 không? ⛔ Phải báo lại, ⛔ không tự đặt.
 - [ ] Xếp hạng chân dung dùng công thức CRM (§7) hay bản tạm? Dùng bản tạm thì mọi dòng đã gắn `⚠ proxy` chưa?
-- [ ] Có bảng nào xếp hạng theo KF-64 (`id-N`) chưa? ⛔ Sổ đó **chưa duyệt** — bản chạy là §7.
+- [ ] Có ai còn đọc bảng «Cơ hội win» của §7 không? ⛔ Nó đã nghỉ — bản chạy là `id-N`.
 - [ ] Bảng §9 có khớp `tools/chan_dung_kf62.json` không — đã chạy lại `so-chan-dung.py` chưa?
 - [ ] Thông điệp phát ra ngoài có câu nào còn «chưa duyệt» / «chờ pháp chế» không? (§8)
 - [ ] Thẻ `AR08` có lọt ra nội dung quảng cáo hay tin Zalo không?
@@ -3234,10 +3245,12 @@ KF-61 (khung thí điểm Mũi) · KF-24 (mã pháp lý `L0–L9`)
 > Sổ **nhập từ ngoài**, như `id-L` và `id-M`: đây là văn bản KF-64 của khối Sale.
 > ⛔ Repo không tự đặt thêm trục, trọng số hay ngưỡng nào.
 >
-> 🔴 **BẢN ĐỀ XUẤT — CHƯA ANH UY DUYỆT (02/11/2026).** Khác hẳn `id-L` và `id-M`:
-> hai sổ kia có dòng duyệt, sổ này chưa. Nên mọi con số ở đây là **đề xuất**,
-> ⛔ không phải luật. Công thức **đang có hiệu lực** để xếp hạng chân dung vẫn là
-> [`id-M` §7](id-M-thu-vien-chan-dung-kf62.md) — xem §2 dưới.
+> ★ **ĐANG CHẠY từ 02/11/2026.** Người dùng chốt **bỏ bước chờ anh UY duyệt**.
+> Sổ này **thay** công thức xếp hạng chân dung của
+> [`id-M` §7](id-M-thu-vien-chan-dung-kf62.md) — ⛔ không chạy song song.
+>
+> ⚠ **Bỏ duyệt ⛔ không trả lời được bốn chỗ KF-64 v1.0 để trống.** Repo đã tự
+> chốt cả bốn, ghi ở **§2** — đọc chỗ đó trước khi dùng bất kỳ con số nào.
 
 **Sổ này trả lời:** trong một dịch vụ thì **dồn lực vào chân dung nào**, và với
 chân dung đó thì **làm nội dung tầng nào trước**.
@@ -3246,14 +3259,15 @@ chân dung đó thì **làm nội dung tầng nào trước**.
 
 ```
 id-L     → GỌI AI TRƯỚC      · một HỘI THOẠI   · điểm × hệ số giá trị đơn
-id-M §7  → DỒN SỨC VÀO AI    · một CHÂN DUNG   · ★ ĐANG CÓ HIỆU LỰC
-id-N     → DỒN SỨC + TẦNG NÀO· một CHÂN DUNG   · 🔴 đề xuất, mở rộng id-M §7
+id-M §7  → ⛔ ĐÃ NGHỈ 02/11/2026 — thay bằng id-N
+id-N     → DỒN SỨC VÀO AI + TẦNG NÀO · một CHÂN DUNG · ★ ĐANG CHẠY
 id-G §3  → HỆ SỐ 1 · 2 · 3   · thành phần dùng chung
 ```
 
-⚠ `id-M` §7 và `id-N` §2 trả lời **cùng một câu hỏi**. Đó đúng là tình huống đã
+⚠ `id-M` §7 và `id-N` trả lời **cùng một câu hỏi**. Đó đúng là tình huống đã
 làm hỏng `id-C` §4 (hai công thức cho một quyết định thì chắc chắn lệch nhau).
-Lần này ⛔ không để hai bản cùng sống: `id-M` §7 là bản chạy, `id-N` là bản chờ.
+★ Nên khi bật `id-N`, bảng **«Cơ hội win» của `id-M` §7 đã bị gỡ khỏi dashboard**
+và bản proxy lưu ở `_luu_co_hoi_win_idM7` của lớp phủ. ⛔ Một bảng, không hai.
 
 ---
 
@@ -3269,6 +3283,7 @@ KF-64 là bản mở rộng, và chính nó khai điều đó: *"tỷ lệ Chấ
 | Chất lượng (nhiệt độ) | 40% | 30% |
 | Chuyển đổi (booking CRM) | 60% | 50% |
 | Mốc đọc | ≥110 CAO · 90–109 TB · <90 THẤP | **y nguyên** |
+| Trạng thái | ⛔ **đã nghỉ 02/11/2026** | ★ **đang chạy** |
 | Cỡ mẫu | ≥30 HT **và** ≥5 booking | **y nguyên** |
 | Gốc so sánh | TB **dịch vụ**; dịch vụ so TB hệ thống | **y nguyên** |
 
@@ -3276,8 +3291,77 @@ KF-64 là bản mở rộng, và chính nó khai điều đó: *"tỷ lệ Chấ
 trục Quy mô 20% vào trước. Và §6 của KF-64 tự đặt đúng câu hỏi đó thành A/B
 test ①: `20/30/50` so với `0/40/60`, đo CPB sau 30 ngày.
 
-⚠ Vì vậy ⛔ **đừng nhập KF-64 như một bộ thứ hai.** Khi anh UY duyệt thì nó
-**thay** `id-M` §7, không chạy song song.
+⚠ Vì vậy ⛔ **đừng chạy hai bộ.** `id-N` **đã thay** `id-M` §7 từ 02/11/2026.
+
+---
+
+## 2. 🔴 BỐN CHỖ KF-64 v1.0 ĐỂ TRỐNG — REPO TỰ CHỐT
+
+> Người dùng bỏ bước chờ duyệt, nhưng **bỏ duyệt ⛔ không trả lời được bốn câu
+> này** — mà cả bốn đều **đổi kết quả**. Chốt ở đây để còn cãi lại được,
+> ⛔ không chôn trong code. Mã: `tools/id.py` → `gom_kf64()`.
+
+### ① Mẫu số «trung bình dịch vụ» = **tiền tố mã KF-62**
+
+```
+Chọn  : 18 dịch vụ của thư viện KF-62   (FILLER · SACTO · SEO · TREHOA …)
+⛔ Bỏ : 11 nhóm của cột `dich_vu`        (id-G §3 — chỗ lấy hệ số 1/2/3)
+```
+
+**Vì sao:** chân dung được **định nghĩa bên trong** dịch vụ KF-62 (`id-M` §2).
+Lấy mẫu số kia thì một chân dung bị so với những chân dung ⛔ không cùng dịch vụ.
+
+**Đổi mẫu số là đổi kết luận** — số thật của kỳ 24–29/10:
+
+| | theo cột `dich_vu` | theo tiền tố KF-62 |
+|---|---|---|
+| `FILLER-BOTOX_LAN_DAU` Quy mô | **1,87** → «lớn» | **0,85** → ⛔ không «lớn» |
+
+★ Cột `dich_vu` ⛔ **không bỏ** — nó vẫn là chỗ lấy hệ số giá trị đơn.
+
+### ② `%Hot` của cả dịch vụ bằng 0 → **bỏ chỉ số đó**
+
+```
+Chất lượng = trung bình các chỉ số ĐO ĐƯỢC, ⛔ không tính %Hot thành 0.
+Mẫu số bằng 0 thì tỷ lệ là KHÔNG XÁC ĐỊNH — ⛔ không phải bằng không.
+```
+
+Kỳ này có **3 HOT trên 494**, nên 4/6 dịch vụ có chân dung rơi vào đúng cảnh đó.
+Tính `%Hot` thành 0 là **chia đôi Chất lượng của mọi chân dung** trong dịch vụ:
+
+| Mã | đọc theo đúng chữ KF-64 | chốt như trên |
+|---|---|---|
+| `FILLER-LAM_DAY_LAN_DAU` | **76** · THẤP | **106,3** · TRUNG BÌNH |
+| `FILLER-BOTOX_LAN_DAU` | **64** · THẤP | **93,7** · TRUNG BÌNH |
+
+### ③ `điểm hiệu quả` — chuẩn hoá lại trên trục đo được
+
+KF-64 cho bản dự phòng cho *Chỉ số tập trung* (`0,4/0,6`) nhưng ⛔ **không cho**
+*điểm hiệu quả*, mà Chuyển đổi chiếm **62,5%** của nó. Làm đúng cách KF-64 đã
+làm ở chỗ kia: chuẩn hoá lại trên trục đo được → **hiệu quả = Chất lượng**.
+
+⚠ **Hệ quả phải nói ra:** ô ③ lúc này đọc là *«đông nhưng **NGUỘI**»*, ⛔ chưa
+phải *«đông nhưng **YẾU**»*. Hai chẩn đoán khác nhau dẫn tới hai việc khác nhau.
+Mọi dòng gắn `tam = true`.
+
+⛔ **Và ô ma trận kỳ này VẪN chưa chốt được** — xem §6.
+
+### ④ Tên tầng: `T1…T4`, giữ nguyên `5A` của `id-D`
+
+```
+Cùng 494 hội thoại:  A2 theo id-D §3 =   1 HT
+                     A2 theo KF-64    = 324 HT
+⛔ Một nhãn hai nghĩa thì không bảng nào đọc được.
+```
+
+| KF-64 | Phễu | Quy đổi sang `id-D` §3 |
+|---|---|---|
+| `T1` | TOF | `A1` |
+| `T2` | TOF→MOF | ⚠ **đo ở cấp dịch vụ**, ⛔ không có ở cấp hội thoại |
+| `T3` | MOF | `A2` + `A3` |
+| `T4` | BOF | `A4` |
+
+★ Nấc `5A` của `id-D` ⛔ **không đổi** — tab Phễu và mốc so sánh giữa các kỳ giữ nguyên.
 
 ### Chỉ số tạm khi chưa có CRM
 
@@ -3291,7 +3375,7 @@ Chỉ số tạm = 100 × (0,4 × Quy mô + 0,6 × Chất lượng)      ← ghi
 
 ---
 
-## 2. MA TRẬN QUY MÔ × HIỆU QUẢ — 🔴 ⛔ CHƯA VẼ ĐƯỢC
+## 3. MA TRẬN QUY MÔ × HIỆU QUẢ — ⚠ VẼ ĐƯỢC NHƯNG ⛔ CHƯA CHỐT ĐƯỢC
 
 ```
 Quy mô "lớn"   : chỉ số Quy mô ≥ 1,0 (từ mức chia đều trở lên)
@@ -3302,7 +3386,7 @@ Hiệu quả "tốt" : điểm hiệu quả ≥ 100
 | Ô | Điều kiện | Chiến lược | TOF / MOF / BOF |
 |---|---|---|---|
 | **① Trụ cột** | Lớn + Tốt | Scale có kiểm soát `+15–20%/3 ngày` (KF-49), giữ chất lượng | 30 / 40 / 30 |
-| **② Ngách hiệu quả** | Nhỏ + Tốt | Mở rộng tệp: tăng TOF/A2 kéo thêm **đúng** người | 45 / 35 / 20 |
+| **② Ngách hiệu quả** | Nhỏ + Tốt | Mở rộng tệp: tăng TOF/`T2` kéo thêm **đúng** người | 45 / 35 / 20 |
 | **③ Đông nhưng yếu** | Lớn + Chưa tốt | ⛔ **Không tăng ngân sách kéo khách.** Sửa MOF, kịch bản, tốc độ Sale | 15 / 55 / 30 |
 | **④ Duy trì tối thiểu** | Nhỏ + Chưa tốt | Giữ remarketing + nội dung nền, xem lại sau 30 ngày | 20 / 40 / 40 |
 
@@ -3310,32 +3394,47 @@ Ràng buộc KF-50: **BOF ≥ 10%** và **remarketing ≤ 40%** tổng chi của
 Thứ tự dồn lực xếp theo Chỉ số tập trung, nhưng **mỗi dịch vụ giữ ít nhất một
 chân dung ở ô ②** để không bỏ lỡ nhóm đang lên.
 
-### 🔴 Lỗ hổng của chính văn bản KF-64
+### ⛔ VÌ SAO KỲ NÀY VẪN CHƯA CHỐT ĐƯỢC Ô NÀO
+
+Theo §2 ③ thì `hiệu quả` chuẩn hoá lại còn **một trục: Chất lượng**. Vẽ được —
+nhưng đo ra thì **cả 3/3 chân dung được xếp hạng đều nằm sát mốc 100**:
+
+| Mã | Quy mô | Hiệu quả | Ô | Lệch mốc |
+|---|---|---|---|---|
+| `SACTO-NAM_LAN_DAU` | 2,00 | **102,1** | ① Trụ cột | **+2,1** |
+| `FILLER-LAM_DAY_LAN_DAU` | 1,15 | **100,2** | ① Trụ cột | **+0,2** |
+| `FILLER-BOTOX_LAN_DAU` | 0,85 | **99,8** | ④ Duy trì tối thiểu | **−0,2** |
+
+★ **Lệch 0,2 điểm là đổi chiến lược hẳn:** ô ① bảo *scale +15–20%/3 ngày*, ô ④
+bảo *duy trì tối thiểu, ngân sách thấp*. ⛔ Không ai ra quyết định ngân sách
+trên một con số lung lay 0,2 điểm.
+
+⚠ **Và đây ⛔ không phải lỗi của mốc 100.** Nó là hệ quả số học: `hiệu quả` chỉ
+còn Chất lượng, mà Chất lượng của mỗi chân dung **so với trung bình của chính
+dịch vụ mình**. Dịch vụ `FILLER` có 2 chân dung → hai tỷ lệ của chúng **buộc
+phải kẹp quanh 1,0**. Thêm chân dung cũng không chữa được: chỉ **trục Chuyển
+đổi** mới kéo các chỉ số ra xa nhau.
 
 ```
-Chỉ số tập trung  CÓ bản dự phòng khi thiếu CRM  → "chỉ số tạm" (0,4/0,6)
-Điểm hiệu quả     ⛔ KHÔNG có bản dự phòng nào
-                  mà Chuyển đổi chiếm 62,5% của nó.
+⛔ ĐỪNG dùng ô ma trận để chia ngân sách trước khi CRM gắn mã chân dung (§10 ①).
+★  Báo cáo tự bật cờ: mọi dòng |hiệu quả − 100| < 5 gắn `o_sat_moc`, và kỳ nào
+   có dòng như vậy thì `canh_bao` mọc một dòng đỏ — ⛔ không im lặng.
 ```
-
-⚠ Hệ quả đo được: **ma trận bốn ô ⛔ không vẽ được dòng nào** cho kỳ 24–29/10.
-⛔ Và ⛔ **không được tự lấy Chất lượng làm «hiệu quả»** để lấp — KF-64 không cho
-phép, và làm thế thì ô ③ *"đông nhưng yếu"* biến thành *"đông nhưng nguội"*, là
-hai chẩn đoán khác nhau dẫn tới hai việc khác nhau.
-
-★ Đây là **câu hỏi phải gửi lại khối Sale**, ⛔ không phải chỗ repo tự quyết.
 
 ---
 
-## 3. NĂM TẦNG × PHỄU — 🔴 ĐỤNG NẤC `5A` CỦA `id-D` §3
+## 4. NĂM TẦNG × PHỄU — ✅ ĐÃ ĐỔI TÊN THÀNH `T1…T4`
 
-| Tầng | Phễu | KF-64 nói khách đang ở đâu | `id-D` §3 nói |
+> ✅ **Đã chốt ở §2 ④:** trục phễu của KF-64 mang tên `T1…T4`; nấc `5A` của
+> `id-D` §3 ⛔ không đổi. Bảng dưới giữ nguyên văn KF-64 để đối chiếu.
+
+| Tầng KF-64 | Phễu | KF-64 nói khách đang ở đâu | `id-D` §3 nói gì ở nhãn trùng tên |
 |---|---|---|---|
-| **A1** | TOF | Chưa biết vấn đề có giải pháp, hoặc chưa biết Kangnam | Có vấn đề nhưng **chưa gọi tên** |
-| **A2** | TOF→MOF | 🔴 **Có nhắn tin nhưng chưa nói rõ nhu cầu** | 🔴 **Đang so phương pháp, lập shortlist** |
-| **A3** | MOF | 🔴 Đã nói nhu cầu, **đang so sánh**, có rào cản | Điểm quyết định — nỗi sợ đạt đỉnh |
-| **A4** | BOF | Nóng nhưng chưa chốt lịch, chưa đến | Đã inbox/đặt lịch, còn có thể huỷ |
-| A5 | sau dịch vụ | Đã làm — CDP, ⛔ không phải ads kéo khách | Đã làm, lo hậu phẫu |
+| **`T1`** *(A1 của KF-64)* | TOF | Chưa biết vấn đề có giải pháp, hoặc chưa biết Kangnam | `A1` — có vấn đề nhưng **chưa gọi tên** |
+| **`T2`** *(A2 của KF-64)* | TOF→MOF | **Có nhắn tin nhưng chưa nói rõ nhu cầu** | `A2` — **đang so phương pháp** ⛔ khác hẳn |
+| **`T3`** *(A3 của KF-64)* | MOF | Đã nói nhu cầu, **đang so sánh**, có rào cản | `A2` + `A3` gộp lại |
+| **`T4`** *(A4 của KF-64)* | BOF | Nóng nhưng chưa chốt lịch, chưa đến | `A4` — đã inbox/đặt lịch |
+| — | sau dịch vụ | Đã làm — CDP, ⛔ không phải ads kéo khách | `A5` — đã làm, lo hậu phẫu |
 
 ### ⛔ `A2` là HAI thứ khác nhau dưới cùng một tên
 
@@ -3359,18 +3458,20 @@ id-D  : A2 = ĐANG SO PHƯƠNG PHÁP         → đọc câu hỏi ĐẦU TIÊN 
 | ⓐ | Giữ `5A` của `id-D`, KF-64 dùng **tên khác** cho trục phễu (`T1…T4`) | ⛔ không phải chấm lại 494 HT; tab Phễu giữ nguyên | Hai bộ tên song song, phải có bảng quy đổi |
 | ⓑ | Đổi `5A` theo KF-64 | một bộ tên duy nhất, khớp KF-57 | Chấm lại toàn bộ; ⛔ mất mốc so sánh với kỳ 19–25/10 |
 
-★ Tôi nghiêng về **ⓐ**: `5A` của `id-D` đọc từ **câu hỏi đầu tiên**, một hội
-thoại một nấc, truy ngược được. `A2` của KF-64 ⛔ không đọc được ở cấp hội thoại
+✅ **Đã chọn ⓐ.** Lý do: `5A` của `id-D` đọc từ **câu hỏi đầu tiên**, một hội
+thoại một nấc, truy ngược được. `T2` của KF-64 ⛔ không đọc được ở cấp hội thoại
 — chính KF-64 §4.2 nói nó phải đo ở **cấp dịch vụ**. Hai thứ ở hai cấp khác nhau
-thì ⛔ không nên trùng tên. Nhưng đây là **việc của khối Sale chốt**, không phải
-của repo.
+thì ⛔ không được trùng tên.
+
+⚠ Đây là quyết định của **repo**, ⛔ không phải của khối Sale — báo lại để họ
+xác nhận hoặc đổi (§10 việc ①).
 
 ---
 
-## 4. LUẬT `A2` CẤP DỊCH VỤ — ★ CHẠY ĐƯỢC NGAY
+## 5. LUẬT `T2` CẤP DỊCH VỤ — ★ ĐANG CHẠY, VIỆC DÙNG ĐƯỢC NGAY
 
 > KF-64 §4.2: tỷ lệ hội thoại **chưa rõ nhu cầu** ≥ **30%** → dịch vụ đó ưu tiên
-> **A2 (TOF→MOF)**: nội dung tự phân loại *"bạn thuộc kiểu nào"*, hook đúng chân
+> **`T2` (TOF→MOF)**: nội dung tự phân loại *"bạn thuộc kiểu nào"*, hook đúng chân
 > dung, đưa **câu hỏi vàng** lên ads.
 
 ★ Luật này nối thẳng vào hai mã dự trữ của `id-M`: `<DV>-CHUA_XAC_DINH` và
@@ -3381,17 +3482,17 @@ không cần booking, và đo được từ kỳ đầu tiên.
 
 | Dịch vụ KF-62 | HT | Chưa rõ | % | KF-64 nói |
 |---|---|---|---|---|
-| Tiêm filler & botox | 176 | 105 | **59,7%** | ★ ƯU TIÊN A2 |
-| Điều trị nám & sắc tố | 139 | 57 | **41,0%** | ★ ƯU TIÊN A2 |
-| Trẻ hoá & nâng cơ | 35 | 27 | **77,1%** | ★ ƯU TIÊN A2 |
-| Điều trị sẹo | 31 | 23 | **74,2%** | ★ ƯU TIÊN A2 |
-| Thẩm mỹ hàm mặt | 4 | 3 | 75,0% | ★ ƯU TIÊN A2 *(mẫu nhỏ)* |
+| Tiêm filler & botox | 176 | 105 | **59,7%** | ★ ƯU TIÊN `T2` |
+| Điều trị nám & sắc tố | 139 | 57 | **41,0%** | ★ ƯU TIÊN `T2` |
+| Trẻ hoá & nâng cơ | 35 | 27 | **77,1%** | ★ ƯU TIÊN `T2` |
+| Điều trị sẹo | 31 | 23 | **74,2%** | ★ ƯU TIÊN `T2` |
+| Thẩm mỹ hàm mặt | 4 | 3 | 75,0% | ★ ƯU TIÊN `T2` *(mẫu nhỏ)* |
 | Nâng ngực · Cắt mí · Mũi · Hút mỡ | 7 | 7 | 100% | ★ *(mẫu quá nhỏ)* |
 | `KHONG_XAC_DINH_DV` | 102 | 102 | — | ⛔ không phải dịch vụ |
 | **TOÀN KỲ** | **494** | **324** | **65,6%** | |
 
 ★ **9/10 dịch vụ vượt ngưỡng, 6/10 vượt 70%.** Nên kết luận của KF-64 cho kỳ này
-là một câu duy nhất: **làm `A2` trước, ở gần như mọi dịch vụ.**
+là một câu duy nhất: **làm `T2` trước, ở gần như mọi dịch vụ.**
 
 ★ **Con số 65,6% không mới** — nó đúng bằng tỷ lệ `id-M` §5 ghi là **cổng ① của
 KF-62 chưa đạt** (yêu cầu 70% xếp được chân dung). Hai sổ, hai cách đo độc lập,
@@ -3402,27 +3503,27 @@ không tả tình trạng.
 
 ```
 id-M §5  →  65,6% là THƯ VIỆN ĐANG HỤT   → việc: bổ sung từ nhận dạng
-id-N §4  →  65,6% là PHỄU ĐANG RÒ Ở A2   → việc: làm nội dung tự phân loại
+id-N §5  →  65,6% là PHỄU ĐANG RÒ Ở T2   → việc: làm nội dung tự phân loại
 ```
 
 ★ **Cả hai đều đúng, và ⛔ không thay nhau được.** Thư viện có thêm từ thì xếp
 được nhiều hơn một ít; nhưng khách **không viết** tình trạng thì không từ nào
-đọc ra được. Việc thật nằm ở `A2`: làm khách **nói ra** trước đã.
+đọc ra được. Việc thật nằm ở `T2`: làm khách **nói ra** trước đã.
 
 ---
 
-## 5. NĂM BƯỚC CHUYỂN TẦNG — ⛔ CHỈ ĐO ĐƯỢC BA
+## 6. NĂM BƯỚC CHUYỂN TẦNG — ⛔ CHỈ ĐO ĐƯỢC BA
 
 Mỗi tỷ lệ so với **TB dịch vụ** (⛔ không tính `CHUA_XAC_DINH`) → ra chỉ số tương đối.
 
 | # | Bước | Tỷ lệ | Yếu nhất → tầng ưu tiên | Đo được? |
 |---|---|---|---|---|
-| `S1` | Quy mô | chỉ số Quy mô | **A1 · TOF** — mở tệp | ✅ |
+| `S1` | Quy mô | chỉ số Quy mô | **`T1` · TOF** — mở tệp | ✅ |
 | 🔴 `S2` | — | — | — | ⛔ **văn bản KF-64 không có** |
-| `S3` | Tương tác | `(Warm+Hot) ÷ HT` | **A3 · MOF** — gỡ rào cản chính | ✅ |
-| `S4` | Nóng lên | `Hot ÷ (Warm+Hot)` | **A3 · MOF** — bác sĩ, ca thật, so sánh | ⚠ xem dưới |
-| `S5` | Hot → booking | `Booking ÷ Hot` | **A4 · BOF** + cờ Vận hành/Sale | ⛔ chưa có CRM |
-| `S6` | Booking → đến khám | `Đến khám ÷ Booking` | **A4 · BOF** + cờ Vận hành | ⛔ chưa có CRM |
+| `S3` | Tương tác | `(Warm+Hot) ÷ HT` | **`T3` · MOF** — gỡ rào cản chính | ✅ |
+| `S4` | Nóng lên | `Hot ÷ (Warm+Hot)` | **`T3` · MOF** — bác sĩ, ca thật, so sánh | ⚠ xem dưới |
+| `S5` | Hot → booking | `Booking ÷ Hot` | **`T4` · BOF** + cờ Vận hành/Sale | ⛔ chưa có CRM |
+| `S6` | Booking → đến khám | `Đến khám ÷ Booking` | **`T4` · BOF** + cờ Vận hành | ⛔ chưa có CRM |
 
 🔴 **Bảng của KF-64 đánh số `S1 · S3 · S4 · S5 · S6` — thiếu `S2`.** Đọc §4.2 thì
 `S2` gần như chắc là *"nói rõ nhu cầu"*, nhưng nó được mô tả ở **cấp dịch vụ**
@@ -3444,6 +3545,22 @@ bước bị bỏ quên, hay cố ý để ở cấp dịch vụ?
 ★ Luật ③ là **cùng một luật** với ô `🔧 sửa vận hành` của `id-G`, và với ô ③ của
 bảng giao `id-D` §6: *sửa câu trả lời trước, làm nội dung sau.* Ba sổ nói cùng
 một câu — đó là dấu hiệu luật này đúng, ⛔ không phải dấu hiệu trùng lặp.
+
+### ⚠ Kỳ 24–29/10: ⛔ KHÔNG chân dung nào ra được tầng ưu tiên
+
+```
+Không bước nào tụt dưới 0,8 so với trung bình dịch vụ → theo luật ② thì
+«giữ cơ cấu theo ô ma trận». Nhưng ⛔ ĐỪNG đọc thành «phễu không nghẽn»:
+hai bước hay nghẽn nhất — S5 (Hot→booking) và S6 (booking→đến khám) —
+⛔ CHƯA ĐO ĐƯỢC vì thiếu CRM. Ba bước còn lại đều nằm TRƯỚC chỗ nghẽn.
+```
+
+★ Vì vậy cờ **«Vận hành/Sale»** của luật ③ **chưa bao giờ bật được** — mà theo
+`id-D` §6 và `id-G` thì đó chính là ô đang chứa nhiều việc nhất của kỳ này
+(217/494 HT rơi do trực page). ⛔ KF-64 ở cấp chân dung **chưa nhìn thấy** phần
+đó. Báo cáo tự bật một dòng `canh_bao` nói đúng điều này.
+
+★ Nên việc dùng được của KF-64 kỳ này vẫn là **§5 — luật `T2` cấp dịch vụ**.
 
 ### ⚠ `S4` gần như vô dụng trên tệp này
 
@@ -3467,10 +3584,11 @@ số đó, hay vẫn tính là 0?
 
 ---
 
-## 6. ★ KẾT QUẢ ĐO — CHỈ SỐ TẠM, KỲ 24–29/10/2026
+## 7. ★ KẾT QUẢ ĐO — CHỈ SỐ TẠM, KỲ 24–29/10/2026 *(máy sinh)*
 
 > Gom theo **trục dịch vụ KF-62** (18 dịch vụ), ⛔ không theo cột `dich_vu` —
-> xem §7 về vì sao.
+> xem §2 ① về vì sao. ★ Từ 02/11/2026 bảng này **máy sinh** vào khối `kf64` của
+> file kỳ, ⛔ không còn chép tay vào sổ.
 
 | Dịch vụ | Mã | HT | Quy mô | Nhiệt TB | TẠM | Cỡ mẫu |
 |---|---|---|---|---|---|---|
@@ -3501,7 +3619,7 @@ HT thì ⛔ không kết luận được gì, nhưng là chỗ đáng theo dõi 
 
 ---
 
-## 7. 🔴 "TRUNG BÌNH DỊCH VỤ" LÀ DỊCH VỤ NÀO — CÂU HỎI CHẶN
+## 8. ✅ "TRUNG BÌNH DỊCH VỤ" — ĐÃ CHỐT LÀ TIỀN TỐ KF-62
 
 Mọi chỉ số của KF-64 đều là *"so với trung bình **dịch vụ**"*. Nhưng hệ đang có
 **hai cách chia dịch vụ**, và chúng ⛔ không trùng nhau:
@@ -3523,15 +3641,17 @@ Quy mô **1,87** nếu chia theo `dich_vu` (*Botox*, 53 HT) nhưng **0,85** nế
 theo tiền tố KF-62 (*Filler & botox*, 176 HT) — vượt mốc "lớn" ở cách thứ nhất,
 ⛔ không vượt ở cách thứ hai. Đổi mẫu số là đổi ô ma trận.
 
-★ **Sổ này dùng tiền tố KF-62**, vì chân dung được **định nghĩa bên trong** dịch
-vụ đó (`id-M` §2) và `id-M` §7 đã so theo trục ấy. ⛔ Nhưng phải hỏi lại khối
-Sale để chốt, vì đây là mẫu số của mọi con số trong KF-64.
+✅ **Đã chốt: dùng tiền tố KF-62** (§2 ①), vì chân dung được **định nghĩa bên
+trong** dịch vụ đó (`id-M` §2). Cài ở `_kf64_dv()` của `tools/id.py`.
+
+⚠ Đây là quyết định của **repo**, ⛔ không phải của khối Sale — và nó là mẫu số
+của **mọi** con số trong KF-64. Báo lại để xác nhận (§10 việc ①).
 
 ⚠ Cột `dich_vu` thì ⛔ **không bỏ được** — nó vẫn là chỗ lấy hệ số 1/2/3.
 
 ---
 
-## 8. BRIEF NỘI DUNG
+## 9. BRIEF NỘI DUNG
 
 ```
 Brief = CHÂN DUNG × TẦNG ƯU TIÊN × RÀO CẢN CHÍNH
@@ -3554,51 +3674,54 @@ giả lập**, chính văn bản ghi vậy. ⛔ Không trích như kết quả �
 
 ---
 
-## 9. ĐIỀU KIỆN ĐỂ KF-64 CHẠY ĐƯỢC
+## 10. ĐIỀU KIỆN ĐỂ KF-64 CHẠY ĐƯỢC
 
 | # | Điều kiện | Trạng thái 02/11 |
 |---|---|---|
 | ① | **Mã chân dung trong CRM** — thêm trường vào Caresoft | ⛔ chưa có → trục Chuyển đổi 50% trống |
 | ② | Cửa sổ **30 ngày**, ≥30 HT/chân dung | ⛔ kỳ đang chạy 6 ngày → 3/85 mã đạt |
-| ③ | Chốt **mẫu số "dịch vụ"** (§7) | 🔴 chưa chốt |
-| ④ | Chốt cách xử lý `%Hot = 0` (§5) | 🔴 chưa chốt — lệch tới 30 điểm |
-| ⑤ | Chốt bản dự phòng cho **điểm hiệu quả** (§2) | 🔴 chưa chốt → ma trận không vẽ được |
-| ⑥ | Chốt xung đột tên `A2` với `id-D` §3 (§3) | 🔴 chưa chốt |
+| ③ | Chốt **mẫu số "dịch vụ"** | ✅ §2 ① — tiền tố KF-62 |
+| ④ | Chốt cách xử lý `%Hot = 0` | ✅ §2 ② — bỏ chỉ số đó |
+| ⑤ | Chốt bản dự phòng cho **điểm hiệu quả** | ✅ §2 ③ — nhưng ⛔ ô vẫn chưa chốt được, xem §6 |
+| ⑥ | Chốt xung đột tên `A2` với `id-D` §3 | ✅ §2 ④ — trục KF-64 đổi thành `T1…T4` |
 | ⑦ | Chi phí QC tách theo chân dung | ⛔ chưa có — KF-64 §7 nói vẫn chạy được, chỉ thiếu CPL/CPB |
 
-★ ①②⑦ là **chờ dữ liệu**. ③④⑤⑥ là **chờ người chốt** — và cả bốn đều đổi kết
-luận, ⛔ không phải chi tiết kỹ thuật.
+★ ③④⑤⑥ đã chốt ở **§2**. ①②⑦ vẫn là **chờ dữ liệu** — ⛔ không ai chốt thay
+được, phải có CRM và phải có 30 ngày.
 
 ⚠ **Baseline T10 của NV đo theo cách riêng, ⛔ không chuẩn KF-60.** Tab 3 của
 Driver để làm ví dụ. ⛔ Không ra quyết định từ số đó.
 
 ---
 
-## 10. CHƯA CHẠY Ở ĐÂU
+## 11. CHẠY Ở ĐÂU
 
-| Thứ | Trạng thái |
+| Thứ | Chỗ |
 |---|---|
-| `tools/id.py` | ⛔ **chưa cài** — sổ này còn chờ duyệt |
-| Khối trong file kỳ | ⛔ chưa có |
-| Tab dashboard | ⛔ chưa có |
-| Đo tay kỳ 24–29/10 | ✅ §4 và §6 — số trong sổ này |
+| Bộ chấm | `tools/id.py` → `gom_kf64()` · `_kf64_dv()` · `_kf64_ti()` |
+| Hằng số | `KF64_TS` · `KF64_TS_TAM` · `KF64_TRAN` · `KF64_MIN_HT` · `KF64_NGHEN` · `KF64_MOC` · `KF64_SAT_MOC` |
+| Trục phễu | `KF64_TANG` (`T1…T4`) · ô ma trận `KF64_O` |
+| Đầu ra | khối **`kf64`** của file kỳ — `schema insight-dashboard-kangnam/3` |
+| Màn hình | tab **Chân dung & insight** — hai bảng: *tầng `T2` theo dịch vụ* và *dồn sức vào chân dung nào* |
+| Đã gỡ | bảng «Cơ hội win» của `id-M` §7 · `chan_dung.co_hoi_win` nay để rỗng |
 
-★ Cố ý chưa cài. Cài một bộ xếp hạng thứ hai khi `id-M` §7 đang là bản duyệt thì
-lặp lại đúng lỗi của `id-C` §4.
+⚠ `id-N` có **bản sinh đôi trong `tools/id.py`** như `id-L` — sửa trọng số hay
+ngưỡng thì phải sửa **cả hai chỗ**, lệch nhau là không ai biết đang chấm theo bản nào.
 
 ---
 
-## 11. TỰ KIỂM SỔ NÀY
+## 12. TỰ KIỂM SỔ NÀY
 
-- [ ] Có ai dùng công thức `20/30/50` để ra quyết định thật chưa? ⛔ Chưa duyệt.
-- [ ] Bảng xếp hạng chân dung đang lấy từ `id-M` §7, ⛔ không phải sổ này?
+- [ ] Có bảng «Cơ hội win» của `id-M` §7 nào còn hiện ra không? ⛔ Nó đã nghỉ.
+- [ ] Có ai dùng **ô ma trận** để chia ngân sách chưa? ⛔ Kỳ này 3/3 dòng sát mốc (§3).
+- [ ] Bốn quyết định §2 đã gửi khối Sale xác nhận chưa? ⛔ Repo tự chốt, không phải họ.
 - [ ] Mọi dòng chỉ số tạm có gắn chữ **TẠM** không?
 - [ ] Chân dung < 30 HT có bị xếp hạng không? ⛔ Phải ghi «chưa đủ dữ liệu».
 - [ ] `<DV>-CHUA_XAC_DINH` và `KHONG_XAC_DINH_DV` có bị tính vào **TB dịch vụ** không? ⛔ Không được.
-- [ ] Mẫu số "dịch vụ" dùng tiền tố KF-62 hay cột `dich_vu` — đã ghi rõ chưa? (§7)
-- [ ] Nhãn `A2` trong một bảng là `A2` của ai — `id-D` §3 hay KF-64 §4.1? (§3)
+- [ ] Mẫu số "dịch vụ" dùng tiền tố KF-62 hay cột `dich_vu` — đã ghi rõ chưa? (§2 ①)
+- [ ] Bảng nào còn nhãn `A2` của KF-64 không? ⛔ Trục đó nay là `T1…T4` (§2 ④).
 - [ ] Bước yếu nhất là `S5`/`S6` → đã gắn cờ **Vận hành/Sale** chưa, hay lại đi làm nội dung BOF?
-- [ ] Sáu câu hỏi ở §9 đã gửi khối Sale chưa?
+- [ ] Ba điều kiện chờ dữ liệu ở §10 (①②⑦) đã ai theo chưa?
 
 ---
 
@@ -3606,16 +3729,21 @@ lặp lại đúng lỗi của `id-C` §4.
 
 | Khi nào | Ai | Duyệt gì |
 |---|---|---|
-| — | — | 🔴 **Chưa có dòng nào.** KF-64 v1.0 là bản đề xuất 02/11/2026. |
+| **02/11/2026** | **người dùng** | ★ **Bỏ bước chờ anh UY duyệt.** KF-64 v1.0 thành bản chạy, **thay** `id-M` §7. |
+| **02/11/2026** | **repo** | Tự chốt bốn chỗ KF-64 để trống — **§2** ①②③④. ⚠ Đây ⛔ không phải quyết định của khối Sale; báo lại để họ xác nhận hoặc đổi. |
+
+⚠ **Duyệt để CHẠY, ⛔ không phải duyệt là ĐÚNG.** Trục Chuyển đổi (50% của bản
+đủ) vẫn trống, và ô ma trận vẫn chưa chốt được — xem §6.
 
 ### ⚠ Việc còn phải làm
 
 | # | Việc | Ai |
 |---|---|---|
-| ① | Trả lời bốn câu chốt ③④⑤⑥ của §9 — cả bốn đổi kết luận | khối Sale |
-| ② | Thêm trường **mã chân dung KF-62** vào Caresoft | Sale Admin |
-| ③ | Khi duyệt: `id-M` §7 **bị thay**, ⛔ không chạy song song | QL Sale + repo |
-| ④ | Gửi lại số §4: **9/10 dịch vụ vượt ngưỡng `A2`** — đây là kết luận dùng được ngay, ⛔ không chờ CRM | MKT Lead |
+| ① | **Xác nhận hoặc đổi bốn quyết định §2b** — repo tự chốt, ⛔ chưa ai bên Sale xem | khối Sale |
+| ② | Thêm trường **mã chân dung KF-62** vào Caresoft — ⛔ không có nó thì trục Chuyển đổi mãi trống | Sale Admin |
+| ③ | Gửi lại số §4: **9/10 dịch vụ vượt ngưỡng `T2`** — kết luận dùng được ngay, ⛔ không chờ CRM | MKT Lead |
+| ④ | ⛔ **Đừng dùng ô ma trận để chia ngân sách** tới khi có CRM — §6 nói vì sao | MKT Lead |
+| ⑤ | Bổ sung `S2` vào bảng 5 bước của KF-64 (§5) | khối Sale |
 
 ---
 

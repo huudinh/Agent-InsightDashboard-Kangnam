@@ -1,6 +1,91 @@
 # CHANGELOG
 
-## v1.3 — 2026-11-02 · 🔴 NHẬP KF-64 LÀM SỔ `id-N` (chưa duyệt) · SỬA MÃ DỰ TRỮ LỌT RA TRỐNG
+## v1.4 — 2026-11-02 · ★ BẬT KF-64 · `id-M` §7 NGHỈ · schema `/3`
+
+Người dùng chốt **bỏ bước chờ anh UY duyệt**. KF-64 (`id-N`) thành bản chạy và
+**thay** công thức xếp hạng chân dung của `id-M` §7 — ⛔ không chạy song song,
+vì hai bảng xếp hạng cho cùng một quyết định là đúng lỗi đã phải bỏ `id-C` §4.
+
+### Đổi gì
+
+| Chỗ | Trước | Sau |
+|---|---|---|
+| Xếp hạng chân dung | `id-M` §7 — proxy *lead bỏ lỡ × hệ số × % có SĐT*, viết tay vào lớp phủ | **`id-N`/KF-64** — máy sinh, `20/30/50` (đang chạy bản tạm `40/60`) |
+| Bảng trên dashboard | «★ Cơ hội win» | **hai bảng**: *tầng `T2` theo dịch vụ* · *dồn sức vào chân dung nào* (15 cột, có `HOT/WARM/COLD`) |
+| `chan_dung.co_hoi_win` | 23 dòng chữ người | ⛔ để rỗng; bản proxy lưu ở `_luu_co_hoi_win_idM7` |
+| Khối mới | — | **`kf64`** — máy sinh, ⛔ không phải lớp phủ chữ người |
+| Schema | `insight-dashboard-kangnam/2` | **`/3`** |
+| Trục phễu KF-64 | `A1–A4` | **`T1–T4`** — tránh đụng nấc `5A` của `id-D` |
+| Mã | — | `gom_kf64()` · `_kf64_dv()` · `_kf64_ti()` · `KF64_*` trong `tools/id.py` |
+
+### 🔴 Bốn chỗ KF-64 v1.0 để trống — repo tự chốt
+
+**Bỏ duyệt ⛔ không trả lời được bốn câu này**, mà cả bốn đều đổi kết quả. Chốt ở
+`id-N` §2, ⛔ không chôn trong code. ⚠ Đây là quyết định của **repo**, ⛔ chưa ai
+bên Sale xác nhận.
+
+```
+① Mẫu số «TB dịch vụ» = TIỀN TỐ KF-62 (18 dịch vụ), ⛔ không phải cột dich_vu.
+   Vì chân dung được ĐỊNH NGHĨA bên trong dịch vụ KF-62.
+   Đo thật: FILLER-BOTOX Quy mô 1,87 (cột dich_vu) ⟷ 0,85 (tiền tố KF-62).
+
+② %Hot của CẢ DỊCH VỤ = 0 → BỎ chỉ số đó, ⛔ không tính thành 0.
+   Mẫu số 0 thì tỷ lệ là KHÔNG XÁC ĐỊNH, ⛔ không phải bằng không.
+   Kỳ này 3 HOT/494 nên 4 dịch vụ rơi vào cảnh đó.
+   Đo thật: FILLER-LAM_DAY 76 (THẤP) ⟷ 106,3 (TRUNG BÌNH).
+
+③ `điểm hiệu quả` ⛔ không có bản dự phòng mà Chuyển đổi chiếm 62,5%.
+   Chuẩn hoá lại trên trục đo được → hiệu quả = Chất lượng, gắn tam=true.
+   ⚠ Ô ③ vì vậy đọc là «đông nhưng NGUỘI», ⛔ chưa phải «đông nhưng YẾU».
+
+④ Trục phễu đặt T1…T4, ⛔ không dùng A1…A4.
+   Cùng 494 HT: A2 theo id-D = 1, theo KF-64 = 324. ⛔ Một nhãn hai nghĩa.
+```
+
+### ★ Đo xong thì lộ ra hai thứ — báo cáo tự bật cờ, ⛔ không im lặng
+
+**① Ô ma trận 4 ô ⛔ chưa chốt được, và ⛔ không phải vì mốc 100 sai.**
+
+| Mã | Quy mô | Hiệu quả | Ô | Lệch mốc |
+|---|---|---|---|---|
+| `SACTO-NAM_LAN_DAU` | 2,00 | 102,1 | ① Trụ cột | **+2,1** |
+| `FILLER-LAM_DAY_LAN_DAU` | 1,15 | 100,2 | ① Trụ cột | **+0,2** |
+| `FILLER-BOTOX_LAN_DAU` | 0,85 | 99,8 | ④ Duy trì tối thiểu | **−0,2** |
+
+Lệch **0,2 điểm** là đổi hẳn chiến lược: ô ① *scale +15–20%/3 ngày*, ô ④ *duy trì
+tối thiểu*. Nguyên nhân là số học: `hiệu quả` chỉ còn **một trục** (Chất lượng),
+mà Chất lượng so với trung bình **chính dịch vụ mình** — dịch vụ `FILLER` có 2
+chân dung thì hai tỷ lệ **buộc phải kẹp quanh 1,0**. Chỉ **trục Chuyển đổi** mới
+kéo chúng ra xa. → `o_sat_moc` + một dòng `canh_bao` đỏ mỗi kỳ.
+
+**② ⛔ KHÔNG chân dung nào ra được tầng ưu tiên** — không bước nào tụt dưới `0,8`.
+⛔ Nhưng đừng đọc thành «phễu không nghẽn»: hai bước hay nghẽn nhất là `S5`
+(Hot→booking) và `S6` (booking→đến khám), **cả hai chưa đo được** vì thiếu CRM.
+Nên cờ «Vận hành/Sale» của KF-64 chưa bao giờ bật — mà theo `id-D` §6 đó chính là
+ô chứa nhiều việc nhất kỳ này (217/494 HT rơi do trực page). → một dòng `canh_bao`.
+
+### Việc dùng được ngay — ⛔ không chờ CRM
+
+```
+Luật T2 cấp dịch vụ (KF-64 §4.2): ≥30% hội thoại chưa rõ nhu cầu → ưu tiên T2.
+Kỳ 24–29/10: 9/10 dịch vụ vượt ngưỡng, 6/10 vượt 70%, toàn kỳ 65,6%.
+→ Kết luận gọn trong một câu: LÀM T2 TRƯỚC, Ở GẦN NHƯ MỌI DỊCH VỤ.
+```
+
+### Chốt chặn còn lại
+
+```
+⛔ Trục Chuyển đổi (50% của bản đủ) vẫn TRỐNG — cần trường mã chân dung KF-62
+  trong Caresoft. Chưa có nó thì 0/85 mã đạt ngưỡng CHÍNH THỨC (≥30 HT + ≥5 booking).
+⚠ Cửa sổ 30 ngày: kỳ đang chạy 6 ngày → chỉ 3/85 mã đạt ngưỡng 30 hội thoại.
+⚠ Bốn quyết định trên phải khối Sale xác nhận hoặc đổi.
+```
+
+---
+
+## v1.3 — 2026-11-02 · 🔴 NHẬP KF-64 LÀM SỔ `id-N` · SỬA MÃ DỰ TRỮ LỌT RA TRỐNG
+
+> ⚠ Mục này viết khi KF-64 còn chờ duyệt. **`v1.4` bên trên đã bật nó.**
 
 Văn bản KF-64 của khối Sale nhập vào thành sổ thứ 13: `id-N`. ⚠ **Khác `id-L`
 và `id-M`: sổ này CHƯA được anh UY duyệt**, nên ⛔ chưa cài vào `tools/id.py`,
@@ -35,12 +120,12 @@ nghĩa ⛔ không thay nhau được: `id-M` nói *thư viện đang hụt*, `id
 ① "Trung bình DỊCH VỤ" là dịch vụ nào? Hệ có HAI trục, 392/494 HT lệch tên.
    Ví dụ thật: FILLER-BOTOX_LAN_DAU Quy mô 1,87 (chia theo cột dich_vu)
                                  ⟷  0,85 (chia theo tiền tố KF-62)
-   → vượt mốc "lớn" ở cách này, ⛔ không vượt ở cách kia.  (id-N §7)
+   → vượt mốc "lớn" ở cách này, ⛔ không vượt ở cách kia.  (id-N §2 ①)
 ② %Hot của CẢ DỊCH VỤ bằng 0 thì bỏ chỉ số đó, hay tính là 0?
-   FILLER-LAM_DAY: TẠM 76 (THẤP)  ⟷  TẠM 106 (TRUNG BÌNH).  (id-N §5)
-③ Điểm hiệu quả không có bản dự phòng → ma trận 4 ô bất động.  (id-N §2)
+   FILLER-LAM_DAY: TẠM 76 (THẤP)  ⟷  TẠM 106 (TRUNG BÌNH).  (id-N §2 ②)
+③ Điểm hiệu quả không có bản dự phòng → ma trận 4 ô bất động.  (id-N §3)
 ④ Tên `A2` đụng id-D §3: cùng 494 HT, A2 theo id-D = 1, theo KF-64 = 324.
-   ⛔ Một nhãn hai nghĩa.  (id-N §3)
+   ⛔ Một nhãn hai nghĩa.  (id-N §2 ④)
 ```
 
 Ngoài ra bảng 5 bước của KF-64 đánh số `S1 · S3 · S4 · S5 · S6` — **thiếu `S2`**.

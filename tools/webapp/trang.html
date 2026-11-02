@@ -464,7 +464,7 @@ function header(D,ky_ds,id){
   return '<div class="head"><div><h1>'+esc(L.ten)+'</h1>'+
     '<div class="sub">'+(L.phu?esc(L.phu)+'<br>':'')+meta+
     '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát'+
-    '<br><span class="note">trang sinh 02/11 21:04 — số này ⛔ không đổi khi bấm '+
+    '<br><span class="note">trang sinh 02/11 21:41 — số này ⛔ không đổi khi bấm '+
     'Deploy; nó chỉ đổi khi bạn dán lại trang.html mới. Thấy mốc cũ = bản deploy còn cũ.</span>'+
     (BC_SAI?'<br><span style="color:var(--bad)">⛔ Không có bố cục «'+esc(BC_SAI)+
       '» — đang hiện bản «'+esc(BC)+'». Tên đúng: sale · truc-page · day-du · insight.</span>':'')+
@@ -569,6 +569,9 @@ function nacChanDung(C){
 
 function tabChanDung(D){
   var C=D.chan_dung||{},tep=C.tep||[],prev=(D.truoc&&D.truoc.tep)||[];
+  /* Thẻ insight mở sẵn theo hạng KF-64, ⛔ không theo `co_hoi_win` đã nghỉ. */
+  var W=((D.kf64||{}).chan_dung||[]).map(function(x){
+    return {cd:x.cd,diem:x.chi_so,hang:x.hang,uu_tien:x.hang}});
   var P=C.phac_hoa||{};
   if(!tep.length) return '<h2 class="top">Chân dung khách hàng</h2>'+
     '<div class="lock">⏳ <b>Kỳ này chưa xếp được chân dung nào.</b> '+esc(P.vi_sao||'')+
@@ -602,51 +605,109 @@ function tabChanDung(D){
     'về gì. ⛔ Cả hai <b>không phải «rác»</b> và ⛔ không được xếp hạng: chúng đông '+
     'là lỗi của quảng cáo và của câu MỞ, không phải của khách.</div>';
 
-  var W=C.co_hoi_win||[];
-  if(W.length){
-    var mx=Math.max.apply(null,W.map(function(r){return r.diem||0}).concat([1]));
-    /* BẢNG trước, thanh xếp hạng sau: bảng là chỗ tra số, thanh là chỗ nhìn
-       tương quan — đọc số trước rồi mới cần thấy khoảng cách giữa các hạng. */
-    h+='<h2>★ Cơ hội win — chân dung nào đáng dồn sức trước</h2>'+
-      '<div class="note nb">'+esc(C.cach_tinh_win||'')+
-      ' <b>Chọn</b> = ba hạng đầu, là nơi kỳ này dồn sức làm nội dung; '+
-      '⚠ «chưa chọn» ⛔ không có nghĩa là bỏ — cột lý do nói rõ đang vướng gì.<br>'+
-      'HOT/WARM/COLD là phân rã của <b>HT</b> theo 5 tín hiệu nóng (<code>id-D §2</code>) — '+
-      'ba cột cộng lại bằng HT. <b>Lead bỏ lỡ</b> = HT <b>chưa có SĐT</b>, nên nó ⛔ không '+
-      'bằng WARM+COLD: khách COLD vẫn có thể đã cho số.</div>'+
-      t(W.map(function(r){
-        /* HOT/WARM/COLD lấy từ chan_dung.tep theo mã CD — ⛔ không đếm lại ở đây.
-           Thiếu dòng tep thì hiện «—» (chưa đo), ⛔ không hiện 0 (id-J §3 luật ①):
-           ở ba cột này 0 là ĐÃ ĐO và bằng không, khác hẳn chưa đo. */
-        var tp=find(tep,'cd',r.cd);
-        function nhiet(v){return tp?num(v,0):'<span class="dim">—</span>'}
-        return '<tr'+(r.uu_tien?' class="pick"':'')+'>'+
-          td(r.hang?(r.uu_tien?'<b>'+esc(r.hang)+'</b>':esc(r.hang)):'<span class="dim">—</span>','c')+
-          td('<b>'+esc(r.cd)+'</b>')+td(esc(r.ten))+td(num(r.ht,0),'n')+
-          td(nhiet((tp||{}).hot),'n')+td(nhiet((tp||{}).warm),'n')+td(nhiet((tp||{}).cold),'n')+
-          td(num(r.lead_bo_lo,0),'n')+
-          td('<span class="note">'+esc(r.he_so)+'</span>','c')+td(pct(r.pct_sdt),'n')+
-          td('<b>'+num(r.diem,0)+'</b>','n')+td(num(r.roi_truc,0),'n')+
-          td((r.hang
-               ?(r.uu_tien?'<span class="tag t-ok">✓ chọn</span>':'<span class="tag">chưa chọn</span>')
-               :'<span class="tag t-bad">⛔ không xếp hạng</span>')+
-             (r.ly_do_chon?'<div class="note">'+esc(r.ly_do_chon)+'</div>':''))+
-          td(esc(r.ghi_chu||''))+'</tr>'}),
-        [{l:'Hạng',c:'c'},{l:'Mã'},{l:'Chân dung'},{l:'HT',c:'n'},
-         {l:'HOT',c:'n'},{l:'WARM',c:'n'},{l:'COLD',c:'n'},{l:'Lead bỏ lỡ',c:'n'},
-         {l:'Hệ số',c:'c'},{l:'Đang chốt',c:'n'},{l:'Điểm win',c:'n'},
-         {l:'Rơi ở câu trả lời',c:'n'},{l:'Lý do chọn'},{l:'Đọc thế nào'}])+
-      '<div class="card" style="margin-top:12px">'+
-      W.map(function(r){
-        return '<div class="win'+(r.uu_tien?' top':'')+'"><span class="r">'+
-          (r.hang?esc(r.hang):'—')+'</span><span><b>'+esc(r.cd)+'</b> '+esc(r.ten)+
-          '<div class="note">'+num(r.lead_bo_lo,0)+' lead bỏ lỡ × hệ số '+esc(r.he_so)+
-          ' × '+pct(r.pct_sdt)+' đang chốt được'+
-          (r.roi_truc?' · '+num(r.roi_truc,0)+' HT rơi ở câu trả lời':'')+'</div></span>'+
-          '<span class="d">'+num(r.diem,0)+bar(r.diem/mx*100,100)+'</span></div>'}).join('')+
-      '</div>';
-  }
+  /* ★★ KF-64 — XẾP HẠNG CHÂN DUNG + TẦNG NỘI DUNG.
+     Khối này THAY bảng «Cơ hội win» của `id-M` §7 từ 02/11/2026. Bản cũ đọc từ
+     `chan_dung.co_hoi_win` (lớp phủ chữ người) — nay nghỉ, vì ⛔ không để hai
+     bảng xếp hạng chân dung cùng sống (bài học `id-C` §4). */
+  var K=D.kf64||null;
+  if(!K) h+='<h2>★ Xếp hạng chân dung — KF-64</h2>'+
+    '<div class="lock">⏳ <b>Kỳ này chưa chấm KF-64.</b> File kỳ còn ở '+
+    '<code>schema /2</code> — chưa có khối <code>kf64</code>.<br>Sinh lại bằng: '+
+    '<code>python tools/knb.py &lt;file&gt; --ky "…"</code> rồi '+
+    '<code>python tools/id.py bao-cao --ky "…"</code>. Bộ chấm: '+
+    '<code>knowledge/id-N-chon-tep-tang-noi-dung-kf64.md</code>.</div>';
+  else{
+    var KD=K.chan_dung||[],KV=K.dich_vu||[],du=KD.filter(function(r){return r.du_mau});
 
+    /* ① Cấp dịch vụ — phần DUY NHẤT của KF-64 chạy được mà ⛔ không cần CRM */
+    var t2=KV.filter(function(r){return r.uu_tien_t2});
+    h+='<h2>★ Việc đọc được ngay — tầng <code>T2</code> theo dịch vụ</h2>'+
+      '<div class="note nb">Luật KF-64 §4.2: dịch vụ nào có <b>≥30% hội thoại chưa rõ '+
+      'nhu cầu</b> thì ưu tiên <b>'+esc((K.tang&&K.tang.T2?K.tang.T2.nhan:'T2'))+'</b> — '+
+      esc((K.tang&&K.tang.T2?K.tang.T2.viec:''))+'. Tử số của luật này chính là hai mã '+
+      'dự trữ của <code>id-M</code>, nên nó ⛔ không chờ booking CRM.<br>'+
+      '⚠ <b>'+num(t2.length,0)+'/'+num(KV.filter(function(r){return !r.la_du_tru}).length,0)+
+      ' dịch vụ vượt ngưỡng</b> — kết luận của KF-64 cho kỳ này gọn trong một câu: '+
+      '<b>làm T2 trước, ở gần như mọi dịch vụ.</b></div>'+
+      t(KV.map(function(r){
+        return '<tr'+(r.uu_tien_t2?' class="pick"':'')+'>'+
+          td('<b>'+esc(r.ten)+'</b>'+(r.la_du_tru?'':'<div class="note">'+esc(r.ma)+
+             ' · thư viện có '+num(r.ma_thu_vien,0)+' chân dung</div>'))+
+          td(num(r.ht,0),'n')+td(num(r.chua_ro,0),'n')+
+          td(pct(r.pct_chua_ro)+bar(r.pct_chua_ro,30),'n')+
+          td(r.la_du_tru?'<span class="tag t-bad">⛔ không phải dịch vụ</span>'
+             :(r.uu_tien_t2?'<span class="tag t-bad">★ ưu tiên T2</span>'
+                           :'<span class="tag t-ok">giữ cơ cấu</span>'))+'</tr>'}),
+        [{l:'Dịch vụ KF-62'},{l:'HT',c:'n'},{l:'Chưa rõ nhu cầu',c:'n'},
+         {l:'% chưa rõ',c:'n'},{l:'KF-64 nói'}]);
+
+    /* ② Xếp hạng chân dung */
+    h+='<h2>★ Dồn sức vào chân dung nào — '+esc(K.bo||'KF-64')+'</h2>'+
+      '<div class="note nb">Bộ này <b>thay công thức của <code>'+esc(K.thay_the||'id-M §7')+
+      '</code></b> ('+esc(K.duyet||'')+'). ⛔ Không còn bảng «Cơ hội win» thứ hai.<br>'+
+      '<b>Bản đủ</b>: '+pct(K.trong_so.quy_mo*100)+' Quy mô + '+pct(K.trong_so.chat_luong*100)+
+      ' Chất lượng + '+pct(K.trong_so.chuyen_doi*100)+' Chuyển đổi. '+
+      '<b>Đang chạy</b>: ⚠ <b>BẢN TẠM</b> '+pct(K.trong_so_dang_dung.quy_mo*100)+' Quy mô + '+
+      pct(K.trong_so_dang_dung.chat_luong*100)+' Chất lượng — trục <b>Chuyển đổi</b> '+
+      '('+pct(K.trong_so.chuyen_doi*100)+' của bản đủ) <b>trống</b> vì chưa có dòng '+
+      'booking CRM nào.<br>Mỗi chân dung so với <b>trung bình dịch vụ KF-62</b> của nó; '+
+      '⛔ không tính các dòng chưa xác định vào trung bình đó. Dưới <b>'+num(K.min_ht,0)+
+      ' hội thoại</b> → «chưa đủ dữ liệu», ⛔ không xếp hạng, ⛔ không gán ô ma trận.<br>'+
+      '<b>'+num(K.so_du_mau,0)+'/'+num(K.so_co_khach,0)+'</b> mã có khách đạt ngưỡng · '+
+      'thư viện có '+num(K.so_thu_vien,0)+' chân dung · ngưỡng CHÍNH THỨC còn cần ≥'+
+      num(K.min_booking,0)+' booking nên hiện <b>0 mã</b> nào đạt.</div>'+
+      t(KD.map(function(r){
+        var O=(K.o||{})[r.o];
+        return '<tr'+(r.hang?' class="pick"':'')+'>'+
+          td(r.hang?'<b>'+esc(r.hang)+'</b>':'<span class="dim">—</span>','c')+
+          td('<b>'+esc(r.cd)+'</b><div class="note">'+esc(r.ten_dich_vu||'')+'</div>')+
+          td(esc(r.ten))+td(num(r.ht,0),'n')+
+          td(num(r.hot,0),'n')+td(num(r.warm,0),'n')+
+          td(num(r.ht-r.hot-r.warm,0),'n')+
+          td(num(r.quy_mo,2),'n')+td(num(r.nhiet_tb,1),'n')+
+          td(r.chat_luong==null?'<span class="dim">—</span>':num(r.chat_luong,2)+
+             (r.bo_pct_hot?'<div class="note">⚠ bỏ %Hot</div>':''),'n')+
+          td(r.chi_so==null?'<span class="dim">—</span>':'<b>'+num(r.chi_so,1)+'</b>'+
+             '<div class="note">⚠ TẠM</div>','n')+
+          td(r.muc?'<span class="tag'+(r.muc==='CAO'?' t-ok':(r.muc==='THẤP'?' t-bad':''))+
+             '">'+esc(r.muc)+'</span>':'<span class="tag t-mid">chưa đủ dữ liệu</span>')+
+          td(O?('<b>'+esc(r.o)+'</b> '+esc(O.nhan.replace(/^. /,''))+
+               (r.o_sat_moc?'<div class="note" style="color:var(--bad)">⛔ sát mốc 100 '+
+                 '('+num(r.hieu_qua,1)+') — ô ⛔ chưa chốt được</div>':
+                 '<div class="note">'+esc(O.chien_luoc)+'</div>')+
+               (r.co_cau?'<div class="note nw">TOF/MOF/BOF '+r.co_cau.join('/')+'</div>':''))
+             :'<span class="dim">—</span>')+
+          td(r.tang?'<span class="tag t-acc">'+esc(((K.tang||{})[r.tang]||{}).nhan||r.tang)+
+             '</span>':'<span class="dim">—</span>')+
+          td('<span class="note">'+esc(r.buoc_yeu||'—')+' '+num(r.buoc_yeu_tri,2)+
+             '</span>'+(r.roi_truc?'<div class="note">'+num(r.roi_truc,0)+
+             ' HT rơi ở câu trả lời</div>':''))+'</tr>'}),
+        [{l:'Hạng',c:'c'},{l:'Mã · dịch vụ'},{l:'Chân dung'},{l:'HT',c:'n'},
+         {l:'HOT',c:'n'},{l:'WARM',c:'n'},{l:'COLD',c:'n'},
+         {l:'Quy mô',c:'n'},{l:'Nhiệt TB',c:'n'},{l:'Chất lượng',c:'n'},
+         {l:'Chỉ số',c:'n'},{l:'Mức'},{l:'Ô ma trận'},{l:'Tầng'},{l:'Bước yếu nhất'}]);
+
+    /* ③ Thanh xếp hạng — chỉ những mã ĐƯỢC xếp hạng, ⛔ không trộn mã chưa đủ mẫu */
+    if(du.length){
+      var mxk=Math.max.apply(null,du.map(function(r){return r.chi_so||0}).concat([1]));
+      h+='<div class="card" style="margin-top:12px">'+du.map(function(r){
+        return '<div class="win'+(r.hang===1?' top':'')+'"><span class="r">'+
+          esc(r.hang)+'</span><span><b>'+esc(r.cd)+'</b> '+esc(r.ten)+
+          '<div class="note">quy mô '+num(r.quy_mo,2)+' × 40% + chất lượng '+
+          num(r.chat_luong,2)+' × 60%'+(r.bo_pct_hot?' (⚠ đã bỏ %Hot — dịch vụ '+
+          'không có HOT nào)':'')+'</div></span>'+
+          '<span class="d">'+num(r.chi_so,1)+bar(r.chi_so/mxk*100,100)+'</span></div>'}).join('')+
+        '</div>';
+    }
+
+    /* ④ Bốn chỗ repo tự chốt — ⛔ không chôn trong code */
+    h+=fold('Bốn chỗ KF-64 v1.0 không nói, repo đã tự chốt',
+      (K.quyet_dinh||[]).length+' quyết định',
+      '<div class="card">'+bullets(K.quyet_dinh)+'</div>');
+    if((K.ghi_chu||[]).length)
+      h+=fold('Khối KF-64 đọc thế nào',K.ghi_chu.length+' ghi chú',
+              '<div class="card">'+bullets(K.ghi_chu)+'</div>');
+  }
   if(!an('nac-5a'))h+=nacChanDung(C);
 
   var ins=C.insight||[];
@@ -654,7 +715,8 @@ function tabChanDung(D){
   if(!ins.length) h+='<div class="lock">Agent chưa viết thẻ insight. Đây là phần <b>đọc hiểu</b>, '+
     'script không làm thay — xem <code>id-M §8</code>.</div>';
   else h+='<div class="note nb">Ấn vào đầu thẻ để mở. Ba chân dung ưu tiên mở sẵn; '+
-    'ô có <b>nền màu</b> là phần trực page phải làm, ô nền đỏ là điều cần tránh.</div>'+
+    'ô có <b>nền màu</b> là phần trực page phải làm, ô nền đỏ là điều cần tránh. '+
+    'Thứ hạng theo <code>KF-64</code>.</div>'+
     '<div class="g-ins">'+ins.map(function(x){
     var r=find(tep,'cd',x.cd)||{},w=find(W,'cd',x.cd)||{};
     function o(nhan,v,kieu){return v?'<div class="sec'+(kieu?' '+kieu:'')+'">'+
@@ -985,7 +1047,9 @@ function locHookBar(ds){
    insight cốt lõi là gì, và phải cầm PROOF gì trong tay rồi mới được sản xuất.
    ⛔ Chỉ liệt kê chân dung thật sự có hook trong kỳ — không có hook thì không phải kế hoạch. */
 function keHoachCD(D,ds){
-  var C=D.chan_dung||{},W=C.co_hoi_win||[],ins=C.insight||[],tep=C.tep||[];
+  var C=D.chan_dung||{},ins=C.insight||[],tep=C.tep||[];
+  var W=((D.kf64||{}).chan_dung||[]).map(function(x){
+    return {cd:x.cd,diem:x.chi_so,hang:x.hang,uu_tien:x.hang,proof:''}});
   var cds=[];
   ds.forEach(function(x){if(cds.indexOf(x.r.cd)<0)cds.push(x.r.cd)});
   if(!cds.length)return '';
@@ -1155,7 +1219,7 @@ function taoHook(v){
   var p=SHEET_MA.length?Promise.resolve(true):docSheet();
   return p.then(function(){
     var ma=maMoi(),tp=find(((D_HIEN||{}).chan_dung||{}).tep||[],'cd',v.cd)||{},
-        w=find(((D_HIEN||{}).chan_dung||{}).co_hoi_win||[],'cd',v.cd)||{};
+        w=find(((D_HIEN||{}).kf64||{}).chan_dung||[],'cd',v.cd)||{};
     var dong=[ma,v.cd,tp.ten||'',v.nac,v.dich_vu||'(chưa nêu)',
       v.insight,v.hook,v.cta,v.fm_text,v.local_hoa,v.ly_do_local,v.muc_tieu,
       (w.diem==null?'':w.diem),'',
@@ -1721,7 +1785,11 @@ function chepNgay(){
 
 
 function tabHook(D){
-  var H=D.hook||{},M=D.ma_tran||{},C=D.chan_dung||{},tep=C.tep||[],W=C.co_hoi_win||[];
+  var H=D.hook||{},M=D.ma_tran||{},C=D.chan_dung||{},tep=C.tep||[];
+  /* Điểm xếp hạng chân dung nay lấy từ khối `kf64`, ⛔ không còn `co_hoi_win`.
+     Dựng lại hình dạng {cd,diem,hang} để phần dưới ⛔ không phải sửa theo. */
+  var W=((D.kf64||{}).chan_dung||[]).map(function(x){
+    return {cd:x.cd,diem:x.chi_so,hang:x.hang,uu_tien:x.hang,proof:''}});
   if(M.trang_thai!=='da_duyet'||!(H.dong||[]).length)
     return '<h2 class="top">Ngân hàng hook</h2><div class="lock">'+
       esc(H.ghi_chu||'chưa viết — ma trận chưa được duyệt')+
@@ -1761,7 +1829,7 @@ function tabHook(D){
     nhom[k].push(x)});
 
   var head=[{l:'CD · Giai đoạn'},{l:'Insight lõi'},{l:'Hook (nhiều idea)'},{l:'CTA cuối'},
-    {l:'Format đề xuất'},{l:'Local hóa',c:'c'},{l:'Mục tiêu truyền thông',c:'c'},{l:'Cơ hội win',c:'n'}];
+    {l:'Format đề xuất'},{l:'Local hóa',c:'c'},{l:'Mục tiêu truyền thông',c:'c'},{l:'Hạng KF-64',c:'n'}];
   var rows=thuTu.map(function(k){
     var g=nhom[k],x0=g[0],r0=x0.r,w=find(W,'cd',r0.cd)||{};
     var co_do=g.some(function(y){return y.r.co_phap_che==='🔴'});
@@ -1819,7 +1887,7 @@ function tabHook(D){
     'target="_blank" rel="noopener">Google Sheet · Insight Kangnam</a>.<br>'+
     'Bộ lọc chỉ lọc bảng, ⛔ không đổi số liệu kỳ. '+
     'Dịch vụ suy từ chữ trong hook khi dòng hook chưa khai <code>dich_vu</code>. '+
-    '<b>Win</b> là điểm win của chân dung ở tab Chân dung (lead bỏ lỡ × hệ số × tỷ lệ chốt), '+
+    '<b>Hạng KF-64</b> là chỉ số tập trung của chân dung ở tab Chân dung (⚠ bản TẠM: 40% quy mô + 60% chất lượng), '+
     '⛔ chưa phải điểm riêng từng hook — khai <code>win</code> trong dòng hook thì bảng lấy số đó.</div>'+
     t(rows,head,null,'hook-bang')+
     ((H.tu_kiem||[]).length?'<h2>Tự kiểm ngân hàng hook — id-H §5</h2><div class="card">'+
