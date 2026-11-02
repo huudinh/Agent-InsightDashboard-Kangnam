@@ -1,5 +1,53 @@
 # CHANGELOG
 
+## v1.2 — 2026-11-02 · ★ THƯ VIỆN CHÂN DUNG KF-62 · LEAD SCORING KF-60 · ⛔ BỎ SỔ `id-C`
+
+Hai văn bản của khối Sale nhập vào thành hai sổ: **KF-60 lead scoring** → `id-L`,
+**KF-62 thư viện chân dung** → `id-M`. Sổ `id-C` bị **bỏ hẳn**: phần chân dung đã
+có chỗ khác, phần còn lại gộp về `id-D`.
+
+### Đổi gì
+
+| Chỗ | Trước (`v1.1`) | Sau (`v1.2`) |
+|---|---|---|
+| Chân dung | **Phác họa theo từng kỳ**, duyệt ở `CỔNG 0`, mã `CD0…CDn` chỉ đúng trong kỳ | **Thư viện cố định KF-62** — 18 dịch vụ × 85 chân dung, mã dùng chung giữa mọi kỳ. Xếp hai bước: *dịch vụ trước, chân dung sau*, "Có" đầu tiên thắng |
+| Mã dự trữ | `CD0` | `<DV>-CHUA_XAC_DINH` (biết dịch vụ, chưa biết chân dung) và `KHONG_XAC_DINH_DV` (chưa biết hỏi về gì) |
+| Lead scoring | ⛔ không có | `id-L` — 19 tiêu chí `A1…E5`, **4 nhóm gọi** `GỌI NGAY · XIN SỐ · NUÔI · KHÔNG`, `ưu tiên = điểm × hệ số giá trị đơn` |
+| Nhãn nóng | `id-D` §2 (5 tín hiệu) | ⛔ **không đổi** — KF-60 bản `v1.1` đã **bỏ nhãn HOT/WARM/COLD riêng** của nó để khỏi có hai nhãn nóng lệch nhau |
+| Hệ số giá trị đơn | BL `1,0 – 0,5` | Thang **`1 / 2 / 3`** theo dịch vụ khách hỏi (`id-G` §3) — anh UY duyệt 02/11 |
+| `knowledge/id-C` | Nấc `5A` · ma trận `CD×5A` · thông điệp thắng · cơ hội win | ⛔ **Bỏ sổ.** `5A` → `id-D` §3 · ma trận → `id-D` §6 · đầu ra B3 → `id-D` §9 · thông điệp → `id-M` §8 · xếp hạng chân dung → `id-M` §7 |
+| Schema | `insight-dashboard-kangnam/1` | `/2` — thêm khối `lead` |
+| Dashboard | 9 tab | 10 tab — thêm **Hàng chờ Sale**; bố cục `?bo_cuc=sale` |
+| Đầu vào | Caresoft | thêm **KNB 1.3.0** qua `tools/knb.py` |
+
+### Vì sao bỏ `id-C`
+
+```
+Sau khi có id-M, id-C còn lại bốn mục — và ba trong bốn đã có chỗ đúng hơn:
+
+§4 cơ hội win  → xếp hạng CHÂN DUNG, đúng việc id-M đã có công thức anh UY chốt.
+                 Hai công thức cho một quyết định là chỗ chắc chắn lệch nhau.
+§2 ma trận     → cùng MỘT luật bốn ô với bảng giao của id-D §6, chỉ cắt theo
+                 cặp khác. Để hai chỗ là nhân đôi luật, không phải nhân đôi việc.
+§3 thông điệp  → luật cũ cấm "lấy từ kho"; nay KF-62 CHÍNH LÀ cái kho.
+                 Luật phải viết lại, không phải chuyển chỗ → id-M §8.
+§1 nấc 5A      → một trong BA nhãn đọc từ cùng một hội thoại; hai nhãn kia
+                 (mã O, mức nóng) đã ở id-D. Tách ra một sổ riêng không có lý do.
+```
+
+### Ba cảnh báo còn mở
+
+```
+⚠ KF-62 CỔNG ① đạt 65,6% (yêu cầu 70%) — khách gõ tên dịch vụ rồi hỏi giá
+  (trung vị 44 ký tự), ⛔ không tả tình trạng. Báo cáo mỗi kỳ ghi rõ, ⛔ không
+  tự nới ngưỡng.
+⚠ Xếp hạng chân dung (`id-M` §7) chưa chạy được công thức chính — chưa có dòng
+  CRM nào về. Đang dùng bản tạm, mọi dòng gắn `⚠ proxy`.
+⚠ Thang hệ số 1/2/3 chưa thử trên kỳ có PTTM — đã xin một kỳ để đo.
+```
+
+---
+
 ## v1.1 — 2026-10-30 · ⛔ BỎ BỘ CHÂN DUNG DỰNG SẴN
 
 Chân dung khách hàng **không còn là một danh sách cho trước**. Mỗi kỳ, agent **phác họa chân dung từ chính hội thoại được đưa vào**, người dùng duyệt ở **CỔNG 0** mới gán được.

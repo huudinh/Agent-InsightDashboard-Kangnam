@@ -270,7 +270,7 @@ def nap_phac_hoa(ky):
     `gan_chan_dung_kf62()` mới là nơi quyết định.
     """
     if not os.path.exists(PHAC_HOA):
-        return None, "chưa có out/chan-dung.json — chân dung chưa được phác họa"
+        return None, "chưa xếp được mã nào của thư viện KF-62 cho kỳ này"
     try:
         with open(PHAC_HOA, encoding="utf-8") as f:
             pho = json.load(f)
@@ -395,7 +395,7 @@ def gan_chan_dung(ht, pho):
 
 
 def gan_nac(ht, td):
-    """Gán nấc 5A: đọc câu hỏi ĐẦU TIÊN của khách, ⛔ không đọc cả hội thoại (id-C §1)."""
+    """Gán nấc 5A: đọc câu hỏi ĐẦU TIÊN của khách, ⛔ không đọc cả hội thoại (id-D §3)."""
     dau = next((t["text"] for t in ht["tin"] if not t["nv"] and len(t["text"]) > 3), "")
     if co_tu(dau, td["ma_o"]["O-09"] + ["còn suất", "ưu đãi", "đặt lịch"]):
         return "A4"
@@ -458,7 +458,7 @@ def he_so_gia_tri(ht, td):
 
 
 def gan_vi_sao_roi(ht, td, diem):
-    """Mỗi hội thoại ĐÚNG MỘT giá trị (id-D §3)."""
+    """Mỗi hội thoại ĐÚNG MỘT giá trị (id-D §4)."""
     if ht["co_sdt"] or ht.get("chot_lich"):
         return "không rơi"
     tin = ht["tin"]

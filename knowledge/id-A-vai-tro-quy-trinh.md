@@ -32,7 +32,7 @@ Mục tiêu vận hành mà agent chịu trách nhiệm, xếp theo thứ tự:
 
 ★ **Ranh giới với `Agent-SeedingPlant`:** SeedingPlant hỏi *"tuần tới quay gì cho bác sĩ nào"*. Agent này hỏi *"khách là ai, họ rơi ở đâu, ai đang làm họ rơi"*. Hai agent dùng chung bộ mã `A1–A5`, `L01–L16`, `O-01…O-12` — ⛔ **không được đặt mã mới trùng nghĩa**.
 
-⚠️ **Mã `CD` thì KHÔNG dùng chung được nữa.** Từ bản này chân dung được phác họa theo từng kỳ (`id-C` §1), nên `CD3` của kỳ này và `CD3` ở agent khác ⛔ không giả định là cùng một tệp. Trao đổi chân dung với agent khác thì **gửi kèm `out/chan-dung.json` của kỳ**.
+★ **Mã chân dung dùng chung được trở lại.** Từ 02/11/2026 chân dung lấy từ **thư viện cố định KF-62** (`id-M`), nên `SACTO-NAM_TAI_PHAT` ở agent này và ở agent khác là **cùng một tệp** — ⛔ khác với bản `v1.1` phác họa theo kỳ. Trao đổi chân dung thì **gửi kèm `tools/chan_dung_kf62.json`** để chắc cùng bản.
 
 ★ **Ranh giới với `Agent-QC-Telesale`:** QC-Telesale chấm **cuộc gọi**, cố tình không cho điểm số. Agent này chấm **hội thoại chat** và **có** thang 100 điểm — xem `id-F` §1 giải thích vì sao hai kênh chấm khác nhau, và bốn rào an toàn bắt buộc đi kèm.
 
@@ -130,4 +130,4 @@ Một hội thoại được **đọc và chấm đúng một lần**, kết qu�
 - [ ] Có dừng ở **CỔNG 0** không, hay đã tự chia chân dung rồi chạy tiếp?
 - [ ] Có dừng ở CỔNG 1 không, hay đã tự viết hook?
 - [ ] Có nhận xét nào về nhân viên lọt ra **ngoài** khối chấm điểm `id-F` không?
-- [ ] Có mã mới nào được đặt trùng nghĩa với mã đã có ở `id-C` / `id-D` không?
+- [ ] Có mã mới nào được đặt trùng nghĩa với mã đã có ở `id-D` / `id-M` không?

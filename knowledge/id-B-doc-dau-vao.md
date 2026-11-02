@@ -34,7 +34,7 @@ _Cập nhật: 2026-10-13 14:46:52 · NV: <Tên nhân viên> · SĐT: Có|Không
 | `KH:` / `NV <tên>:` | ✅ | Tách hai nửa hội thoại · gán nhân viên |
 | SĐT có/không | ✅ | Chỉ số lõi `% có SĐT` |
 | Page / nguồn quảng cáo | 🔶 nên có | Nối hội thoại ↔ nội dung ads (`id-E` §6) |
-| Dịch vụ khách hỏi | ⬜ tự suy ra | Tín hiệu nóng ① · hệ số giá trị đơn. ⛔ **Không** dùng để gán chân dung (`id-C` §1) |
+| Dịch vụ khách hỏi | ⬜ tự suy ra | Tín hiệu nóng ① · hệ số giá trị đơn · **cổng vào của chân dung** — xếp dịch vụ trước rồi mới xếp chân dung trong dịch vụ đó (`id-M` §2) |
 
 ### ⛔ Tám thứ phải bỏ trước khi ghi ra bất cứ đâu
 
@@ -49,7 +49,7 @@ Trích dẫn trong báo cáo phải ở dạng **đã ẩn danh**, chỉ còn `H
 `mức nóng` · `nấc 5A` · `mã O` · `rào cản` · `vì sao rơi` ·
 `có chốt lịch trong chat không` · `tin đầu khách hỏi gì` · `khu vực khách tự nói` · `khách mới hay khách cũ`
 
-⚠️ **`chân dung CD` KHÔNG nằm trong danh sách này.** Chân dung không suy ra được từ một ô dữ liệu: nó được **phác họa từ chữ của khách** rồi người dùng duyệt ở **CỔNG 0** (`id-C` §1–2). Trước khi duyệt, ô `cd` của mọi hội thoại để `null`.
+⚠️ **`chân dung` suy ra được, nhưng theo HAI BƯỚC.** Trước xếp **dịch vụ** khách hỏi, rồi trong dịch vụ đó xếp **chân dung** theo thứ tự của thư viện KF-62 — "Có" đầu tiên thắng (`id-M` §2). Không đủ chữ để biết hỏi về gì thì ô chân dung nhận mã dự trữ `KHONG_XAC_DINH_DV`, ⛔ không để `null`.
 
 ---
 
@@ -107,7 +107,7 @@ Mốc mục tiêu lấy **trung bình 30 ngày của chính dịch vụ đó**; 
 ② Truy vấn nào đang tốn tiền mà không ra chuyển đổi — cắt được ngay.
 ③ Truy vấn nào có người tìm mà Kangnam chưa có trang trả lời — lỗ hổng nội dung web.
 ```
-★ Khi dòng ③ về, **search term đổ thẳng vào bảng mã `O`** ở `id-D` §2 như một nguồn thứ hai bên cạnh hội thoại.
+★ Khi dòng ③ về, **search term đổ thẳng vào bảng mã `O`** ở `id-D` §1 như một nguồn thứ hai bên cạnh hội thoại.
 
 ⛔ **Cho tới lúc đó:** mọi ô Google Ads trong dashboard để `null`, hiển thị `chưa có dữ liệu`. ⛔ Không ước lượng, không lấy số Facebook gán sang.
 
@@ -143,7 +143,7 @@ MỐC SO SÁNH: kỳ trước <có/không> · mục tiêu 30 ngày <có/không>
 | `KHONG_XAC_DINH_DV` | ★ Mã **dự trữ** — đến DỊCH VỤ cũng chưa biết. ⛔ Khác `<DV>-CHUA_XAC_DINH` | nt |
 | `AR01 … AR12` | **Thẻ ngữ cảnh**, tối đa 3 thẻ một hội thoại. ⛔ Không phải chân dung | `id-M` · nt |
 | ~~`CD0`, `CD1 … CDn`~~ | ⛔ **BỎ 02/11/2026** — chân dung phác họa theo kỳ ⛔ không so được giữa các kỳ | — |
-| `A1 … A5` | Nấc hành trình 5A | `id-C` |
+| `A1 … A5` | Nấc hành trình 5A | `id-D` §3 |
 | `O-01 … O-12`, `O-00` | Mã phản đối / rào cản | `id-D` |
 | `L01 … L16` | Format thể hiện | `id-H` |
 | `N1 … N6` | Sáu nhóm tiêu chí chấm nhân viên | `id-F` |

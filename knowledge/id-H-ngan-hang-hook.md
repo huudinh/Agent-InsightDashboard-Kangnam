@@ -1,7 +1,7 @@
 # id-H · NGÂN HÀNG HOOK — 7 LOẠI HOOK × 16 FORMAT
 
 > Chạy **sau CỔNG 1**. Mỗi hook phải gắn: **1 chân dung · 1 nấc 5A · 1 mã `O` · 1 `HT-nnn` truy ngược · 3 format**.
-> ⚠ Chân dung gắn vào hook là chân dung **đã duyệt ở CỔNG 0 của kỳ này** (`id-C` §1). ⛔ Không viết hook cho một chân dung của kỳ trước mà kỳ này không có.
+> ⚠ Chân dung gắn vào hook là **mã thư viện KF-62** (`id-M`). ⛔ Không viết hook cho một mã mà kỳ này không có hội thoại nào — thư viện có 85 mã, kỳ nào cũng chỉ chạm một phần.
 > ⛔ Hook không truy ngược được về một dòng hội thoại hoặc một con số là **hook bịa** — loại khỏi ngân hàng.
 
 ---

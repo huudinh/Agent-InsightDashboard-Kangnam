@@ -3,13 +3,12 @@
 > Bản gộp **sinh tự động** từ `knowledge/`. ⛔ Không sửa file này —
 > sửa file gốc rồi chạy lại `python tools/gop-tham-khao.py`.
 
-Gộp ngày 2026-11-02 · 13 sổ
+Gộp ngày 2026-11-02 · 12 sổ
 
 ## Mục lục
 
 - `id-A-vai-tro-quy-trinh.md`
 - `id-B-doc-dau-vao.md`
-- `id-C-nac-5a-the-insight.md`
 - `id-D-dao-sau-insight.md`
 - `id-E-to-chuc-ads-chi-so.md`
 - `id-F-cham-diem-nhan-vien.md`
@@ -59,7 +58,7 @@ Mục tiêu vận hành mà agent chịu trách nhiệm, xếp theo thứ tự:
 
 ★ **Ranh giới với `Agent-SeedingPlant`:** SeedingPlant hỏi *"tuần tới quay gì cho bác sĩ nào"*. Agent này hỏi *"khách là ai, họ rơi ở đâu, ai đang làm họ rơi"*. Hai agent dùng chung bộ mã `A1–A5`, `L01–L16`, `O-01…O-12` — ⛔ **không được đặt mã mới trùng nghĩa**.
 
-⚠️ **Mã `CD` thì KHÔNG dùng chung được nữa.** Từ bản này chân dung được phác họa theo từng kỳ (`id-C` §1), nên `CD3` của kỳ này và `CD3` ở agent khác ⛔ không giả định là cùng một tệp. Trao đổi chân dung với agent khác thì **gửi kèm `out/chan-dung.json` của kỳ**.
+★ **Mã chân dung dùng chung được trở lại.** Từ 02/11/2026 chân dung lấy từ **thư viện cố định KF-62** (`id-M`), nên `SACTO-NAM_TAI_PHAT` ở agent này và ở agent khác là **cùng một tệp** — ⛔ khác với bản `v1.1` phác họa theo kỳ. Trao đổi chân dung thì **gửi kèm `tools/chan_dung_kf62.json`** để chắc cùng bản.
 
 ★ **Ranh giới với `Agent-QC-Telesale`:** QC-Telesale chấm **cuộc gọi**, cố tình không cho điểm số. Agent này chấm **hội thoại chat** và **có** thang 100 điểm — xem `id-F` §1 giải thích vì sao hai kênh chấm khác nhau, và bốn rào an toàn bắt buộc đi kèm.
 
@@ -157,7 +156,7 @@ Một hội thoại được **đọc và chấm đúng một lần**, kết qu�
 - [ ] Có dừng ở **CỔNG 0** không, hay đã tự chia chân dung rồi chạy tiếp?
 - [ ] Có dừng ở CỔNG 1 không, hay đã tự viết hook?
 - [ ] Có nhận xét nào về nhân viên lọt ra **ngoài** khối chấm điểm `id-F` không?
-- [ ] Có mã mới nào được đặt trùng nghĩa với mã đã có ở `id-C` / `id-D` không?
+- [ ] Có mã mới nào được đặt trùng nghĩa với mã đã có ở `id-D` / `id-M` không?
 
 ---
 
@@ -199,7 +198,7 @@ _Cập nhật: 2026-10-13 14:46:52 · NV: <Tên nhân viên> · SĐT: Có|Không
 | `KH:` / `NV <tên>:` | ✅ | Tách hai nửa hội thoại · gán nhân viên |
 | SĐT có/không | ✅ | Chỉ số lõi `% có SĐT` |
 | Page / nguồn quảng cáo | 🔶 nên có | Nối hội thoại ↔ nội dung ads (`id-E` §6) |
-| Dịch vụ khách hỏi | ⬜ tự suy ra | Tín hiệu nóng ① · hệ số giá trị đơn. ⛔ **Không** dùng để gán chân dung (`id-C` §1) |
+| Dịch vụ khách hỏi | ⬜ tự suy ra | Tín hiệu nóng ① · hệ số giá trị đơn · **cổng vào của chân dung** — xếp dịch vụ trước rồi mới xếp chân dung trong dịch vụ đó (`id-M` §2) |
 
 ### ⛔ Tám thứ phải bỏ trước khi ghi ra bất cứ đâu
 
@@ -214,7 +213,7 @@ Trích dẫn trong báo cáo phải ở dạng **đã ẩn danh**, chỉ còn `H
 `mức nóng` · `nấc 5A` · `mã O` · `rào cản` · `vì sao rơi` ·
 `có chốt lịch trong chat không` · `tin đầu khách hỏi gì` · `khu vực khách tự nói` · `khách mới hay khách cũ`
 
-⚠️ **`chân dung CD` KHÔNG nằm trong danh sách này.** Chân dung không suy ra được từ một ô dữ liệu: nó được **phác họa từ chữ của khách** rồi người dùng duyệt ở **CỔNG 0** (`id-C` §1–2). Trước khi duyệt, ô `cd` của mọi hội thoại để `null`.
+⚠️ **`chân dung` suy ra được, nhưng theo HAI BƯỚC.** Trước xếp **dịch vụ** khách hỏi, rồi trong dịch vụ đó xếp **chân dung** theo thứ tự của thư viện KF-62 — "Có" đầu tiên thắng (`id-M` §2). Không đủ chữ để biết hỏi về gì thì ô chân dung nhận mã dự trữ `KHONG_XAC_DINH_DV`, ⛔ không để `null`.
 
 ---
 
@@ -272,7 +271,7 @@ Mốc mục tiêu lấy **trung bình 30 ngày của chính dịch vụ đó**; 
 ② Truy vấn nào đang tốn tiền mà không ra chuyển đổi — cắt được ngay.
 ③ Truy vấn nào có người tìm mà Kangnam chưa có trang trả lời — lỗ hổng nội dung web.
 ```
-★ Khi dòng ③ về, **search term đổ thẳng vào bảng mã `O`** ở `id-D` §2 như một nguồn thứ hai bên cạnh hội thoại.
+★ Khi dòng ③ về, **search term đổ thẳng vào bảng mã `O`** ở `id-D` §1 như một nguồn thứ hai bên cạnh hội thoại.
 
 ⛔ **Cho tới lúc đó:** mọi ô Google Ads trong dashboard để `null`, hiển thị `chưa có dữ liệu`. ⛔ Không ước lượng, không lấy số Facebook gán sang.
 
@@ -308,7 +307,7 @@ MỐC SO SÁNH: kỳ trước <có/không> · mục tiêu 30 ngày <có/không>
 | `KHONG_XAC_DINH_DV` | ★ Mã **dự trữ** — đến DỊCH VỤ cũng chưa biết. ⛔ Khác `<DV>-CHUA_XAC_DINH` | nt |
 | `AR01 … AR12` | **Thẻ ngữ cảnh**, tối đa 3 thẻ một hội thoại. ⛔ Không phải chân dung | `id-M` · nt |
 | ~~`CD0`, `CD1 … CDn`~~ | ⛔ **BỎ 02/11/2026** — chân dung phác họa theo kỳ ⛔ không so được giữa các kỳ | — |
-| `A1 … A5` | Nấc hành trình 5A | `id-C` |
+| `A1 … A5` | Nấc hành trình 5A | `id-D` §3 |
 | `O-01 … O-12`, `O-00` | Mã phản đối / rào cản | `id-D` |
 | `L01 … L16` | Format thể hiện | `id-H` |
 | `N1 … N6` | Sáu nhóm tiêu chí chấm nhân viên | `id-F` |
@@ -321,133 +320,17 @@ MỐC SO SÁNH: kỳ trước <có/không> · mục tiêu 30 ngày <có/không>
 
 ---
 
-<!-- ===== id-C-nac-5a-the-insight.md ===== -->
-
-# id-C · ★ NẤC 5A · MA TRẬN LỖ HỔNG PHỄU · THẺ INSIGHT · CƠ HỘI WIN
-
-> ## ⛔ ĐÃ CẮT 02/11/2026 — phần CHÂN DUNG chuyển sang [`id-M`](id-M-thu-vien-chan-dung-kf62.md)
->
-> | Mục cũ | Đi đâu |
-> |---|---|
-> | §1 *Chân dung là kết quả đọc* | → `id-M` §1 — ⛔ luật đó đã đảo: nay **có** thư viện cố định |
-> | §2 *Quy trình phác họa · CỔNG 0* | ⛔ **bỏ hẳn** — không còn phác họa theo kỳ, không còn CỔNG 0 |
->
-> Sổ này giữ bốn thứ `id-M` ⛔ **không** có, và cả bốn đang chạy trong code:
->
-> | Mục | Chạy ở đâu |
-> |---|---|
-> | §1 Năm nấc `5A` | `gan_nac()` · `TEN_NAC` · `GIAI_DOAN` |
-> | §2 Ma trận `CD × 5A` | `chan_dung.ma_tran_cd_5a` |
-> | §3 Thông điệp thắng | cách viết thẻ insight |
-> 
-> ⛔ **§4 «Cơ hội win» cũng đã cắt 02/11/2026** → `id-M` §5. Lý do: nó xếp hạng
-> **chân dung**, đúng việc mà KF-62 đã có công thức riêng anh UY chốt. Hai công
-> thức cho cùng một quyết định là chỗ chắc chắn lệch nhau.
-> >
-> ⚠ `CD` trong sổ này nay là **mã thư viện KF-62** (`SACTO-NAM_TAI_PHAT`),
-> ⛔ không còn `CD1…CDn`.
-
----
-
-## 1. NĂM NẤC 5A
-
-| Nấc | Khách đang ở đâu | Câu hỏi đầu tiên có dạng | Nhiệm vụ của nội dung | Loại hook mạnh |
-|---|---|---|---|---|
-| **A1 · AWARE** | Có vấn đề nhưng chưa gọi tên | tả tình trạng bằng chữ của mình · gửi ảnh | **Định danh vấn đề**, phá 1 niềm tin sai. ⛔ Không bán | PHỦ ĐỊNH · NGHỊCH LÝ |
-| **A2 · APPEAL** | Đang so phương pháp, lập shortlist | *"công nghệ nào tốt"* · *"loại nào khác gì"* | Giáo dục giải pháp + cho thấy khác biệt | SO SÁNH A–B · CON SỐ |
-| **A3 · ASK** ★ | Điểm quyết định — nỗi sợ đạt đỉnh | *"bao nhiêu tiền"* · *"đau không"* · *"bác sĩ nào"* | **Gỡ nỗi sợ** + minh bạch giá + bằng chứng | GỌI TÊN NỖI SỢ · TIẾT LỘ NỘI BỘ |
-| **A4 · ACT** | Đã inbox/đặt lịch, còn có thể huỷ | *"T7 còn suất không"* | Giảm huỷ lịch: checklist, lộ trình theo ngày | CON SỐ · CÂU HỎI THẦM |
-| **A5 · ADVOCATE** | Đã làm, lo hậu phẫu | *"kiêng gì"* · *"bao giờ tái khám"* | Cẩm nang theo mốc · cross-sell 1 hướng · xin review | TIẾT LỘ NỘI BỘ · CON SỐ |
-
-### Luật gán nấc
-
-> Đọc **câu hỏi đầu tiên của khách**, ⛔ không đọc cả hội thoại.
-
-⚠️ **Khách nhảy nấc.** Hỏi giá ngay câu đầu không có nghĩa là ở `A3` thật. Dấu hiệu: hỏi giá rồi hỏi tiếp *"mà làm thế nào"* → thực ra `A1`, ghi `A3→A1`.
-
-★ **Tỷ lệ nấc là một chỉ số.** Trên 60% hội thoại rơi `A3` nghĩa là phễu **thiếu nội dung A1–A2** — tệp mới không vào. Kết luận này ⛔ không nhìn ra được từ số liệu ads.
-
-⚠️ Nấc 5A **không phụ thuộc chân dung** — gán được ngay ở B2, trước CỔNG 0. Nhờ vậy tab Phễu và phân bố 5A vẫn đọc được khi chân dung còn trống.
-
----
-
-## 2. MA TRẬN CD × 5A — Ô TRỐNG LÀ LỖ HỔNG PHỄU
-
-Mỗi kỳ dựng **hai ma trận `N×5`** cạnh nhau, với `N` = số chân dung đã duyệt **+ 1 dòng `CD0`**:
-
-```
-TRÁI : số NỘI DUNG ĐANG CÓ cho ô đó
-PHẢI : số HỘI THOẠI rơi vào ô đó trong kỳ
-
-ô PHẢI cao  × TRÁI = 0    →  ① LỖ HỔNG — ưu tiên 1
-ô PHẢI cao  × TRÁI cao    →  ② nội dung đang trả lời SAI → kiểm trước khi làm thêm
-ô PHẢI thấp × TRÁI cao    →  ③ ĐANG PHÍ — cắt bớt
-ô PHẢI thấp × TRÁI thấp   →  ④ để yên
-```
-
-⚠️ **Ô ③ khó chấp nhận hơn ô ①** vì nó nói rằng kỳ trước khối đã làm nhiều nội dung không ai cần. Vẫn phải ghi ra — không ghi thì kỳ sau lại làm tiếp.
-
-⚠️ Ma trận kỳ này so được với kỳ trước **chỉ ở những mã có trong cả hai kỳ**. Mã mới thì ghi `⚠ chưa có mốc so sánh`.
-
----
-
-## 3. THÔNG ĐIỆP THẮNG — VIẾT TỪ KỲ NÀY, ⛔ KHÔNG LẤY TỪ KHO
-
-Bản trước của sổ này chở một bảng *"thông điệp thắng"* viết sẵn cho từng chân dung mũi. ⛔ **Đã bỏ.** Thông điệp dán sẵn làm hai việc đều sai cùng lúc: nó nói hộ khách, và nó mang theo đúng những câu `id-K` đang chặn (*trọn đời* · *tỷ lệ thành công* · *đổi vận*).
-
-Thay vào đó mỗi chân dung được duyệt viết **một câu dựng tại kỳ**, theo khuôn:
-
-```
-<điều khách sợ, bằng chữ của khách>  →  <điều mình làm khác>  →  <bằng chứng>
-```
-
-| Phải có | ⛔ Phải không có |
-|---|---|
-| Một `HT-nnn` truy ngược | Con số bảo hành (`id-K` §3) |
-| Chữ khách dùng, không phải tính từ | Cam kết kết quả chắc chắn |
-| Một điều mình làm khác được | Hứa đổi vận, tài lộc, tỷ lệ thành công |
-| Qua **CỔNG 2** trước khi phát | Giá dịch vụ chưa có bảng hiện hành |
-
-★ Viết bằng **chữ của khách**. Khách không tìm *"đẹp tự nhiên"* — khách tìm *"đầu mũi bóng đỏ"*.
-
----
-
-## 4. ĐẦU RA CHUẨN CỦA BƯỚC B3
-
-```
-① BẢNG CHÂN DUNG : mã KF-62 · tên · số HT · HOT/WARM/COLD · có SĐT · % có SĐT
-                    · chốt lịch · bỏ 1 lượt · rơi do trực page
-                    (+ dòng <DV>-CHUA_XAC_DINH và KHONG_XAC_DINH_DV)
-② CƠ HỘI WIN    : hạng · chỉ số ưu tiên của chân dung   → xem `id-M` §5
-③ THẺ INSIGHT    : mỗi CD ≥5 HT một thẻ — họ là ai · insight · câu hỏi ngầm
-                    · tín hiệu nóng · hướng xử lý
-④ MA TRẬN CD×5A  : hai bảng N×5, đánh dấu ô ① và ô ③
-⑤ SO KỲ TRƯỚC    : % có SĐT từng CD thay đổi mấy ĐIỂM phần trăm
-                    — chỉ với những mã được giữ nguyên
-```
-
-⛔ Chân dung dưới **5 HT** không viết thẻ insight — chỉ ghi vào danh sách `👁 quan sát`.
-
----
-
-## 5. TỰ KIỂM SỔ NÀY
-
-- [ ] Nấc `5A` có gán theo **câu hỏi đầu tiên** của khách không, hay đọc cả hội thoại?
-- [ ] Có hội thoại nào hỏi giá ngay câu đầu mà bị xếp `A3` thật không? (`A3→A1`)
-- [ ] Mỗi chân dung có ít nhất một `HT-nnn` làm bằng không?
-- [ ] Tổng HT các chân dung **cộng cả dòng chưa xác định** có bằng đúng cỡ mẫu không?
-- [ ] Thẻ insight có viết bằng **chữ của khách** không, hay toàn tính từ của người viết?
-- [ ] Thẻ insight có xếp theo **chỉ số ưu tiên** của `id-M` §5 không, hay vẫn xếp theo số HT?
-
----
-
 <!-- ===== id-D-dao-sau-insight.md ===== -->
 
-# id-D · ★ ĐÀO SÂU INSIGHT — MÃ `O` · MỨC NÓNG · VÌ SAO RƠI
+# id-D · ★ ĐÀO SÂU INSIGHT — MÃ `O` · MỨC NÓNG · NẤC `5A` · MA TRẬN PHỄU
 
 > Sổ sinh ra giá trị lớn nhất của agent. Số liệu ads cho biết **cái gì đã chạy**; hội thoại cho biết **cái gì còn thiếu**.
 >
 > ⛔ Luật tối thượng: **một insight không truy ngược được về `HT-nnn` hoặc một con số là một insight bịa.**
+>
+> ★ Sổ này nhận thêm phần **nấc `5A`** (§3), **ma trận chân dung × `5A`** (§6)
+> và **đầu ra bước B3** (§9) từ `id-C` — sổ đó đã bỏ 02/11/2026. Chân dung
+> thì ở [`id-M`](id-M-thu-vien-chan-dung-kf62.md).
 
 ---
 
@@ -514,7 +397,33 @@ Một hội thoại được chấm **HOT / WARM / COLD** theo số tín hiệu 
 
 ---
 
-## 3. VÌ SAO RƠI — MỖI HỘI THOẠI MỘT GIÁ TRỊ
+## 3. NĂM NẤC `5A` — KHÁCH ĐANG Ở ĐÂU TRONG HÀNH TRÌNH
+
+| Nấc | Khách đang ở đâu | Câu hỏi đầu tiên có dạng | Nhiệm vụ của nội dung | Loại hook mạnh |
+|---|---|---|---|---|
+| **A1 · AWARE** | Có vấn đề nhưng chưa gọi tên | tả tình trạng bằng chữ của mình · gửi ảnh | **Định danh vấn đề**, phá 1 niềm tin sai. ⛔ Không bán | PHỦ ĐỊNH · NGHỊCH LÝ |
+| **A2 · APPEAL** | Đang so phương pháp, lập shortlist | *"công nghệ nào tốt"* · *"loại nào khác gì"* | Giáo dục giải pháp + cho thấy khác biệt | SO SÁNH A–B · CON SỐ |
+| **A3 · ASK** ★ | Điểm quyết định — nỗi sợ đạt đỉnh | *"bao nhiêu tiền"* · *"đau không"* · *"bác sĩ nào"* | **Gỡ nỗi sợ** + minh bạch giá + bằng chứng | GỌI TÊN NỖI SỢ · TIẾT LỘ NỘI BỘ |
+| **A4 · ACT** | Đã inbox/đặt lịch, còn có thể huỷ | *"T7 còn suất không"* | Giảm huỷ lịch: checklist, lộ trình theo ngày | CON SỐ · CÂU HỎI THẦM |
+| **A5 · ADVOCATE** | Đã làm, lo hậu phẫu | *"kiêng gì"* · *"bao giờ tái khám"* | Cẩm nang theo mốc · cross-sell 1 hướng · xin review | TIẾT LỘ NỘI BỘ · CON SỐ |
+
+### Luật gán nấc
+
+> Đọc **câu hỏi đầu tiên của khách**, ⛔ không đọc cả hội thoại.
+
+⚠️ **Khách nhảy nấc.** Hỏi giá ngay câu đầu không có nghĩa là ở `A3` thật. Dấu hiệu: hỏi giá rồi hỏi tiếp *"mà làm thế nào"* → thực ra `A1`, ghi `A3→A1`.
+
+★ **Tỷ lệ nấc là một chỉ số.** Trên 60% hội thoại rơi `A3` nghĩa là phễu **thiếu nội dung A1–A2** — tệp mới không vào. Kết luận này ⛔ không nhìn ra được từ số liệu ads.
+
+⚠️ Nấc `5A` **không phụ thuộc chân dung** — đọc thẳng từ câu đầu của khách. Nhờ vậy tab Phễu và phân bố `5A` vẫn đọc được cả khi chưa xếp được chân dung.
+
+★ **Ba nhãn của sổ này đọc từ cùng một hội thoại và ⛔ không thay nhau được:** mã `O` (§1 — khách sợ gì) · mức nóng (§2 — nóng tới đâu) · nấc `5A` (§3 — đang ở đâu trong hành trình).
+
+---
+
+---
+
+## 4. VÌ SAO RƠI — MỖI HỘI THOẠI MỘT GIÁ TRỊ
 
 > ⛔ Một hội thoại chỉ được gán **đúng một** nguyên nhân rơi. Gán hai là tổng không khớp cỡ mẫu.
 
@@ -530,7 +439,7 @@ Một hội thoại được chấm **HOT / WARM / COLD** theo số tín hiệu 
 
 ---
 
-## 4. RÀO CẢN QUAN SÁT ĐƯỢC — ĐƯỢC PHÉP NHIỀU
+## 5. RÀO CẢN QUAN SÁT ĐƯỢC — ĐƯỢC PHÉP NHIỀU
 
 Khác với "vì sao rơi", một hội thoại **có thể mang nhiều rào cản**. Đếm theo lượt xuất hiện:
 
@@ -539,7 +448,7 @@ Khác với "vì sao rơi", một hội thoại **có thể mang nhiều rào c�
 
 ---
 
-## 5. ★ BẢNG GIAO "YẾU GÌ" — ĐẦU RA THẬT CỦA BƯỚC B5
+## 6. ★ BẢNG GIAO "YẾU GÌ" — ĐẦU RA THẬT CỦA BƯỚC B5
 
 | `MÃ O` | `SỐ LẦN HỎI /100 HT` | `SỐ NỘI DUNG ĐÃ CÓ` | `KẾT LUẬN` |
 |---|---|---|---|
@@ -571,7 +480,31 @@ Khác với "vì sao rơi", một hội thoại **có thể mang nhiều rào c�
 
 ---
 
-## 6. CÂU HỎI NGẦM — THỨ LÀM NÊN THẺ INSIGHT
+### Cắt thứ hai — ma trận CHÂN DUNG × `5A`
+
+★ **Cùng một luật bốn ô ở trên, cắt theo một cặp khác.** Bảng giao cắt theo *mã `O` × nội dung đã có*; ma trận này cắt theo *chân dung × nấc `5A`*. Hai bảng cùng chỉ ra một thứ: **nhu cầu có mà nội dung không có**.
+
+Mỗi kỳ dựng **hai ma trận `N×5`** cạnh nhau, `N` = số mã chân dung có hội thoại trong kỳ **+ dòng `<DV>-CHUA_XAC_DINH` và `KHONG_XAC_DINH_DV`**:
+
+```
+TRÁI : số NỘI DUNG ĐANG CÓ cho ô đó
+PHẢI : số HỘI THOẠI rơi vào ô đó trong kỳ
+
+ô PHẢI cao  × TRÁI = 0    →  ① LỖ HỔNG — ưu tiên 1
+ô PHẢI cao  × TRÁI cao    →  ② nội dung đang trả lời SAI → kiểm trước khi làm thêm
+ô PHẢI thấp × TRÁI cao    →  ③ ĐANG PHÍ — cắt bớt
+ô PHẢI thấp × TRÁI thấp   →  ④ để yên
+```
+
+⚠️ **Ô ③ khó chấp nhận hơn ô ①** vì nó nói rằng kỳ trước khối đã làm nhiều nội dung không ai cần. Vẫn phải ghi ra — không ghi thì kỳ sau lại làm tiếp.
+
+★ Mã thư viện KF-62 **cố định giữa các kỳ**, nên ma trận này so được giữa **mọi** kỳ — đúng thứ mà lối phác họa theo kỳ ⛔ không làm được (`id-M` §1).
+
+---
+
+---
+
+## 7. CÂU HỎI NGẦM — THỨ LÀM NÊN THẺ INSIGHT
 
 > Câu khách gõ **không phải** điều khách muốn biết. Thẻ insight phải dịch được câu đó.
 
@@ -591,7 +524,7 @@ Câu ngầm : "Tôi phải nghỉ mấy ngày, ở đâu, ai đưa tôi về?"
 
 ---
 
-## 7. ĐỌC NỬA TRỰC PAGE TRẢ LỜI — INSIGHT TẦNG HAI
+## 8. ĐỌC NỬA TRỰC PAGE TRẢ LỜI — INSIGHT TẦNG HAI
 
 | Dấu hiệu trong câu trả lời | Nghĩa là |
 |---|---|
@@ -602,28 +535,45 @@ Câu ngầm : "Tôi phải nghỉ mấy ngày, ở đâu, ai đưa tôi về?"
 
 ★ Ở agent này, tầng hai có **hai đích đến** — khác với `Agent-SeedingPlant`, nơi nó chỉ là đầu vào nội dung:
 
-1. **đầu vào làm nội dung** (ô ① của `id-C` §3), và
+1. **đầu vào làm nội dung** (ô ① của §6), và
 2. **bằng chứng chấm điểm** ở `id-F` — ⛔ chỉ khi gắn được vào đúng tiêu chí `N1…N6` và đúng `HT-nnn`.
 
 ⛔ Nhận xét chung chung kiểu *"bạn này tư vấn hời hợt"* mà không chỉ ra tiêu chí + hội thoại thì **không được ghi vào bất cứ đâu**.
 
 ---
 
-## 8. ĐẦU RA CHUẨN CỦA BƯỚC B2–B5
+## 9. ĐẦU RA CHUẨN CỦA BƯỚC B2–B5
 
 ```
 ① BẢNG ĐẾM MÃ O   : 12 mã × số lần × % mẫu (kể cả mã = 0)
 ② MỨC NÓNG        : HOT/WARM/COLD × trạng thái SĐT (ô HOT/WARM chưa có SĐT tô đỏ)
 ③ VÌ SAO RƠI      : 5 nguyên nhân, tổng = cỡ mẫu
 ④ RÀO CẢN         : xếp theo lượt xuất hiện
-⑤ BẢNG GIAO §5    : 4 cột + kết luận theo 4 ô
+⑤ BẢNG GIAO §6    : 4 cột + kết luận theo 4 ô
 ⑥ TOP 10 CÂU CHÉP : câu hỏi đầu tiên hay nhất, nguyên văn, đã ẩn danh, kèm HT-nnn
 ⑦ CỠ MẪU          : đọc bao nhiêu · bỏ bao nhiêu · vì sao
 ```
 
+### Thêm bốn đầu ra của bước B3 — phần chân dung
+
+```
+⑧ BẢNG CHÂN DUNG  : mã KF-62 · tên · số HT · HOT/WARM/COLD · có SĐT
+                    · % có SĐT · chốt lịch · bỏ 1 lượt · rơi do trực page
+                    (+ dòng <DV>-CHUA_XAC_DINH và KHONG_XAC_DINH_DV,
+                     để tổng còn khớp cỡ mẫu)
+                    → thứ hạng «dồn sức vào đâu»: `id-M` §7
+⑨ THẺ INSIGHT     : mỗi chân dung ≥ 5 HT một thẻ — họ là ai · insight
+                    · câu hỏi ngầm (§7) · tín hiệu nóng · hướng xử lý.
+                    ⛔ Dưới 5 HT KHÔNG viết thẻ, chỉ ghi danh sách 👁 quan sát
+⑩ MA TRẬN CD×5A   : hai bảng N×5, đánh dấu ô ① và ô ③   (§6)
+⑪ SO KỲ TRƯỚC     : % có SĐT từng chân dung thay đổi mấy ĐIỂM phần trăm
+```
+
+★ Thẻ insight xếp theo **đúng thứ hạng của `id-M` §7**, ⛔ không xếp theo số HT. Xếp theo số HT là xếp theo nhóm đông nhất, ⛔ không phải nhóm đáng làm nhất.
+
 ---
 
-## 9. TỰ KIỂM SỔ NÀY
+## 10. TỰ KIỂM SỔ NÀY
 
 - [ ] Đếm đủ 12 mã, kể cả mã bằng 0?
 - [ ] `O-00` có vượt 10% không? Vượt thì đã báo lại chưa?
@@ -632,6 +582,11 @@ Câu ngầm : "Tôi phải nghỉ mấy ngày, ở đâu, ai đưa tôi về?"
 - [ ] Mỗi insight có gắn `HT-nnn` truy ngược được không?
 - [ ] Đã bỏ hết tên/SĐT/ảnh khách chưa?
 - [ ] `O-07` và `O-12` có bị tự trả lời không?
+- [ ] Nấc `5A` có gán theo **câu hỏi đầu tiên** của khách không, hay đọc cả hội thoại? (§3)
+- [ ] Có hội thoại nào hỏi giá ngay câu đầu mà bị xếp `A3` thật không? (`A3→A1`)
+- [ ] Tổng HT các chân dung **cộng cả hai dòng chưa xác định** có bằng đúng cỡ mẫu không?
+- [ ] Thẻ insight có viết bằng **chữ của khách** không, hay toàn tính từ của người viết?
+- [ ] Thẻ insight có xếp theo **thứ hạng `id-M` §7** không, hay vẫn xếp theo số HT?
 
 ---
 
@@ -1199,7 +1154,7 @@ Agent ghi vào dữ liệu kỳ:
 # id-H · NGÂN HÀNG HOOK — 7 LOẠI HOOK × 16 FORMAT
 
 > Chạy **sau CỔNG 1**. Mỗi hook phải gắn: **1 chân dung · 1 nấc 5A · 1 mã `O` · 1 `HT-nnn` truy ngược · 3 format**.
-> ⚠ Chân dung gắn vào hook là chân dung **đã duyệt ở CỔNG 0 của kỳ này** (`id-C` §1). ⛔ Không viết hook cho một chân dung của kỳ trước mà kỳ này không có.
+> ⚠ Chân dung gắn vào hook là **mã thư viện KF-62** (`id-M`). ⛔ Không viết hook cho một mã mà kỳ này không có hội thoại nào — thư viện có 85 mã, kỳ nào cũng chỉ chạm một phần.
 > ⛔ Hook không truy ngược được về một dòng hội thoại hoặc một con số là **hook bịa** — loại khỏi ngân hàng.
 
 ---
@@ -1690,7 +1645,7 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
     "tep":     [ { "cd","ten","ht","quan_sat","hot","warm","cold","co_sdt",
                    "chot_lich","bo_1_luot","roi_truc","he_so" } ],
     "insight": [ { "cd","ten","nhom","ho_la_ai","insight","cau_hoi_ngam","tin_hieu_nong","huong_xu_ly","trich" } ],
-    // xếp theo chỉ số ưu tiên của id-M §7; dòng mở đầu "- " thành <li> (id-C §3)
+    // xếp theo chỉ số ưu tiên của id-M §7; dòng mở đầu "- " thành <li> (id-M §8)
     "co_hoi_win":    [ { "cd","ten","ht","lead_bo_lo","he_so","pct_sdt","diem","hang",
                          "uu_tien","roi_truc","ghi_chu","ly_do_chon" } ],  // CD0 cuối, hang=null
     // ⚠ Bảng Cơ hội win hiện HOT/WARM/COLD lấy từ `tep` cùng mã CD — ⛔ không
@@ -2398,7 +2353,7 @@ Kỳ 24–29/10: ① 0 · ② 0 — đạt.
 | Cao | ≥ 15 triệu | **3** |
 | ⚠ Chưa có giá, hoặc khách chưa nêu dịch vụ | | **1** ⚠ |
 
-⚠️ Hệ số đi theo **dịch vụ khách hỏi**, ⛔ không theo BL và ⛔ không theo chân dung — **trừ** khi bản phác họa chân dung của kỳ đã khai `he_so_gia_tri` (`id-C` §2); khi có, số đó thắng, vì là kết luận của người đã đọc cả tệp. Kỳ 24–29/10 đã khai: CD1 `2` · CD3 `2` · CD4 `2` · CD2/CD5/CD6/CD7/CD0 `1`.
+⚠️ Hệ số đi theo **dịch vụ khách hỏi**, ⛔ không theo BL và ⛔ không theo chân dung. Thư viện KF-62 ⛔ không khai hệ số riêng cho chân dung, nên ⛔ không còn đường nào ghi đè số này. Kỳ 24–29/10 đã khai: CD1 `2` · CD3 `2` · CD4 `2` · CD2/CD5/CD6/CD7/CD0 `1`.
 
 **Vì sao bỏ thang BL 1,0–0,5 của v1.0:**
 ```
@@ -2671,7 +2626,7 @@ python tools/id.py bao-cao --ky "24-29/10"
 ---
 
 ### Liên quan
-`id-D` §1–§3 (mã `O` · 5 tín hiệu · vì sao rơi) · `id-F` §5, §7 (cờ đỏ · rào an toàn) · `id-G` §3 (hệ số giá trị đơn) · `id-C` §2 (chân dung · `he_so_gia_tri`) · `id-K` §3 (giá · bảo hành đang chặn) · KF-49/KF-50 (chấm chiến dịch Lead v2) · KF-21/22/34 (CDP automation) · KF-11 (pháp lý truyền thông)
+`id-D` §1 · §2 · §4 (mã `O` · 5 tín hiệu · vì sao rơi) · `id-F` §5, §7 (cờ đỏ · rào an toàn) · `id-G` §3 (hệ số giá trị đơn) · `id-M` (thư viện chân dung) · `id-K` §3 (giá · bảo hành đang chặn) · KF-49/KF-50 (chấm chiến dịch Lead v2) · KF-21/22/34 (CDP automation) · KF-11 (pháp lý truyền thông)
 
 ---
 
@@ -2682,8 +2637,8 @@ python tools/id.py bao-cao --ky "24-29/10"
 > Sổ **nhập từ ngoài**, như `id-L`: đây là thư viện KF-62 của khối Sale.
 > ⛔ Repo không tự đặt thêm chân dung nào. Thiếu thì **báo lại để bổ sung ở bản sau**.
 >
-> ★ Sổ này **thay §1–§2 của `id-C`**. Phần còn lại của `id-C` (nấc 5A, cách đọc
-> insight) vẫn đúng.
+> ★ Sổ này **thay hẳn `id-C`** (đã bỏ 02/11/2026). Phần chân dung về đây;
+> nấc `5A`, ma trận chân dung × `5A` và đầu ra bước B3 về `id-D` §3, §6, §9.
 
 **Sổ này trả lời:** khách đang nhắn là **ai**, và nói gì với người đó.
 
@@ -2772,7 +2727,7 @@ giá sai, và mất một khách đã từng bị hỏng một lần.
 | Sinh lại bảng của sổ này | `python tools/so-chan-dung.py` |
 | Đầu ra | `chan_dung.tep` của file kỳ · cột `cd` và `the` của hàng chờ gọi |
 
-⛔ **Đừng chép danh mục chân dung sang chỗ thứ hai.** Bảng ở §7 sinh thẳng từ
+⛔ **Đừng chép danh mục chân dung sang chỗ thứ hai.** Bảng ở §9 sinh thẳng từ
 file JSON nên hai bên không thể lệch — đó là bài học của `id-L`, nơi thang điểm
 nằm hai chỗ và phải nhắc nhau sửa cả hai.
 
@@ -2889,7 +2844,7 @@ mọi dòng phải gắn `⚠ proxy`, ⛔ không trình bày như kết quả đ
 ★ **Vì sao nhân với tỷ lệ đang chốt được.** Nhóm đã chốt tốt là nhóm mà công sức
 bỏ thêm sinh lời nhanh nhất. Nhóm chốt kém **vì câu trả lời của trực page** thì
 điểm thấp là ĐÚNG — việc của nó nằm ở ô `🔧 sửa vận hành` của ma trận
-(`id-C` §2): **sửa câu trả lời trước, làm nội dung sau.** Hai việc khác nhau,
+(`id-D` §6): **sửa câu trả lời trước, làm nội dung sau.** Hai việc khác nhau,
 ⛔ không trộn vào một bảng xếp hạng.
 
 ### Ba luật giữ nguyên
@@ -2916,7 +2871,44 @@ bỏ thêm sinh lời nhanh nhất. Nhóm chốt kém **vì câu trả lời c�
 
 ---
 
-## 8. DANH MỤC — sinh tự động từ `tools/chan_dung_kf62.json`
+## 8. THÔNG ĐIỆP — THƯ VIỆN CÓ SẴN, NHƯNG ⛔ KHÔNG CÂU NÀO CŨNG DÙNG ĐƯỢC
+
+⚠ **Luật cũ đã đảo.** `id-C` trước đây cấm lấy thông điệp từ kho, vì kho chở
+theo đúng những câu `id-K` đang chặn (*trọn đời* · *tỷ lệ thành công* · *đổi
+vận*). Nay KF-62 **chính là cái kho đó** — mỗi chân dung mang sẵn một *Thông
+điệp (bản an toàn)*. Nên luật đổi thành:
+
+```
+Mỗi thông điệp của thư viện mang theo TRẠNG THÁI DUYỆT.
+✅ «Đã duyệt»                       → phát được.
+⛔ «Đề xuất – chưa duyệt» · «Chờ pháp chế duyệt»  → KHÔNG phát ra ngoài.
+⚠  «Chưa có thông điệp – chờ dữ liệu NV»         → tự viết, theo khuôn dưới.
+```
+
+### Khuôn một thông điệp dựng tại kỳ
+
+```
+<điều khách sợ, bằng chữ của khách>  →  <điều mình làm khác>  →  <bằng chứng>
+```
+
+| Phải có | ⛔ Phải không có |
+|---|---|
+| Một `HT-nnn` truy ngược | Con số bảo hành (`id-K` §3) |
+| Chữ khách dùng, ⛔ không phải tính từ | Cam kết kết quả chắc chắn |
+| Một điều mình làm khác được | Hứa đổi vận, tài lộc, tỷ lệ thành công |
+| Qua **CỔNG 2** trước khi phát | Giá dịch vụ chưa có bảng hiện hành |
+
+★ Viết bằng **chữ của khách**. Khách không tìm *"đẹp tự nhiên"* — khách tìm
+*"đầu mũi bóng đỏ"*.
+
+⚠ Thông điệp dán sẵn làm hai việc sai cùng lúc: **nói hộ khách**, và **chở theo
+câu đang bị chặn**. Thư viện đỡ được việc thứ nhất — 85 câu đều viết từ chính
+lời khách. Việc thứ hai thì **chỉ trạng thái duyệt chặn được**, nên nó là thứ
+⛔ không được bỏ qua khi lấy câu ra dùng.
+
+---
+
+## 9. DANH MỤC — sinh tự động từ `tools/chan_dung_kf62.json`
 
 <!-- BANG-TU-DONG:bat -->
 
@@ -3183,7 +3175,7 @@ bỏ thêm sinh lời nhanh nhất. Nhóm chốt kém **vì câu trả lời c�
 
 ---
 
-## 9. TRIỂN KHAI — KF-62 §5
+## 10. TRIỂN KHAI — KF-62 §5
 
 | Tuần | Việc |
 |---|---|
@@ -3197,7 +3189,7 @@ hỏi 2 câu vàng ở tin **thứ 1** so với tin **thứ 3**.
 
 ---
 
-## 10. TỰ KIỂM SỔ NÀY
+## 11. TỰ KIỂM SỔ NÀY
 
 - [ ] Mỗi hội thoại có **đúng một** chân dung, **tối đa ba** thẻ không?
 - [ ] Có thẻ nào bị xếp nhầm thành chân dung không (`AR02` ở tỉnh, `AR06` so giá)?
@@ -3207,14 +3199,15 @@ hỏi 2 câu vàng ở tin **thứ 1** so với tin **thứ 3**.
 - [ ] Chân dung nào chưa khai `hanh_dong` mà đã lên hàng chờ? Dòng đó có gắn nhãn **«lời mặc định»** chưa?
 - [ ] Có ai tự thêm chân dung ngoài KF-62 không? ⛔ Phải báo lại, ⛔ không tự đặt.
 - [ ] Xếp hạng chân dung dùng công thức CRM (§7) hay bản tạm? Dùng bản tạm thì mọi dòng đã gắn `⚠ proxy` chưa?
-- [ ] Bảng §7 có khớp `tools/chan_dung_kf62.json` không — đã chạy lại `so-chan-dung.py` chưa?
+- [ ] Bảng §9 có khớp `tools/chan_dung_kf62.json` không — đã chạy lại `so-chan-dung.py` chưa?
+- [ ] Thông điệp phát ra ngoài có câu nào còn «chưa duyệt» / «chờ pháp chế» không? (§8)
 - [ ] Thẻ `AR08` có lọt ra nội dung quảng cáo hay tin Zalo không?
 
 ---
 
 ### Liên quan
 
-`id-C` (nấc 5A · cách đọc insight — §1–§2 đã thay bằng sổ này) · `id-D` §2 (nhãn nóng) ·
+`id-D` §3 (nấc `5A`) · §6 (ma trận chân dung × `5A`) · §2 (nhãn nóng) ·
 `id-L` (lead scoring · nhóm gọi · `lien_ket_kf60`) · `id-G` §3 (hệ số giá trị đơn) ·
 `id-J` §2b (khối `lead` · cột `viec_chi_tiet`) · `id-K` (pháp chế) ·
 KF-61 (khung thí điểm Mũi) · KF-24 (mã pháp lý `L0–L9`)

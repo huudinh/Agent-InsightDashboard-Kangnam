@@ -155,7 +155,7 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
     "tep":     [ { "cd","ten","ht","quan_sat","hot","warm","cold","co_sdt",
                    "chot_lich","bo_1_luot","roi_truc","he_so" } ],
     "insight": [ { "cd","ten","nhom","ho_la_ai","insight","cau_hoi_ngam","tin_hieu_nong","huong_xu_ly","trich" } ],
-    // xếp theo chỉ số ưu tiên của id-M §7; dòng mở đầu "- " thành <li> (id-C §3)
+    // xếp theo chỉ số ưu tiên của id-M §7; dòng mở đầu "- " thành <li> (id-M §8)
     "co_hoi_win":    [ { "cd","ten","ht","lead_bo_lo","he_so","pct_sdt","diem","hang",
                          "uu_tien","roi_truc","ghi_chu","ly_do_chon" } ],  // CD0 cuối, hang=null
     // ⚠ Bảng Cơ hội win hiện HOT/WARM/COLD lấy từ `tep` cùng mã CD — ⛔ không

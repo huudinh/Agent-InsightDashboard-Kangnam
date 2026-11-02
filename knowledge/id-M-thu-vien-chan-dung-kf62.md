@@ -3,8 +3,8 @@
 > Sổ **nhập từ ngoài**, như `id-L`: đây là thư viện KF-62 của khối Sale.
 > ⛔ Repo không tự đặt thêm chân dung nào. Thiếu thì **báo lại để bổ sung ở bản sau**.
 >
-> ★ Sổ này **thay §1–§2 của `id-C`**. Phần còn lại của `id-C` (nấc 5A, cách đọc
-> insight) vẫn đúng.
+> ★ Sổ này **thay hẳn `id-C`** (đã bỏ 02/11/2026). Phần chân dung về đây;
+> nấc `5A`, ma trận chân dung × `5A` và đầu ra bước B3 về `id-D` §3, §6, §9.
 
 **Sổ này trả lời:** khách đang nhắn là **ai**, và nói gì với người đó.
 
@@ -93,7 +93,7 @@ giá sai, và mất một khách đã từng bị hỏng một lần.
 | Sinh lại bảng của sổ này | `python tools/so-chan-dung.py` |
 | Đầu ra | `chan_dung.tep` của file kỳ · cột `cd` và `the` của hàng chờ gọi |
 
-⛔ **Đừng chép danh mục chân dung sang chỗ thứ hai.** Bảng ở §7 sinh thẳng từ
+⛔ **Đừng chép danh mục chân dung sang chỗ thứ hai.** Bảng ở §9 sinh thẳng từ
 file JSON nên hai bên không thể lệch — đó là bài học của `id-L`, nơi thang điểm
 nằm hai chỗ và phải nhắc nhau sửa cả hai.
 
@@ -210,7 +210,7 @@ mọi dòng phải gắn `⚠ proxy`, ⛔ không trình bày như kết quả đ
 ★ **Vì sao nhân với tỷ lệ đang chốt được.** Nhóm đã chốt tốt là nhóm mà công sức
 bỏ thêm sinh lời nhanh nhất. Nhóm chốt kém **vì câu trả lời của trực page** thì
 điểm thấp là ĐÚNG — việc của nó nằm ở ô `🔧 sửa vận hành` của ma trận
-(`id-C` §2): **sửa câu trả lời trước, làm nội dung sau.** Hai việc khác nhau,
+(`id-D` §6): **sửa câu trả lời trước, làm nội dung sau.** Hai việc khác nhau,
 ⛔ không trộn vào một bảng xếp hạng.
 
 ### Ba luật giữ nguyên
@@ -237,7 +237,44 @@ bỏ thêm sinh lời nhanh nhất. Nhóm chốt kém **vì câu trả lời c�
 
 ---
 
-## 8. DANH MỤC — sinh tự động từ `tools/chan_dung_kf62.json`
+## 8. THÔNG ĐIỆP — THƯ VIỆN CÓ SẴN, NHƯNG ⛔ KHÔNG CÂU NÀO CŨNG DÙNG ĐƯỢC
+
+⚠ **Luật cũ đã đảo.** `id-C` trước đây cấm lấy thông điệp từ kho, vì kho chở
+theo đúng những câu `id-K` đang chặn (*trọn đời* · *tỷ lệ thành công* · *đổi
+vận*). Nay KF-62 **chính là cái kho đó** — mỗi chân dung mang sẵn một *Thông
+điệp (bản an toàn)*. Nên luật đổi thành:
+
+```
+Mỗi thông điệp của thư viện mang theo TRẠNG THÁI DUYỆT.
+✅ «Đã duyệt»                       → phát được.
+⛔ «Đề xuất – chưa duyệt» · «Chờ pháp chế duyệt»  → KHÔNG phát ra ngoài.
+⚠  «Chưa có thông điệp – chờ dữ liệu NV»         → tự viết, theo khuôn dưới.
+```
+
+### Khuôn một thông điệp dựng tại kỳ
+
+```
+<điều khách sợ, bằng chữ của khách>  →  <điều mình làm khác>  →  <bằng chứng>
+```
+
+| Phải có | ⛔ Phải không có |
+|---|---|
+| Một `HT-nnn` truy ngược | Con số bảo hành (`id-K` §3) |
+| Chữ khách dùng, ⛔ không phải tính từ | Cam kết kết quả chắc chắn |
+| Một điều mình làm khác được | Hứa đổi vận, tài lộc, tỷ lệ thành công |
+| Qua **CỔNG 2** trước khi phát | Giá dịch vụ chưa có bảng hiện hành |
+
+★ Viết bằng **chữ của khách**. Khách không tìm *"đẹp tự nhiên"* — khách tìm
+*"đầu mũi bóng đỏ"*.
+
+⚠ Thông điệp dán sẵn làm hai việc sai cùng lúc: **nói hộ khách**, và **chở theo
+câu đang bị chặn**. Thư viện đỡ được việc thứ nhất — 85 câu đều viết từ chính
+lời khách. Việc thứ hai thì **chỉ trạng thái duyệt chặn được**, nên nó là thứ
+⛔ không được bỏ qua khi lấy câu ra dùng.
+
+---
+
+## 9. DANH MỤC — sinh tự động từ `tools/chan_dung_kf62.json`
 
 <!-- BANG-TU-DONG:bat -->
 
@@ -504,7 +541,7 @@ bỏ thêm sinh lời nhanh nhất. Nhóm chốt kém **vì câu trả lời c�
 
 ---
 
-## 9. TRIỂN KHAI — KF-62 §5
+## 10. TRIỂN KHAI — KF-62 §5
 
 | Tuần | Việc |
 |---|---|
@@ -518,7 +555,7 @@ hỏi 2 câu vàng ở tin **thứ 1** so với tin **thứ 3**.
 
 ---
 
-## 10. TỰ KIỂM SỔ NÀY
+## 11. TỰ KIỂM SỔ NÀY
 
 - [ ] Mỗi hội thoại có **đúng một** chân dung, **tối đa ba** thẻ không?
 - [ ] Có thẻ nào bị xếp nhầm thành chân dung không (`AR02` ở tỉnh, `AR06` so giá)?
@@ -528,14 +565,15 @@ hỏi 2 câu vàng ở tin **thứ 1** so với tin **thứ 3**.
 - [ ] Chân dung nào chưa khai `hanh_dong` mà đã lên hàng chờ? Dòng đó có gắn nhãn **«lời mặc định»** chưa?
 - [ ] Có ai tự thêm chân dung ngoài KF-62 không? ⛔ Phải báo lại, ⛔ không tự đặt.
 - [ ] Xếp hạng chân dung dùng công thức CRM (§7) hay bản tạm? Dùng bản tạm thì mọi dòng đã gắn `⚠ proxy` chưa?
-- [ ] Bảng §7 có khớp `tools/chan_dung_kf62.json` không — đã chạy lại `so-chan-dung.py` chưa?
+- [ ] Bảng §9 có khớp `tools/chan_dung_kf62.json` không — đã chạy lại `so-chan-dung.py` chưa?
+- [ ] Thông điệp phát ra ngoài có câu nào còn «chưa duyệt» / «chờ pháp chế» không? (§8)
 - [ ] Thẻ `AR08` có lọt ra nội dung quảng cáo hay tin Zalo không?
 
 ---
 
 ### Liên quan
 
-`id-C` (nấc 5A · cách đọc insight — §1–§2 đã thay bằng sổ này) · `id-D` §2 (nhãn nóng) ·
+`id-D` §3 (nấc `5A`) · §6 (ma trận chân dung × `5A`) · §2 (nhãn nóng) ·
 `id-L` (lead scoring · nhóm gọi · `lien_ket_kf60`) · `id-G` §3 (hệ số giá trị đơn) ·
 `id-J` §2b (khối `lead` · cột `viec_chi_tiet`) · `id-K` (pháp chế) ·
 KF-61 (khung thí điểm Mũi) · KF-24 (mã pháp lý `L0–L9`)

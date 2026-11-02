@@ -1,8 +1,12 @@
-# id-D · ★ ĐÀO SÂU INSIGHT — MÃ `O` · MỨC NÓNG · VÌ SAO RƠI
+# id-D · ★ ĐÀO SÂU INSIGHT — MÃ `O` · MỨC NÓNG · NẤC `5A` · MA TRẬN PHỄU
 
 > Sổ sinh ra giá trị lớn nhất của agent. Số liệu ads cho biết **cái gì đã chạy**; hội thoại cho biết **cái gì còn thiếu**.
 >
 > ⛔ Luật tối thượng: **một insight không truy ngược được về `HT-nnn` hoặc một con số là một insight bịa.**
+>
+> ★ Sổ này nhận thêm phần **nấc `5A`** (§3), **ma trận chân dung × `5A`** (§6)
+> và **đầu ra bước B3** (§9) từ `id-C` — sổ đó đã bỏ 02/11/2026. Chân dung
+> thì ở [`id-M`](id-M-thu-vien-chan-dung-kf62.md).
 
 ---
 
@@ -69,7 +73,33 @@ Một hội thoại được chấm **HOT / WARM / COLD** theo số tín hiệu 
 
 ---
 
-## 3. VÌ SAO RƠI — MỖI HỘI THOẠI MỘT GIÁ TRỊ
+## 3. NĂM NẤC `5A` — KHÁCH ĐANG Ở ĐÂU TRONG HÀNH TRÌNH
+
+| Nấc | Khách đang ở đâu | Câu hỏi đầu tiên có dạng | Nhiệm vụ của nội dung | Loại hook mạnh |
+|---|---|---|---|---|
+| **A1 · AWARE** | Có vấn đề nhưng chưa gọi tên | tả tình trạng bằng chữ của mình · gửi ảnh | **Định danh vấn đề**, phá 1 niềm tin sai. ⛔ Không bán | PHỦ ĐỊNH · NGHỊCH LÝ |
+| **A2 · APPEAL** | Đang so phương pháp, lập shortlist | *"công nghệ nào tốt"* · *"loại nào khác gì"* | Giáo dục giải pháp + cho thấy khác biệt | SO SÁNH A–B · CON SỐ |
+| **A3 · ASK** ★ | Điểm quyết định — nỗi sợ đạt đỉnh | *"bao nhiêu tiền"* · *"đau không"* · *"bác sĩ nào"* | **Gỡ nỗi sợ** + minh bạch giá + bằng chứng | GỌI TÊN NỖI SỢ · TIẾT LỘ NỘI BỘ |
+| **A4 · ACT** | Đã inbox/đặt lịch, còn có thể huỷ | *"T7 còn suất không"* | Giảm huỷ lịch: checklist, lộ trình theo ngày | CON SỐ · CÂU HỎI THẦM |
+| **A5 · ADVOCATE** | Đã làm, lo hậu phẫu | *"kiêng gì"* · *"bao giờ tái khám"* | Cẩm nang theo mốc · cross-sell 1 hướng · xin review | TIẾT LỘ NỘI BỘ · CON SỐ |
+
+### Luật gán nấc
+
+> Đọc **câu hỏi đầu tiên của khách**, ⛔ không đọc cả hội thoại.
+
+⚠️ **Khách nhảy nấc.** Hỏi giá ngay câu đầu không có nghĩa là ở `A3` thật. Dấu hiệu: hỏi giá rồi hỏi tiếp *"mà làm thế nào"* → thực ra `A1`, ghi `A3→A1`.
+
+★ **Tỷ lệ nấc là một chỉ số.** Trên 60% hội thoại rơi `A3` nghĩa là phễu **thiếu nội dung A1–A2** — tệp mới không vào. Kết luận này ⛔ không nhìn ra được từ số liệu ads.
+
+⚠️ Nấc `5A` **không phụ thuộc chân dung** — đọc thẳng từ câu đầu của khách. Nhờ vậy tab Phễu và phân bố `5A` vẫn đọc được cả khi chưa xếp được chân dung.
+
+★ **Ba nhãn của sổ này đọc từ cùng một hội thoại và ⛔ không thay nhau được:** mã `O` (§1 — khách sợ gì) · mức nóng (§2 — nóng tới đâu) · nấc `5A` (§3 — đang ở đâu trong hành trình).
+
+---
+
+---
+
+## 4. VÌ SAO RƠI — MỖI HỘI THOẠI MỘT GIÁ TRỊ
 
 > ⛔ Một hội thoại chỉ được gán **đúng một** nguyên nhân rơi. Gán hai là tổng không khớp cỡ mẫu.
 
@@ -85,7 +115,7 @@ Một hội thoại được chấm **HOT / WARM / COLD** theo số tín hiệu 
 
 ---
 
-## 4. RÀO CẢN QUAN SÁT ĐƯỢC — ĐƯỢC PHÉP NHIỀU
+## 5. RÀO CẢN QUAN SÁT ĐƯỢC — ĐƯỢC PHÉP NHIỀU
 
 Khác với "vì sao rơi", một hội thoại **có thể mang nhiều rào cản**. Đếm theo lượt xuất hiện:
 
@@ -94,7 +124,7 @@ Khác với "vì sao rơi", một hội thoại **có thể mang nhiều rào c�
 
 ---
 
-## 5. ★ BẢNG GIAO "YẾU GÌ" — ĐẦU RA THẬT CỦA BƯỚC B5
+## 6. ★ BẢNG GIAO "YẾU GÌ" — ĐẦU RA THẬT CỦA BƯỚC B5
 
 | `MÃ O` | `SỐ LẦN HỎI /100 HT` | `SỐ NỘI DUNG ĐÃ CÓ` | `KẾT LUẬN` |
 |---|---|---|---|
@@ -126,7 +156,31 @@ Khác với "vì sao rơi", một hội thoại **có thể mang nhiều rào c�
 
 ---
 
-## 6. CÂU HỎI NGẦM — THỨ LÀM NÊN THẺ INSIGHT
+### Cắt thứ hai — ma trận CHÂN DUNG × `5A`
+
+★ **Cùng một luật bốn ô ở trên, cắt theo một cặp khác.** Bảng giao cắt theo *mã `O` × nội dung đã có*; ma trận này cắt theo *chân dung × nấc `5A`*. Hai bảng cùng chỉ ra một thứ: **nhu cầu có mà nội dung không có**.
+
+Mỗi kỳ dựng **hai ma trận `N×5`** cạnh nhau, `N` = số mã chân dung có hội thoại trong kỳ **+ dòng `<DV>-CHUA_XAC_DINH` và `KHONG_XAC_DINH_DV`**:
+
+```
+TRÁI : số NỘI DUNG ĐANG CÓ cho ô đó
+PHẢI : số HỘI THOẠI rơi vào ô đó trong kỳ
+
+ô PHẢI cao  × TRÁI = 0    →  ① LỖ HỔNG — ưu tiên 1
+ô PHẢI cao  × TRÁI cao    →  ② nội dung đang trả lời SAI → kiểm trước khi làm thêm
+ô PHẢI thấp × TRÁI cao    →  ③ ĐANG PHÍ — cắt bớt
+ô PHẢI thấp × TRÁI thấp   →  ④ để yên
+```
+
+⚠️ **Ô ③ khó chấp nhận hơn ô ①** vì nó nói rằng kỳ trước khối đã làm nhiều nội dung không ai cần. Vẫn phải ghi ra — không ghi thì kỳ sau lại làm tiếp.
+
+★ Mã thư viện KF-62 **cố định giữa các kỳ**, nên ma trận này so được giữa **mọi** kỳ — đúng thứ mà lối phác họa theo kỳ ⛔ không làm được (`id-M` §1).
+
+---
+
+---
+
+## 7. CÂU HỎI NGẦM — THỨ LÀM NÊN THẺ INSIGHT
 
 > Câu khách gõ **không phải** điều khách muốn biết. Thẻ insight phải dịch được câu đó.
 
@@ -146,7 +200,7 @@ Câu ngầm : "Tôi phải nghỉ mấy ngày, ở đâu, ai đưa tôi về?"
 
 ---
 
-## 7. ĐỌC NỬA TRỰC PAGE TRẢ LỜI — INSIGHT TẦNG HAI
+## 8. ĐỌC NỬA TRỰC PAGE TRẢ LỜI — INSIGHT TẦNG HAI
 
 | Dấu hiệu trong câu trả lời | Nghĩa là |
 |---|---|
@@ -157,28 +211,45 @@ Câu ngầm : "Tôi phải nghỉ mấy ngày, ở đâu, ai đưa tôi về?"
 
 ★ Ở agent này, tầng hai có **hai đích đến** — khác với `Agent-SeedingPlant`, nơi nó chỉ là đầu vào nội dung:
 
-1. **đầu vào làm nội dung** (ô ① của `id-C` §3), và
+1. **đầu vào làm nội dung** (ô ① của §6), và
 2. **bằng chứng chấm điểm** ở `id-F` — ⛔ chỉ khi gắn được vào đúng tiêu chí `N1…N6` và đúng `HT-nnn`.
 
 ⛔ Nhận xét chung chung kiểu *"bạn này tư vấn hời hợt"* mà không chỉ ra tiêu chí + hội thoại thì **không được ghi vào bất cứ đâu**.
 
 ---
 
-## 8. ĐẦU RA CHUẨN CỦA BƯỚC B2–B5
+## 9. ĐẦU RA CHUẨN CỦA BƯỚC B2–B5
 
 ```
 ① BẢNG ĐẾM MÃ O   : 12 mã × số lần × % mẫu (kể cả mã = 0)
 ② MỨC NÓNG        : HOT/WARM/COLD × trạng thái SĐT (ô HOT/WARM chưa có SĐT tô đỏ)
 ③ VÌ SAO RƠI      : 5 nguyên nhân, tổng = cỡ mẫu
 ④ RÀO CẢN         : xếp theo lượt xuất hiện
-⑤ BẢNG GIAO §5    : 4 cột + kết luận theo 4 ô
+⑤ BẢNG GIAO §6    : 4 cột + kết luận theo 4 ô
 ⑥ TOP 10 CÂU CHÉP : câu hỏi đầu tiên hay nhất, nguyên văn, đã ẩn danh, kèm HT-nnn
 ⑦ CỠ MẪU          : đọc bao nhiêu · bỏ bao nhiêu · vì sao
 ```
 
+### Thêm bốn đầu ra của bước B3 — phần chân dung
+
+```
+⑧ BẢNG CHÂN DUNG  : mã KF-62 · tên · số HT · HOT/WARM/COLD · có SĐT
+                    · % có SĐT · chốt lịch · bỏ 1 lượt · rơi do trực page
+                    (+ dòng <DV>-CHUA_XAC_DINH và KHONG_XAC_DINH_DV,
+                     để tổng còn khớp cỡ mẫu)
+                    → thứ hạng «dồn sức vào đâu»: `id-M` §7
+⑨ THẺ INSIGHT     : mỗi chân dung ≥ 5 HT một thẻ — họ là ai · insight
+                    · câu hỏi ngầm (§7) · tín hiệu nóng · hướng xử lý.
+                    ⛔ Dưới 5 HT KHÔNG viết thẻ, chỉ ghi danh sách 👁 quan sát
+⑩ MA TRẬN CD×5A   : hai bảng N×5, đánh dấu ô ① và ô ③   (§6)
+⑪ SO KỲ TRƯỚC     : % có SĐT từng chân dung thay đổi mấy ĐIỂM phần trăm
+```
+
+★ Thẻ insight xếp theo **đúng thứ hạng của `id-M` §7**, ⛔ không xếp theo số HT. Xếp theo số HT là xếp theo nhóm đông nhất, ⛔ không phải nhóm đáng làm nhất.
+
 ---
 
-## 9. TỰ KIỂM SỔ NÀY
+## 10. TỰ KIỂM SỔ NÀY
 
 - [ ] Đếm đủ 12 mã, kể cả mã bằng 0?
 - [ ] `O-00` có vượt 10% không? Vượt thì đã báo lại chưa?
@@ -187,3 +258,8 @@ Câu ngầm : "Tôi phải nghỉ mấy ngày, ở đâu, ai đưa tôi về?"
 - [ ] Mỗi insight có gắn `HT-nnn` truy ngược được không?
 - [ ] Đã bỏ hết tên/SĐT/ảnh khách chưa?
 - [ ] `O-07` và `O-12` có bị tự trả lời không?
+- [ ] Nấc `5A` có gán theo **câu hỏi đầu tiên** của khách không, hay đọc cả hội thoại? (§3)
+- [ ] Có hội thoại nào hỏi giá ngay câu đầu mà bị xếp `A3` thật không? (`A3→A1`)
+- [ ] Tổng HT các chân dung **cộng cả hai dòng chưa xác định** có bằng đúng cỡ mẫu không?
+- [ ] Thẻ insight có viết bằng **chữ của khách** không, hay toàn tính từ của người viết?
+- [ ] Thẻ insight có xếp theo **thứ hạng `id-M` §7** không, hay vẫn xếp theo số HT?

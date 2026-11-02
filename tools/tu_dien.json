@@ -1,5 +1,5 @@
 {
- "_ghi_chu": "Từ điển nhận dạng. Sửa file này thay vì sửa id.py. ⚠ Từ khoá quá rộng (ví dụ 'tư vấn', 'giá') làm một mã O nuốt gần hết mẫu — thêm từ xong phải chạy lại và nhìn cột % của bảng mã O. ⛔ File này KHÔNG chứa chân dung khách hàng: chân dung được phác họa từ hội thoại của từng kỳ và nằm ở out/chan-dung.json (xem id-C).",
+ "_ghi_chu": "Từ điển nhận dạng. Sửa file này thay vì sửa id.py. ⚠ Từ khoá quá rộng (ví dụ 'tư vấn', 'giá') làm một mã O nuốt gần hết mẫu — thêm từ xong phải chạy lại và nhìn cột % của bảng mã O. ⛔ File này KHÔNG chứa chân dung khách hàng: chân dung nằm ở thư viện cố định tools/chan_dung_kf62.json (xem id-M).",
  "_phien_ban": "1.1",
  "rao_can": {
   "_ghi_chu": "Rào cản nhận ra bằng chữ của khách, KHÔNG suy ra từ chân dung (id-D §4). Giữ từ khoá không gắn với một dịch vụ nào.",

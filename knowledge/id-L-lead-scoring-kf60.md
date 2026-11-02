@@ -321,7 +321,7 @@ Kỳ 24–29/10: ① 0 · ② 0 — đạt.
 | Cao | ≥ 15 triệu | **3** |
 | ⚠ Chưa có giá, hoặc khách chưa nêu dịch vụ | | **1** ⚠ |
 
-⚠️ Hệ số đi theo **dịch vụ khách hỏi**, ⛔ không theo BL và ⛔ không theo chân dung — **trừ** khi bản phác họa chân dung của kỳ đã khai `he_so_gia_tri` (`id-C` §2); khi có, số đó thắng, vì là kết luận của người đã đọc cả tệp. Kỳ 24–29/10 đã khai: CD1 `2` · CD3 `2` · CD4 `2` · CD2/CD5/CD6/CD7/CD0 `1`.
+⚠️ Hệ số đi theo **dịch vụ khách hỏi**, ⛔ không theo BL và ⛔ không theo chân dung. Thư viện KF-62 ⛔ không khai hệ số riêng cho chân dung, nên ⛔ không còn đường nào ghi đè số này. Kỳ 24–29/10 đã khai: CD1 `2` · CD3 `2` · CD4 `2` · CD2/CD5/CD6/CD7/CD0 `1`.
 
 **Vì sao bỏ thang BL 1,0–0,5 của v1.0:**
 ```
@@ -594,4 +594,4 @@ python tools/id.py bao-cao --ky "24-29/10"
 ---
 
 ### Liên quan
-`id-D` §1–§3 (mã `O` · 5 tín hiệu · vì sao rơi) · `id-F` §5, §7 (cờ đỏ · rào an toàn) · `id-G` §3 (hệ số giá trị đơn) · `id-C` §2 (chân dung · `he_so_gia_tri`) · `id-K` §3 (giá · bảo hành đang chặn) · KF-49/KF-50 (chấm chiến dịch Lead v2) · KF-21/22/34 (CDP automation) · KF-11 (pháp lý truyền thông)
+`id-D` §1 · §2 · §4 (mã `O` · 5 tín hiệu · vì sao rơi) · `id-F` §5, §7 (cờ đỏ · rào an toàn) · `id-G` §3 (hệ số giá trị đơn) · `id-M` (thư viện chân dung) · `id-K` §3 (giá · bảo hành đang chặn) · KF-49/KF-50 (chấm chiến dịch Lead v2) · KF-21/22/34 (CDP automation) · KF-11 (pháp lý truyền thông)

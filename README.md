@@ -95,8 +95,7 @@ Chi tiết: [`doc/01-cai-dat.md`](doc/01-cai-dat.md)
 |---|---|
 | [`id-A`](knowledge/id-A-vai-tro-quy-trinh.md) | Vai trò · 8 bước · **ba cổng chặn** · AUTO · ngưỡng mẫu · luật một lần chấm |
 | [`id-B`](knowledge/id-B-doc-dau-vao.md) | Ba dòng đầu vào · cột bắt buộc · ẩn danh · quy ước mã |
-| ★ [`id-C`](knowledge/id-C-nac-5a-the-insight.md) | Hành trình **`5A`** · ma trận lỗ hổng phễu · thông điệp thắng |
-| ★ [`id-D`](knowledge/id-D-dao-sau-insight.md) | **12 mã `O` · 5 tín hiệu nóng · vì sao rơi · câu hỏi ngầm · bảng giao "yếu gì"** |
+| ★ [`id-D`](knowledge/id-D-dao-sau-insight.md) | **12 mã `O` · 5 tín hiệu nóng · nấc `5A` · vì sao rơi · câu hỏi ngầm · bảng giao "yếu gì" + ma trận chân dung × `5A`** |
 | ★ [`id-E`](knowledge/id-E-to-chuc-ads-chi-so.md) | **Tổ chức Ads** — 11 chiều cắt số · chuỗi chỉ số · phân rã CPL · VIEW/PERF · Google Ads |
 | ★★ [`id-F`](knowledge/id-F-cham-diem-nhan-vien.md) | **Tiêu chí chấm điểm `N1–N6` · A/B/C/D · 6 cờ đỏ · 4 rào an toàn** |
 | ★ [`id-G`](knowledge/id-G-ma-tran-uu-tien.md) | **Ma trận ưu tiên** — 3 khối, công thức điểm, nhóm *sửa vận hành trước* |

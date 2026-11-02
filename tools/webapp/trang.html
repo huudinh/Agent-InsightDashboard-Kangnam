@@ -464,7 +464,7 @@ function header(D,ky_ds,id){
   return '<div class="head"><div><h1>'+esc(L.ten)+'</h1>'+
     '<div class="sub">'+(L.phu?esc(L.phu)+'<br>':'')+meta+
     '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát'+
-    '<br><span class="note">trang sinh 02/11 20:32 — số này ⛔ không đổi khi bấm '+
+    '<br><span class="note">trang sinh 02/11 20:53 — số này ⛔ không đổi khi bấm '+
     'Deploy; nó chỉ đổi khi bạn dán lại trang.html mới. Thấy mốc cũ = bản deploy còn cũ.</span>'+
     (BC_SAI?'<br><span style="color:var(--bad)">⛔ Không có bố cục «'+esc(BC_SAI)+
       '» — đang hiện bản «'+esc(BC)+'». Tên đúng: sale · truc-page · day-du · insight.</span>':'')+
@@ -571,10 +571,10 @@ function tabChanDung(D){
   var C=D.chan_dung||{},tep=C.tep||[],prev=(D.truoc&&D.truoc.tep)||[];
   var P=C.phac_hoa||{};
   if(!tep.length) return '<h2 class="top">Chân dung khách hàng</h2>'+
-    '<div class="lock">⏳ <b>Chân dung của kỳ này chưa được phác họa.</b> '+esc(P.vi_sao||'')+
-    '<br>Hệ <b>không có bộ chân dung mặc định</b>: mỗi kỳ, chân dung được phác họa từ chính '+
-    'hội thoại đưa vào rồi người dùng duyệt ở <b>CỔNG 0</b> — ⚠ lối cũ, '+
-    'nay dùng thư viện cố định <code>id-M</code>.</div>'+
+    '<div class="lock">⏳ <b>Kỳ này chưa xếp được chân dung nào.</b> '+esc(P.vi_sao||'')+
+    '<br>Chân dung lấy từ <b>thư viện cố định KF-62</b> — 18 dịch vụ × 85 chân dung '+
+    '(<code>id-M</code>). Xếp hai bước: <b>dịch vụ trước, chân dung sau</b>. '+
+    '⛔ Hệ không tự đặt thêm mã nào.</div>'+
     (an('nac-5a')?'':nacChanDung(C));
   var tong=tep.reduce(function(s,r){return s+(r.ht||0)},0);
   var h='<h2 class="top">Cơ cấu nóng theo chân dung</h2>'+
@@ -592,15 +592,15 @@ function tabChanDung(D){
       '<span class="v">'+num(r.ht,0)+' · '+num(r.hot,0)+'/'+num(r.warm,0)+'/'+num(r.cold,0)+
       '</span></div>'}).join('')+'<div class="note" style="margin-top:6px">Số bên phải: HT · HOT/WARM/COLD.</div></div>';
 
-  /* Bảng «Chỉ số theo chân dung» đã bỏ. Ghi chú CỔNG 0 thì GIỮ: đó là dấu vết
-     ai duyệt cách chia khách của kỳ — ⛔ không được mất theo bảng (id-M §1).
-     Câu về nhãn 👁 quan sát bỏ theo bảng, vì không còn chỗ nào hiện nhãn đó. */
-  h+='<div class="note">'+(P.duyet_boi
-      ?'Chân dung phác họa từ chính hội thoại của kỳ · duyệt bởi <b>'+esc(P.duyet_boi)+
-       '</b> lúc '+esc(P.duyet_luc||'—')+' (CỔNG 0).'
-      :'⚠ Kỳ này chưa ghi người duyệt chân dung.')+
-    ' Mã <code>CD0</code> là mã dự trữ cho hội thoại không khớp dấu hiệu nào — '+
-    '⛔ không phải «rác»: CD0 đông là lỗi của quảng cáo, không phải của khách.</div>';
+  /* Bảng «Chỉ số theo chân dung» đã bỏ. Ghi chú HAI MÃ DỰ TRỮ thì GIỮ: không có
+     nó thì người đọc tưởng hai dòng đó là «rác» và bỏ đi — mà bỏ đi là tổng
+     không còn khớp cỡ mẫu (luật ④, id-D §9). */
+  h+='<div class="note">Chân dung lấy từ <b>thư viện cố định KF-62</b> ('+
+    'id-M) — mã dùng chung giữa mọi kỳ, nên so được kỳ này với kỳ trước. '+
+    'Hai mã dự trữ: <code>&lt;DV&gt;-CHUA_XAC_DINH</code> — biết khách hỏi dịch vụ '+
+    'gì, chưa biết chân dung nào; <code>KHONG_XAC_DINH_DV</code> — chưa biết hỏi '+
+    'về gì. ⛔ Cả hai <b>không phải «rác»</b> và ⛔ không được xếp hạng: chúng đông '+
+    'là lỗi của quảng cáo và của câu MỞ, không phải của khách.</div>';
 
   var W=C.co_hoi_win||[];
   if(W.length){
@@ -652,7 +652,7 @@ function tabChanDung(D){
   var ins=C.insight||[];
   h+='<h2>Insight từng chân dung</h2>';
   if(!ins.length) h+='<div class="lock">Agent chưa viết thẻ insight. Đây là phần <b>đọc hiểu</b>, '+
-    'script không làm thay — xem <code>id-C §3</code>.</div>';
+    'script không làm thay — xem <code>id-M §8</code>.</div>';
   else h+='<div class="note nb">Ấn vào đầu thẻ để mở. Ba chân dung ưu tiên mở sẵn; '+
     'ô có <b>nền màu</b> là phần trực page phải làm, ô nền đỏ là điều cần tránh.</div>'+
     '<div class="g-ins">'+ins.map(function(x){

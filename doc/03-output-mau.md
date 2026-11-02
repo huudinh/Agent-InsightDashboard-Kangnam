@@ -2,7 +2,7 @@
 
 Số dưới đây là **kết quả chạy thật** trên 300 hội thoại nâng mũi xuất từ Caresoft (12–13/10/2026), 295 hội thoại đủ điều kiện phân tích. Dùng để biết đầu ra trông thế nào và để so sánh khi hiệu chỉnh từ điển.
 
-> ⚠️ **Lần chạy này là của bản `v1.0`, khi hệ còn một bộ bảy chân dung dựng sẵn cho dịch vụ mũi.** Từ `v1.1` bộ đó đã bỏ: chân dung được **phác họa từ chính hội thoại của kỳ** và duyệt ở **CỔNG 0** (`id-C` §1). Giữ bảng chân dung ở §4 lại vì **chính nó là bằng chứng** cho việc phải bỏ — xem ô ★ dưới bảng. Mọi phần khác của trang này *(thẻ số tổng · mức nóng · vì sao rơi · mã O · chấm điểm)* ⛔ không phụ thuộc chân dung nên vẫn đúng với bản hiện hành.
+> ⚠️ **Lần chạy này là của bản `v1.0`, khi hệ còn một bộ bảy chân dung dựng sẵn cho dịch vụ mũi.** Từ `v1.1` bộ đó đã bỏ, và từ `v1.2` chân dung lấy từ **thư viện cố định KF-62** (`id-M` §1). Giữ bảng chân dung ở §4 lại vì **chính nó là bằng chứng** cho việc phải bỏ — xem ô ★ dưới bảng. Mọi phần khác của trang này *(thẻ số tổng · mức nóng · vì sao rơi · mã O · chấm điểm)* ⛔ không phụ thuộc chân dung nên vẫn đúng với bản hiện hành.
 
 ---
 

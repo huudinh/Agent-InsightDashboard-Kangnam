@@ -101,14 +101,9 @@
       "mo_ta": "<b>Ba dòng đầu vào</b> — hội thoại · số ads Facebook · <b>Google Ads (khung chờ dữ liệu)</b> · cột bắt buộc · ⛔ tám thứ phải ẩn danh · 10 ô agent tự suy ra"
     },
     {
-      "duong_dan": "knowledge/id-C-chan-dung-5A.md",
-      "badge": "★ lõi",
-      "mo_ta": "<b>Phác họa chân dung từ hội thoại × hành trình <code>5A</code></b> — ⛔ không có bộ chân dung dựng sẵn · ba điều một chân dung phải có · <code>CD0</code> là mã dự trữ · <b>CỔNG 0</b> · ma trận lỗ hổng phễu"
-    },
-    {
       "duong_dan": "knowledge/id-D-dao-sau-insight.md",
       "badge": "★ lõi",
-      "mo_ta": "<b>12 mã phản đối <code>O</code></b> · <b>5 tín hiệu nóng</b> HOT/WARM/COLD · vì sao rơi (mỗi hội thoại đúng một giá trị) · ★ <b>câu hỏi ngầm</b> · bảng giao &ldquo;yếu gì&rdquo; · ⛔ hai mã không được tự trả lời"
+      "mo_ta": "<b>12 mã phản đối <code>O</code></b> · <b>5 tín hiệu nóng</b> HOT/WARM/COLD · <b>nấc <code>5A</code></b> · vì sao rơi (mỗi hội thoại đúng một giá trị) · ★ <b>câu hỏi ngầm</b> · bảng giao &ldquo;yếu gì&rdquo; + ma trận chân dung × <code>5A</code> · ⛔ hai mã không được tự trả lời"
     },
     {
       "duong_dan": "knowledge/id-E-to-chuc-ads-chi-so.md",
@@ -142,6 +137,16 @@
       "duong_dan": "knowledge/id-K-module-kangnam-phap-che.md",
       "badge": "★ lõi",
       "mo_ta": "<b>Module đơn vị Kangnam</b> — chi nhánh, giấy phép, 10 chuyên khoa · <b>ba thứ đang chặn</b> · 12 điểm pháp chế <code>L</code> · ★ <b>đổi thương hiệu thì thay đúng sổ này</b>"
+    },
+    {
+      "duong_dan": "knowledge/id-L-lead-scoring-kf60.md",
+      "badge": "★ lõi",
+      "mo_ta": "<b>Chấm điểm lead cho một hội thoại</b> — 19 tiêu chí <code>A1…E5</code> · bốn nhóm gọi <code>GỌI NGAY · XIN SỐ · NUÔI · KHÔNG</code> · ưu tiên = điểm × hệ số giá trị đơn · ⛔ bỏ nhãn HOT/WARM/COLD riêng (nhãn nóng ở <code>id-D</code> §2)"
+    },
+    {
+      "duong_dan": "knowledge/id-M-thu-vien-chan-dung-kf62.md",
+      "badge": "★★ lõi",
+      "mo_ta": "<b>Thư viện chân dung KF-62</b> — 18 dịch vụ × 85 chân dung cố định · xếp theo thứ tự, “Có” đầu tiên thắng · 12 thẻ ngữ cảnh <code>AR</code> · xếp hạng &ldquo;dồn sức vào đâu&rdquo; · thông điệp có <b>trạng thái duyệt</b>"
     },
     {
       "duong_dan": "prompts/prompt-auto.md",

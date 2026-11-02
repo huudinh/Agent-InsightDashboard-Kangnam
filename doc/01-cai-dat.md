@@ -86,7 +86,7 @@ Hỏi agent 6 câu, trả lời sai câu nào thì nạp lại file tương ứn
 
 | Câu hỏi | Phải trả lời đúng | Nằm ở |
 |---|---|---|
-| *"Chân dung lấy ở đâu ra?"* | ⛔ Không có bộ dựng sẵn — phác họa từ chính hội thoại của kỳ, duyệt ở CỔNG 0 | `id-C` §1–2 |
+| *"Chân dung lấy ở đâu ra?"* | Thư viện cố định **KF-62** — 18 dịch vụ × 85 chân dung, nhập từ khối Sale, repo ⛔ không tự đặt thêm | `id-M` §1–2 |
 | *"Năm tín hiệu nóng là gì?"* | dịch vụ · thời gian ≤14 ngày · SĐT · điều kiện · khung giờ gọi | `id-D` |
 | *"CPL tăng vì CPM thì làm gì?"* | Nói thẳng "không phải vấn đề nội dung" | `id-E` |
 | *"Khách hỏi bảo hành mấy năm thì trả lời sao?"* | ⛔ Không nêu số — "chính sách bảo hành bằng văn bản" | `id-K` |
