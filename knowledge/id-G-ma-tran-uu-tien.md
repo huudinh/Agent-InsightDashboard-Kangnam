@@ -18,7 +18,7 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 | # | Khối | Mục tiêu | Tập lead xét |
 |---|---|---|---|
 | ① | **TĂNG HOT** | Kéo WARM sát HOT lên HOT | HT `WARM` đạt **3/5 tín hiệu** — thường thiếu ② mốc thời gian hoặc ⑤ khung giờ gọi |
-| ② | **GIẢM COLD** | Làm khách nói được tình trạng ngay từ quảng cáo | HT `COLD` của `CD0` (ô dự trữ — xem `id-C` §1) + HT tin đầu chỉ hỏi giá/địa chỉ |
+| ② | **GIẢM COLD** | Làm khách nói được tình trạng ngay từ quảng cáo | HT `COLD` của `KHONG_XAC_DINH_DV` (ô dự trữ — xem `id-M` §1) + HT tin đầu chỉ hỏi giá/địa chỉ |
 | ③ | **TỐI ƯU WARM** | Gỡ rào cản làm WARM đứng lại | HT `WARM` đạt 2/5, có mã `O` rõ |
 
 ★ **Thứ tự này không đảo được.** Khối ① rẻ nhất (lead đã gần chín), khối ② đông nhất nhưng chậm, khối ③ là phần còn lại. Làm ② trước ① là bỏ tiền kéo người lạ trong khi người sắp mua đang đứng ngay đó.
@@ -33,7 +33,7 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 
 ### Hệ số giá trị đơn — theo dịch vụ chính khách hỏi
 
-⚠️ Hệ số đi theo **dịch vụ**, ⛔ không đi theo chân dung. Một chân dung có thể khai sẵn `he_so_gia_tri` trong bản phác họa (`id-C` §2) — khi có, hệ số đó thắng, vì nó là kết luận của người đã đọc cả tệp.
+⚠️ Hệ số đi theo **dịch vụ**, ⛔ không đi theo chân dung. ⚠ DI SẢN: lối phác họa cũ cho phép chân dung khai sẵn `he_so_gia_tri`; thư viện KF-62 ⛔ không khai, hệ số luôn đi theo dịch vụ khách hỏi.
 
 | Bậc | Giá trị đơn ước tính | Hệ số |
 |---|---|---|

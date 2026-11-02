@@ -14,8 +14,11 @@
 > | §1 Năm nấc `5A` | `gan_nac()` · `TEN_NAC` · `GIAI_DOAN` |
 > | §2 Ma trận `CD × 5A` | `chan_dung.ma_tran_cd_5a` |
 > | §3 Thông điệp thắng | cách viết thẻ insight |
-> | §4 Cơ hội win | `co_hoi_win` · `cach_tinh_win` — công thức của bảng Cơ hội win |
->
+> 
+> ⛔ **§4 «Cơ hội win» cũng đã cắt 02/11/2026** → `id-M` §5. Lý do: nó xếp hạng
+> **chân dung**, đúng việc mà KF-62 đã có công thức riêng anh UY chốt. Hai công
+> thức cho cùng một quyết định là chỗ chắc chắn lệch nhau.
+> >
 > ⚠ `CD` trong sổ này nay là **mã thư viện KF-62** (`SACTO-NAM_TAI_PHAT`),
 > ⛔ không còn `CD1…CDn`.
 
@@ -84,43 +87,13 @@ Thay vào đó mỗi chân dung được duyệt viết **một câu dựng tạ
 
 ---
 
-## 4. ★ CƠ HỘI WIN — XẾP HẠNG CHÂN DUNG ĐỂ BIẾT DỒN SỨC VÀO ĐÂU
-
-Bảng chân dung nói *có những ai*. Nó ⛔ không nói *làm ai trước*. Xếp theo số HT là xếp theo nhóm ĐÔNG nhất, không phải nhóm **đáng làm nhất**.
-
-```
-Điểm win = lead đang bỏ lỡ × hệ số giá trị đơn × tỷ lệ ĐANG CHỐT ĐƯỢC của chính nhóm
-```
-
-| Thành phần | Là gì | Lấy ở đâu |
-|---|---|---|
-| **lead đang bỏ lỡ** | HT của nhóm **chưa có SĐT** — phần còn lấy lại được | bảng chân dung |
-| **hệ số giá trị đơn** | 1 · 2 · 3 | bản phác họa (`id-G` §3) |
-| **tỷ lệ đang chốt được** | `% có SĐT` quan sát được của chính nhóm đó | bảng chân dung |
-
-★ **Cả ba đều là số ĐÃ ĐO của kỳ.** ⛔ Không có hệ số nào tự đặt — đó là điều kiện để bảng này còn cãi được (luật ⑨).
-
-★ **Vì sao nhân với tỷ lệ đang chốt được.** Một nhóm đã chốt tốt là nhóm mà công sức bỏ thêm sinh lời nhanh nhất. Nhóm đang chốt kém *vì câu trả lời của trực page* thì điểm thấp là ĐÚNG — việc của nó nằm ở ô `🔧 sửa vận hành` của ma trận, **sửa câu trả lời trước, làm nội dung sau**. Hai việc khác nhau, ⛔ không trộn vào một bảng xếp hạng.
-
-```
-⛔ CD0 KHÔNG được xếp hạng — nó là mã dự trữ, không phải một chân dung (§1).
-   Vẫn để trong bảng để tổng còn khớp, nhưng luôn nằm cuối và không chiếm một bậc.
-
-★ Thẻ insight xếp theo ĐÚNG thứ hạng này, mỗi thẻ mang theo hạng của mình.
-   Người đọc lướt từ trên xuống là đang đọc theo thứ tự đáng làm.
-```
-
-⚠️ Điểm win là **đề xuất thứ tự**, ⛔ không thay CỔNG 1. Ma trận ưu tiên vẫn do người dùng duyệt.
-
----
-
-## 5. ĐẦU RA CHUẨN CỦA BƯỚC B3
+## 4. ĐẦU RA CHUẨN CỦA BƯỚC B3
 
 ```
 ① BẢNG CHÂN DUNG : mã KF-62 · tên · số HT · HOT/WARM/COLD · có SĐT · % có SĐT
                     · chốt lịch · bỏ 1 lượt · rơi do trực page
                     (+ dòng <DV>-CHUA_XAC_DINH và KHONG_XAC_DINH_DV)
-② CƠ HỘI WIN    : hạng · lead bỏ lỡ · hệ số · đang chốt · điểm win  (§4)
+② CƠ HỘI WIN    : hạng · chỉ số ưu tiên của chân dung   → xem `id-M` §5
 ③ THẺ INSIGHT    : mỗi CD ≥5 HT một thẻ — họ là ai · insight · câu hỏi ngầm
                     · tín hiệu nóng · hướng xử lý
 ④ MA TRẬN CD×5A  : hai bảng N×5, đánh dấu ô ① và ô ③
@@ -132,12 +105,11 @@ Bảng chân dung nói *có những ai*. Nó ⛔ không nói *làm ai trước*.
 
 ---
 
-## 6. TỰ KIỂM SỔ NÀY
+## 5. TỰ KIỂM SỔ NÀY
 
 - [ ] Nấc `5A` có gán theo **câu hỏi đầu tiên** của khách không, hay đọc cả hội thoại?
 - [ ] Có hội thoại nào hỏi giá ngay câu đầu mà bị xếp `A3` thật không? (`A3→A1`)
 - [ ] Mỗi chân dung có ít nhất một `HT-nnn` làm bằng không?
 - [ ] Tổng HT các chân dung **cộng cả dòng chưa xác định** có bằng đúng cỡ mẫu không?
 - [ ] Thẻ insight có viết bằng **chữ của khách** không, hay toàn tính từ của người viết?
-- [ ] Thẻ insight có xếp theo **điểm cơ hội win** không, hay vẫn xếp theo số HT?
-- [ ] Có hệ số nào trong công thức win là **tự đặt** không?
+- [ ] Thẻ insight có xếp theo **chỉ số ưu tiên** của `id-M` §5 không, hay vẫn xếp theo số HT?

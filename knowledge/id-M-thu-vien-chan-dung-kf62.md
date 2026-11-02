@@ -169,7 +169,75 @@ không bao giờ xuất hiện trong nội dung phát ra ngoài.
 
 ---
 
-## 7. DANH MỤC — sinh tự động từ `tools/chan_dung_kf62.json`
+## 7. ★ XẾP HẠNG CHÂN DUNG — DỒN SỨC VÀO ĐÂU
+
+Bảng chân dung nói *có những ai*. Nó ⛔ không nói *làm ai trước*. Xếp theo số HT
+là xếp theo nhóm **đông nhất**, ⛔ không phải nhóm **đáng làm nhất**.
+
+### Công thức chính thức — anh UY chốt 02/11/2026
+
+```
+Chỉ số ưu tiên = nhiệt độ trung bình (id-L) × 40%  +  tỷ lệ booking CRM × 60%
+
+Mỗi chân dung so với TRUNG BÌNH CỦA DỊCH VỤ nó thuộc về (⛔ không tính CHUA_XAC_DINH).
+Mỗi dịch vụ   so với TRUNG BÌNH TOÀN HỆ THỐNG.
+
+≥110 CAO · 90–109 TRUNG BÌNH · <90 THẤP
+Dưới 30 hội thoại HOẶC dưới 5 booking → ghi «chưa đủ dữ liệu», ⛔ không xếp hạng.
+```
+
+⚠️ **Chưa chạy được**: chưa có dòng CRM nào về. Mốc có số thật là tuần 3–4 (§9).
+
+### Bản tạm khi chưa có CRM — ⚠ là PROXY, ⛔ không phải bản chính
+
+```
+Điểm win = lead đang bỏ lỡ × hệ số giá trị đơn × tỷ lệ ĐANG CHỐT ĐƯỢC của nhóm
+```
+
+| Thành phần | Là gì | Lấy ở đâu |
+|---|---|---|
+| **lead đang bỏ lỡ** | HT của nhóm **chưa có SĐT** — phần còn lấy lại được | bảng chân dung |
+| **hệ số giá trị đơn** | 1 · 2 · 3 theo **dịch vụ khách hỏi** | `id-G` §3 |
+| **tỷ lệ đang chốt được** | `% có SĐT` quan sát được của chính nhóm đó | bảng chân dung |
+
+⚠️ **`% có SĐT` chỉ là proxy của booking** — và đó chính là lý do anh UY đổi sang
+công thức có CRM. Cho số điện thoại ⛔ không phải đã đặt lịch. Dùng bản tạm thì
+mọi dòng phải gắn `⚠ proxy`, ⛔ không trình bày như kết quả đã đo.
+
+★ **Cả ba thành phần đều là số ĐÃ ĐO của kỳ** — ⛔ không hệ số nào tự đặt. Đó là
+điều kiện để bảng này còn **cãi được**.
+
+★ **Vì sao nhân với tỷ lệ đang chốt được.** Nhóm đã chốt tốt là nhóm mà công sức
+bỏ thêm sinh lời nhanh nhất. Nhóm chốt kém **vì câu trả lời của trực page** thì
+điểm thấp là ĐÚNG — việc của nó nằm ở ô `🔧 sửa vận hành` của ma trận
+(`id-C` §2): **sửa câu trả lời trước, làm nội dung sau.** Hai việc khác nhau,
+⛔ không trộn vào một bảng xếp hạng.
+
+### Ba luật giữ nguyên
+
+```
+⛔ Dòng CHUA_XAC_DINH và KHONG_XAC_DINH_DV KHÔNG được xếp hạng — không phải
+   chân dung. Vẫn để trong bảng để tổng còn khớp, nhưng luôn nằm cuối.
+
+★  Thẻ insight xếp theo ĐÚNG thứ hạng này, mỗi thẻ mang theo hạng của mình.
+   Người đọc lướt từ trên xuống là đang đọc theo thứ tự đáng làm.
+
+⚠  Chỉ số ưu tiên là ĐỀ XUẤT thứ tự, ⛔ không thay CỔNG 1. Ma trận ưu tiên
+   vẫn do người dùng duyệt. Và nó ⛔ KHÔNG đổi SLA phản hồi khách — SLA theo
+   nhóm gọi của `id-L`.
+```
+
+⛔ **Ba công thức, ba việc khác nhau — đừng trộn:**
+
+| Sổ | Công thức | Cho cái gì |
+|---|---|---|
+| `id-L` | điểm × hệ số giá trị đơn | **một hội thoại** — thứ tự gọi trong nhóm |
+| `id-M` §5 | nhiệt độ TB 40% + booking 60% | **một chân dung** — chia ngân sách, nội dung |
+| `id-G` §3 | hệ số 1 · 2 · 3 | **thành phần dùng chung** của cả hai |
+
+---
+
+## 8. DANH MỤC — sinh tự động từ `tools/chan_dung_kf62.json`
 
 <!-- BANG-TU-DONG:bat -->
 
@@ -436,7 +504,7 @@ không bao giờ xuất hiện trong nội dung phát ra ngoài.
 
 ---
 
-## 8. TRIỂN KHAI — KF-62 §5
+## 9. TRIỂN KHAI — KF-62 §5
 
 | Tuần | Việc |
 |---|---|
@@ -450,7 +518,7 @@ hỏi 2 câu vàng ở tin **thứ 1** so với tin **thứ 3**.
 
 ---
 
-## 9. TỰ KIỂM SỔ NÀY
+## 10. TỰ KIỂM SỔ NÀY
 
 - [ ] Mỗi hội thoại có **đúng một** chân dung, **tối đa ba** thẻ không?
 - [ ] Có thẻ nào bị xếp nhầm thành chân dung không (`AR02` ở tỉnh, `AR06` so giá)?
@@ -459,6 +527,7 @@ hỏi 2 câu vàng ở tin **thứ 1** so với tin **thứ 3**.
 - [ ] Tổng cột `ht` của bảng chân dung có **bằng đúng** cỡ mẫu không?
 - [ ] Chân dung nào chưa khai `hanh_dong` mà đã lên hàng chờ? Dòng đó có gắn nhãn **«lời mặc định»** chưa?
 - [ ] Có ai tự thêm chân dung ngoài KF-62 không? ⛔ Phải báo lại, ⛔ không tự đặt.
+- [ ] Xếp hạng chân dung dùng công thức CRM (§7) hay bản tạm? Dùng bản tạm thì mọi dòng đã gắn `⚠ proxy` chưa?
 - [ ] Bảng §7 có khớp `tools/chan_dung_kf62.json` không — đã chạy lại `so-chan-dung.py` chưa?
 - [ ] Thẻ `AR08` có lọt ra nội dung quảng cáo hay tin Zalo không?
 

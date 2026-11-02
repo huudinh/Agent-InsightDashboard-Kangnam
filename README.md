@@ -95,7 +95,7 @@ Chi tiết: [`doc/01-cai-dat.md`](doc/01-cai-dat.md)
 |---|---|
 | [`id-A`](knowledge/id-A-vai-tro-quy-trinh.md) | Vai trò · 8 bước · **ba cổng chặn** · AUTO · ngưỡng mẫu · luật một lần chấm |
 | [`id-B`](knowledge/id-B-doc-dau-vao.md) | Ba dòng đầu vào · cột bắt buộc · ẩn danh · quy ước mã |
-| ★ [`id-C`](knowledge/id-C-nac-5a-the-insight.md) | Hành trình **`5A`** · ma trận lỗ hổng phễu · thông điệp thắng · **cơ hội win** |
+| ★ [`id-C`](knowledge/id-C-nac-5a-the-insight.md) | Hành trình **`5A`** · ma trận lỗ hổng phễu · thông điệp thắng |
 | ★ [`id-D`](knowledge/id-D-dao-sau-insight.md) | **12 mã `O` · 5 tín hiệu nóng · vì sao rơi · câu hỏi ngầm · bảng giao "yếu gì"** |
 | ★ [`id-E`](knowledge/id-E-to-chuc-ads-chi-so.md) | **Tổ chức Ads** — 11 chiều cắt số · chuỗi chỉ số · phân rã CPL · VIEW/PERF · Google Ads |
 | ★★ [`id-F`](knowledge/id-F-cham-diem-nhan-vien.md) | **Tiêu chí chấm điểm `N1–N6` · A/B/C/D · 6 cờ đỏ · 4 rào an toàn** |
@@ -105,7 +105,7 @@ Chi tiết: [`doc/01-cai-dat.md`](doc/01-cai-dat.md)
 | [`id-J`](knowledge/id-J-dashboard-schema.md) | Dashboard 10 tab · schema JSON `/2` · khối `lead` · lớp phủ chữ người · 4 luật hiển thị |
 | ★ [`id-K`](knowledge/id-K-module-kangnam-phap-che.md) | **Module đơn vị Kangnam** · 12 điểm pháp chế · ba thứ đang chặn |
 | ★ [`id-L`](knowledge/id-L-lead-scoring-kf60.md) | **Lead scoring KF-60** — 4 nhóm gọi · 2 bất biến · hàng chờ Sale · ⚠ sổ nhập từ khối Sale |
-| ★★ [`id-M`](knowledge/id-M-thu-vien-chan-dung-kf62.md) | **Thư viện chân dung KF-62** — 18 dịch vụ · 85 chân dung · 12 thẻ `AR` · 5 cổng · ⚠ sổ nhập từ khối Sale |
+| ★★ [`id-M`](knowledge/id-M-thu-vien-chan-dung-kf62.md) | **Thư viện chân dung KF-62** — 18 dịch vụ · 85 chân dung · 12 thẻ `AR` · 5 cổng · **xếp hạng chân dung** · ⚠ sổ nhập từ khối Sale |
 
 ★ **Đổi thương hiệu → thay đúng [`id-K`](knowledge/id-K-module-kangnam-phap-che.md), ⛔ không sửa lõi `id-A`…`id-J`.**
 ⚠ [`id-L`](knowledge/id-L-lead-scoring-kf60.md) và [`id-M`](knowledge/id-M-thu-vien-chan-dung-kf62.md) là **văn bản của khối Sale** nhập vào, ⛔ không phải sổ của repo.

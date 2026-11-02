@@ -67,7 +67,7 @@ Rồi:
 ```
 GÁN & VIẾT INSIGHT
 
-Theo id-C §1–4 (nấc 5A · ma trận · thông điệp · cơ hội win), làm đúng sáu việc:
+Theo id-C §1–3 (nấc 5A · ma trận · thông điệp) và id-M §7 (xếp hạng), làm đúng sáu việc:
 
 ① GÁN CHÂN DUNG cho từng hội thoại theo dấu hiệu ĐÃ DUYỆT
    Hội thoại không khớp dấu hiệu nào → CD0.

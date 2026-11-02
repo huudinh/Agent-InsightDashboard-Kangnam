@@ -339,8 +339,11 @@ MỐC SO SÁNH: kỳ trước <có/không> · mục tiêu 30 ngày <có/không>
 > | §1 Năm nấc `5A` | `gan_nac()` · `TEN_NAC` · `GIAI_DOAN` |
 > | §2 Ma trận `CD × 5A` | `chan_dung.ma_tran_cd_5a` |
 > | §3 Thông điệp thắng | cách viết thẻ insight |
-> | §4 Cơ hội win | `co_hoi_win` · `cach_tinh_win` — công thức của bảng Cơ hội win |
->
+> 
+> ⛔ **§4 «Cơ hội win» cũng đã cắt 02/11/2026** → `id-M` §5. Lý do: nó xếp hạng
+> **chân dung**, đúng việc mà KF-62 đã có công thức riêng anh UY chốt. Hai công
+> thức cho cùng một quyết định là chỗ chắc chắn lệch nhau.
+> >
 > ⚠ `CD` trong sổ này nay là **mã thư viện KF-62** (`SACTO-NAM_TAI_PHAT`),
 > ⛔ không còn `CD1…CDn`.
 
@@ -409,43 +412,13 @@ Thay vào đó mỗi chân dung được duyệt viết **một câu dựng tạ
 
 ---
 
-## 4. ★ CƠ HỘI WIN — XẾP HẠNG CHÂN DUNG ĐỂ BIẾT DỒN SỨC VÀO ĐÂU
-
-Bảng chân dung nói *có những ai*. Nó ⛔ không nói *làm ai trước*. Xếp theo số HT là xếp theo nhóm ĐÔNG nhất, không phải nhóm **đáng làm nhất**.
-
-```
-Điểm win = lead đang bỏ lỡ × hệ số giá trị đơn × tỷ lệ ĐANG CHỐT ĐƯỢC của chính nhóm
-```
-
-| Thành phần | Là gì | Lấy ở đâu |
-|---|---|---|
-| **lead đang bỏ lỡ** | HT của nhóm **chưa có SĐT** — phần còn lấy lại được | bảng chân dung |
-| **hệ số giá trị đơn** | 1 · 2 · 3 | bản phác họa (`id-G` §3) |
-| **tỷ lệ đang chốt được** | `% có SĐT` quan sát được của chính nhóm đó | bảng chân dung |
-
-★ **Cả ba đều là số ĐÃ ĐO của kỳ.** ⛔ Không có hệ số nào tự đặt — đó là điều kiện để bảng này còn cãi được (luật ⑨).
-
-★ **Vì sao nhân với tỷ lệ đang chốt được.** Một nhóm đã chốt tốt là nhóm mà công sức bỏ thêm sinh lời nhanh nhất. Nhóm đang chốt kém *vì câu trả lời của trực page* thì điểm thấp là ĐÚNG — việc của nó nằm ở ô `🔧 sửa vận hành` của ma trận, **sửa câu trả lời trước, làm nội dung sau**. Hai việc khác nhau, ⛔ không trộn vào một bảng xếp hạng.
-
-```
-⛔ CD0 KHÔNG được xếp hạng — nó là mã dự trữ, không phải một chân dung (§1).
-   Vẫn để trong bảng để tổng còn khớp, nhưng luôn nằm cuối và không chiếm một bậc.
-
-★ Thẻ insight xếp theo ĐÚNG thứ hạng này, mỗi thẻ mang theo hạng của mình.
-   Người đọc lướt từ trên xuống là đang đọc theo thứ tự đáng làm.
-```
-
-⚠️ Điểm win là **đề xuất thứ tự**, ⛔ không thay CỔNG 1. Ma trận ưu tiên vẫn do người dùng duyệt.
-
----
-
-## 5. ĐẦU RA CHUẨN CỦA BƯỚC B3
+## 4. ĐẦU RA CHUẨN CỦA BƯỚC B3
 
 ```
 ① BẢNG CHÂN DUNG : mã KF-62 · tên · số HT · HOT/WARM/COLD · có SĐT · % có SĐT
                     · chốt lịch · bỏ 1 lượt · rơi do trực page
                     (+ dòng <DV>-CHUA_XAC_DINH và KHONG_XAC_DINH_DV)
-② CƠ HỘI WIN    : hạng · lead bỏ lỡ · hệ số · đang chốt · điểm win  (§4)
+② CƠ HỘI WIN    : hạng · chỉ số ưu tiên của chân dung   → xem `id-M` §5
 ③ THẺ INSIGHT    : mỗi CD ≥5 HT một thẻ — họ là ai · insight · câu hỏi ngầm
                     · tín hiệu nóng · hướng xử lý
 ④ MA TRẬN CD×5A  : hai bảng N×5, đánh dấu ô ① và ô ③
@@ -457,15 +430,14 @@ Bảng chân dung nói *có những ai*. Nó ⛔ không nói *làm ai trước*.
 
 ---
 
-## 6. TỰ KIỂM SỔ NÀY
+## 5. TỰ KIỂM SỔ NÀY
 
 - [ ] Nấc `5A` có gán theo **câu hỏi đầu tiên** của khách không, hay đọc cả hội thoại?
 - [ ] Có hội thoại nào hỏi giá ngay câu đầu mà bị xếp `A3` thật không? (`A3→A1`)
 - [ ] Mỗi chân dung có ít nhất một `HT-nnn` làm bằng không?
 - [ ] Tổng HT các chân dung **cộng cả dòng chưa xác định** có bằng đúng cỡ mẫu không?
 - [ ] Thẻ insight có viết bằng **chữ của khách** không, hay toàn tính từ của người viết?
-- [ ] Thẻ insight có xếp theo **điểm cơ hội win** không, hay vẫn xếp theo số HT?
-- [ ] Có hệ số nào trong công thức win là **tự đặt** không?
+- [ ] Thẻ insight có xếp theo **chỉ số ưu tiên** của `id-M` §5 không, hay vẫn xếp theo số HT?
 
 ---
 
@@ -1099,7 +1071,7 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 | # | Khối | Mục tiêu | Tập lead xét |
 |---|---|---|---|
 | ① | **TĂNG HOT** | Kéo WARM sát HOT lên HOT | HT `WARM` đạt **3/5 tín hiệu** — thường thiếu ② mốc thời gian hoặc ⑤ khung giờ gọi |
-| ② | **GIẢM COLD** | Làm khách nói được tình trạng ngay từ quảng cáo | HT `COLD` của `CD0` (ô dự trữ — xem `id-C` §1) + HT tin đầu chỉ hỏi giá/địa chỉ |
+| ② | **GIẢM COLD** | Làm khách nói được tình trạng ngay từ quảng cáo | HT `COLD` của `KHONG_XAC_DINH_DV` (ô dự trữ — xem `id-M` §1) + HT tin đầu chỉ hỏi giá/địa chỉ |
 | ③ | **TỐI ƯU WARM** | Gỡ rào cản làm WARM đứng lại | HT `WARM` đạt 2/5, có mã `O` rõ |
 
 ★ **Thứ tự này không đảo được.** Khối ① rẻ nhất (lead đã gần chín), khối ② đông nhất nhưng chậm, khối ③ là phần còn lại. Làm ② trước ① là bỏ tiền kéo người lạ trong khi người sắp mua đang đứng ngay đó.
@@ -1114,7 +1086,7 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 
 ### Hệ số giá trị đơn — theo dịch vụ chính khách hỏi
 
-⚠️ Hệ số đi theo **dịch vụ**, ⛔ không đi theo chân dung. Một chân dung có thể khai sẵn `he_so_gia_tri` trong bản phác họa (`id-C` §2) — khi có, hệ số đó thắng, vì nó là kết luận của người đã đọc cả tệp.
+⚠️ Hệ số đi theo **dịch vụ**, ⛔ không đi theo chân dung. ⚠ DI SẢN: lối phác họa cũ cho phép chân dung khai sẵn `he_so_gia_tri`; thư viện KF-62 ⛔ không khai, hệ số luôn đi theo dịch vụ khách hỏi.
 
 | Bậc | Giá trị đơn ước tính | Hệ số |
 |---|---|---|
@@ -1718,7 +1690,7 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
     "tep":     [ { "cd","ten","ht","quan_sat","hot","warm","cold","co_sdt",
                    "chot_lich","bo_1_luot","roi_truc","he_so" } ],
     "insight": [ { "cd","ten","nhom","ho_la_ai","insight","cau_hoi_ngam","tin_hieu_nong","huong_xu_ly","trich" } ],
-    // xếp theo điểm win; mỗi ô là gạch đầu dòng — dòng mở đầu "- " thành <li> (id-C §4)
+    // xếp theo chỉ số ưu tiên của id-M §7; dòng mở đầu "- " thành <li> (id-C §3)
     "co_hoi_win":    [ { "cd","ten","ht","lead_bo_lo","he_so","pct_sdt","diem","hang",
                          "uu_tien","roi_truc","ghi_chu","ly_do_chon" } ],  // CD0 cuối, hang=null
     // ⚠ Bảng Cơ hội win hiện HOT/WARM/COLD lấy từ `tep` cùng mã CD — ⛔ không
@@ -2876,7 +2848,75 @@ không bao giờ xuất hiện trong nội dung phát ra ngoài.
 
 ---
 
-## 7. DANH MỤC — sinh tự động từ `tools/chan_dung_kf62.json`
+## 7. ★ XẾP HẠNG CHÂN DUNG — DỒN SỨC VÀO ĐÂU
+
+Bảng chân dung nói *có những ai*. Nó ⛔ không nói *làm ai trước*. Xếp theo số HT
+là xếp theo nhóm **đông nhất**, ⛔ không phải nhóm **đáng làm nhất**.
+
+### Công thức chính thức — anh UY chốt 02/11/2026
+
+```
+Chỉ số ưu tiên = nhiệt độ trung bình (id-L) × 40%  +  tỷ lệ booking CRM × 60%
+
+Mỗi chân dung so với TRUNG BÌNH CỦA DỊCH VỤ nó thuộc về (⛔ không tính CHUA_XAC_DINH).
+Mỗi dịch vụ   so với TRUNG BÌNH TOÀN HỆ THỐNG.
+
+≥110 CAO · 90–109 TRUNG BÌNH · <90 THẤP
+Dưới 30 hội thoại HOẶC dưới 5 booking → ghi «chưa đủ dữ liệu», ⛔ không xếp hạng.
+```
+
+⚠️ **Chưa chạy được**: chưa có dòng CRM nào về. Mốc có số thật là tuần 3–4 (§9).
+
+### Bản tạm khi chưa có CRM — ⚠ là PROXY, ⛔ không phải bản chính
+
+```
+Điểm win = lead đang bỏ lỡ × hệ số giá trị đơn × tỷ lệ ĐANG CHỐT ĐƯỢC của nhóm
+```
+
+| Thành phần | Là gì | Lấy ở đâu |
+|---|---|---|
+| **lead đang bỏ lỡ** | HT của nhóm **chưa có SĐT** — phần còn lấy lại được | bảng chân dung |
+| **hệ số giá trị đơn** | 1 · 2 · 3 theo **dịch vụ khách hỏi** | `id-G` §3 |
+| **tỷ lệ đang chốt được** | `% có SĐT` quan sát được của chính nhóm đó | bảng chân dung |
+
+⚠️ **`% có SĐT` chỉ là proxy của booking** — và đó chính là lý do anh UY đổi sang
+công thức có CRM. Cho số điện thoại ⛔ không phải đã đặt lịch. Dùng bản tạm thì
+mọi dòng phải gắn `⚠ proxy`, ⛔ không trình bày như kết quả đã đo.
+
+★ **Cả ba thành phần đều là số ĐÃ ĐO của kỳ** — ⛔ không hệ số nào tự đặt. Đó là
+điều kiện để bảng này còn **cãi được**.
+
+★ **Vì sao nhân với tỷ lệ đang chốt được.** Nhóm đã chốt tốt là nhóm mà công sức
+bỏ thêm sinh lời nhanh nhất. Nhóm chốt kém **vì câu trả lời của trực page** thì
+điểm thấp là ĐÚNG — việc của nó nằm ở ô `🔧 sửa vận hành` của ma trận
+(`id-C` §2): **sửa câu trả lời trước, làm nội dung sau.** Hai việc khác nhau,
+⛔ không trộn vào một bảng xếp hạng.
+
+### Ba luật giữ nguyên
+
+```
+⛔ Dòng CHUA_XAC_DINH và KHONG_XAC_DINH_DV KHÔNG được xếp hạng — không phải
+   chân dung. Vẫn để trong bảng để tổng còn khớp, nhưng luôn nằm cuối.
+
+★  Thẻ insight xếp theo ĐÚNG thứ hạng này, mỗi thẻ mang theo hạng của mình.
+   Người đọc lướt từ trên xuống là đang đọc theo thứ tự đáng làm.
+
+⚠  Chỉ số ưu tiên là ĐỀ XUẤT thứ tự, ⛔ không thay CỔNG 1. Ma trận ưu tiên
+   vẫn do người dùng duyệt. Và nó ⛔ KHÔNG đổi SLA phản hồi khách — SLA theo
+   nhóm gọi của `id-L`.
+```
+
+⛔ **Ba công thức, ba việc khác nhau — đừng trộn:**
+
+| Sổ | Công thức | Cho cái gì |
+|---|---|---|
+| `id-L` | điểm × hệ số giá trị đơn | **một hội thoại** — thứ tự gọi trong nhóm |
+| `id-M` §5 | nhiệt độ TB 40% + booking 60% | **một chân dung** — chia ngân sách, nội dung |
+| `id-G` §3 | hệ số 1 · 2 · 3 | **thành phần dùng chung** của cả hai |
+
+---
+
+## 8. DANH MỤC — sinh tự động từ `tools/chan_dung_kf62.json`
 
 <!-- BANG-TU-DONG:bat -->
 
@@ -3143,7 +3183,7 @@ không bao giờ xuất hiện trong nội dung phát ra ngoài.
 
 ---
 
-## 8. TRIỂN KHAI — KF-62 §5
+## 9. TRIỂN KHAI — KF-62 §5
 
 | Tuần | Việc |
 |---|---|
@@ -3157,7 +3197,7 @@ hỏi 2 câu vàng ở tin **thứ 1** so với tin **thứ 3**.
 
 ---
 
-## 9. TỰ KIỂM SỔ NÀY
+## 10. TỰ KIỂM SỔ NÀY
 
 - [ ] Mỗi hội thoại có **đúng một** chân dung, **tối đa ba** thẻ không?
 - [ ] Có thẻ nào bị xếp nhầm thành chân dung không (`AR02` ở tỉnh, `AR06` so giá)?
@@ -3166,6 +3206,7 @@ hỏi 2 câu vàng ở tin **thứ 1** so với tin **thứ 3**.
 - [ ] Tổng cột `ht` của bảng chân dung có **bằng đúng** cỡ mẫu không?
 - [ ] Chân dung nào chưa khai `hanh_dong` mà đã lên hàng chờ? Dòng đó có gắn nhãn **«lời mặc định»** chưa?
 - [ ] Có ai tự thêm chân dung ngoài KF-62 không? ⛔ Phải báo lại, ⛔ không tự đặt.
+- [ ] Xếp hạng chân dung dùng công thức CRM (§7) hay bản tạm? Dùng bản tạm thì mọi dòng đã gắn `⚠ proxy` chưa?
 - [ ] Bảng §7 có khớp `tools/chan_dung_kf62.json` không — đã chạy lại `so-chan-dung.py` chưa?
 - [ ] Thẻ `AR08` có lọt ra nội dung quảng cáo hay tin Zalo không?
 
