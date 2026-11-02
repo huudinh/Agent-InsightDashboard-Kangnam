@@ -602,11 +602,21 @@ function tabChanDung(D){
     h+='<h2>★ Cơ hội win — chân dung nào đáng dồn sức trước</h2>'+
       '<div class="note nb">'+esc(C.cach_tinh_win||'')+
       ' <b>Chọn</b> = ba hạng đầu, là nơi kỳ này dồn sức làm nội dung; '+
-      '⚠ «chưa chọn» ⛔ không có nghĩa là bỏ — cột lý do nói rõ đang vướng gì.</div>'+
+      '⚠ «chưa chọn» ⛔ không có nghĩa là bỏ — cột lý do nói rõ đang vướng gì.<br>'+
+      'HOT/WARM/COLD là phân rã của <b>HT</b> theo 5 tín hiệu nóng (<code>id-D §2</code>) — '+
+      'ba cột cộng lại bằng HT. <b>Lead bỏ lỡ</b> = HT <b>chưa có SĐT</b>, nên nó ⛔ không '+
+      'bằng WARM+COLD: khách COLD vẫn có thể đã cho số.</div>'+
       t(W.map(function(r){
+        /* HOT/WARM/COLD lấy từ chan_dung.tep theo mã CD — ⛔ không đếm lại ở đây.
+           Thiếu dòng tep thì hiện «—» (chưa đo), ⛔ không hiện 0 (id-J §3 luật ①):
+           ở ba cột này 0 là ĐÃ ĐO và bằng không, khác hẳn chưa đo. */
+        var tp=find(tep,'cd',r.cd);
+        function nhiet(v){return tp?num(v,0):'<span class="dim">—</span>'}
         return '<tr'+(r.uu_tien?' class="pick"':'')+'>'+
           td(r.hang?(r.uu_tien?'<b>'+esc(r.hang)+'</b>':esc(r.hang)):'<span class="dim">—</span>','c')+
-          td('<b>'+esc(r.cd)+'</b>')+td(esc(r.ten))+td(num(r.ht,0),'n')+td(num(r.lead_bo_lo,0),'n')+
+          td('<b>'+esc(r.cd)+'</b>')+td(esc(r.ten))+td(num(r.ht,0),'n')+
+          td(nhiet((tp||{}).hot),'n')+td(nhiet((tp||{}).warm),'n')+td(nhiet((tp||{}).cold),'n')+
+          td(num(r.lead_bo_lo,0),'n')+
           td('<span class="note">'+esc(r.he_so)+'</span>','c')+td(pct(r.pct_sdt),'n')+
           td('<b>'+num(r.diem,0)+'</b>','n')+td(num(r.roi_truc,0),'n')+
           td((r.hang
@@ -614,7 +624,8 @@ function tabChanDung(D){
                :'<span class="tag t-bad">⛔ không xếp hạng</span>')+
              (r.ly_do_chon?'<div class="note">'+esc(r.ly_do_chon)+'</div>':''))+
           td(esc(r.ghi_chu||''))+'</tr>'}),
-        [{l:'Hạng',c:'c'},{l:'Mã'},{l:'Chân dung'},{l:'HT',c:'n'},{l:'Lead bỏ lỡ',c:'n'},
+        [{l:'Hạng',c:'c'},{l:'Mã'},{l:'Chân dung'},{l:'HT',c:'n'},
+         {l:'HOT',c:'n'},{l:'WARM',c:'n'},{l:'COLD',c:'n'},{l:'Lead bỏ lỡ',c:'n'},
          {l:'Hệ số',c:'c'},{l:'Đang chốt',c:'n'},{l:'Điểm win',c:'n'},
          {l:'Rơi ở câu trả lời',c:'n'},{l:'Lý do chọn'},{l:'Đọc thế nào'}])+
       '<div class="card" style="margin-top:12px">'+

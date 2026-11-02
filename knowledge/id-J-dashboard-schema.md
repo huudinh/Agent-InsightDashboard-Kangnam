@@ -151,7 +151,9 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
     "insight": [ { "cd","ten","nhom","ho_la_ai","insight","cau_hoi_ngam","tin_hieu_nong","huong_xu_ly","trich" } ],
     // xếp theo điểm win; mỗi ô là gạch đầu dòng — dòng mở đầu "- " thành <li> (id-C §6)
     "co_hoi_win":    [ { "cd","ten","ht","lead_bo_lo","he_so","pct_sdt","diem","hang",
-                         "uu_tien","roi_truc","ghi_chu" } ],   // CD0 luôn cuối, hang = null
+                         "uu_tien","roi_truc","ghi_chu","ly_do_chon" } ],  // CD0 cuối, hang=null
+    // ⚠ Bảng Cơ hội win hiện HOT/WARM/COLD lấy từ `tep` cùng mã CD — ⛔ không
+    //    lặp ba số đó vào `co_hoi_win`. Một con số hai chỗ là hai chỗ lệch nhau.
     "cach_tinh_win": "công thức, viết ra để người đọc cãi được",
     "ma_tran_cd_5a": { "noi_dung": {...}, "hoi_thoai": {...} }   // hai bảng N×5
   },
