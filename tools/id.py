@@ -732,6 +732,25 @@ def cham_lead(ht, td, ma_o, rao_can, roi, cham, nhiet_id_d, he_so, moc_chot=None
             "uu_tien": round(nhiet_ht * (he_so or 1), 1), "chua_so": chua_so}
 
 
+def viec_cua(ma_cd, nhom_goi):
+    """Việc phải làm = CHÂN DUNG (KF-62) × NHÓM GỌI (KF-60).
+
+    ★ Đây là chỗ hai bộ gặp nhau. Nhóm gọi nói GỌI AI TRƯỚC và AI gọi; chân dung
+    nói NÓI GÌ với người đó. Thiếu một trong hai thì hàng chờ ⛔ không dùng được:
+    biết gọi mà không biết nói, hoặc biết nói mà không biết gọi ai trước.
+    """
+    tv = nap_thu_vien()
+    lk = tv.get("lien_ket_kf60") or {}
+    mac_dinh = (lk.get("mac_dinh") or {}).get(nhom_goi, "")
+    if not ma_cd:
+        return mac_dinh, True
+    for dv in tv["dich_vu"].values():
+        for c in dv["chan_dung"]:
+            if c["ma"] == ma_cd and c.get("hanh_dong"):
+                return c["hanh_dong"].get(nhom_goi) or mac_dinh, False
+    return mac_dinh, True
+
+
 def gom_lead(ban_ghi):
     """Gom khối `lead` cho file báo cáo (id-J §2b).
 
@@ -797,8 +816,13 @@ def gom_lead(ban_ghi):
                       "ma_o": [m for m in r["ma_o"] if m != "(chưa nêu)"],
                       "ghi_de": r["lead"]["ghi_de"], "gio_im": r["lead"]["gio_im"],
                       "viec": ("Sale gọi ≤15′" if r["lead"]["nhom_goi"] == "GOI_NGAY"
-                               else "Trực page xin số ≤15′")}
+                               else "Trực page xin số ≤15′"),
+                      "the": r.get("the") or [],
+                      "viec_chi_tiet": viec_cua(r.get("cd"), r["lead"]["nhom_goi"])[0],
+                      "viec_mac_dinh": viec_cua(r.get("cd"), r["lead"]["nhom_goi"])[1]}
                      for r in hang],
+        "viec_mac_dinh": sum(1 for r in hang
+                             if viec_cua(r.get("cd"), r["lead"]["nhom_goi"])[1]),
         "ghi_chu": [
             "Nhãn HOT/WARM/COLD của kỳ là nhãn 5 tín hiệu (id-D §2). KF-60 ⛔ KHÔNG "
             "phát nhãn thứ hai — nó chia tệp thành bốn NHÓM GỌI và xếp thứ tự trong nhóm.",

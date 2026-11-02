@@ -1230,7 +1230,13 @@
       "làm ở spa xong bị",
       "muốn rút chỉ"
      ],
-     "loai_tru": "Đã làm tại Kangnam và phàn nàn → N4"
+     "loai_tru": "Đã làm tại Kangnam và phàn nàn → N4",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ khám trực tiếp sớm nhất; ⚠ dấu hiệu cấp → chuyển bác sĩ ngay, ⛔ không chốt giá.",
+      "XIN_SO": "Xin ảnh hiện tại + số/Zalo, hỏi thời điểm làm và triệu chứng; giọng đồng cảm, ⛔ không chê nơi cũ.",
+      "NUOI": "Ca xử lý thật và lộ trình phục hồi; «làm gì khi trẻ hoá bị biến chứng».",
+      "KHONG": "An toàn khi trẻ hoá, cách chọn nơi uy tín — ⛔ không chê đích danh."
+     }
     },
     {
      "ma": "TREHOA-CANG_DA_PT",
@@ -1244,7 +1250,13 @@
       "phẫu thuật căng da",
       "bao lâu thì đi làm được"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ phẫu thuật tạo hình khám trực tiếp TẠI BỆNH VIỆN (đại phẫu — L3).",
+      "XIN_SO": "Xin ảnh chính diện + nghiêng và số/Zalo, hỏi đã làm máy/chỉ chưa.",
+      "NUOI": "Ca thật căng da cùng độ tuổi; quy trình an toàn và lịch hồi phục; mời người thân cùng tư vấn.",
+      "KHONG": "«Khi nào nên căng da phẫu thuật, khi nào chưa cần»."
+     }
     },
     {
      "ma": "TREHOA-NANG_CO_KHONG_PT",
@@ -1265,7 +1277,13 @@
       "trẻ hóa da mặt",
       "da chùng nhăn"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ đánh giá chảy xệ trực tiếp, báo giá theo vùng/số shot.",
+      "XIN_SO": "Xin ảnh chính diện + nghiêng và số/Zalo.",
+      "NUOI": "Ca thật nâng cơ cùng độ tuổi; video máy chính hãng, cách kiểm tra đầu bắn; so sánh công nghệ ⛔ không chê nơi khác.",
+      "KHONG": "«Nâng cơ không phẫu thuật: hiểu đúng», checklist nhận biết máy chính hãng."
+     }
     },
     {
      "ma": "TREHOA-CHONG_LAO_HOA_SOM",
@@ -1284,7 +1302,13 @@
       "cổ có ngấn",
       "vùng mắt nhăn"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Chốt lịch soi da + tư vấn bác sĩ, gửi lộ trình và giá trọn liệu trình.",
+      "XIN_SO": "Xin ảnh mặt mộc + số/Zalo ngay để bác sĩ đánh giá da.",
+      "NUOI": "Gửi 2–3 ca thật cùng tình trạng da; nội dung giải thích lão hoá sớm và lộ trình vừa đủ; mời soi da.",
+      "KHONG": "Chăm da chống lão hoá, quiz tự đánh giá tuổi da, bảng giá min–max liệu trình."
+     }
     },
     {
      "ma": "TREHOA-CHUA_XAC_DINH",
@@ -1349,7 +1373,13 @@
       "bắn laser bị bỏng",
       "corticoid"
      ],
-     "loai_tru": "Làm tại Kangnam và phàn nàn → N4"
+     "loai_tru": "Làm tại Kangnam và phàn nàn → N4",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ da liễu khám sớm nhất; ⚠ dấu hiệu cấp → chuyển ngay.",
+      "XIN_SO": "Xin ảnh + số/Zalo, hỏi loại kem và thời gian dùng — ⛔ giọng không phán xét.",
+      "NUOI": "Ca phục hồi da thật; «cai kem trộn an toàn». ⛔ Không bán laser/peel khi da đang tổn thương.",
+      "KHONG": "Cảnh báo kem trộn, phục hồi da nhiễm corticoid."
+     }
     },
     {
      "ma": "SACTO-BOT_BAM_SINH",
@@ -1362,7 +1392,13 @@
       "bớt ota",
       "bớt bẩm sinh"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ da liễu khám xác định loại bớt.",
+      "XIN_SO": "Xin ảnh vết bớt + số/Zalo. ⚠ Trẻ em: chỉ trao đổi với phụ huynh (L9).",
+      "NUOI": "Ca thật cùng loại bớt; giải thích các loại bớt và lộ trình.",
+      "KHONG": "«Bớt bẩm sinh: loại nào điều trị được»."
+     }
     },
     {
      "ma": "SACTO-NAM_TAI_PHAT",
@@ -1379,7 +1415,13 @@
       "nám tái",
       "điều trị rồi vẫn bị"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ khám đánh giá tiền sử điều trị.",
+      "XIN_SO": "Xin ảnh hiện tại + số/Zalo, hỏi đã điều trị bằng gì, bao lâu. ⛔ Không chê nơi cũ (L6).",
+      "NUOI": "Ca thật nám tái phát được kiểm soát; «vì sao nám hay tái phát»; mời tư vấn bác sĩ online.",
+      "KHONG": "«Trị nám nhiều nơi không hết: hiểu đúng để không phí tiền»."
+     }
     },
     {
      "ma": "SACTO-NAM_LAN_DAU",
@@ -1401,7 +1443,13 @@
       "laser nám",
       "nám da"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn soi da + khám bác sĩ, gửi phác đồ và giá trọn liệu trình.",
+      "XIN_SO": "Xin ảnh mặt mộc + số/Zalo ngay.",
+      "NUOI": "Ca thật cùng loại nám; «các loại nám và vì sao tái phát»; mời soi da.",
+      "KHONG": "Chống nắng và nhận biết loại nám, bảng giá min–max."
+     }
     },
     {
      "ma": "SACTO-SANG_DA",
@@ -1415,7 +1463,13 @@
       "tắm trắng",
       "da sạm đen"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn soi da, chốt gói ngắn đầu tiên.",
+      "XIN_SO": "Xin ảnh mặt mộc + số/Zalo.",
+      "NUOI": "Ca thật sáng da; «sáng da an toàn, không bào mỏng»; mời soi da.",
+      "KHONG": "Chăm da sáng khoẻ, ưu đãi buổi trải nghiệm."
+     }
     },
     {
      "ma": "SACTO-CHUA_XAC_DINH",
@@ -1483,7 +1537,13 @@
       "bị vón cục",
       "tiêm bị lệch"
      ],
-     "loai_tru": "Tiêm tại Kangnam và phàn nàn → N4"
+     "loai_tru": "Tiêm tại Kangnam và phàn nàn → N4",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ khám sớm nhất. ⚠ Tắc mạch/ảnh hưởng thị lực là CẤP CỨU theo giờ — ⛔ không giữ khách để chốt giá.",
+      "XIN_SO": "Xin ảnh hiện tại + số/Zalo, hỏi thời điểm tiêm, nơi tiêm, triệu chứng hiện tại.",
+      "NUOI": "Ca xử lý filler hỏng thật; «tiêu filler: khi nào làm được, khi nào cần phẫu thuật».",
+      "KHONG": "An toàn khi tiêm filler, nhận biết biến chứng sớm."
+     }
     },
     {
      "ma": "FILLER-TIEM_DUY_TRI",
@@ -1497,7 +1557,13 @@
       "khách cũ có ưu đãi",
       "bao lâu tiêm lại"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Chốt lịch tiêm duy trì, nối hồ sơ CRM.",
+      "XIN_SO": "Xin số/Zalo, hỏi vùng và thời điểm tiêm lần trước.",
+      "NUOI": "Nhắc lịch duy trì, ưu đãi khách quay lại; ca thật duy trì lâu dài.",
+      "KHONG": "Tệp khách đã tiêm theo chu kỳ, nội dung chăm sóc sau tiêm."
+     }
     },
     {
      "ma": "FILLER-BOTOX_LAN_DAU",
@@ -1521,7 +1587,13 @@
       "nhăn trán",
       "thon gọn hàm"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ đánh giá cơ và liều, tiêm trong buổi nếu đủ điều kiện.",
+      "XIN_SO": "Xin ảnh biểu cảm (cười, nhíu mày) hoặc góc hàm + số/Zalo.",
+      "NUOI": "Ca thật biểu cảm tự nhiên; «botox hiểu đúng: có bị đơ không».",
+      "KHONG": "Xoá nhăn tự nhiên, bảng giá theo vùng."
+     }
     },
     {
      "ma": "FILLER-LAM_DAY_LAN_DAU",
@@ -1554,7 +1626,13 @@
       "phil",
       "filler giá"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ khám tỷ lệ khuôn mặt, tiêm trong buổi nếu đủ điều kiện.",
+      "XIN_SO": "Xin ảnh chính diện + nghiêng và số/Zalo.",
+      "NUOI": "Ca thật tự nhiên cùng vùng tiêm; video bác sĩ kiểm tra nguồn gốc sản phẩm; gỡ nỗi sợ tắc mạch bằng quy trình an toàn.",
+      "KHONG": "«Filler an toàn: 5 điều cần hỏi trước khi tiêm», bảng giá min–max theo vùng."
+     }
     },
     {
      "ma": "FILLER-CHUA_XAC_DINH",
@@ -1611,7 +1689,13 @@
       "tiêm sẹo lồi bị lõm",
       "làm spa trị rỗ mãi không ăn thua"
      ],
-     "loai_tru": "Điều trị tại Kangnam và phàn nàn → N4"
+     "loai_tru": "Điều trị tại Kangnam và phàn nàn → N4",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ khám đánh giá tiền sử điều trị.",
+      "XIN_SO": "Xin ảnh hiện tại + số/Zalo, hỏi phương pháp và số buổi đã làm; giọng đồng cảm.",
+      "NUOI": "Ca thật sẹo khó được cải thiện; «vì sao trị sẹo mãi không đỡ».",
+      "KHONG": "Trị sẹo hiểu đúng, chọn phác đồ theo loại sẹo."
+     }
     },
     {
      "ma": "SEO-PT_BONG_CO_KEO",
@@ -1626,7 +1710,13 @@
       "sẹo dính",
       "có phải mổ không"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ phẫu thuật tạo hình/da liễu khám trực tiếp.",
+      "XIN_SO": "Xin ảnh sẹo + số/Zalo, hỏi nguyên nhân, thời gian và ảnh hưởng cử động.",
+      "NUOI": "Ca thật sẹo bỏng/sẹo mổ được cải thiện; lộ trình nhiều giai đoạn; mời người thân cùng tư vấn.",
+      "KHONG": "«Sẹo bỏng, sẹo mổ lâu năm vẫn có thể cải thiện» — ⛔ không hứa kết quả."
+     }
     },
     {
      "ma": "SEO-LOI",
@@ -1641,7 +1731,13 @@
       "cơ địa sẹo lồi",
       "cắt sẹo có bị lại"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn bác sĩ khám đánh giá cơ địa sẹo lồi.",
+      "XIN_SO": "Xin ảnh sẹo + số/Zalo, hỏi nguyên nhân và thời gian có sẹo.",
+      "NUOI": "Ca thật sẹo lồi được kiểm soát; «cơ địa sẹo lồi: điều trị thế nào». ⛔ Không hứa không tái phát.",
+      "KHONG": "Sẹo lồi, chăm sóc vết mổ ngừa sẹo."
+     }
     },
     {
      "ma": "SEO-RO_LOM",
@@ -1657,7 +1753,13 @@
       "điều trị sẹo rỗ",
       "lăn kim"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn khám phân loại sẹo, gửi phác đồ và giá trọn liệu trình.",
+      "XIN_SO": "Xin ảnh mặt mộc chụp nghiêng dưới ánh sáng + số/Zalo.",
+      "NUOI": "Ca thật cùng mức rỗ; «các loại sẹo rỗ và cách điều trị»; mời soi da.",
+      "KHONG": "Sẹo rỗ hiểu đúng, bảng giá min–max."
+     }
     },
     {
      "ma": "SEO-THAM",
@@ -1673,7 +1775,13 @@
       "trị thâm",
       "điều trị thâm"
      ],
-     "loai_tru": ""
+     "loai_tru": "",
+     "hanh_dong": {
+      "GOI_NGAY": "Hẹn soi da, chốt liệu trình ngắn.",
+      "XIN_SO": "Xin ảnh mặt mộc + số/Zalo.",
+      "NUOI": "Ca thật mờ thâm; «thâm đỏ và thâm nâu khác nhau thế nào».",
+      "KHONG": "Chăm sóc da sau mụn, ưu đãi buổi trải nghiệm."
+     }
     },
     {
      "ma": "SEO-CHUA_XAC_DINH",
@@ -2352,5 +2460,37 @@
    "ghi_chu": "⛔ Không đoán. Chạy router trên chữ khách; không trúng dịch vụ nào thì để trống chân dung và ghi trạng thái lead.",
    "uu_tien": []
   }
+ },
+ "lien_ket_kf60": {
+  "_ghi_chu": "Nhãn nóng do KF-60 quyết (id-D §2 cho nhãn, KF-60 v1.1 cho NHÓM GỌI); thư viện này chỉ nói LÀM GÌ với từng nhóm. ⛔ Thư viện không tự chấm nóng.",
+  "quy_doi": {
+   "GOI_NGAY": {
+    "kf62_v1_0": "HOT",
+    "ai_lam": "Sale",
+    "sla": "gọi ≤15 phút"
+   },
+   "XIN_SO": {
+    "kf62_v1_0": "HOT_CHUA_SO",
+    "ai_lam": "Trực page",
+    "sla": "xin số ≤15 phút"
+   },
+   "NUOI": {
+    "kf62_v1_0": "WARM",
+    "ai_lam": "Sale/CSKH online",
+    "sla": "24–72h"
+   },
+   "KHONG": {
+    "kf62_v1_0": "COLD",
+    "ai_lam": "Marketing (CDP)",
+    "sla": "tự động"
+   }
+  },
+  "mac_dinh": {
+   "GOI_NGAY": "Sale gọi ≤15 phút đúng khung giờ khách chọn; hẹn khám với bác sĩ đúng chuyên môn của dịch vụ.",
+   "XIN_SO": "Báo khung giá niêm yết → xin ảnh → xin số/Zalo kèm lý do có lợi cho khách («bác sĩ báo phương án và chi phí sát»), đưa 2 khung giờ để khách chọn, báo trước ai gọi và gọi từ hotline chính thức nào; ⛔ không dùng lý do «gửi ưu đãi».",
+   "NUOI": "Gửi 2–3 ca thật cùng tình trạng (đã duyệt); mời tư vấn bác sĩ online.",
+   "KHONG": "Remarketing nội dung nền của chân dung; ⛔ không ảnh trước/sau cơ thể."
+  },
+  "_canh_bao": "Chân dung nào chưa khai `hanh_dong` thì dùng `mac_dinh` — đủ để chạy nhưng ⚠ CHƯA phải lời của KF-62 cho chân dung đó. Khối Beauty & Spa đã khai đủ vì đó là line đang chạy; các khối khác khai khi line đó lên."
  }
 }

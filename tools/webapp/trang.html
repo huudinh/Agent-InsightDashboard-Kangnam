@@ -464,7 +464,7 @@ function header(D,ky_ds,id){
   return '<div class="head"><div><h1>'+esc(L.ten)+'</h1>'+
     '<div class="sub">'+(L.phu?esc(L.phu)+'<br>':'')+meta+
     '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát'+
-    '<br><span class="note">trang sinh 02/11 19:56 — số này ⛔ không đổi khi bấm '+
+    '<br><span class="note">trang sinh 02/11 20:19 — số này ⛔ không đổi khi bấm '+
     'Deploy; nó chỉ đổi khi bạn dán lại trang.html mới. Thấy mốc cũ = bản deploy còn cũ.</span>'+
     (BC_SAI?'<br><span style="color:var(--bad)">⛔ Không có bố cục «'+esc(BC_SAI)+
       '» — đang hiện bản «'+esc(BC)+'». Tên đúng: sale · truc-page · day-du · insight.</span>':'')+
@@ -1911,11 +1911,23 @@ function tabHangCho(D){
   var hc=L.hang_cho||[];
   h+='<h2>Hàng chờ gọi — '+num(hc.length,0)+' dòng</h2>'+
     '<div class="note nb">Xếp theo nhóm việc rồi theo điểm ưu tiên (điểm × hệ số giá trị đơn). '+
-    '⛔ Không có chữ của khách trong bảng này — truy ngược bằng mã <code>HT</code>.</div>'+
+    '⛔ Không có chữ của khách trong bảng này — truy ngược bằng mã <code>HT</code>.<br>'+
+    'Dòng chữ dưới mỗi việc là <b>kịch bản của chân dung</b> (KF-62) cho đúng nhóm gọi đó. '+
+    (L.viec_mac_dinh?'⚠ <b>'+num(L.viec_mac_dinh,0)+'/'+num(hc.length,0)+' dòng</b> chưa xếp được '+
+     'chân dung nên phải dùng <b>lời mặc định</b> — đó là nợ của cổng ① KF-62, '+
+     '⛔ không phải kịch bản riêng.':'')+'</div>'+
     t(hc.map(function(r,i){
       return '<tr>'+td(String(i+1),'n')+td('<code>'+esc(r.ht)+'</code>')+
-        td(nhomTag(r.nhom_goi))+td('<span class="tag">'+esc(r.id_d||'—')+'</span>')+
-        td(esc(r.cd||'—'))+td(esc(r.dich_vu||'—'))+td(num(r.he_so,0),'n')+
+        td(nhomTag(r.nhom_goi)+
+           /* ★ Việc cụ thể = chân dung KF-62 × nhóm gọi KF-60. Lời mặc định
+              (chưa xếp được chân dung) phải nói rõ là mặc định — ⛔ không để
+              người đọc tưởng đó là kịch bản riêng của ca này. */
+           (r.viec_chi_tiet?'<div class="note">'+esc(r.viec_chi_tiet)+
+             (r.viec_mac_dinh?' <span class="tag t-mid">lời mặc định</span>':'')+'</div>':''))+
+        td('<span class="tag">'+esc(r.id_d||'—')+'</span>')+
+        td(esc(r.cd||'—')+((r.the||[]).length?'<div class="note">'+
+           (r.the||[]).map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join('')+
+           '</div>':''))+td(esc(r.dich_vu||'—'))+td(num(r.he_so,0),'n')+
         td(num(r.diem,1),'n')+td('<b>'+num(r.uu_tien,1)+'</b>','n')+
         td(r.gio_im==null?'—':num(r.gio_im,0)+'h','n')+
         td((r.ma_o||[]).map(function(m){return '<span class="tag">'+esc(m)+'</span>'}).join(' '))+

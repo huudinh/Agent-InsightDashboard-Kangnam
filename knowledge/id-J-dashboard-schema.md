@@ -137,8 +137,10 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
     "doi_chieu":   [ { "id_d":"HOT|WARM|COLD", "nhom":{ "GOI_NGAY":0,… } } ],
     "bat_bien": { "goi_ngay_thieu_sdt":0, "id_d_hot_roi_khong":0, "dat":true,
                   "ht_v1":[], "ht_v2":[] },
-    "hang_cho":    [ { "ht","cd","dich_vu","he_so","nhom_goi","id_d","diem",
-                       "uu_tien","co_sdt","ma_o","ghi_de","gio_im","viec" } ],
+    "hang_cho":    [ { "ht","cd","the","dich_vu","he_so","nhom_goi","id_d","diem",
+                       "uu_tien","co_sdt","ma_o","ghi_de","gio_im","viec",
+                       "viec_chi_tiet","viec_mac_dinh" } ],
+    "viec_mac_dinh": 0,   // số dòng phải dùng lời mặc định vì chưa xếp được chân dung
     "ghi_chu": [ "…" ]
   },
 
@@ -212,6 +214,19 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
 ```
 
 ### 2b. KHỐI `lead` — ⛔ MỘT BÁO CÁO CHỈ CÓ MỘT NHÃN NÓNG
+
+★ **Ba thứ gặp nhau ở một dòng hàng chờ** — thiếu cái nào thì dòng đó ⛔ không dùng được:
+
+```
+id-D §2   → nhãn nóng          → hội thoại này nóng tới đâu
+KF-60     → nhom_goi           → GỌI AI TRƯỚC, và AI gọi (Sale hay trực page)
+KF-62     → cd  → viec_chi_tiet→ NÓI GÌ với đúng chân dung đó
+```
+
+⚠ `viec_mac_dinh = true` nghĩa là chưa xếp được chân dung nên phải dùng **lời
+mặc định** của `lien_ket_kf60.mac_dinh`. Đủ để chạy, ⛔ nhưng không phải kịch bản
+riêng — đó là nợ của cổng ① KF-62, phải đếm và nói ra ở đầu bảng.
+
 
 ```
 Nhãn HOT / WARM / COLD của kỳ  →  pheu.nhiet   (5 tín hiệu · id-D §2)
