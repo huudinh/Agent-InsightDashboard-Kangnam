@@ -63,6 +63,8 @@ Một hội thoại được chấm **HOT / WARM / COLD** theo số tín hiệu 
 
 ⚠️ **Tín hiệu ② và ⑤ là hai tín hiệu hiếm nhất** và chính là lý do HOT luôn ít. Nếu HOT < 2% mẫu thì vấn đề **không phải tệp xấu** — là nội dung không tạo mốc thời gian và trực page không hỏi khung giờ gọi. Hai việc này sửa được ngay trong kỳ.
 
+★ Nhãn nóng ở đây là nhãn **duy nhất** của một kỳ. `id-L` (KF-60) dùng nó để xếp hàng gọi nhưng ⛔ **không phát nhãn thứ hai** — xem `id-L` §7.2 để biết vì sao.
+
 ★ **Ô nguy hiểm nhất của cả dashboard:** `HOT` hoặc `WARM` **chưa có SĐT**. Đó là lead nóng chưa vào tay telesale — tô đỏ, đếm riêng, đưa lên thẻ số tổng.
 
 ---

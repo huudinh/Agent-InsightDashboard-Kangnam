@@ -103,8 +103,10 @@ Chi tiết: [`doc/01-cai-dat.md`](doc/01-cai-dat.md)
 | ★ [`id-I`](knowledge/id-I-so-tay-thuc-thi.md) | **Sổ tay thực thi** — 3 loại · luật một việc · viết việc thế nào cho sửa được |
 | [`id-J`](knowledge/id-J-dashboard-schema.md) | Dashboard 10 tab · schema JSON `/2` · khối `lead` · lớp phủ chữ người · 4 luật hiển thị |
 | ★ [`id-K`](knowledge/id-K-module-kangnam-phap-che.md) | **Module đơn vị Kangnam** · 12 điểm pháp chế · ba thứ đang chặn |
+| ★ [`id-L`](knowledge/id-L-lead-scoring-kf60.md) | **Lead scoring KF-60** — 4 nhóm gọi · 2 bất biến · hàng chờ Sale · ⚠ sổ nhập từ khối Sale |
 
 ★ **Đổi thương hiệu → thay đúng [`id-K`](knowledge/id-K-module-kangnam-phap-che.md), ⛔ không sửa lõi `id-A`…`id-J`.**
+⚠ [`id-L`](knowledge/id-L-lead-scoring-kf60.md) là **văn bản của khối Sale** nhập vào, ⛔ không phải sổ của repo — sửa tiêu chí thì sửa cả ở đó và ở `tools/id.py`.
 
 ---
 

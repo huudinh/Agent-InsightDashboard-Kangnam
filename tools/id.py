@@ -520,7 +520,7 @@ def gan_rao_can(ht, td, ma_o):
 #    còn tin con số nào — vì thế mỗi bản ghi mang CẢ HAI nhãn và một cờ `lech`.
 #
 #    Tiêu chí, bằng chứng hiệu chỉnh và ba ngưỡng tạm:
-#    doc/KF-60-lead-scoring-hoi-thoai-inbox-v1.1.md
+#    knowledge/id-L-lead-scoring-kf60.md
 
 KF60 = "KF-60/1.1"
 TRAN_AM = -30                         # trần nhóm tín hiệu âm (§5)

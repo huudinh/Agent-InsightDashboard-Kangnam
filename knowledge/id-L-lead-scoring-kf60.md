@@ -1,4 +1,37 @@
-# KF-60 · Lead Scoring hội thoại Inbox Facebook (Kangnam / HCI) — **v1.1**
+# id-L · ★ LEAD SCORING HỘI THOẠI — BỘ KF-60
+
+> Sổ **nhập từ ngoài**: đây là văn bản KF-60 của khối Sale, ⛔ không phải sổ do
+> repo này viết ra. Giữ nguyên văn để còn đối chiếu với bản Sale đang dùng.
+> Sửa tiêu chí thì sửa **ở đây và ở `tools/id.py` cùng lúc** — thang điểm nằm
+> hai chỗ mà lệch nhau thì không ai biết báo cáo đang chấm theo bản nào.
+
+**Sổ này trả lời:** hội thoại nào Sale gọi trước, ai gọi, và nói gì.
+
+### Ranh giới với bốn sổ đang chạy — ⛔ đừng để hai nơi cùng chấm một thứ
+
+```
+id-D §2  → PHÂN LOẠI nóng  (5 tín hiệu)    → nhãn báo ra ngoài, so được giữa các kỳ
+id-L     → XẾP HÀNG GỌI    (4 nhóm việc)   → gọi ai trước · AI gọi
+id-C     → CHÂN DUNG       (thư viện KF-62)→ NÓI GÌ với người đó
+id-F     → CHẤM NHÂN VIÊN  (22 tiêu chí)   → sổ tay kèm cặp
+id-G §3  → HỆ SỐ GIÁ TRỊ ĐƠN 1/2/3         → dùng chung, ⛔ không đẻ thang thứ hai
+```
+
+★ **Sổ này ⛔ KHÔNG phát nhãn HOT/WARM/COLD.** Nhãn nóng của một kỳ chỉ có một
+bản, là nhãn 5 tín hiệu của `id-D` §2. Lý do đo được nằm ở §7.2.
+
+### Chạy ở đâu
+
+| Thứ | Chỗ |
+|---|---|
+| Bộ chấm | `tools/id.py` → `cham_lead()` · `gom_lead()` · `viec_cua()` |
+| Từ khoá | `tools/tu_dien.json` → khối `lead_kf60` |
+| Nối với chân dung | `tools/chan_dung_kf62.json` → `lien_ket_kf60` |
+| Đầu ra | khối `lead` của file kỳ · tab **Hàng chờ gọi** · bố cục `?bo_cuc=sale` |
+
+---
+
+## KF-60 · Lead Scoring hội thoại Inbox Facebook (Kangnam / HCI) — **v1.1**
 
 **Trạng thái: ĐANG ÁP DỤNG từ 02/11/2026 — anh UY đã duyệt v1.1.** v1.1 **đổi 9 điểm** so với v1.0 sau khi **chấm thật 493 hội thoại bằng chính thang điểm này**; hai điểm lệch khỏi bản v1.0 đã duyệt (**bỏ nhãn HOT/WARM/COLD của KF-60** và **đổi thang hệ số sang 1/2/3**) đã được anh UY duyệt riêng — xem §16.
 
@@ -516,6 +549,8 @@ Thang `1/2/3` **sửa được** cái sai của thang BL cũ — line Da không 
 ---
 
 ## 15. CHẠY Ở ĐÂU
+
+> ⚠ Bảng đường dẫn đã có ở **đầu sổ**; mục này giữ phần lệnh chạy và luật sửa hai nơi.
 
 | Thứ | Chỗ |
 |---|---|

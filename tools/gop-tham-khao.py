@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-gop-tham-khao.py · gộp 11 sổ tri thức thành một file để nạp lên nền tảng
+gop-tham-khao.py · gộp các sổ tri thức thành một file để nạp lên nền tảng
 chỉ cho phép ít file Knowledge.
 
     python tools/gop-tham-khao.py
