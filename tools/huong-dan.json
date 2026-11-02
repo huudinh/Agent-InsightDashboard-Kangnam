@@ -149,6 +149,11 @@
       "mo_ta": "<b>Thư viện chân dung KF-62</b> — 18 dịch vụ × 85 chân dung cố định · xếp theo thứ tự, “Có” đầu tiên thắng · 12 thẻ ngữ cảnh <code>AR</code> · xếp hạng &ldquo;dồn sức vào đâu&rdquo; · thông điệp có <b>trạng thái duyệt</b>"
     },
     {
+      "duong_dan": "knowledge/id-N-chon-tep-tang-noi-dung-kf64.md",
+      "badge": "🔴 chưa duyệt",
+      "mo_ta": "<b>Chọn tệp tập trung & tầng nội dung KF-64</b> — 3 trục <i>quy mô · chất lượng · chuyển đổi</i> · ma trận 4 ô ngân sách · tầng <code>A1–A4</code> TOF/MOF/BOF · ★ luật <b>A2 cấp dịch vụ</b> chạy được ngay (9/10 dịch vụ vượt ngưỡng) · ⛔ phần xếp hạng chân dung CHƯA duyệt, bản chạy là <code>id-M</code> §7"
+    },
+    {
       "duong_dan": "prompts/prompt-auto.md",
       "mo_ta": "Chạy cả kỳ một phát, dừng ở cổng duyệt chân dung rồi cổng duyệt ma trận"
     },

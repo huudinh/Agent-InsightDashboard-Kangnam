@@ -1,5 +1,64 @@
 # CHANGELOG
 
+## v1.3 — 2026-11-02 · 🔴 NHẬP KF-64 LÀM SỔ `id-N` (chưa duyệt) · SỬA MÃ DỰ TRỮ LỌT RA TRỐNG
+
+Văn bản KF-64 của khối Sale nhập vào thành sổ thứ 13: `id-N`. ⚠ **Khác `id-L`
+và `id-M`: sổ này CHƯA được anh UY duyệt**, nên ⛔ chưa cài vào `tools/id.py`,
+⛔ chưa có khối trong file kỳ, ⛔ chưa có tab.
+
+### Vì sao chưa cài
+
+KF-64 §3.1 trả lời **cùng một câu hỏi** với `id-M` §7 (xếp hạng chân dung) — và
+nó là bản **mở rộng**, không phải bản khác: `30:50` của nó giữ đúng tương quan
+`40:60` anh UY đã chốt, chỉ chen thêm trục **Quy mô 20%**. Cài thêm một bảng xếp
+hạng nữa khi `id-M` §7 đang là bản duyệt là lặp lại đúng lỗi đã phải bỏ `id-C` §4.
+Khi duyệt thì KF-64 **thay** `id-M` §7, ⛔ không chạy song song.
+
+### Đo thử trên kỳ 24–29/10 — phần nào của KF-64 chạy được
+
+| Phần | Chạy được? | Số đo |
+|---|---|---|
+| §4 **Luật `A2` cấp dịch vụ** (≥30% chưa rõ nhu cầu) | ✅ **ngay, không cần CRM** | **9/10 dịch vụ vượt ngưỡng**, 6/10 vượt 70%; toàn kỳ 65,6% |
+| §3.1 Chỉ số **tạm** (0,4 Quy mô + 0,6 Chất lượng) | ⚠ 3/85 mã đạt ngưỡng 30 HT | `SACTO-NAM_LAN_DAU` 141,2 · `FILLER-LAM_DAY` 106,3 · `FILLER-BOTOX` 93,7 |
+| §3.1 Chỉ số **chính thức** | ⛔ 0/85 mã | cần thêm ≥5 booking CRM |
+| §3.2 **Ma trận 4 ô** | ⛔ **không vẽ được dòng nào** | điểm hiệu quả cần Chuyển đổi (62,5% trọng số), mà KF-64 ⛔ không cho bản dự phòng |
+| §4.2 5 bước chuyển tầng | ⚠ 3/5 bước | `S1 S3` đo được · `S4` gần vô dụng (3 HOT/494) · `S5 S6` cần CRM |
+
+★ **65,6% không phải con số mới** — đúng bằng tỷ lệ `id-M` §5 ghi là cổng ① của
+KF-62 chưa đạt. Hai sổ, hai cách đo độc lập, cùng một con số; nhưng đọc theo hai
+nghĩa ⛔ không thay nhau được: `id-M` nói *thư viện đang hụt*, `id-N` nói *phễu
+đang rò ở A2*. Cả hai đúng, và việc thật nằm ở `A2`: làm khách **nói ra** trước.
+
+### 🔴 Bốn chỗ phải khối Sale chốt — cả bốn ĐỔI KẾT LUẬN
+
+```
+① "Trung bình DỊCH VỤ" là dịch vụ nào? Hệ có HAI trục, 392/494 HT lệch tên.
+   Ví dụ thật: FILLER-BOTOX_LAN_DAU Quy mô 1,87 (chia theo cột dich_vu)
+                                 ⟷  0,85 (chia theo tiền tố KF-62)
+   → vượt mốc "lớn" ở cách này, ⛔ không vượt ở cách kia.  (id-N §7)
+② %Hot của CẢ DỊCH VỤ bằng 0 thì bỏ chỉ số đó, hay tính là 0?
+   FILLER-LAM_DAY: TẠM 76 (THẤP)  ⟷  TẠM 106 (TRUNG BÌNH).  (id-N §5)
+③ Điểm hiệu quả không có bản dự phòng → ma trận 4 ô bất động.  (id-N §2)
+④ Tên `A2` đụng id-D §3: cùng 494 HT, A2 theo id-D = 1, theo KF-64 = 324.
+   ⛔ Một nhãn hai nghĩa.  (id-N §3)
+```
+
+Ngoài ra bảng 5 bước của KF-64 đánh số `S1 · S3 · S4 · S5 · S6` — **thiếu `S2`**.
+
+### ⛔ Lỗi tìm được khi đo — đã sửa
+
+```
+gan_chan_dung_kf62() trả None khi chưa xếp được dịch vụ.
+→ 102 hội thoại lọt ra out/cham-hoi-thoai.csv và hàng chờ Sale với ô
+  chân dung RỖNG, trong khi bảng chân dung đếm đúng chúng là KHONG_XAC_DINH_DV.
+  Hai con số cho một hội thoại; 8 dòng hàng chờ Sale không biết nói gì với khách.
+→ Sửa: gán mã dự trữ NGAY ở chỗ quyết định, không để chỗ sau tự bù.
+→ Thêm cột `dich_vu_kf62` vào CSV: KF-64 đo mọi thứ "so với TB dịch vụ", mà
+  dịch vụ của thư viện KHÁC cột `dich_vu` (cột đó chỉ để lấy hệ số 1/2/3).
+```
+
+---
+
 ## v1.2 — 2026-11-02 · ★ THƯ VIỆN CHÂN DUNG KF-62 · LEAD SCORING KF-60 · ⛔ BỎ SỔ `id-C`
 
 Hai văn bản của khối Sale nhập vào thành hai sổ: **KF-60 lead scoring** → `id-L`,

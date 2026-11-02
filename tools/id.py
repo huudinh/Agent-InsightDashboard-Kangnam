@@ -345,7 +345,10 @@ def gan_chan_dung_kf62(ht, tv, dich_vu):
     tiêu thẩm mỹ, nếu không thì ca sửa hỏng bị xếp nhầm thành ca làm lần đầu.
     """
     if not dich_vu:
-        return None, ""
+        # ⛔ KHÔNG trả None: 102 HT của kỳ 24-29/10 đã lọt ra CSV và hàng chờ Sale
+        # với ô chân dung RỖNG, trong khi bảng chân dung đếm chúng là mã dự trữ.
+        # Hai con số cho một hội thoại. Mã dự trữ phải gán NGAY ở đây (id-M §1).
+        return CD_DU, ""
     kh = ht["kh_text"]
     for c in sorted(tv["dich_vu"][dich_vu]["chan_dung"], key=lambda x: x["thu_tu"]):
         if not c["tu"]:
@@ -810,7 +813,7 @@ def gom_lead(ban_ghi):
         "bat_bien": {"goi_ngay_thieu_sdt": len(v1), "id_d_hot_roi_khong": len(v2),
                      "dat": not (v1 or v2),
                      "ht_v1": v1[:20], "ht_v2": v2[:20]},
-        "hang_cho": [{"ht": r["ma"], "cd": r.get("cd"), "dich_vu": r.get("dich_vu"),
+        "hang_cho": [{"ht": r["ma"], "cd": r.get("cd") or CD_DU, "dich_vu": r.get("dich_vu"),
                       "he_so": r.get("he_so"), "nhom_goi": r["lead"]["nhom_goi"],
                       "id_d": r["nhiet"], "diem": r["lead"]["diem"],
                       "uu_tien": r["lead"]["uu_tien"], "co_sdt": bool(r["co_sdt"]),
@@ -1131,7 +1134,8 @@ def ghi_csv(ban_ghi):
         o_cot = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4",
                  "C1", "C2", "C3", "D1", "D2", "D3", "E1", "E2", "E3", "E4", "E5"]
         w.writerow(["ma", "nv", "cd", "nac", "ma_o", "nhiet", "co_sdt", "chot_lich",
-                    "vi_sao_roi", "rao_can", "dich_vu", "he_so", "diem", "co_do",
+                    "vi_sao_roi", "rao_can", "dich_vu", "dich_vu_kf62",
+                    "he_so", "diem", "co_do",
                     # ── KF-60: VIỆC phải làm, đứng CẠNH nhãn id-D ở cột `nhiet`.
                     #    ⛔ Không có cột nhãn HOT/WARM/COLD thứ hai.
                     "luong", "lead_goc", "lead_hs_tg", "lead_diem", "lead_nhom_goi",
@@ -1139,9 +1143,11 @@ def ghi_csv(ban_ghi):
                    + cot + o_cot)
         for r in ban_ghi:
             L = r.get("lead") or {}
-            w.writerow([r["ma"], r["nv"], r["cd"], r["nac"], " ".join(r["ma_o"]), r["nhiet"],
+            w.writerow([r["ma"], r["nv"], r["cd"] or CD_DU, r["nac"],
+                        " ".join(r["ma_o"]), r["nhiet"],
                         "Có" if r["co_sdt"] else "", "Có" if r["chot_lich"] else "",
-                        r["roi"], " · ".join(r["rao_can"]), r["dich_vu"], r["he_so"],
+                        r["roi"], " · ".join(r["rao_can"]), r["dich_vu"],
+                        r.get("dich_vu_kf62") or "", r["he_so"],
                         r["diem"] if r["diem"] is not None else "",
                         " ".join(_ma_co_do(r)),
                         L.get("route", ""), L.get("goc", ""), L.get("he_so_tg", ""),

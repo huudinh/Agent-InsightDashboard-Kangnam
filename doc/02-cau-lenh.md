@@ -43,7 +43,7 @@ cd dashboard && python -m http.server 8080
 
 | Ra | Nội dung |
 |---|---|
-| `out/cham-hoi-thoai.csv` | Một dòng mỗi hội thoại · 22 ô `✓/✗/—` · CD *(trống nếu chưa qua CỔNG 0)* · nấc · mã O · nhiệt · vì sao rơi · điểm · cờ đỏ |
+| `out/cham-hoi-thoai.csv` | Một dòng mỗi hội thoại · 22 ô `✓/✗/—` · mã chân dung KF-62 *(`KHONG_XAC_DINH_DV` khi chưa biết khách hỏi gì, ⛔ không để trống)* · `dich_vu_kf62` · nấc · mã O · nhiệt · vì sao rơi · điểm · cờ đỏ |
 | `out/doc-hoi-thoai.json` | Bản tổng hợp để `bao-cao` đọc lại |
 | `out/nguyen-lieu-chan-dung.json` | ★ **Nguyên liệu phác họa chân dung**: cụm 2–3 chữ khách tự nói (đếm theo **số hội thoại**, ⛔ không theo số lần) · câu hỏi đầu từng HT đã ẩn danh · phân bố dịch vụ · nấc · rào cản |
 | Màn hình | Thẻ số tổng · mức nóng · vì sao rơi · bảng chân dung *(hoặc 10 cụm chữ đông nhất nếu chưa phác họa)* · top mã O · % đạt 6 nhóm · phân bố A/B/C/D · cờ đỏ |

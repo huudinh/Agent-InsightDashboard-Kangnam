@@ -93,6 +93,8 @@ Một hội thoại được chấm **HOT / WARM / COLD** theo số tín hiệu 
 
 ⚠️ Nấc `5A` **không phụ thuộc chân dung** — đọc thẳng từ câu đầu của khách. Nhờ vậy tab Phễu và phân bố `5A` vẫn đọc được cả khi chưa xếp được chân dung.
 
+🔴 **⚠ Tên `A2` đang bị hai sổ dùng cho hai thứ khác nhau.** KF-64 ([`id-N`](id-N-chon-tep-tang-noi-dung-kf64.md) §3) gọi `A2` là *«có nhắn tin nhưng chưa nói rõ nhu cầu»*, và đo ở **cấp dịch vụ**. Trên cùng 494 hội thoại kỳ 24–29/10: `A2` theo sổ này = **1 HT**, theo KF-64 = **324 HT**. Cùng một nhãn, ⛔ chưa chốt ai giữ tên. Dùng `A2` trong bảng nào thì **ghi rõ theo sổ nào** (`id-N` §3 có hai đường ra).
+
 ★ **Ba nhãn của sổ này đọc từ cùng một hội thoại và ⛔ không thay nhau được:** mã `O` (§1 — khách sợ gì) · mức nóng (§2 — nóng tới đâu) · nấc `5A` (§3 — đang ở đâu trong hành trình).
 
 ---
@@ -260,6 +262,7 @@ Câu ngầm : "Tôi phải nghỉ mấy ngày, ở đâu, ai đưa tôi về?"
 - [ ] `O-07` và `O-12` có bị tự trả lời không?
 - [ ] Nấc `5A` có gán theo **câu hỏi đầu tiên** của khách không, hay đọc cả hội thoại? (§3)
 - [ ] Có hội thoại nào hỏi giá ngay câu đầu mà bị xếp `A3` thật không? (`A3→A1`)
+- [ ] Bảng nào có nhãn `A2` thì đã ghi rõ `A2` **của sổ nào** chưa? (§3)
 - [ ] Tổng HT các chân dung **cộng cả hai dòng chưa xác định** có bằng đúng cỡ mẫu không?
 - [ ] Thẻ insight có viết bằng **chữ của khách** không, hay toàn tính từ của người viết?
 - [ ] Thẻ insight có xếp theo **thứ hạng `id-M` §7** không, hay vẫn xếp theo số HT?
