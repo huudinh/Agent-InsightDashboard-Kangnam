@@ -177,6 +177,7 @@ def main():
 
     I = nap_id_py()
     td = I.nap_tu_dien()
+    tv = I.nap_thu_vien()          # ★ thư viện chân dung KF-62 — cố định, không theo kỳ
     pho, vi_sao = I.nap_phac_hoa(a.ky)
     hts = doc_knb(a.file, I)
     print("Đọc được %d hội thoại." % len(hts))
@@ -197,7 +198,11 @@ def main():
 
     ban_ghi = []
     for ht in mau:
-        cd = I.gan_chan_dung(ht, pho)            # None khi chưa qua CỔNG 0
+        # ★ KF-62: dịch vụ → thứ tự kiểm tra → MỘT chân dung; thẻ ngữ cảnh tách riêng.
+        ht["cum_knb"] = ht["dich_vu_knb"]
+        dv_kf, vi_dv = I.gan_dich_vu_kf62(ht, tv)
+        cd, bang_chung = I.gan_chan_dung_kf62(ht, tv, dv_kf)
+        the = I.gan_the(ht, tv)
         nac = I.gan_nac(ht, td)
         ma_o = I.gan_ma_o(ht, td)
         nhiet, tin_hieu = I.gan_nhiet(ht, td)
@@ -240,6 +245,9 @@ def main():
             "rao_can": rc, "dich_vu": ht["dich_vu_knb"], "he_so": hs,
             "diem": diem, "cham": k, "co_do": co_do,
             "so_luot_kh": sum(1 for t in ht["tin"] if not t["nv"]),
+            "dich_vu_kf62": dv_kf, "vi_sao_dv": vi_dv, "the": the,
+            "bang_chung_cd": bang_chung,
+            "trang_thai_lead": I.trang_thai_lead(ht, td, ma_o, rc),
             "so_nv": len(nv_dem), "cum": ht["cum"], "nhom_qc": ht["nhom_qc"],
             "page": ht["page"], "bo_sot": ht["bo_sot"], "chi_bot": ht["chi_bot"],
             "gan_theo_qc": ht["gan_theo_qc"],

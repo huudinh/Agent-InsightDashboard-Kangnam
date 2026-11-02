@@ -1,0 +1,2356 @@
+{
+ "schema": "chan-dung-kf62/2.2",
+ "ban": "KF-62 v2.2",
+ "ghi_chu": [
+  "Thư viện CỐ ĐỊNH toàn hệ sinh thái — thay cho lối phác họa chân dung theo từng kỳ.",
+  "Mỗi hội thoại: đúng MỘT chân dung × tối đa BA thẻ ngữ cảnh × một nhãn nóng (id-D §2).",
+  "Phân loại theo THỨ TỰ KIỂM TRA: câu «Có» đầu tiên quyết định. Tiền sử can thiệp và vấn đề y khoa hỏi trước, mục tiêu thẩm mỹ hỏi sau. ⛔ Thứ tự này không phải ưu tiên kinh doanh.",
+  "Không câu nào «Có» → <DV>-CHUA_XAC_DINH, nhân viên hỏi 2 câu hỏi vàng.",
+  "⛔ Không chân dung, không dịch vụ nào được gán ưu tiên trước; ưu tiên chỉ tính từ dữ liệu (nhiệt độ KF-60 40% + booking CRM 60%).",
+  "⛔ Đừng thêm chân dung ngoài KF-62. Thiếu thì báo lại để bổ sung ở bản sau.",
+  "File này là BẢN GỐC, sửa tay. Bộ dựng ban đầu nằm ở scratchpad của phiên 02/11/2026 và ⛔ không phải nguồn — thêm/bớt chân dung thì sửa thẳng file này."
+ ],
+ "the_ngu_canh": {
+  "AR01": {
+   "ten": "Cần gấp / có sự kiện",
+   "xu_ly": "Tính lịch hồi phục ngược từ ngày sự kiện; nói thật nếu không đủ thời gian",
+   "tu": [
+    "đám cưới",
+    "kỷ yếu",
+    "trước tết",
+    "sắp cưới",
+    "chụp ảnh cưới",
+    "có kịp",
+    "kịp không",
+    "sự kiện",
+    "trước ngày"
+   ]
+  },
+  "AR02": {
+   "ten": "Việt kiều / ở xa có lịch về",
+   "xu_ly": "Tư vấn online trước, chốt lịch theo ngày về, hỗ trợ lưu trú, tái khám từ xa",
+   "tu": [
+    "việt kiều",
+    "về nước",
+    "ở nước ngoài",
+    "em ở tỉnh",
+    "ở xa",
+    "đi máy bay",
+    "về phép",
+    "bên nhật",
+    "bên hàn",
+    "bên đài",
+    "bên mỹ",
+    "chi nhánh nào gần",
+    "ở hà nội",
+    "ở sài gòn",
+    "tỉnh nào"
+   ]
+  },
+  "AR03": {
+   "ten": "Nam giới",
+   "xu_ly": "Phương án phù hợp nam giới, riêng tư",
+   "tu": [
+    "anh bị",
+    "cho anh",
+    "nam giới",
+    "đàn ông",
+    "con trai",
+    "chồng em bị"
+   ]
+  },
+  "AR04": {
+   "ten": "Trên 40 / kết hợp trẻ hoá",
+   "xu_ly": "Tư vấn hài hoà theo tuổi; gợi mở trẻ hoá/wellness",
+   "tu": [
+    "tuổi 40",
+    "tuổi 45",
+    "tuổi 50",
+    "ngoài 40",
+    "có tuổi rồi",
+    "trung niên",
+    "45 tuổi",
+    "50 tuổi"
+   ]
+  },
+  "AR05": {
+   "ten": "Người trả tiền / quyết định khác người dùng",
+   "xu_ly": "Mời người quyết định cùng tư vấn; trang bị câu nói cho người thân",
+   "tu": [
+    "hỏi cho mẹ",
+    "hỏi cho bố",
+    "cho con em",
+    "chồng em",
+    "vợ em",
+    "để hỏi chồng",
+    "để hỏi mẹ",
+    "người nhà",
+    "gia đình không cho",
+    "xin tiền chồng"
+   ]
+  },
+  "AR06": {
+   "ten": "So sánh giá / săn ưu đãi",
+   "xu_ly": "Tách giá theo cấu phần, nói rõ giá trị",
+   "tu": [
+    "tham khảo giá",
+    "so giá",
+    "bên kia rẻ hơn",
+    "chỗ khác báo",
+    "rẻ hơn",
+    "có ưu đãi",
+    "khuyến mãi",
+    "giảm giá",
+    "con số rẻ"
+   ]
+  },
+  "AR07": {
+   "ten": "Cẩn trọng, cần kiểm chứng bác sĩ",
+   "xu_ly": "Hồ sơ bác sĩ đã xác minh; hẹn gặp bác sĩ",
+   "tu": [
+    "bác sĩ nào làm",
+    "ai làm cho em",
+    "bằng cấp",
+    "chứng chỉ",
+    "có giấy phép",
+    "bệnh viện hay spa",
+    "tay nghề"
+   ]
+  },
+  "AR08": {
+   "ten": "Động cơ nhân tướng / phong thuỷ",
+   "xu_ly": "⛔ Không hứa tài lộc (cấm nội dung mê tín); chuyển về hài hoà",
+   "tu": [
+    "nhân tướng",
+    "phong thủy",
+    "phong thuỷ",
+    "tụ tài",
+    "phá tướng",
+    "hao tài",
+    "đổi vận",
+    "hợp tướng",
+    "kém phúc"
+   ]
+  },
+  "AR09": {
+   "ten": "Khách cũ Kangnam / HCI",
+   "xu_ly": "Ưu đãi khách thân thiết, cross-sell",
+   "tu": [
+    "em làm bên mình rồi",
+    "khách cũ",
+    "đã làm ở kangnam",
+    "lần trước bên mình",
+    "em là khách quen"
+   ]
+  },
+  "AR10": {
+   "ten": "Phụ huynh hỏi cho con",
+   "xu_ly": "Chỉ tư vấn dịch vụ hợp lệ cho trẻ; PTTM dưới 18 tuổi → N5",
+   "tu": [
+    "con em",
+    "bé nhà em",
+    "cháu nhà",
+    "con gái em",
+    "con trai em",
+    "bé mấy tuổi",
+    "học lớp"
+   ]
+  },
+  "AR11": {
+   "ten": "Lên hình / làm nội dung (KOC, TikToker)",
+   "xu_ly": "Clip hồi phục theo mốc, nói rõ giới hạn; ⛔ không hứa mốc chưa được BS xác nhận",
+   "tu": [
+    "koc",
+    "tiktok",
+    "livestream",
+    "lên hình",
+    "quay clip",
+    "mẫu ảnh",
+    "chụp job",
+    "lên sóng",
+    "quay cận"
+   ]
+  },
+  "AR12": {
+   "ten": "Bận rộn / quỹ nghỉ ngắn",
+   "xu_ly": "Lịch cụ thể, số buổi và thời lượng thật, chính sách đổi lịch",
+   "tu": [
+    "bận",
+    "không có thời gian",
+    "nghỉ mấy ngày",
+    "mất bao lâu",
+    "giờ hành chính",
+    "bận chăm con",
+    "lịch đi làm",
+    "tranh thủ"
+   ]
+  }
+ },
+ "trang_thai_lead": {
+  "CHI_HOI_GIA": {
+   "ten": "Chỉ hỏi giá — chưa nói tình trạng",
+   "ghi_chu": "KF-62: «chỉ hỏi giá 1–2 câu chưa nói tình trạng → trạng thái lead, ⛔ KHÔNG gán chân dung». Đây là lý do CD7 cũ bị bỏ."
+  },
+  "CHUA_XAC_DINH": {
+   "ten": "Chưa xác định — chưa đủ dữ kiện xếp chân dung",
+   "ghi_chu": "Mỗi dịch vụ có nhóm <DV>-CHUA_XAC_DINH. Nhân viên hỏi 2 câu hỏi vàng của dịch vụ đó."
+  }
+ },
+ "dich_vu": {
+  "MUI": {
+   "ten": "Thẩm mỹ mũi",
+   "khoi": "PTTM",
+   "router": [
+    "mũi",
+    "nâng mũi",
+    "sửa mũi",
+    "sống mũi",
+    "cánh mũi",
+    "đầu mũi",
+    "vách ngăn",
+    "sụn sườn",
+    "sụn tai",
+    "s-line",
+    "l-line"
+   ],
+   "cau_vang": [
+    "Trước đây chị đã từng làm gì cho mũi chưa, ví dụ tiêm filler, nâng mũi, hay đây là lần đầu ạ?",
+    "Chị muốn cải thiện điểm nào nhất ạ: cao sống mũi, gọn cánh/đầu mũi, sửa lại mũi cũ, hay mũi có vấn đề về thở, lệch do tai nạn hoặc bẩm sinh?"
+   ],
+   "an_toan": [
+    "mờ mắt",
+    "chảy dịch",
+    "lộ sụn",
+    "sưng nóng",
+    "gãy mũi",
+    "chảy máu không cầm",
+    "mụn mủ",
+    "thâm tím"
+   ],
+   "chan_dung": [
+    {
+     "ma": "MUI-SUA_HONG",
+     "ten": "Sửa mũi hỏng / làm lại",
+     "thu_tu": 1,
+     "tu": [
+      "làm ở chỗ khác bị lệch",
+      "lòi chân sụn",
+      "lộ sóng",
+      "đỏ đầu mũi",
+      "co rút",
+      "tháo sụn",
+      "làm 2 lần rồi",
+      "sửa mũi",
+      "mũi hỏng",
+      "nâng lại"
+     ],
+     "loai_tru": "Làm TẠI Kangnam/HCI và đang phàn nàn → N4"
+    },
+    {
+     "ma": "MUI-CHUC_NANG_DI_TAT",
+     "ten": "Chức năng & dị tật — ngạt, vẹo vách ngăn, sứt môi, tai nạn",
+     "thu_tu": 2,
+     "tu": [
+      "hay bị ngạt",
+      "nghẹt một bên",
+      "vẹo vách ngăn",
+      "ngủ ngáy",
+      "thở khó",
+      "mũi sứt môi",
+      "hở hàm ếch",
+      "mổ môi từ nhỏ",
+      "gãy mũi do tai nạn",
+      "mũi lệch sau va đập",
+      "bác sĩ nào chuyên ca khó"
+     ],
+     "loai_tru": "Chấn thương mới, chảy máu không cầm → dấu hiệu an toàn"
+    },
+    {
+     "ma": "MUI-FILLER_SANG_PT",
+     "ten": "Đã tiêm filler/chỉ — muốn chuyển sang phẫu thuật",
+     "thu_tu": 3,
+     "tu": [
+      "tiêm filler mũi",
+      "filler tan hết",
+      "bị vón",
+      "bị bè",
+      "nâng chỉ",
+      "làm hẳn cho bền",
+      "tiêu filler trước"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "MUI-CHINH_CHI_TIET",
+     "ten": "Chỉnh chi tiết — cánh/đầu mũi to, gồ, hếch",
+     "thu_tu": 4,
+     "tu": [
+      "cánh mũi bè",
+      "cánh mũi to",
+      "đầu mũi to",
+      "mũi gồ",
+      "mũi hếch",
+      "lộ lỗ mũi",
+      "thu gọn cánh",
+      "không muốn cao quá",
+      "chỉ muốn thu gọn",
+      "sẹo may chỉ"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "MUI-NANG_LAN_DAU",
+     "ten": "Nâng mũi lần đầu — muốn cao, thon, tự nhiên",
+     "thu_tu": 5,
+     "tu": [
+      "mũi em thấp",
+      "mũi tẹt",
+      "sống thấp",
+      "ngắn hếch",
+      "cao tự nhiên",
+      "hợp với khuôn mặt",
+      "chỉ can thiệp sống",
+      "sụn sườn hay sụn tai",
+      "s-line",
+      "l-line",
+      "có bị lộ không"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "MUI-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "MAT": {
+   "ten": "Cắt mí & thẩm mỹ mắt",
+   "khoi": "PTTM",
+   "router": [
+    "cắt mí",
+    "nhấn mí",
+    "mí mắt",
+    "mí lót",
+    "một mí",
+    "sụp mí",
+    "bọng mắt",
+    "mở góc mắt",
+    "cung mày",
+    "mí dưới",
+    "treo mày",
+    "da chùng mí"
+   ],
+   "cau_vang": [
+    "Trước đây chị đã từng làm gì cho mắt chưa ạ, ví dụ cắt mí, nhấn mí, lấy bọng mỡ, hay đây là lần đầu?",
+    "Chị muốn cải thiện điểm nào nhất ạ: mắt một mí/mí lót muốn có nếp, mí trên chùng làm mắt nhìn mệt, da sụp che làm nhìn không rõ, chỉ vùng mí dưới/bọng mắt dưới hay cung mày, hay sửa lại mí cũ?"
+   ],
+   "an_toan": [
+    "nhìn mờ",
+    "giảm thị lực",
+    "nhìn đôi",
+    "chảy mủ",
+    "nhắm không kín",
+    "sụp mi đột ngột",
+    "yếu cơ",
+    "nuốt khó"
+   ],
+   "chan_dung": [
+    {
+     "ma": "MAT-SUA_HONG",
+     "ten": "Sửa mí hỏng / làm lại mắt",
+     "thu_tu": 1,
+     "tu": [
+      "cắt mí ở chỗ khác bị lệch",
+      "cắt rồi vẫn chùng",
+      "mí lệch",
+      "mí to quá",
+      "mất nếp",
+      "nhấn mí bị mất",
+      "bị bung",
+      "sẹo mí",
+      "mắt trợn",
+      "nhắm không kín",
+      "làm lại mí",
+      "sửa mí"
+     ],
+     "loai_tru": "Làm tại Kangnam/HCI và phàn nàn → N4"
+    },
+    {
+     "ma": "MAT-SUP_MI_CHUC_NANG",
+     "ten": "Da chùng/sụp che tầm nhìn — cần khám chức năng",
+     "thu_tu": 2,
+     "tu": [
+      "che mắt",
+      "ngẩng đầu",
+      "nhướn mày",
+      "mắt mở không hết",
+      "một mắt to một mắt nhỏ",
+      "sụp mí bẩm sinh",
+      "cơ nâng mi",
+      "nhược cơ",
+      "nhìn rõ hơn không",
+      "sụp nhiều thế này"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "MAT-MI_DUOI_CUNG_MAY",
+     "ten": "Can thiệp đúng vùng — mí dưới, bọng dưới, cung mày, combo",
+     "thu_tu": 3,
+     "tu": [
+      "bọng mắt dưới",
+      "cắt mí dưới",
+      "nâng cung mày",
+      "treo cung mày",
+      "cả trên và dưới",
+      "cấy mỡ hay cắt mí dưới",
+      "giá từng phần"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "MAT-TRE_HOA_MI_TREN",
+     "ten": "Trẻ hoá mí trên — sụp sớm, nhìn mệt",
+     "thu_tu": 4,
+     "tu": [
+      "nhìn mệt",
+      "già hơn tuổi",
+      "nếp mí mờ",
+      "da mí chùng",
+      "mí sụp nhẹ",
+      "mí lót mỡ",
+      "bọng mỡ mí trên",
+      "gồng mắt",
+      "cắt mí tuổi 35"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "MAT-MOT_MI_LAN_DAU",
+     "ten": "Một mí/mí lót — lần đầu, muốn tạo nếp tự nhiên",
+     "thu_tu": 5,
+     "tu": [
+      "mắt em 1 mí",
+      "mí lót",
+      "mí ẩn",
+      "mí lệch",
+      "hai mắt không đều",
+      "dán kích mí",
+      "muốn mắt to",
+      "nhấn mí hay cắt mí",
+      "cắt có bị trợn",
+      "mở góc mắt",
+      "bấm mí"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "MAT-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ],
+   "cum_knb": [
+    "Hỏi dịch vụ khác: PTTM Mắt"
+   ]
+  },
+  "HAM": {
+   "ten": "Thẩm mỹ hàm mặt",
+   "khoi": "PTTM",
+   "router": [
+    "hàm",
+    "hô",
+    "móm",
+    "gọt hàm",
+    "v-line",
+    "gò má",
+    "cằm",
+    "khớp cắn",
+    "mặt lệch",
+    "mặt vuông",
+    "hở lợi",
+    "niềng hay mổ"
+   ],
+   "cau_vang": [
+    "Trước đây em đã từng niềng răng hay phẫu thuật gì vùng hàm, cằm, gò má chưa ạ?",
+    "Em thấy mình bị hô (răng, miệng đưa ra), móm (cằm đưa ra, cắn ngược), mặt lệch, hay khớp cắn bình thường và chỉ muốn mặt thon gọn hơn ạ?"
+   ],
+   "an_toan": [
+    "khó thở",
+    "chảy máu miệng",
+    "chảy mủ",
+    "há miệng không được",
+    "lộ nẹp vít",
+    "liệt mặt",
+    "khớp cắn đột ngột lệch",
+    "gãy xương hàm"
+   ],
+   "chan_dung": [
+    {
+     "ma": "HAM-CA_KHO_SUA_LAI",
+     "ten": "Ca khó & sửa lại: đã mổ nơi khác, di chứng, khe hở môi–vòm",
+     "thu_tu": 1,
+     "tu": [
+      "gọt hàm ở chỗ khác bị lệch",
+      "mặt bị hóp",
+      "độn cằm bị lệch",
+      "sụn cằm lộ",
+      "tê môi mãi không hết",
+      "mổ hàm xong vẫn móm",
+      "sửa hàm",
+      "tháo độn cằm",
+      "tai nạn gãy hàm",
+      "sứt môi hở hàm ếch",
+      "mổ nhiều lần rồi",
+      "ăn nhai khó"
+     ],
+     "loai_tru": "Đã mổ tại Kangnam/HCI và phàn nàn → N4"
+    },
+    {
+     "ma": "HAM-DANG_NIENG",
+     "ten": "Đang/đã niềng — cần ý kiến thứ hai",
+     "thu_tu": 2,
+     "tu": [
+      "đang niềng",
+      "niềng xong vẫn hô",
+      "e tháo",
+      "hàm nó chạy lại",
+      "nha sĩ bảo phải mổ hàm",
+      "nha khoa bảo do răng",
+      "niềng trước hay mổ trước",
+      "mổ hàm có phải tháo niềng"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "HAM-MOM_LECH",
+     "ten": "Móm / khớp cắn ngược / lệch hàm — lần đầu",
+     "thu_tu": 3,
+     "tu": [
+      "móm",
+      "khớp cắn ngược",
+      "hàm móm",
+      "mặt e lệch",
+      "cằm dài",
+      "cằm lệch",
+      "cắn ngược",
+      "mặt lưỡi cày",
+      "nhai lệch một bên"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "HAM-HO_LAN_DAU",
+     "ten": "Hô — «răng hay hàm?», lần đầu",
+     "thu_tu": 4,
+     "tu": [
+      "em bị hô",
+      "bị răng hay hàm",
+      "hô răng hay hô xương",
+      "cười hở lợi",
+      "miệng nhô",
+      "vẩu",
+      "khi cười bị đưa ra",
+      "tính đi niềng"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "HAM-GOT_HAM_VLINE",
+     "ten": "Gọt hàm/V-line, gò má, cằm — khớp cắn bình thường",
+     "thu_tu": 5,
+     "tu": [
+      "mặt vuông",
+      "góc hàm to",
+      "mặt bè",
+      "gọt hàm",
+      "v-line",
+      "tiêm 1 lần",
+      "gò má cao",
+      "hạ gò má",
+      "cằm lẹm",
+      "cằm ngắn",
+      "trượt cằm",
+      "độn cằm"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "HAM-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ],
+   "cum_knb": [
+    "Hỏi dịch vụ khác: PTTM Hàm mặt"
+   ]
+  },
+  "NGUC": {
+   "ten": "Nâng ngực",
+   "khoi": "PTTM",
+   "router": [
+    "ngực",
+    "nâng ngực",
+    "túi ngực",
+    "vòng 1",
+    "treo ngực",
+    "thu nhỏ ngực",
+    "bao xơ",
+    "núm tụt"
+   ],
+   "cau_vang": [
+    "Trước đây chị đã từng đặt túi, tiêm hay cấy gì vào ngực chưa ạ, hay đây là lần đầu?",
+    "Chị muốn cải thiện điều gì nhất ạ: ngực nhỏ muốn đầy hơn, ngực xẹp/chảy xệ sau sinh – cho con bú, hai bên không đều, hay xử lý túi cũ?"
+   ],
+   "an_toan": [
+    "sưng to đột ngột",
+    "đỏ nóng đau",
+    "chảy dịch",
+    "lộ túi",
+    "nghi vỡ",
+    "khó thở",
+    "khối u vú",
+    "tiết dịch núm"
+   ],
+   "chan_dung": [
+    {
+     "ma": "NGUC-THAY_TUI_SUA_LAI",
+     "ten": "Đã can thiệp ngực — thay/tháo túi, bao xơ, sửa lại",
+     "thu_tu": 1,
+     "tu": [
+      "túi đặt 10 năm",
+      "ngực cứng",
+      "bao xơ",
+      "túi bị vỡ",
+      "ngực lệch sau nâng",
+      "thay túi",
+      "tháo túi",
+      "tiêm filler ngực",
+      "vón cục sau tiêm"
+     ],
+     "loai_tru": "Làm tại Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "NGUC-LECH_QUA_TO",
+     "ten": "Ngực lệch, dị dạng hoặc quá to — chỉnh hình dạng/kích thước",
+     "thu_tu": 2,
+     "tu": [
+      "hai bên ngực không đều",
+      "một bên to một bên nhỏ",
+      "ngực dáng ống",
+      "núm tụt",
+      "ngực to quá",
+      "đau lưng vì ngực to",
+      "thu nhỏ ngực"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "NGUC-SAU_SINH",
+     "ten": "Ngực sau sinh/cho con bú — xẹp, chảy xệ",
+     "thu_tu": 3,
+     "tu": [
+      "sau sinh ngực xẹp",
+      "cai sữa xong ngực chảy xệ",
+      "sinh 2 con",
+      "ngực nhão",
+      "treo ngực",
+      "vừa lép vừa xệ",
+      "đặt túi kèm treo",
+      "đang cho con bú"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "NGUC-NANG_LAN_DAU",
+     "ten": "Nâng ngực lần đầu — ngực nhỏ/lép, muốn đầy tự nhiên",
+     "thu_tu": 4,
+     "tu": [
+      "ngực em lép",
+      "ngực nhỏ",
+      "nâng ngực bao nhiêu",
+      "túi bao nhiêu cc",
+      "túi tròn hay giọt nước",
+      "mổ nách hay chân ngực",
+      "có bị bao xơ không"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "NGUC-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ],
+   "cum_knb": [
+    "Hỏi dịch vụ khác: PTTM Ngực / Mông"
+   ]
+  },
+  "CAYMO": {
+   "ten": "Cấy mỡ tự thân",
+   "khoi": "PTTM",
+   "router": [
+    "cấy mỡ",
+    "mỡ tự thân",
+    "lấy mỡ",
+    "bbl",
+    "lấp lõm",
+    "mặt hóp",
+    "thái dương hóp"
+   ],
+   "cau_vang": [
+    "Trước đây chị đã từng tiêm filler, căng chỉ, cấy mỡ, cắt mí hay hút mỡ ở vùng nào chưa ạ?",
+    "Chị muốn cải thiện chỗ nào nhất ạ: má/thái dương hóp, vùng mắt trũng/rãnh lệ, ngực/mông/hông, hay một vết lõm?"
+   ],
+   "an_toan": [
+    "đau dữ dội",
+    "da trắng bệch",
+    "tím loang",
+    "nhìn mờ",
+    "mất thị lực",
+    "liệt mặt",
+    "khó thở",
+    "đau ngực",
+    "lơ mơ",
+    "chảy mủ"
+   ],
+   "chan_dung": [
+    {
+     "ma": "CAYMO-LAP_LOM_SUA_BODY",
+     "ten": "Lấp lõm & sửa body: lõm sau hút mỡ, sẹo lõm, chấn thương",
+     "thu_tu": 1,
+     "tu": [
+      "hút mỡ xong bị lõm",
+      "bụng lồi lõm",
+      "cấy mỡ mông bị vón cục",
+      "mỡ tiêu không đều",
+      "sẹo lõm sau mổ",
+      "vết lõm sau tai nạn",
+      "vết lõm dính",
+      "sửa cấy mỡ"
+     ],
+     "loai_tru": "Làm tại Kangnam/HCI và phàn nàn → N4"
+    },
+    {
+     "ma": "CAYMO-DA_LAM_DAY",
+     "ten": "Đã làm đầy/trẻ hoá mặt chưa ưng — «lần này khác gì?»",
+     "thu_tu": 2,
+     "tu": [
+      "đã làm filler thái dương",
+      "tiêm nó không săn chắc",
+      "filler tan hết",
+      "tiêm mãi tốn tiền",
+      "bị vón filler",
+      "căng chỉ xong lại chảy",
+      "cấy mỡ mặt rồi bị tiêu",
+      "mặt lồi lõm sau cấy",
+      "cấy mỡ đã cũ"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "CAYMO-VUNG_MAT",
+     "ten": "Vùng mắt: mắt trũng, rãnh lệ — «cắt hay cấy, BS chọn giúp»",
+     "thu_tu": 3,
+     "tu": [
+      "nên cấy mỡ hay cắt mí dưới",
+      "mắt trũng",
+      "mắt sâu",
+      "rãnh lệ",
+      "bọng mắt",
+      "mệt mỏi bơ phờ",
+      "da lại dư",
+      "trọn gói không phát sinh"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "CAYMO-BODY",
+     "ten": "Body: ngực/mông/hông, sau sinh, kết hợp hút mỡ",
+     "thu_tu": 4,
+     "tu": [
+      "cấy mỡ ngực",
+      "không muốn đặt túi",
+      "tăng nhẹ vòng 1",
+      "cấy mỡ mông",
+      "bbl",
+      "hông lõm",
+      "mông lép",
+      "hút mỡ bụng cấy lên mông",
+      "chỗ bị lấy có bị khuyết lõm"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "CAYMO-MAT_HOP_LAN_DAU",
+     "ten": "Mặt hóp lần đầu — «mình có làm nổi không?»",
+     "thu_tu": 5,
+     "tu": [
+      "mặt em hóp",
+      "má hóp",
+      "thái dương hóp",
+      "hốc hác",
+      "mặt khắc khổ",
+      "rãnh mũi má sâu",
+      "gầy lắm k có mỡ",
+      "đủ kinh tế để làm",
+      "tính theo vùng hay theo ml",
+      "mỡ sống được bao nhiêu",
+      "mặt baby"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "CAYMO-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "GIAMBEO": {
+   "ten": "Giảm béo không phẫu thuật",
+   "khoi": "Weightloss",
+   "router": [
+    "giảm béo",
+    "giảm mỡ",
+    "làm máy",
+    "hủy mỡ",
+    "cryo",
+    "rf",
+    "tan mỡ",
+    "nọng cằm",
+    "mỡ bụng dưới",
+    "inshape"
+   ],
+   "cau_vang": [
+    "Trước đây chị đã từng làm gì để giảm béo chưa ạ, ví dụ mua liệu trình máy, tiêm tan mỡ, uống thuốc, hay đây là lần đầu chị tìm hiểu?",
+    "Chị muốn gọn vùng nào nhất ạ (bụng, đùi, bắp tay, nọng cằm), chị đang sau sinh hay đang cân nhắc giữa làm máy và hút mỡ ạ?"
+   ],
+   "an_toan": [
+    "nhịn ăn mấy ngày",
+    "móc họng",
+    "nôn ra",
+    "thuốc xổ",
+    "lợi tiểu để giảm cân",
+    "gầy rồi nhưng vẫn thấy mình béo",
+    "sợ ăn",
+    "mất kinh vì nhịn ăn",
+    "bỏng rộp",
+    "hoại tử",
+    "áp xe",
+    "tim đập nhanh",
+    "run tay",
+    "đang mang thai"
+   ],
+   "chan_dung": [
+    {
+     "ma": "GIAMBEO-DA_THU_NOI_KHAC",
+     "ten": "Đã thử giảm béo nơi khác không hiệu quả, sợ bị ép thẻ",
+     "thu_tu": 1,
+     "tu": [
+      "làm ở spa",
+      "mua thẻ rồi bị bỏ rơi",
+      "tiêm tan mỡ rồi",
+      "uống trà giảm cân",
+      "giảm xong lại tăng",
+      "có bị ép mua gói",
+      "lần này có gì khác",
+      "hết liệu trình có được theo dõi"
+     ],
+     "loai_tru": "Đã làm tại Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "GIAMBEO-SAU_SINH",
+     "ten": "Mẹ sau sinh muốn lấy lại vóc dáng không phẫu thuật",
+     "thu_tu": 2,
+     "tu": [
+      "sau sinh bụng to",
+      "đang cho con bú",
+      "sinh mổ được mấy tháng",
+      "cai sữa rồi",
+      "mặc lại đồ cũ không vừa",
+      "có ảnh hưởng sữa không",
+      "bụng mỡ sau sinh"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "GIAMBEO-SO_PHAU_THUAT",
+     "ten": "Sợ phẫu thuật — cân nhắc giữa hút mỡ và làm máy",
+     "thu_tu": 3,
+     "tu": [
+      "không phải mổ",
+      "sợ hút mỡ",
+      "làm máy với hút mỡ cái nào",
+      "không muốn nghỉ dưỡng",
+      "không xâm lấn"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "GIAMBEO-MO_KHU_TRU",
+     "ten": "Mỡ khu trú cứng đầu — cân nặng ổn, muốn gọn vùng",
+     "thu_tu": 4,
+     "tu": [
+      "tập mãi bụng dưới không xuống",
+      "đùi to",
+      "bắp tay to",
+      "nọng cằm",
+      "em không béo nhưng",
+      "giảm mỡ vùng",
+      "bao nhiêu buổi",
+      "cryo",
+      "có cần giảm cân không"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "GIAMBEO-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "HUTMO": {
+   "ten": "Hút mỡ & tạo hình vóc dáng",
+   "khoi": "Weightloss",
+   "router": [
+    "hút mỡ",
+    "lipo",
+    "tạo hình thành bụng",
+    "căng da bụng",
+    "da thừa",
+    "tái tạo body",
+    "cắt da thừa"
+   ],
+   "cau_vang": [
+    "Trước đây chị đã từng hút mỡ hay phẫu thuật vùng cơ thể nào chưa ạ, hay đây là lần đầu chị tìm hiểu?",
+    "Chị muốn xử lý vùng nào ạ: một vùng mỡ (bụng, đùi, tay, nọng), nhiều vùng/toàn thân, bụng sau sinh, hay da chùng sau khi giảm cân nhiều ạ?"
+   ],
+   "an_toan": [
+    "nhịn ăn mấy ngày",
+    "móc họng",
+    "nôn ra",
+    "thuốc xổ",
+    "lợi tiểu để giảm cân",
+    "gầy rồi nhưng vẫn thấy mình béo",
+    "sợ ăn",
+    "mất kinh vì nhịn ăn",
+    "khó thở",
+    "đau ngực",
+    "ho ra máu",
+    "lơ mơ",
+    "ngất",
+    "chảy dịch mủ",
+    "da tím đen",
+    "bắp chân sưng đau",
+    "đang mang thai"
+   ],
+   "chan_dung": [
+    {
+     "ma": "HUTMO-SUA_HONG",
+     "ten": "Sửa hút mỡ hỏng / làm lại sau tạo hình nơi khác",
+     "thu_tu": 1,
+     "tu": [
+      "hút mỡ ở chỗ khác bị lồi lõm",
+      "hai bên không đều",
+      "da bụng nhăn sau hút",
+      "tụ dịch",
+      "sẹo lỗ hút",
+      "sửa được không",
+      "vẫn còn sưng hay vậy luôn"
+     ],
+     "loai_tru": "Đã làm tại Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "HUTMO-DA_CHUNG_SAU_GIAM_CAN",
+     "ten": "Da chùng sau giảm cân lớn — muốn tái tạo body",
+     "thu_tu": 2,
+     "tu": [
+      "giảm 25 kg",
+      "da bụng chảy",
+      "da thừa",
+      "da tay lủng lẳng",
+      "cắt da thừa",
+      "căng da bụng",
+      "tái tạo body",
+      "da dư",
+      "hút mỡ có hết da dư không"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "HUTMO-BUNG_SAU_SINH",
+     "ten": "Mẹ sau sinh — bụng vừa mỡ vừa da nhão",
+     "thu_tu": 3,
+     "tu": [
+      "bụng sau sinh",
+      "sinh mổ 2 lần",
+      "da bụng nhão",
+      "tách cơ bụng",
+      "hút mỡ hay căng da bụng",
+      "cai sữa bao lâu thì làm được",
+      "sẹo mổ đẻ",
+      "còn định sinh thêm"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "HUTMO-NHIEU_VUNG_LIPO360",
+     "ten": "Nhiều vùng/toàn thân, muốn làm một lần (Lipo 360)",
+     "thu_tu": 4,
+     "tu": [
+      "hút toàn thân",
+      "lipo 360",
+      "hút một lần nhiều vùng",
+      "hút tối đa bao nhiêu lít",
+      "làm một lần cho xong",
+      "chia mấy đợt"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "HUTMO-1_2_VUNG_LAN_DAU",
+     "ten": "Hút mỡ lần đầu một–hai vùng mỡ cứng đầu",
+     "thu_tu": 5,
+     "tu": [
+      "hút mỡ bụng giá",
+      "hút mỡ đùi",
+      "hút mỡ bắp tay",
+      "hút mỡ nọng cằm",
+      "hút mỡ có đau không",
+      "nghỉ mấy ngày",
+      "tập rồi vẫn còn mỡ bụng dưới",
+      "tay to do mỡ hay da chùng",
+      "mặc áo sát nách",
+      "hút xong da có dư không"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "HUTMO-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "BEOPHI": {
+   "ten": "Chống béo phì & kiểm soát cân nặng y khoa",
+   "khoi": "Weightloss",
+   "router": [
+    "béo phì",
+    "giảm cân",
+    "thừa cân",
+    "inbody",
+    "thuốc giảm cân",
+    "tiêm giảm cân",
+    "mỡ máu",
+    "tiền tiểu đường",
+    "gan nhiễm mỡ",
+    "beokid"
+   ],
+   "cau_vang": [
+    "Chị đang tìm hiểu cho bản thân hay cho người nhà, ví dụ cho bé nhà mình ạ?",
+    "Trước đây chị đã từng giảm cân bằng cách nào chưa ạ (thuốc, tiêm, ăn kiêng…), và có bác sĩ nào dặn phải giảm cân vì đường huyết, mỡ máu, huyết áp hay gan nhiễm mỡ không ạ?"
+   ],
+   "an_toan": [
+    "nhịn ăn mấy ngày",
+    "móc họng",
+    "nôn ra",
+    "thuốc xổ",
+    "lợi tiểu để giảm cân",
+    "gầy rồi nhưng vẫn thấy mình béo",
+    "sợ ăn",
+    "mất kinh vì nhịn ăn",
+    "nôn nhiều",
+    "đau bụng dữ dội",
+    "ngất",
+    "đau ngực",
+    "khó thở",
+    "phù",
+    "đang mang thai",
+    "bỏ bữa",
+    "sụt cân nhanh"
+   ],
+   "chan_dung": [
+    {
+     "ma": "BEOPHI-PHU_HUYNH_CHO_CON",
+     "ten": "Phụ huynh tìm chương trình kiểm soát cân nặng cho con",
+     "thu_tu": 1,
+     "tu": [
+      "con em",
+      "bé nhà em béo",
+      "cháu bị bạn trêu",
+      "trẻ béo phì",
+      "cho con giảm cân",
+      "bác sĩ nhi bảo bé thừa cân",
+      "beokid"
+     ],
+     "loai_tru": "Trẻ dưới 18 tự nhắn → N5"
+    },
+    {
+     "ma": "BEOPHI-THUOC_YOYO",
+     "ten": "Đã dùng thuốc/tiêm giảm cân hoặc yo-yo nhiều lần",
+     "thu_tu": 2,
+     "tu": [
+      "tiêm thuốc giảm cân",
+      "ngưng thuốc là tăng lại",
+      "lên lại",
+      "kê thuốc giảm cân",
+      "đã cắt dạ dày",
+      "yo-yo",
+      "thử nhiều cách rồi",
+      "ăn kiêng, tập đủ kiểu"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "BEOPHI-BENH_CHUYEN_HOA",
+     "ten": "Thừa cân kèm bệnh chuyển hóa — được dặn phải giảm cân",
+     "thu_tu": 3,
+     "tu": [
+      "bác sĩ bảo em phải giảm cân",
+      "tiền tiểu đường",
+      "mỡ máu cao",
+      "gan nhiễm mỡ",
+      "huyết áp",
+      "ngáy to",
+      "khám sức khỏe công ty",
+      "đau gối vì nặng",
+      "có bệnh nền thì giảm cân thế nào"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "BEOPHI-BEO_PHI_NANG",
+     "ten": "Béo phì nặng — cần giảm nhiều chục kg",
+     "thu_tu": 4,
+     "tu": [
+      "hơn 100 kg",
+      "béo quá khổ",
+      "đi lại khó",
+      "cần giảm 30 kg",
+      "không biết bắt đầu từ đâu",
+      "sợ đến nơi bị nhìn",
+      "mập lâu năm"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "BEOPHI-THUA_CAN_VUA",
+     "ten": "Thừa cân mức vừa — muốn giảm cân y khoa bài bản",
+     "thu_tu": 5,
+     "tu": [
+      "muốn giảm 8 kg",
+      "giảm cân khoa học",
+      "giảm cân có bác sĩ",
+      "đo inbody",
+      "thực đơn giảm cân",
+      "giảm cân an toàn",
+      "lộ trình bao lâu",
+      "một liệu trình gồm những gì"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "BEOPHI-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "TREHOA": {
+   "ten": "Trẻ hoá & nâng cơ",
+   "khoi": "Beauty & Spa",
+   "router": [
+    "trẻ hoá",
+    "trẻ hóa",
+    "nâng cơ",
+    "căng chỉ",
+    "chảy xệ",
+    "chùng",
+    "nhăn",
+    "hifu",
+    "thermage",
+    "ultherapy",
+    "căng da",
+    "lão hoá",
+    "lão hóa",
+    "da xỉn",
+    "kém đàn hồi",
+    "lỗ chân lông",
+    "skin booster",
+    "căng bóng"
+   ],
+   "cau_vang": [
+    "Trước đây chị đã từng làm gì để trẻ hóa da chưa ạ, ví dụ bắn máy nâng cơ, căng chỉ, tiêm, hay đây là lần đầu chị tìm hiểu?",
+    "Hiện chị thấy lo nhất điểm nào ạ: da xỉn và nếp nhăn nhỏ, da bắt đầu chảy xệ, chảy xệ nhiều muốn căng da hẳn, hay đang khó chịu sau lần làm trước?"
+   ],
+   "an_toan": [
+    "bỏng",
+    "phồng rộp",
+    "chảy dịch",
+    "chảy mủ",
+    "sốt",
+    "chỉ lòi",
+    "áp xe",
+    "méo miệng",
+    "mặt lệch",
+    "khó nhắm mắt",
+    "nhìn mờ"
+   ],
+   "chan_dung": [
+    {
+     "ma": "TREHOA-SUA_BIEN_CHUNG",
+     "ten": "Biến chứng/kết quả hỏng sau trẻ hoá – nâng cơ – căng chỉ",
+     "thu_tu": 1,
+     "tu": [
+      "bắn hifu xong bị bỏng",
+      "mặt bị lõm sau khi bắn",
+      "căng chỉ bị lộ chỉ",
+      "sờ thấy cục",
+      "mặt bị lệch",
+      "làm ở spa xong bị",
+      "muốn rút chỉ"
+     ],
+     "loai_tru": "Đã làm tại Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "TREHOA-CANG_DA_PT",
+     "ten": "Chảy xệ nhiều — cân nhắc căng da phẫu thuật",
+     "thu_tu": 2,
+     "tu": [
+      "da em chảy nhiều",
+      "bắn máy mấy lần không ăn thua",
+      "căng da mặt hẳn",
+      "căng da cổ",
+      "phẫu thuật căng da",
+      "bao lâu thì đi làm được"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "TREHOA-NANG_CO_KHONG_PT",
+     "ten": "Chảy xệ, nhăn sâu — muốn nâng cơ không phẫu thuật",
+     "thu_tu": 3,
+     "tu": [
+      "bắt đầu chảy xệ",
+      "rãnh mũi má sâu",
+      "cằm đôi",
+      "muốn nâng cơ",
+      "ultherapy",
+      "thermage",
+      "hifu",
+      "căng chỉ giữ được bao lâu",
+      "da chùng",
+      "mất đường viền hàm",
+      "nâng cơ trẻ hóa",
+      "trẻ hóa da mặt",
+      "da chùng nhăn"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "TREHOA-CHONG_LAO_HOA_SOM",
+     "ten": "Chống lão hoá sớm — da xuống sắc, nếp nhăn nhỏ",
+     "thu_tu": 4,
+     "tu": [
+      "da em dạo này xỉn",
+      "da khô",
+      "mất độ căng",
+      "bắt đầu có nếp nhăn",
+      "lỗ chân lông to",
+      "chống lão hóa sớm",
+      "chống lão hoá sớm",
+      "tiêm căng bóng",
+      "liệu trình bao nhiêu buổi",
+      "cổ có ngấn",
+      "vùng mắt nhăn"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "TREHOA-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ],
+   "cum_knb": [
+    "Trẻ hóa — Nâng cơ / Skin booster"
+   ]
+  },
+  "SACTO": {
+   "ten": "Điều trị nám & sắc tố",
+   "khoi": "Beauty & Spa",
+   "router": [
+    "nám",
+    "tàn nhang",
+    "đồi mồi",
+    "sắc tố",
+    "đốm nâu",
+    "sạm",
+    "bớt",
+    "kem trộn",
+    "corticoid",
+    "trắng da",
+    "tắm trắng",
+    "không đều màu",
+    "da xỉn màu",
+    "truyền trắng"
+   ],
+   "cau_vang": [
+    "Trước đây chị đã điều trị nám/sạm ở đâu chưa ạ, hoặc có từng dùng kem trộn, kem không rõ nguồn gốc không?",
+    "Chị đang bị nám, tàn nhang, đồi mồi, bớt có từ nhỏ, hay chủ yếu muốn da sáng đều màu hơn ạ?"
+   ],
+   "an_toan": [
+    "da mỏng đỏ",
+    "rát bỏng",
+    "giãn mạch",
+    "mụn mủ hàng loạt",
+    "phồng rộp",
+    "đen sạm nặng",
+    "lớn nhanh",
+    "đổi màu",
+    "bờ không đều",
+    "loét"
+   ],
+   "chan_dung": [
+    {
+     "ma": "SACTO-HONG_DA_KEM_TRON",
+     "ten": "Da tổn thương do kem trộn hoặc biến chứng laser/peel",
+     "thu_tu": 1,
+     "tu": [
+      "kem trộn",
+      "kem online",
+      "bôi trắng nhanh",
+      "ngưng kem là nổi mụn",
+      "da mỏng",
+      "thấy cả mạch máu",
+      "peel xong bị sạm",
+      "bắn laser bị bỏng",
+      "corticoid"
+     ],
+     "loai_tru": "Làm tại Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "SACTO-BOT_BAM_SINH",
+     "ten": "Bớt sắc tố bẩm sinh — bớt xanh, bớt nâu, bớt Ota",
+     "thu_tu": 2,
+     "tu": [
+      "vết bớt từ nhỏ",
+      "bớt xanh",
+      "bớt cà phê sữa",
+      "bớt ota",
+      "bớt bẩm sinh"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "SACTO-NAM_TAI_PHAT",
+     "ten": "Nám điều trị nhiều nơi, tái phát hoặc không đỡ",
+     "thu_tu": 3,
+     "tu": [
+      "trị nám mấy nơi",
+      "bắn laser xong lại đậm",
+      "nám lì",
+      "cứ ngưng là bị lại",
+      "tốn bao nhiêu tiền rồi mà không hết",
+      "nám lâu năm",
+      "chữa nhiều nơi không hết",
+      "nám tái",
+      "điều trị rồi vẫn bị"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "SACTO-NAM_LAN_DAU",
+     "ten": "Nám, tàn nhang, đồi mồi — điều trị lần đầu",
+     "thu_tu": 4,
+     "tu": [
+      "bị nám",
+      "nám 2 bên má",
+      "nám sau sinh",
+      "tàn nhang",
+      "đồi mồi",
+      "chưa điều trị bao giờ",
+      "laser nám có hết không",
+      "đốm nâu",
+      "nám mới bị",
+      "trị nám",
+      "điều trị nám",
+      "bắn nám",
+      "laser nám",
+      "nám da"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "SACTO-SANG_DA",
+     "ten": "Da xỉn, không đều màu — muốn sáng da",
+     "thu_tu": 5,
+     "tu": [
+      "da em xỉn màu",
+      "không đều màu",
+      "muốn trắng sáng",
+      "truyền trắng",
+      "tắm trắng",
+      "da sạm đen"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "SACTO-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ],
+   "cum_knb": [
+    "Nám & sắc tố",
+    "Tàn nhang"
+   ]
+  },
+  "FILLER": {
+   "ten": "Tiêm filler & botox",
+   "khoi": "Beauty & Spa",
+   "router": [
+    "filler",
+    "botox",
+    "tiêm",
+    "làm đầy",
+    "tiêm môi",
+    "tiêm cằm",
+    "xóa nhăn",
+    "gọn hàm",
+    "ha",
+    "chất làm đầy",
+    "tiêm trẻ hóa",
+    "tiêm trẻ hoá"
+   ],
+   "cau_vang": [
+    "Trước đây chị đã từng tiêm filler hay botox chưa ạ, nếu có thì kết quả hiện tại chị thấy ổn không?",
+    "Chị muốn cải thiện điểm nào nhất ạ: làm đầy môi, cằm, má, rãnh, hay xóa nhăn, gọn hàm?"
+   ],
+   "an_toan": [
+    "trắng bệch",
+    "tím tái",
+    "tím dạng lưới",
+    "đau dữ dội",
+    "lạnh da",
+    "bọng nước",
+    "loét đen",
+    "nhìn mờ",
+    "mất thị lực",
+    "sụp mi",
+    "lác mắt",
+    "khó nuốt",
+    "khó thở",
+    "yếu cơ"
+   ],
+   "chan_dung": [
+    {
+     "ma": "FILLER-SUA_HONG",
+     "ten": "Tiêm filler/botox hỏng — vón, lệch, muốn tiêu/sửa",
+     "thu_tu": 1,
+     "tu": [
+      "tiêm môi bị vón",
+      "filler bị chảy xuống",
+      "cằm bị lệch",
+      "tiêm ở spa",
+      "không biết tiêm chất gì",
+      "muốn tiêu filler",
+      "tiêm botox bị sụp mí",
+      "bị vón cục",
+      "tiêm bị lệch"
+     ],
+     "loai_tru": "Tiêm tại Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "FILLER-TIEM_DUY_TRI",
+     "ten": "Đã tiêm ổn — muốn tiêm lại, dặm, duy trì",
+     "thu_tu": 2,
+     "tu": [
+      "botox hết tác dụng",
+      "muốn tiêm lại",
+      "dặm thêm",
+      "lần trước tiêm ở",
+      "khách cũ có ưu đãi",
+      "bao lâu tiêm lại"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "FILLER-BOTOX_LAN_DAU",
+     "ten": "Xóa nhăn, gọn hàm bằng botox — lần đầu",
+     "thu_tu": 3,
+     "tu": [
+      "nếp nhăn trán",
+      "vết chân chim",
+      "nhăn giữa 2 lông mày",
+      "mặt bị vuông",
+      "hàm to",
+      "tiêm gọn hàm",
+      "botox có bị đơ không",
+      "lần đầu tiêm botox",
+      "xóa cau mày",
+      "xoá cau mày",
+      "xoa cau may",
+      "cau mày",
+      "xóa nhăn",
+      "xoá nhăn",
+      "nhăn trán",
+      "thon gọn hàm"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "FILLER-LAM_DAY_LAN_DAU",
+     "ten": "Làm đầy filler lần đầu — môi, cằm, má, rãnh",
+     "thu_tu": 4,
+     "tu": [
+      "lần đầu em tiêm",
+      "tiêm môi",
+      "tiêm cằm",
+      "má hóp",
+      "rãnh mũi má",
+      "thái dương lõm",
+      "filler giữ được bao lâu",
+      "có tan được không",
+      "bao nhiêu cc",
+      "mặt gầy hốc hác",
+      "mặt hóp",
+      "mặt khổ",
+      "làm đầy dái tai",
+      "hết thuốc",
+      "về như cũ",
+      "cấy ha",
+      "cay ha",
+      "tiêm ha",
+      "tiem ha",
+      "full face",
+      "làm môi",
+      "môi trái tim",
+      "làm đầy",
+      "phil",
+      "filler giá"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "FILLER-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ],
+   "cum_knb": [
+    "Trẻ hóa — Làm đầy (Filler/HA)",
+    "Trẻ hóa — Botox"
+   ]
+  },
+  "SEO": {
+   "ten": "Điều trị sẹo",
+   "khoi": "Beauty & Spa",
+   "router": [
+    "sẹo",
+    "rỗ",
+    "thâm mụn",
+    "sẹo lồi",
+    "sẹo lõm",
+    "thâm",
+    "mụn",
+    "lăn kim",
+    "sẹo bỏng",
+    "sẹo mổ"
+   ],
+   "cau_vang": [
+    "Sẹo của chị là do mụn, do mổ, do bỏng hay do tai nạn ạ, và chị đã từng điều trị ở đâu chưa?",
+    "Sẹo hiện tại lõm xuống, gồ lên, chỉ thâm màu, hay co kéo khó cử động ạ?"
+   ],
+   "an_toan": [
+    "chưa lành",
+    "chảy dịch",
+    "có mủ",
+    "sưng nóng đỏ",
+    "sốt",
+    "vết mổ toác",
+    "tự loét",
+    "lớn nhanh",
+    "co kéo",
+    "khó há miệng"
+   ],
+   "chan_dung": [
+    {
+     "ma": "SEO-DIEU_TRI_LAI",
+     "ten": "Điều trị sẹo nơi khác không đỡ hoặc nặng hơn",
+     "thu_tu": 1,
+     "tu": [
+      "trị sẹo mấy nơi rồi không đỡ",
+      "lăn kim xong bị thâm hơn",
+      "tiêm sẹo lồi bị lõm",
+      "làm spa trị rỗ mãi không ăn thua"
+     ],
+     "loai_tru": "Điều trị tại Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "SEO-PT_BONG_CO_KEO",
+     "ten": "Sẹo sau phẫu thuật, bỏng, chấn thương — diện rộng, co kéo",
+     "thu_tu": 2,
+     "tu": [
+      "sẹo bỏng",
+      "bị bỏng từ nhỏ",
+      "sẹo tai nạn",
+      "sẹo mổ to",
+      "sẹo co kéo",
+      "sẹo dính",
+      "có phải mổ không"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "SEO-LOI",
+     "ten": "Sẹo lồi, sẹo phì đại",
+     "thu_tu": 3,
+     "tu": [
+      "sẹo lồi",
+      "sẹo gồ lên",
+      "sẹo mổ đẻ bị lồi",
+      "sẹo xỏ khuyên",
+      "sẹo ngứa",
+      "cơ địa sẹo lồi",
+      "cắt sẹo có bị lại"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "SEO-RO_LOM",
+     "ten": "Sẹo rỗ, sẹo lõm sau mụn/thủy đậu",
+     "thu_tu": 4,
+     "tu": [
+      "sẹo rỗ",
+      "sẹo lõm",
+      "mặt rỗ do mụn",
+      "sẹo thủy đậu",
+      "bao nhiêu buổi thì đầy",
+      "trị sẹo rỗ",
+      "điều trị sẹo rỗ",
+      "lăn kim"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "SEO-THAM",
+     "ten": "Thâm sau mụn/vết thương — da phẳng",
+     "thu_tu": 5,
+     "tu": [
+      "thâm mụn",
+      "vết thâm đỏ",
+      "thâm nâu sau mụn",
+      "thâm do muỗi đốt",
+      "lâu rồi không mờ",
+      "bao lâu thì hết thâm",
+      "trị thâm",
+      "điều trị thâm"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "SEO-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "RANGSU": {
+   "ten": "Răng sứ & dán sứ (veneer)",
+   "khoi": "Dental",
+   "router": [
+    "răng sứ",
+    "bọc sứ",
+    "dán sứ",
+    "veneer",
+    "mão sứ",
+    "răng ố",
+    "răng mẻ",
+    "răng thưa",
+    "tẩy trắng răng"
+   ],
+   "cau_vang": [
+    "Trước đây chị đã từng bọc sứ, dán sứ hay chữa tủy răng nào chưa, hay đây là lần đầu ạ?",
+    "Chị muốn cải thiện điều gì nhất ạ: răng ố/mẻ cho trắng đều, răng hô hoặc lệch, hay răng đang vỡ, yếu cần phục hồi?"
+   ],
+   "an_toan": [
+    "đau nhức tự phát",
+    "sưng lợi",
+    "chảy mủ",
+    "sưng mặt",
+    "sốt",
+    "khó há miệng",
+    "khó nuốt",
+    "chảy máu không cầm"
+   ],
+   "chan_dung": [
+    {
+     "ma": "RANGSU-SU_HONG_LAM_LAI",
+     "ten": "Sứ hỏng / làm lại — đen viền, hở, ê buốt, bể",
+     "thu_tu": 1,
+     "tu": [
+      "răng sứ bị đen viền",
+      "hở chân răng sứ",
+      "răng sứ bị hôi",
+      "răng sứ bị bể",
+      "ê buốt sau bọc",
+      "tháo sứ làm lại",
+      "bọc ở chỗ khác bị",
+      "chỗ cũ đóng cửa"
+     ],
+     "loai_tru": "Sứ làm tại Nha Khoa Paris/Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "RANGSU-PHUC_HOI_RANG_VO",
+     "ten": "Răng vỡ lớn, sâu nhiều, đã chữa tủy — cần mão sứ",
+     "thu_tu": 2,
+     "tu": [
+      "chữa tủy rồi",
+      "bác sĩ bảo phải bọc",
+      "răng vỡ mất một nửa",
+      "răng sâu to trám nhiều lần",
+      "răng hàm bị vỡ"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "RANGSU-BOC_SU_THAY_NIENG",
+     "ten": "Muốn bọc sứ để hết hô/lệch — có thể chỉ cần niềng",
+     "thu_tu": 3,
+     "tu": [
+      "bọc sứ chữa hô",
+      "răng hô bọc sứ",
+      "răng khấp khểnh bọc sứ",
+      "chỗ kia bảo bọc 8",
+      "nên niềng hay bọc sứ",
+      "không muốn niềng lâu"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "RANGSU-SO_MAI_RANG",
+     "ten": "Lo mài răng thật — cân nhắc dán sứ veneer hay bọc sứ",
+     "thu_tu": 4,
+     "tu": [
+      "có phải mài răng không",
+      "mài rồi có mọc lại",
+      "bọc sứ có chết tủy",
+      "dán sứ không mài",
+      "veneer mài bao nhiêu",
+      "sau này tháo ra thì sao",
+      "sợ đen viền nướu"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "RANGSU-TRANG_DEU_NHANH",
+     "ten": "Muốn răng trắng đều nhanh — ố, mẻ, thưa nhẹ",
+     "thu_tu": 5,
+     "tu": [
+      "răng em ố vàng",
+      "răng xỉn màu",
+      "răng bị mẻ",
+      "răng thưa",
+      "bọc sứ mấy ngày xong",
+      "kịp cưới",
+      "sứ loại nào đẹp"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "RANGSU-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "NIENG": {
+   "ten": "Niềng răng",
+   "khoi": "Dental",
+   "router": [
+    "niềng",
+    "chỉnh nha",
+    "mắc cài",
+    "khay trong suốt",
+    "hàm duy trì",
+    "răng khấp khểnh",
+    "răng chen chúc"
+   ],
+   "cau_vang": [
+    "Chị tìm hiểu niềng cho chính mình hay cho bé nhà mình ạ, và trước đây đã từng niềng lần nào chưa?",
+    "Chị đang lo nhất điều gì ạ: răng lệch, chen chúc, hô/móm nhìn nghiêng thấy cả cằm, hay ngại đeo mắc cài bị lộ khi đi làm?"
+   ],
+   "an_toan": [
+    "đau tự phát",
+    "sưng có khối",
+    "chảy mủ",
+    "sốt",
+    "răng lung lay",
+    "dây cung đâm",
+    "vết loét không lành",
+    "đau khớp thái dương"
+   ],
+   "chan_dung": [
+    {
+     "ma": "NIENG-HONG_DO_DANG",
+     "ten": "Niềng hỏng, niềng dở dang hoặc tái phát",
+     "thu_tu": 1,
+     "tu": [
+      "niềng rồi răng bị chạy lại",
+      "tháo niềng bị hô lại",
+      "niềng dở",
+      "nha khoa cũ đóng cửa",
+      "chuyển chỗ niềng",
+      "niềng xong cắn không khít",
+      "tiêu chân răng"
+     ],
+     "loai_tru": "Đang niềng tại Nha Khoa Paris/Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "NIENG-PHU_HUYNH_CHO_CON",
+     "ten": "Phụ huynh hỏi niềng cho con",
+     "thu_tu": 2,
+     "tu": [
+      "cho con em",
+      "bé nhà em",
+      "con học lớp",
+      "răng sữa",
+      "răng con mọc lộn xộn",
+      "mấy tuổi niềng được",
+      "niềng sớm có tốt không",
+      "con sắp thi"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "NIENG-HO_MOM_XUONG",
+     "ten": "Hô, móm, lệch hàm nghi do xương",
+     "thu_tu": 3,
+     "tu": [
+      "hô cả hàm",
+      "bị móm",
+      "cằm đưa ra",
+      "cắn ngược",
+      "nhìn nghiêng môi chìa",
+      "hàm lệch",
+      "mặt lệch",
+      "niềng có hết móm không",
+      "hô do xương"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "NIENG-KIN_DAO",
+     "ten": "Ngại lộ khí cụ — khay trong suốt, mắc cài sứ/mặt trong",
+     "thu_tu": 4,
+     "tu": [
+      "niềng khay trong suốt",
+      "niềng không mắc cài",
+      "niềng có lộ không",
+      "đi làm gặp khách",
+      "đeo khay có bị ngọng",
+      "mắc cài sứ",
+      "mắc cài mặt trong"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "NIENG-LAN_DAU",
+     "ten": "Niềng lần đầu — răng lệch, chen chúc, thưa, hô nhẹ",
+     "thu_tu": 5,
+     "tu": [
+      "răng em khấp khểnh",
+      "răng chen chúc",
+      "răng thưa",
+      "răng hơi hô",
+      "niềng bao lâu",
+      "niềng hết bao nhiêu",
+      "có phải nhổ răng không",
+      "trả góp được không"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "NIENG-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "IMPLANT": {
+   "ten": "Cấy ghép Implant",
+   "khoi": "Dental",
+   "router": [
+    "implant",
+    "trồng răng",
+    "mất răng",
+    "cầu răng",
+    "hàm tháo lắp",
+    "răng giả",
+    "cấy ghép"
+   ],
+   "cau_vang": [
+    "Chị hỏi cho mình hay cho bố mẹ/người nhà ạ, và hiện đang mất mấy răng, mất lâu chưa?",
+    "Trước đây đã từng cấy implant, làm cầu răng hay đeo hàm giả tháo lắp chưa ạ, chị đang cân nhắc implant hay cầu răng, và chị đang ở Việt Nam hay sắp từ nước ngoài về ạ?"
+   ],
+   "an_toan": [
+    "sưng đau tăng dần",
+    "chảy mủ quanh trụ",
+    "sốt",
+    "chảy máu không cầm",
+    "tê môi kéo dài",
+    "trụ lung lay"
+   ],
+   "chan_dung": [
+    {
+     "ma": "IMPLANT-HONG_LAM_LAI",
+     "ten": "Implant hỏng / làm lại — trụ lung lay, viêm quanh trụ",
+     "thu_tu": 1,
+     "tu": [
+      "trụ implant bị lung lay",
+      "implant bị viêm",
+      "răng implant bị lỏng",
+      "mão implant bị rơi",
+      "cấy ở chỗ khác bị đào thải",
+      "nơi cấy đóng cửa"
+     ],
+     "loai_tru": "Cấy tại Nha Khoa Paris/Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "IMPLANT-MAT_NHIEU_RANG_NGUOI_GIA",
+     "ten": "Mất nhiều răng/cả hàm, người lớn tuổi — con hỏi cho bố mẹ",
+     "thu_tu": 2,
+     "tu": [
+      "cho bố",
+      "cho mẹ em",
+      "mất gần hết răng",
+      "mất cả hàm",
+      "hàm tháo lắp bị lỏng",
+      "răng giả hay rơi",
+      "ăn nhai khó",
+      "tuổi này cấy được không",
+      "implant toàn hàm"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "IMPLANT-VIET_KIEU",
+     "ten": "Việt kiều / ở nước ngoài về Việt Nam làm implant",
+     "thu_tu": 3,
+     "tu": [
+      "em ở mỹ",
+      "em ở úc",
+      "em ở đức",
+      "em ở nhật",
+      "về việt nam 3 tuần",
+      "bên này implant đắt",
+      "có phải về 2 lần",
+      "hồ sơ tiếng anh"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "IMPLANT-HAY_CAU_RANG",
+     "ten": "Cân nhắc implant hay cầu răng",
+     "thu_tu": 4,
+     "tu": [
+      "implant hay cầu răng",
+      "cầu răng có phải mài",
+      "cầu răng rẻ hơn",
+      "bên kia tư vấn làm cầu",
+      "cầu răng dùng được bao lâu",
+      "implant đắt quá"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "IMPLANT-MAT_1_VAI_RANG",
+     "ten": "Mất 1–vài răng — muốn trồng lại bằng implant",
+     "thu_tu": 5,
+     "tu": [
+      "mất 1 răng hàm",
+      "nhổ răng rồi trồng lại",
+      "bác sĩ bảo phải nhổ",
+      "cấy implant có đau không",
+      "trồng răng mất bao lâu",
+      "mất răng cửa"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "IMPLANT-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "TBG": {
+   "ten": "Tế bào gốc & liệu pháp tái tạo",
+   "khoi": "Wellness",
+   "router": [
+    "tế bào gốc",
+    "exosome",
+    "tái tạo",
+    "prp"
+   ],
+   "cau_vang": [
+    "Chị hỏi về tế bào gốc cho mình hay cho người nhà ạ, và trước giờ đã từng tiêm/truyền tế bào gốc hay liệu pháp tái tạo ở đâu chưa ạ?",
+    "Chị mong cải thiện điều gì nhất ạ: da mặt, sức khỏe – năng lượng nói chung, hay một bệnh cụ thể như khớp, tiểu đường ạ?"
+   ],
+   "an_toan": [
+    "sốt",
+    "rét run",
+    "khó thở",
+    "phát ban",
+    "đau đầu dữ dội",
+    "lơ mơ",
+    "nổi cục đau",
+    "nhìn mờ"
+   ],
+   "chan_dung": [
+    {
+     "ma": "TBG-DA_LAM_NOI_KHAC",
+     "ten": "Đã làm tế bào gốc nơi khác — không hiệu quả, lo biến chứng",
+     "thu_tu": 1,
+     "tu": [
+      "truyền tế bào gốc rồi",
+      "tiêm tế bào gốc ở spa",
+      "mặt nổi cục sau tiêm",
+      "truyền xong bị sốt",
+      "làm bên nhật",
+      "hợp đồng nghiên cứu"
+     ],
+     "loai_tru": "Làm tại Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "TBG-CHUA_BENH_KHOP",
+     "ten": "Tìm tế bào gốc để chữa bệnh/khớp cho mình hoặc bố mẹ",
+     "thu_tu": 2,
+     "tu": [
+      "thoái hóa khớp gối",
+      "tiêm tế bào gốc tái tạo sụn",
+      "không cần mổ",
+      "tế bào gốc chữa tiểu đường",
+      "nhắm vào người già"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "TBG-DA_MAT",
+     "ten": "Muốn tế bào gốc/exosome cho da mặt — nám, nhăn, lỗ chân lông",
+     "thu_tu": 3,
+     "tu": [
+      "tiêm tế bào gốc trị nám",
+      "lăn kim tế bào gốc",
+      "exosome có phải tế bào gốc",
+      "tế bào gốc với prp",
+      "thay filler bằng tế bào gốc"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "TBG-TRE_HOA_TOAN_THAN",
+     "ten": "Muốn truyền tế bào gốc toàn thân để trẻ hoá",
+     "thu_tu": 4,
+     "tu": [
+      "truyền tế bào gốc chống lão hóa",
+      "trẻ lại 10 tuổi",
+      "người giàu truyền định kỳ",
+      "bay sang nhật",
+      "truyền tế bào gốc giá",
+      "có được cấp phép không"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "TBG-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "LONGEVITY": {
+   "ten": "Longevity & chống lão hoá chủ động",
+   "khoi": "Wellness",
+   "router": [
+    "longevity",
+    "tuổi sinh học",
+    "nad+",
+    "truyền vitamin",
+    "truyền trắng",
+    "detox",
+    "nội tiết",
+    "tiền mãn kinh",
+    "testosterone",
+    "tầm soát",
+    "khám tổng quát",
+    "gói khám"
+   ],
+   "cau_vang": [
+    "Chị đang hỏi cho mình hay cho bố mẹ/người nhà ạ, và gần đây có vừa phẫu thuật, hoặc đang dùng nội tiết, truyền dịch ở đâu không ạ?",
+    "Điều làm chị bận tâm nhất lúc này là gì ạ: mệt mỏi – ngủ kém, dấu hiệu nội tiết như bốc hỏa, kinh nguyệt thất thường, hay muốn khám tầm soát định kỳ ạ?"
+   ],
+   "an_toan": [
+    "khó thở",
+    "phát ban toàn thân",
+    "sưng môi",
+    "tim đập nhanh",
+    "ngất",
+    "vàng da",
+    "ra huyết bất thường",
+    "khối ở vú",
+    "đau ngực",
+    "sưng đau bắp chân",
+    "yếu liệt nửa người"
+   ],
+   "chan_dung": [
+    {
+     "ma": "LONGEVITY-DA_TRUYEN_NOI_TIET",
+     "ten": "Đã truyền dịch/dùng nội tiết nơi khác — lo tác dụng phụ",
+     "thu_tu": 1,
+     "tu": [
+      "truyền trắng ở spa",
+      "da vàng hơn",
+      "uống nội tiết",
+      "căng tức ngực",
+      "ra huyết lấm tấm",
+      "tự ngưng thuốc",
+      "truyền nad+ xong mệt"
+     ],
+     "loai_tru": "Làm tại Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "LONGEVITY-QUANH_PHAU_THUAT",
+     "ten": "Chuẩn bị hoặc phục hồi quanh phẫu thuật thẩm mỹ",
+     "thu_tu": 2,
+     "tu": [
+      "vừa hút mỡ",
+      "sau phẫu thuật ăn gì",
+      "liệu pháp phục hồi",
+      "sắp căng da mà có tiểu đường",
+      "khám trước mổ"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "LONGEVITY-NOI_TIET_TRUNG_NIEN",
+     "ten": "Nội tiết tuổi trung niên — tiền mãn kinh, giảm testosterone",
+     "thu_tu": 3,
+     "tu": [
+      "bốc hỏa",
+      "kinh nguyệt thất thường",
+      "tiền mãn kinh",
+      "mất ngủ, cáu gắt",
+      "hormone thay thế",
+      "giảm ham muốn",
+      "testosterone thấp"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "LONGEVITY-MUA_CHO_BO_ME",
+     "ten": "Con/người nhà mua gói tầm soát, chăm sóc cho bố mẹ",
+     "thu_tu": 4,
+     "tu": [
+      "khám tổng quát cho bố mẹ",
+      "gói khám cho mẹ",
+      "quà sức khỏe cho bố mẹ",
+      "gói gia đình",
+      "bố mẹ không chịu đi khám"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "LONGEVITY-TU_CHONG_LAO_HOA",
+     "ten": "Tự chủ động chống lão hoá — mệt mỏi, tuổi sinh học, IV/NAD+",
+     "thu_tu": 5,
+     "tu": [
+      "ngủ đủ vẫn mệt",
+      "khám tổng quát bình thường",
+      "tuổi sinh học",
+      "longevity là gì",
+      "truyền nad+",
+      "truyền vitamin",
+      "detox",
+      "gói wellness"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "LONGEVITY-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  },
+  "TIEMKHOP": {
+   "ten": "Tiêm khớp (PRP, tiêm dưới siêu âm)",
+   "khoi": "Wellness",
+   "router": [
+    "khớp",
+    "đau gối",
+    "thoái hóa khớp",
+    "tiêm khớp",
+    "tràn dịch",
+    "thay khớp",
+    "đau vai",
+    "glucosamine"
+   ],
+   "cau_vang": [
+    "Anh/chị hỏi cho mình hay cho bố mẹ/người nhà ạ? Đau khớp nào và bao lâu rồi ạ?",
+    "Trước giờ đã điều trị gì chưa ạ: uống thuốc, dán cao, đã tiêm khớp ở đâu, hay đã được bác sĩ bảo phải mổ thay khớp ạ?"
+   ],
+   "an_toan": [
+    "sưng nóng đỏ đột ngột",
+    "sốt",
+    "không đứng được",
+    "khớp biến dạng",
+    "bắp chân sưng đau",
+    "tê yếu chân",
+    "mất kiểm soát tiểu tiện",
+    "đau ngực",
+    "khó thở"
+   ],
+   "chan_dung": [
+    {
+     "ma": "TIEMKHOP-CHI_DINH_THAY_KHOP",
+     "ten": "Đã được chỉ định mổ thay khớp — tìm ý kiến thứ hai",
+     "thu_tu": 1,
+     "tu": [
+      "bác sĩ bảo phải thay khớp",
+      "thoái hóa độ 3",
+      "thoái hóa độ 4",
+      "có cách nào không mổ",
+      "đã chụp phim ở bệnh viện",
+      "thay khớp được bao nhiêu năm"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "TIEMKHOP-DA_TIEM_NOI_KHAC",
+     "ten": "Đã tiêm khớp nơi khác — đỡ rồi đau lại",
+     "thu_tu": 2,
+     "tu": [
+      "tôi tiêm khớp rồi",
+      "tiêm corticoid vào khớp",
+      "đỡ được 2",
+      "tiêm khớp có hại",
+      "bao lâu tiêm lại",
+      "không biết tiêm thuốc gì"
+     ],
+     "loai_tru": "Tiêm tại Kangnam và phàn nàn → N4"
+    },
+    {
+     "ma": "TIEMKHOP-CHAN_THUONG_THE_THAO",
+     "ten": "Chấn thương khớp do thể thao, vận động — đau tái phát",
+     "thu_tu": 3,
+     "tu": [
+      "đau gối sau pickleball",
+      "chạy bộ bị đau gối",
+      "tràn dịch khớp gối",
+      "chơi lại vẫn đau",
+      "prp cho vận động viên",
+      "tập gym đau vai"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "TIEMKHOP-CON_HOI_CHO_BO_ME",
+     "ten": "Con hỏi cho bố mẹ đau khớp",
+     "thu_tu": 4,
+     "tu": [
+      "bố em đau gối",
+      "mẹ em đi lại khó",
+      "phải vịn tường",
+      "đưa bố mẹ đi khám khớp",
+      "tiêm khớp cho người già",
+      "bố mẹ không chịu đi"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "TIEMKHOP-TU_DAU_TU_CHUA",
+     "ten": "Tự đau khớp lâu ngày hoặc mới đau sớm — đang tự chữa",
+     "thu_tu": 5,
+     "tu": [
+      "tôi đau gối mấy năm",
+      "uống thuốc giảm đau",
+      "glucosamine",
+      "thuốc nam",
+      "dán cao",
+      "gối kêu lục cục",
+      "xuống cầu thang nhói"
+     ],
+     "loai_tru": ""
+    },
+    {
+     "ma": "TIEMKHOP-CHUA_XAC_DINH",
+     "ten": "Chưa xác định — hỏi 2 câu hỏi vàng",
+     "thu_tu": 99,
+     "tu": [],
+     "loai_tru": ""
+    }
+   ]
+  }
+ },
+ "cum_knb_nhap_nhang": {
+  "Da chung (mụn, sẹo, lỗ chân lông, phục hồi…)": {
+   "ghi_chu": "Cụm gộp ba thứ khác nhau. Có sẹo/rỗ/thâm/mụn → SEO; có nám/sạm/không đều màu → SACTO; còn lại (xỉn, chùng, lão hoá) → TREHOA.",
+   "uu_tien": [
+    "SEO",
+    "SACTO",
+    "TREHOA"
+   ]
+  },
+  "Hỏi dịch vụ khác: Hút mỡ và giảm béo công nghệ cao": {
+   "ghi_chu": "Hỏi mổ/hút → HUTMO; hỏi máy, không mổ → GIAMBEO.",
+   "uu_tien": [
+    "HUTMO",
+    "GIAMBEO"
+   ]
+  },
+  "(chưa rõ dịch vụ)": {
+   "ghi_chu": "⛔ Không đoán. Chạy router trên chữ khách; không trúng dịch vụ nào thì để trống chân dung và ghi trạng thái lead.",
+   "uu_tien": []
+  }
+ }
+}

@@ -1,3 +1,28 @@
+> ## ⛔ ĐỔI LUẬT GỐC — 02/11/2026
+>
+> Sổ này viết cho lối **phác họa chân dung theo từng kỳ**. Lối đó đã **bỏ**.
+> Từ nay chân dung lấy từ **thư viện cố định KF-62 v2.2**:
+> **18 dịch vụ · 85 chân dung · 12 thẻ ngữ cảnh AR01–AR12**.
+>
+> | | Trước | Nay |
+> |---|---|---|
+> | Nguồn | Agent phác họa từ hội thoại của kỳ | `tools/chan_dung_kf62.json` — cố định |
+> | Mã | `CD1 … CDn`, đổi nghĩa mỗi kỳ | `MUI-SUA_HONG`, `SACTO-NAM_TAI_PHAT` — đọc được |
+> | Duyệt | **CỔNG 0** mỗi kỳ | Duyệt MỘT LẦN ở cấp KF-62 · ⛔ không còn CỔNG 0 |
+> | So giữa các kỳ | ⛔ không | ✅ được |
+> | Phân loại | khớp dấu hiệu, lấy cái trúng nhiều nhất | **THỨ TỰ KIỂM TRA**, câu «Có» ĐẦU TIÊN thắng |
+>
+> ★ **Ba thứ trước đây là chân dung, nay ⛔ KHÔNG phải:**
+> «ở tỉnh» và «so giá» là **THẺ** (AR02, AR06) · «chỉ hỏi giá, chưa nói tình trạng»
+> là **TRẠNG THÁI LEAD**. Gộp chúng vào chân dung là trộn *khách là ai* với
+> *khách đang ở đâu trong phễu* — hai câu hỏi khác nhau.
+>
+> ⚠ **Thứ tự kiểm tra có lý do:** tiền sử can thiệp và vấn đề y khoa hỏi TRƯỚC
+> mục tiêu thẩm mỹ. Đảo lại là ca **sửa hỏng** bị xếp nhầm thành ca **làm lần đầu**.
+>
+> ⚠ Phần còn lại của sổ (nấc 5A, cách đọc insight, §5–§6) **vẫn đúng**;
+> chỉ §1–§2 về cách SINH RA chân dung là đã thay.
+
 # id-C · ★ CHÂN DUNG PHÁC HỌA TỪ HỘI THOẠI × HÀNH TRÌNH 5A
 
 > Trục ngang của cả hệ. Mọi bảng trong dashboard đều cắt theo **CD × 5A**.

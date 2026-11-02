@@ -45,8 +45,10 @@ RA = os.path.join(GOC, "out")
 PHAC_HOA = os.path.join(RA, "chan-dung.json")           # bản phác họa chân dung của kỳ
 NGUYEN_LIEU = os.path.join(RA, "nguyen-lieu-chan-dung.json")
 
-CD_DU = "CD0"                          # ★ mã DỰ TRỮ, không phác họa, không đặt lại
-TEN_CD_DU = "Chưa đủ dữ kiện để xếp"   # hội thoại không khớp dấu hiệu nào
+CD_DU = "KHONG_XAC_DINH_DV"            # ★ mã DỰ TRỮ của thư viện KF-62
+TEN_CD_DU = "Chưa xếp được dịch vụ — khách chưa nói đủ để biết hỏi về gì"
+# ⛔ Khác hẳn <DV>-CHUA_XAC_DINH: ở đó đã biết dịch vụ, chỉ thiếu chân dung.
+#    Ở đây đến DỊCH VỤ cũng chưa biết — thường là hội thoại dưới 20 ký tự chữ khách.
 CD_TOI_THIEU_DE_DE = 15                # ≥ ngần này HT rơi CD0 → nên phác họa thêm (id-C §1)
 
 GIO_MO, GIO_DONG = 8.5, 22.0          # khung giờ trực page, id-F N1.1
@@ -261,10 +263,11 @@ def kiem_phac_hoa(pho):
 
 
 def nap_phac_hoa(ky):
-    """Đọc bản phác họa chân dung của kỳ. Trả về (bản phác họa | None, lý do).
+    """★ BỎ TỪ 02/11/2026 — chân dung nay lấy từ THƯ VIỆN KF-62, ⛔ không phác họa theo kỳ.
 
-    ⛔ Chỉ nhận bản ĐÃ QUA CỔNG 0. Chưa duyệt thì script không gán chân dung —
-    hội thoại để `cd = null` và agent phải phác họa trước (id-C §1).
+    Hàm giữ lại để các lệnh cũ còn chạy, và để đọc được bản phác họa cũ nếu ai
+    đó còn giữ file. Nó ⛔ KHÔNG còn quyết định chân dung của hội thoại nữa:
+    `gan_chan_dung_kf62()` mới là nơi quyết định.
     """
     if not os.path.exists(PHAC_HOA):
         return None, "chưa có out/chan-dung.json — chân dung chưa được phác họa"
@@ -282,6 +285,94 @@ def nap_phac_hoa(ky):
     if pho.get("trang_thai") != "da_duyet":
         return None, "chân dung chưa qua CỔNG 0 — chờ `id.py chan-dung --duyet «tên người»`"
     return pho, None
+
+
+# ══════════ THƯ VIỆN CHÂN DUNG KF-62 v2.2 — ⛔ KHÔNG phác họa theo kỳ ══════════
+# Từ 02/11/2026 chân dung KHÔNG còn được phác họa lại mỗi kỳ. Hệ dùng một thư
+# viện CỐ ĐỊNH toàn hệ sinh thái: 18 dịch vụ · 85 chân dung · 12 thẻ ngữ cảnh.
+#
+#   Trước: CD1…CDn do agent phác họa từ hội thoại của kỳ, người duyệt ở CỔNG 0.
+#          ⛔ Mã đổi nghĩa mỗi kỳ → không so được giữa các kỳ.
+#   Nay  : mã đọc được và cố định, vd `SACTO-NAM_TAI_PHAT`. So được giữa các kỳ,
+#          dùng chung với Sale, pháp chế và các agent khác.
+#
+# Một hội thoại = ĐÚNG MỘT chân dung × TỐI ĐA BA thẻ × một nhãn nóng (id-D §2).
+# ⛔ Thẻ ngữ cảnh KHÔNG phải chân dung: «ở tỉnh», «so giá», «nam giới» là THẺ.
+# ⛔ «Chỉ hỏi giá, chưa nói tình trạng» là TRẠNG THÁI LEAD, không gán chân dung.
+
+THU_VIEN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chan_dung_kf62.json")
+_TV = None
+
+
+def nap_thu_vien():
+    """Đọc thư viện KF-62. ⛔ Thiếu file thì dừng — không có bộ mặc định nào khác."""
+    global _TV
+    if _TV is None:
+        if not os.path.exists(THU_VIEN):
+            sys.exit("⛔ Không có tools/chan_dung_kf62.json — thư viện chân dung là "
+                     "bắt buộc từ bản KF-62 v2.2.")
+        with open(THU_VIEN, encoding="utf-8") as f:
+            _TV = json.load(f)
+    return _TV
+
+
+def gan_dich_vu_kf62(ht, tv):
+    """Hội thoại thuộc dịch vụ nào. Tin CỤM của bản xuất trước, rồi mới đọc chữ khách."""
+    cum = str(ht.get("cum_knb") or ht.get("dich_vu_knb") or "")
+    for ma, d in tv["dich_vu"].items():
+        if cum and cum in (d.get("cum_knb") or []):
+            return ma, "cụm bản xuất"
+    # Cụm gộp nhiều thứ → đọc chữ khách theo đúng thứ tự ưu tiên đã khai.
+    nn = (tv.get("cum_knb_nhap_nhang") or {}).get(cum)
+    kh = ht["kh_text"]
+    if nn:
+        for ma in nn.get("uu_tien") or []:
+            if co_tu(kh, tv["dich_vu"][ma]["router"]):
+                return ma, "chữ khách (cụm gộp)"
+    # Không khai cụm → chạy router trên chữ khách, lấy dịch vụ trúng nhiều từ nhất.
+    diem = [(len(tu_khop(kh, d["router"])), ma) for ma, d in tv["dich_vu"].items()]
+    diem.sort(reverse=True)
+    if diem and diem[0][0] > 0:
+        return diem[0][1], "chữ khách"
+    return None, "⛔ không xếp được dịch vụ"
+
+
+def gan_chan_dung_kf62(ht, tv, dich_vu):
+    """Chạy THỨ TỰ KIỂM TRA của dịch vụ: câu «Có» ĐẦU TIÊN quyết định chân dung.
+
+    ⛔ Không chấm điểm, không lấy cái khớp nhiều từ nhất — KF-62 quy định thứ tự,
+    và thứ tự đó có lý do: tiền sử can thiệp và vấn đề y khoa phải hỏi TRƯỚC mục
+    tiêu thẩm mỹ, nếu không thì ca sửa hỏng bị xếp nhầm thành ca làm lần đầu.
+    """
+    if not dich_vu:
+        return None, ""
+    kh = ht["kh_text"]
+    for c in sorted(tv["dich_vu"][dich_vu]["chan_dung"], key=lambda x: x["thu_tu"]):
+        if not c["tu"]:
+            continue
+        hit = tu_khop(kh, c["tu"])
+        if hit:
+            return c["ma"], hit[0]
+    return dich_vu + "-CHUA_XAC_DINH", ""
+
+
+def gan_the(ht, tv):
+    """Tối đa BA thẻ ngữ cảnh, theo đúng thứ tự AR01→AR12 (KF-62 §2)."""
+    kh = ht["kh_text"]
+    ra = []
+    for ma, t in tv["the_ngu_canh"].items():
+        if co_tu(kh, t["tu"]):
+            ra.append(ma)
+        if len(ra) >= 3:
+            break
+    return ra
+
+
+def trang_thai_lead(ht, td, ma_o, rao_can):
+    """Trạng thái NGOÀI chân dung — KF-62 §1 và bước 0 của KF-60."""
+    if "hỏi giá ngay" in rao_can and "chưa nói tình trạng" in rao_can:
+        return "CHI_HOI_GIA"
+    return ""
 
 
 def gan_chan_dung(ht, pho):
@@ -1135,20 +1226,30 @@ def _pct_nhom(rs, ma_nhom):
 
 
 def _bang_chan_dung(ban_ghi, pho):
-    """Bảng chân dung dựng theo bản phác họa ĐÃ DUYỆT.
+    """Bảng chân dung dựng từ THƯ VIỆN KF-62 — chỉ liệt kê chân dung CÓ hội thoại.
 
-    ⛔ Chưa qua CỔNG 0 → trả về bảng RỖNG. Script không có chân dung mặc định
-    nào để điền vào, và không được bịa ra dòng nào.
+    ⛔ Không liệt kê cả 85 chân dung: một kỳ chỉ chạm tới vài line, 80 dòng rỗng
+    làm bảng vô dụng. Chân dung 0 HT vẫn ⛔ không mất — nó nằm trong thư viện và
+    đọc được ở `tools/chan_dung_kf62.json`.
     """
-    if not pho:
-        return []
-    dong = [_dong_cd(ban_ghi, c["ma"], (c.get("ten") or c["ma"]), c) for c in pho["tep"]]
-    dong.append(_dong_cd(ban_ghi, CD_DU, TEN_CD_DU, None))
-    return dong
+    tv = nap_thu_vien()
+    ten = {}
+    for dv in tv["dich_vu"].values():
+        for c in dv["chan_dung"]:
+            ten[c["ma"]] = c["ten"]
+    co = []
+    for r in ban_ghi:
+        m = r.get("cd") or CD_DU
+        if m not in co:
+            co.append(m)
+    ten[CD_DU] = TEN_CD_DU
+    # Nhóm CHUA_XAC_DINH của mỗi dịch vụ luôn xuống cuối, như CD0 trước đây.
+    co.sort(key=lambda m: (m == CD_DU, m.endswith("CHUA_XAC_DINH"), m))
+    return [_dong_cd(ban_ghi, m, ten.get(m, m), None) for m in co]
 
 
 def _dong_cd(ban_ghi, cd, ten, dn):
-    rs = [r for r in ban_ghi if r["cd"] == cd]
+    rs = [r for r in ban_ghi if (r.get("cd") or CD_DU) == cd]
     hs = (dn or {}).get("he_so_gia_tri")
     return {"cd": cd, "ten": ten, "ht": len(rs), "quan_sat": len(rs) < 5,
             "hot": sum(1 for r in rs if r["nhiet"] == "HOT"),
@@ -1604,17 +1705,30 @@ def lenh_bao_cao(args):
                               "text": "Chân dung chưa qua CỔNG 0 — tab Chân dung còn trống (%s)."
                                       % (pha.get("vi_sao") or "chưa phác họa")})
     if ads_lech:
-        D["canh_bao"].append({"muc": "bad", "text":
+        D["canh_bao"].append({"muc": "bad", "may": 1, "text":
             "⛔ Bỏ qua out/doc-ads.json: file đó là của kỳ «%s», không phải «%s». "
             "Tab Marketing để trống — ⛔ không lấy số kỳ khác gán sang." % (ads_lech, args.ky)})
     elif not A:
         D["canh_bao"].append({"muc": "warn", "text": "Chưa có file chỉ số quảng cáo — tab Marketing trống."})
     D["canh_bao"].append({"muc": "warn", "text": "Chưa có dữ liệu Google Ads (id-B §4)."})
+    # ★ CỔNG ① KF-62 §4: «Chưa xác định» ≤15%. Trượt thì thư viện CHƯA ổn định
+    #   cho line này — nói ra ngay ở đầu trang, ⛔ không để bảng trông như đã chuẩn.
+    tep = H.get("chan_dung") or []
+    nt = H.get("so_ht") or 0
+    chua = sum(r["ht"] for r in tep
+               if r["cd"].endswith("CHUA_XAC_DINH") or r["cd"] == CD_DU)
+    if nt and chua * 100.0 / nt > 15:
+        D["canh_bao"].append({"muc": "bad", "may": 1, "text":
+            "⛔ Thư viện chân dung KF-62 CHƯA qua cổng ① cho kỳ này: %d/%d hội thoại "
+            "(%.1f%%) chưa xếp được chân dung, ngưỡng là 15%%. Nguyên nhân đo được: "
+            "khách chưa nói tình trạng (trung vị chữ khách 44 ký tự) và 2 câu hỏi vàng "
+            "chưa được áp dụng. ⛔ Đừng dùng bảng chân dung kỳ này để chia ngân sách."
+            % (chua, nt, chua * 100.0 / nt)})
     L = H.get("lead") or {}
     bb = L.get("bat_bien") or {}
     if L and not bb.get("dat", True):
         # ⛔ Hai bất biến này sai là LỖI CODE, không phải chuyện ngưỡng.
-        D["canh_bao"].append({"muc": "bad", "text":
+        D["canh_bao"].append({"muc": "bad", "may": 1, "text":
             "Khối lead sai bất biến: %d HT vào hàng gọi mà không có SĐT · "
             "%d HT nhãn HOT rơi xuống nhóm Remarketing — ⛔ đừng phát hàng chờ."
             % (bb.get("goi_ngay_thieu_sdt", 0), bb.get("id_d_hot_roi_khong", 0))})
@@ -1639,9 +1753,17 @@ def lenh_bao_cao(args):
         print("  ✓ đã rút chữ người của kỳ ra %s.nguoi.json" % ky_id)
 
     # ② Phủ chữ người lên bản máy sinh.
+    #    ⚠ Lớp phủ thay CẢ danh sách `canh_bao`, nên cảnh báo CHẶN do máy sinh
+    #    (cổng KF-62, bất biến lead, lệch kỳ của file ads) phải được gắn lại
+    #    SAU khi phủ — ⛔ không để chữ người vô tình xoá mất một cờ đỏ.
+    may = [c for c in D["canh_bao"] if c.get("may")]
     if os.path.exists(lp_p):
         with open(lp_p, encoding="utf-8") as f:
             D = phu_nguoi(D, json.load(f))
+    co = set(json.dumps(c, ensure_ascii=False) for c in D.get("canh_bao") or [])
+    for c in may:
+        if json.dumps(c, ensure_ascii=False) not in co:
+            D.setdefault("canh_bao", []).insert(0, c)
 
     with open(fp, "w", encoding="utf-8") as f:
         json.dump(D, f, ensure_ascii=False, indent=1)
