@@ -145,7 +145,8 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
   },
 
   "chan_dung": {
-    // ⛔ KHÔNG có bộ chân dung mặc định. `tep` rỗng = chưa qua CỔNG 0 (id-C §1).
+    // Chân dung lấy từ THƯ VIỆN cố định KF-62 (id-M); `phac_hoa` là DI SẢN của
+    // lối phác họa theo kỳ, giữ để đọc được file kỳ cũ.
     "phac_hoa": { "trang_thai":"chua_phac_hoa|da_duyet", "vi_sao", "file",
                   "nguyen_lieu", "so_chan_dung", "duyet_boi", "duyet_luc" },
     // `cd` nay là mã THƯ VIỆN KF-62 (`SACTO-NAM_TAI_PHAT`), ⛔ không còn CD1…CDn.
@@ -154,7 +155,7 @@ CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
     "tep":     [ { "cd","ten","ht","quan_sat","hot","warm","cold","co_sdt",
                    "chot_lich","bo_1_luot","roi_truc","he_so" } ],
     "insight": [ { "cd","ten","nhom","ho_la_ai","insight","cau_hoi_ngam","tin_hieu_nong","huong_xu_ly","trich" } ],
-    // xếp theo điểm win; mỗi ô là gạch đầu dòng — dòng mở đầu "- " thành <li> (id-C §6)
+    // xếp theo điểm win; mỗi ô là gạch đầu dòng — dòng mở đầu "- " thành <li> (id-C §4)
     "co_hoi_win":    [ { "cd","ten","ht","lead_bo_lo","he_so","pct_sdt","diem","hang",
                          "uu_tien","roi_truc","ghi_chu","ly_do_chon" } ],  // CD0 cuối, hang=null
     // ⚠ Bảng Cơ hội win hiện HOT/WARM/COLD lấy từ `tep` cùng mã CD — ⛔ không

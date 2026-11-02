@@ -14,7 +14,7 @@ FILE HỘI THOẠI: <tên file>
 KỲ: <tu> → <den>
 KỲ TRƯỚC: <tên file bản phác họa kỳ trước, hoặc "chưa có">
 
-Theo id-C §1–2, làm đúng năm việc:
+Theo id-M (thư viện KF-62), làm đúng năm việc:
 
 ① GÁN TỪNG HỘI THOẠI — phần KHÔNG cần chân dung
    nấc 5A (đọc CÂU HỎI ĐẦU TIÊN của khách, ⛔ không đọc cả hội thoại)
@@ -67,7 +67,7 @@ Rồi:
 ```
 GÁN & VIẾT INSIGHT
 
-Theo id-C §3–6, làm đúng sáu việc:
+Theo id-C §1–4 (nấc 5A · ma trận · thông điệp · cơ hội win), làm đúng sáu việc:
 
 ① GÁN CHÂN DUNG cho từng hội thoại theo dấu hiệu ĐÃ DUYỆT
    Hội thoại không khớp dấu hiệu nào → CD0.

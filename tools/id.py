@@ -13,7 +13,7 @@ Làm phần ĐẾM ĐƯỢC của quy trình B1–B6:
   bao-cao   : gộp kết quả thành file JSON cho dashboard
 
 ⛔ Script KHÔNG có sẵn bộ chân dung nào. Chân dung được **phác họa từ chính hội
-   thoại của kỳ** (id-C §1): agent đọc nguyên liệu → viết out/chan-dung.json →
+   thoại của kỳ** ⚠ DI SẢN: agent đọc nguyên liệu → viết out/chan-dung.json →
    người dùng duyệt ở CỔNG 0 → script mới gán được chân dung cho từng hội thoại.
 
 ⛔ Script KHÔNG làm phần đọc hiểu: phác họa chân dung, insight, câu hỏi ngầm,
@@ -49,7 +49,7 @@ CD_DU = "KHONG_XAC_DINH_DV"            # ★ mã DỰ TRỮ của thư viện KF
 TEN_CD_DU = "Chưa xếp được dịch vụ — khách chưa nói đủ để biết hỏi về gì"
 # ⛔ Khác hẳn <DV>-CHUA_XAC_DINH: ở đó đã biết dịch vụ, chỉ thiếu chân dung.
 #    Ở đây đến DỊCH VỤ cũng chưa biết — thường là hội thoại dưới 20 ký tự chữ khách.
-CD_TOI_THIEU_DE_DE = 15                # ≥ ngần này HT rơi CD0 → nên phác họa thêm (id-C §1)
+CD_TOI_THIEU_DE_DE = 15                # ⚠ DI SẢN — chỉ lệnh `chan-dung` cũ còn dùng
 
 GIO_MO, GIO_DONG = 8.5, 22.0          # khung giờ trực page, id-F N1.1
 SLA_PHUT = 2                           # ngưỡng trả lời tin đầu
@@ -378,7 +378,8 @@ def trang_thai_lead(ht, td, ma_o, rao_can):
 def gan_chan_dung(ht, pho):
     """Gán theo DẤU HIỆU của bản phác họa đã duyệt, xét từ trên xuống.
 
-    Dòng đầu khớp thì lấy dòng đó → xếp chân dung HẸP trước, RỘNG sau (id-C §1).
+    Dòng đầu khớp thì lấy dòng đó → xếp chân dung HẸP trước, RỘNG sau.
+    ⚠ DI SẢN: nay chân dung do `gan_chan_dung_kf62()` quyết (`id-M`).
     Không khớp dòng nào → CD0, mã dự trữ, ⛔ không phải "rác".
     """
     if not pho:
@@ -394,7 +395,7 @@ def gan_chan_dung(ht, pho):
 
 
 def gan_nac(ht, td):
-    """Đọc câu hỏi ĐẦU TIÊN của khách (id-C §2)."""
+    """Gán nấc 5A: đọc câu hỏi ĐẦU TIÊN của khách, ⛔ không đọc cả hội thoại (id-C §1)."""
     dau = next((t["text"] for t in ht["tin"] if not t["nv"] and len(t["text"]) > 3), "")
     if co_tu(dau, td["ma_o"]["O-09"] + ["còn suất", "ưu đãi", "đặt lịch"]):
         return "A4"
@@ -837,7 +838,7 @@ def gom_lead(ban_ghi):
 
 # ───────────── nguyên liệu PHÁC HỌA chân dung — bước B3 ──────────────────
 # ⛔ Phần này KHÔNG xếp chân dung. Nó chỉ bày ra chữ của khách để agent đọc và
-#   phác họa, rồi người dùng duyệt ở CỔNG 0 (id-C §1).
+#   phác họa, rồi người dùng duyệt ở CỔNG 0. ⚠ DI SẢN — xem `id-M` §1.
 
 RE_TACH_TU = re.compile(r"[^0-9A-Za-zÀ-ỹ]+")
 
@@ -891,7 +892,7 @@ def nguyen_lieu_chan_dung(ban_ghi, hts, td, ky, nguon):
         "schema": "nguyen-lieu-chan-dung/1",
         "ky": ky, "nguon": nguon, "so_ht": n,
         "tao": datetime.now().strftime("%Y-%m-%d %H:%M"),
-        "muc_dich": "Nguyên liệu để agent PHÁC HỌA chân dung của kỳ (id-C §1). "
+        "muc_dich": "⚠ DI SẢN của lối phác họa theo kỳ (xem id-M §1). "
                     "⛔ Đây CHƯA phải chân dung.",
         "nguong_cum": toi_thieu,
         "cum_chu": cum,
@@ -904,7 +905,7 @@ def nguyen_lieu_chan_dung(ban_ghi, hts, td, ky, nguon):
             "Cụm chữ đếm theo SỐ HỘI THOẠI chứa cụm, ngưỡng ≥ %d HT." % toi_thieu,
             "Câu đầu đã ẩn danh — số điện thoại, email, link thay bằng «…» (luật ⑩).",
             "⛔ Cụm chữ đông nhất KHÔNG tự thành một chân dung. Chân dung cần một "
-            "NỖI SỢ riêng và truy ngược được về HT-nnn — xem id-C §1.",
+            "NỖI SỢ riêng và truy ngược được về HT-nnn — xem id-M §1.",
         ],
     }
 
@@ -1345,7 +1346,7 @@ def _in_tom_tat(k, ban_ghi, nl):
             p("")
             p("    ⚠ %d HT rơi %s. Nếu nhóm này có một NỖI SỢ riêng thì phác họa thêm"
               % (du["ht"], CD_DU))
-            p("      một chân dung và xin duyệt lại CỔNG 0 — id-C §1.")
+            p("      một chân dung và xin duyệt lại CỔNG 0 — ⚠ DI SẢN, xem id-M.")
     else:
         p("  CHÂN DUNG — ⏳ CHƯA PHÁC HỌA")
         p("    %s" % (k["phac_hoa"]["vi_sao"] or ""))
@@ -1714,7 +1715,7 @@ def lenh_bao_cao(args):
             "Nấc 5A · mã O · mức nóng · rào cản · vì sao rơi · chấm N1–N6: đọc tự động "
             "bằng tools/id.py, CHƯA qua người soát.",
             "Chân dung KHÔNG có bộ mặc định: phác họa từ hội thoại của kỳ, gán theo dấu "
-            "hiệu trong out/chan-dung.json sau khi người dùng duyệt ở CỔNG 0 (id-C §1).",
+            "hiệu trong tools/chan_dung_kf62.json — thư viện cố định KF-62 (id-M).",
             "N3.2 (thông tin khớp bảng hiện hành) luôn chấm «—» vì cần người đối chiếu "
             "bảng giá hiện hành — xem id-F §3.",
             "Điểm dùng để phân việc kèm cặp. Không phải căn cứ kỷ luật hay xếp hạng công khai.",

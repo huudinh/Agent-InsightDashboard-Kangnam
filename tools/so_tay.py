@@ -177,7 +177,7 @@ def so_cn(nv, D, rows, ky):
         a("Chân dung gặp nhiều nhất: **%s · %s** — %d/%d hội thoại"
           % (cd_chinh[0][0], TEN_CD.get(cd_chinh[0][0], "—"), cd_chinh[0][1], n))
     else:
-        a("⏳ Chân dung của kỳ **chưa được phác họa** — chờ CỔNG 0 (id-C §1). "
+        a("⏳ Chưa xếp được chân dung cho kỳ — xem thư viện KF-62 (id-M). "
           "Phần này sẽ điền khi chạy lại sau khi duyệt.")
     if o_chinh:
         a("Họ đang sợ: **%s** — %d lần" % (o_chinh[0][0], o_chinh[0][1]))

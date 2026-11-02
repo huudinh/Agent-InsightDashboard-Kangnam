@@ -48,7 +48,7 @@ Một kỳ đọc 300 hội thoại sẽ đẻ ra 40–60 việc đáng làm. Kh
 
 ```
 CD1 · "Đã làm rồi, đi sửa" · khối ① Tăng HOT
-  (chân dung của kỳ này, đã duyệt ở CỔNG 0 — id-C §2)
+  (mã thư viện KF-62 — id-M §7)
   HT mới trong kỳ        : 42
   HT trong tập (WARM 3/5): 11
   Có SĐT                 : 6
