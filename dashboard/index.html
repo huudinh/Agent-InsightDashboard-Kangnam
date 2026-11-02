@@ -116,10 +116,15 @@ tbody tr.pick td{background:color-mix(in srgb,var(--hl) 17%,transparent)}
 .hbar b{text-align:right;font-variant-numeric:tabular-nums}
 .hbar .bar{width:84px;margin:0}
 
-.mix{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr) 96px;gap:8px;align-items:center;
+.mix{display:grid;grid-template-columns:minmax(0,clamp(200px,34vw,420px)) minmax(0,1fr) 112px;
+  gap:10px;align-items:center;max-width:1180px;
   font-size:12.5px;padding:4px 0;border-bottom:1px dashed var(--line)}
 .mix:last-of-type{border-bottom:0}
-.mix .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mix .nm{min-width:0;display:grid;gap:1px;line-height:1.35}
+/* Mã KF-62 dài tới 26 ký tự. Cho nó một dòng riêng, ⛔ không cắt — mã là thứ
+   tra ngược được; tên mới là thứ cắt được vì đã có title khi rê chuột. */
+.mix .nm b{font-size:12px;letter-spacing:.01em}
+.mix .nm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mute)}
 .mix .stk{display:flex;height:12px;border-radius:4px;overflow:hidden;background:var(--chip)}
 .mix .stk i{display:block;height:12px}
 .mix .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--mute);white-space:nowrap}
@@ -271,7 +276,7 @@ ul.plain,ol.plain{margin:0;padding-left:18px;display:grid;gap:5px}
 .win .d{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 @media (max-width:600px){
   h1{font-size:19px}.kpi b{font-size:19px}.picker,.picker select{width:100%;min-width:0}
-  .mix{grid-template-columns:minmax(0,110px) minmax(0,1fr) 80px}
+  .mix{grid-template-columns:minmax(0,130px) minmax(0,1fr) 92px;gap:7px}
   .crit{grid-template-columns:46px minmax(0,1fr) 46px 60px}.crit .bar{width:60px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -580,7 +585,8 @@ function tabChanDung(D){
   var mx=Math.max.apply(null,tep.map(function(r){return r.ht||0}).concat([1]));
   h+=tep.map(function(r){
     var tt=(r.hot||0)+(r.warm||0)+(r.cold||0)||1,wd=Math.max(6,(r.ht||0)/mx*100);
-    return '<div class="mix"><span class="nm" title="'+esc(r.ten)+'"><b>'+esc(r.cd)+'</b> '+esc(r.ten)+
+    return '<div class="mix"><span class="nm" title="'+esc(r.cd)+' · '+esc(r.ten)+'">'+
+      '<b>'+esc(r.cd)+'</b><span>'+esc(r.ten)+'</span>'+
       '</span><span><span class="stk" style="width:'+wd+'%" aria-label="HOT '+r.hot+', WARM '+r.warm+
       ', COLD '+r.cold+'"><i class="i-hot" style="width:'+(r.hot/tt*100)+'%"></i>'+
       '<i class="i-warm" style="width:'+(r.warm/tt*100)+'%"></i>'+
