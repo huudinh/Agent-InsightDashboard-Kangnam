@@ -12,7 +12,7 @@
 ```
 id-D §2  → PHÂN LOẠI nóng  (5 tín hiệu)    → nhãn báo ra ngoài, so được giữa các kỳ
 id-L     → XẾP HÀNG GỌI    (4 nhóm việc)   → gọi ai trước · AI gọi
-id-C     → CHÂN DUNG       (thư viện KF-62)→ NÓI GÌ với người đó
+id-M     → CHÂN DUNG       (thư viện KF-62)→ NÓI GÌ với người đó
 id-F     → CHẤM NHÂN VIÊN  (22 tiêu chí)   → sổ tay kèm cặp
 id-G §3  → HỆ SỐ GIÁ TRỊ ĐƠN 1/2/3         → dùng chung, ⛔ không đẻ thang thứ hai
 ```

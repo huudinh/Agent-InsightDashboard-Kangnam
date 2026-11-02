@@ -23,6 +23,7 @@
 |---|---|
 | ① **Phác họa chân dung khách** | ⛔ Không có bộ chân dung dựng sẵn — mỗi kỳ phác họa 2–7 chân dung **từ chính hội thoại đưa vào**, người dùng duyệt ở **CỔNG 0**, rồi gán từng hội thoại × 5 nấc `A1–A5` |
 | ② **Đào sâu insight** | 12 mã phản đối `O`, **câu hỏi ngầm**, 5 tín hiệu nóng, vì sao khách rơi |
+| ① ★ **Xếp chân dung khách** | Thư viện **KF-62**: 18 dịch vụ · 85 chân dung · 12 thẻ ngữ cảnh — ⛔ không phác họa lại mỗi kỳ |
 | ③ ★ **Chấm điểm nhân viên trực page** | 22 tiêu chí `N1.1–N6.3` · thang 100 · phân loại A/B/C/D · 6 cờ đỏ |
 | ④ **Ma trận ưu tiên** | 3 khối: Tăng HOT → Giảm COLD → Tối ưu WARM, có công thức điểm |
 | ⑤ **Ngân hàng hook** | 7 loại hook × 16 format, mỗi hook **truy ngược được** về một hội thoại |
@@ -104,9 +105,12 @@ Chi tiết: [`doc/01-cai-dat.md`](doc/01-cai-dat.md)
 | [`id-J`](knowledge/id-J-dashboard-schema.md) | Dashboard 10 tab · schema JSON `/2` · khối `lead` · lớp phủ chữ người · 4 luật hiển thị |
 | ★ [`id-K`](knowledge/id-K-module-kangnam-phap-che.md) | **Module đơn vị Kangnam** · 12 điểm pháp chế · ba thứ đang chặn |
 | ★ [`id-L`](knowledge/id-L-lead-scoring-kf60.md) | **Lead scoring KF-60** — 4 nhóm gọi · 2 bất biến · hàng chờ Sale · ⚠ sổ nhập từ khối Sale |
+| ★★ [`id-M`](knowledge/id-M-thu-vien-chan-dung-kf62.md) | **Thư viện chân dung KF-62** — 18 dịch vụ · 85 chân dung · 12 thẻ `AR` · 5 cổng · ⚠ sổ nhập từ khối Sale |
 
 ★ **Đổi thương hiệu → thay đúng [`id-K`](knowledge/id-K-module-kangnam-phap-che.md), ⛔ không sửa lõi `id-A`…`id-J`.**
-⚠ [`id-L`](knowledge/id-L-lead-scoring-kf60.md) là **văn bản của khối Sale** nhập vào, ⛔ không phải sổ của repo — sửa tiêu chí thì sửa cả ở đó và ở `tools/id.py`.
+⚠ [`id-L`](knowledge/id-L-lead-scoring-kf60.md) và [`id-M`](knowledge/id-M-thu-vien-chan-dung-kf62.md) là **văn bản của khối Sale** nhập vào, ⛔ không phải sổ của repo.
+`id-L` có bản sinh đôi trong `tools/id.py` → sửa tiêu chí phải sửa **cả hai**.
+`id-M` thì ⛔ **không** — danh mục chân dung sinh thẳng từ `tools/chan_dung_kf62.json` bằng `python tools/so-chan-dung.py`.
 
 ---
 

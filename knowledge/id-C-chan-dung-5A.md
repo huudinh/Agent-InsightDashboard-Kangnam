@@ -22,6 +22,8 @@
 >
 > ⚠ Phần còn lại của sổ (nấc 5A, cách đọc insight, §5–§6) **vẫn đúng**;
 > chỉ §1–§2 về cách SINH RA chân dung là đã thay.
+>
+> → Thư viện mới có sổ riêng: **[`id-M`](id-M-thu-vien-chan-dung-kf62.md)** — kiến trúc, 5 cổng đánh giá, danh mục 85 chân dung, rủi ro.
 
 # id-C · ★ CHÂN DUNG PHÁC HỌA TỪ HỘI THOẠI × HÀNH TRÌNH 5A
 

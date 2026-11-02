@@ -141,7 +141,7 @@ MỐC SO SÁNH: kỳ trước <có/không> · mục tiêu 30 ngày <có/không>
 | `<DV>-<TÊN>` | ★ Chân dung **thư viện KF-62 v2.2** — cố định, đọc được, dùng chung toàn hệ sinh thái. Vd `SACTO-NAM_TAI_PHAT`, `MUI-SUA_HONG`. 18 dịch vụ · 85 chân dung | `tools/chan_dung_kf62.json` |
 | `<DV>-CHUA_XAC_DINH` | Đã biết dịch vụ nhưng **chưa đủ dữ kiện** xếp chân dung → nhân viên hỏi 2 câu hỏi vàng của dịch vụ đó | nt |
 | `KHONG_XAC_DINH_DV` | ★ Mã **dự trữ** — đến DỊCH VỤ cũng chưa biết. ⛔ Khác `<DV>-CHUA_XAC_DINH` | nt |
-| `AR01 … AR12` | **Thẻ ngữ cảnh**, tối đa 3 thẻ một hội thoại. ⛔ Không phải chân dung | nt |
+| `AR01 … AR12` | **Thẻ ngữ cảnh**, tối đa 3 thẻ một hội thoại. ⛔ Không phải chân dung | `id-M` · nt |
 | ~~`CD0`, `CD1 … CDn`~~ | ⛔ **BỎ 02/11/2026** — chân dung phác họa theo kỳ ⛔ không so được giữa các kỳ | — |
 | `A1 … A5` | Nấc hành trình 5A | `id-C` |
 | `O-01 … O-12`, `O-00` | Mã phản đối / rào cản | `id-D` |
