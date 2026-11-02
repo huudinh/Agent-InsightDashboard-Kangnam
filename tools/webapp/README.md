@@ -86,6 +86,21 @@ Deploy → Manage deployments → ✏️ Edit → Version: New → Deploy
 *Anyone* mà chạy code cũ là bản **ghi sai mà không báo lỗi**. Có bao nhiêu link cũ thì
 *Manage deployments → ⋮ → Archive* hết, chỉ giữ một.
 
+### ★ Biết deploy đã ăn chưa — xem DẤU SINH ở đầu trang
+
+Dòng phụ dưới tiêu đề in `trang sinh <ngày giờ>`. Mốc đó do `dung.py` đóng vào
+lúc sinh file, nên:
+
+| Thấy gì | Nghĩa là |
+|---|---|
+| Mốc **khớp** lần chạy `dung.py` gần nhất | ✅ app đang chạy bản mới |
+| Mốc **cũ hơn** | ⛔ chưa dán `trang.html` mới, hoặc chưa *Version: New* |
+
+⚠ Bấm Deploy ⛔ **không** làm mốc đổi — mốc chỉ đổi khi **dán lại** `trang.html`.
+Hai bước đó khác nhau: dán là đưa code mới vào editor, *Version: New* là đưa
+code trong editor ra link. ⛔ Thiếu bước nào cũng ra cùng một triệu chứng:
+"sửa rồi mà trang không đổi".
+
 ★ `?bo_cuc=…` ⛔ **không phải link khác** — cùng một deploy, chỉ thêm tham số:
 
 ```

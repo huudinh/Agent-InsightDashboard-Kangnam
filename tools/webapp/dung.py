@@ -10,6 +10,7 @@ Nhờ vậy sửa cách hiển thị ở một chỗ, chạy lại file này là
 
     python tools/webapp/dung.py
 """
+import datetime
 import io
 import os
 import re
@@ -175,6 +176,18 @@ function nguoiMacDinh(){return GAS_TOI||''}""", "nguoiMacDinh")
 thay("""  var ten=''; try{ten=localStorage.getItem('kn_nguoi')||''}catch(e){}""",
      """  var ten=nguoiMacDinh();
   if(!ten){try{ten=localStorage.getItem('kn_nguoi')||''}catch(e){}}""", "dien-ten")
+
+# ── ⑤b DẤU SINH — để biết bản deploy có mới hay không ───────────────────
+# Giữa file này và màn hình còn một bước TAY: dán vào Apps Script rồi
+# Deploy → Edit → Version: New. Quên bước đó thì app vẫn chạy bản cũ mà
+# ⛔ không có dấu hiệu gì. In mốc sinh ra đầu trang là cách trả lời câu
+# «deploy rồi mà sao chưa thấy?» trong một giây.
+DAU_SINH = datetime.datetime.now().strftime("%d/%m %H:%M")
+thay("""    '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát</div>'+""",
+     """    '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát'+
+    '<br><span class="note">trang sinh """ + DAU_SINH + """ — số này ⛔ không đổi khi bấm '+
+    'Deploy; nó chỉ đổi khi bạn dán lại trang.html mới. Thấy mốc cũ = bản deploy còn cũ.</span></div>'+""",
+     "dau-sinh")
 
 # ── ⑥ bỏ phần đầu/cuối của trang độc lập, giữ thân cho HtmlService ──────
 s = re.sub(r"^<!doctype html>.*?<body>\n", "", s, count=1, flags=re.S)
