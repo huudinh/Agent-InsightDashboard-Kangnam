@@ -1,0 +1,2052 @@
+<!-- SINH TỰ ĐỘNG bởi tools/webapp/dung.py từ dashboard/index.html.
+     ⛔ Đừng sửa thẳng file này — sửa dashboard/index.html rồi chạy lại. -->
+<title>Chân dung khách Kangnam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+/* Hệ token dùng chung với báo cáo KNB hiện hành — cùng một gia đình hình thức,
+   thêm 4 màu bậc A/B/C/D cho khối chấm điểm. */
+:root{
+  --bg:#f5f4f0; --card:#fff; --ink:#1f1e1b; --mute:#6a675f; --line:#e3e0d8; --chip:#efece5;
+  --acc:#7a4f26; --acc-ink:#fff;
+  --ok:#2d7a4c; --mid:#a77b1f; --bad:#b03a3a; --hl:#f3d34a; --hl-ink:#1f1e1b;
+  --hot:#c0462f; --warm:#d39a2c; --cold:#c9c4b8;
+  --bA:#2d7a4c; --bB:#3f6f8f; --bC:#a77b1f; --bD:#b03a3a;
+  --f:"Be Vietnam Pro",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#161614; --card:#1f1f1c; --ink:#ebe9e3; --mute:#a29f97; --line:#34322d; --chip:#2a2925;
+  --acc:#d5a370; --acc-ink:#1a1611;
+  --ok:#5dbd85; --mid:#d8ac55; --bad:#e26d6d; --hl:#d9b93a; --hl-ink:#1a1611;
+  --hot:#e2725c; --warm:#d8ac55; --cold:#4a4740;
+  --bA:#5dbd85; --bB:#7fb0d4; --bC:#d8ac55; --bD:#e26d6d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#161614; --card:#1f1f1c; --ink:#ebe9e3; --mute:#a29f97; --line:#34322d; --chip:#2a2925;
+  --acc:#d5a370; --acc-ink:#1a1611;
+  --ok:#5dbd85; --mid:#d8ac55; --bad:#e26d6d; --hl:#d9b93a; --hl-ink:#1a1611;
+  --hot:#e2725c; --warm:#d8ac55; --cold:#4a4740;
+  --bA:#5dbd85; --bB:#7fb0d4; --bC:#d8ac55; --bD:#e26d6d; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.55 var(--f);margin:0}
+.wrap{max-width:1600px;margin:0 auto;padding-block:20px 64px;
+      padding-left:max(16px,env(safe-area-inset-left,0px));
+      padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font-size:22px;line-height:1.25;margin:0;font-weight:700;text-wrap:balance}
+h2{font-size:16px;margin:30px 0 11px;padding-bottom:7px;border-bottom:1px solid var(--line);
+  font-weight:600;display:flex;align-items:center;gap:9px}
+h2::before{content:"";width:3px;height:15px;background:var(--acc);border-radius:2px;flex:none}
+h2.top{margin-top:14px}
+h3{font-size:14.5px;margin:0 0 6px;font-weight:600}
+.head{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;justify-content:space-between}
+.sub{color:var(--mute);font-size:12.5px;margin-top:4px}
+.picker{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mute)}
+.picker select{font:inherit;font-size:14px;color:var(--ink);background:var(--card);
+  border:1px solid var(--line);border-radius:8px;padding:7px 10px;min-width:200px}
+select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+.alerts{display:grid;gap:6px}
+.alert{border:1px solid var(--line);border-left:4px solid var(--mid);background:var(--card);
+  border-radius:8px;padding:8px 12px;font-size:13px}
+.alert.bad{border-left-color:var(--bad)}
+details.fold{margin:8px 0}
+details.fold>summary{cursor:pointer;color:var(--acc);font-size:13.5px;font-weight:600;
+  list-style:none;display:flex;gap:6px;align-items:baseline;padding:4px 0}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::before{content:"▶";font-size:10px;display:inline-block;transition:transform .15s}
+details.fold[open]>summary::before{transform:rotate(90deg)}
+details.fold>summary .cnt{color:var(--mute);font-weight:400;font-size:12.5px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:16px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;
+  display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi .l{color:var(--mute);font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  font-weight:600}
+.kpi b{font-size:24px;font-variant-numeric:tabular-nums;line-height:1.15;margin:1px 0}
+.kpi .s{color:var(--mute);font-size:12px}
+.kpi.canh{border-left:4px solid var(--bad)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+/* Thẻ insight: 3 cột trên màn rộng, 2 cột khi hẹp lại, 1 cột trên điện thoại.
+   ⛔ Khai số cột thẳng, không dùng auto-fit — auto-fit chẻ cột theo bề rộng tối
+   thiểu nên màn càng rộng càng tự thêm cột, không kiểm soát được. */
+.g-ins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+@media (max-width:1200px){.g-ins{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:820px){.g-ins{grid-template-columns:minmax(0,1fr)}}
+.cols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start}
+@media (max-width:860px){.cols2{grid-template-columns:minmax(0,1fr)}}
+
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11.5px;font-weight:500;
+  background:var(--chip);margin:0 4px 4px 0;white-space:nowrap}
+.tag.wrap{white-space:normal}
+.t-bad{background:var(--bad);color:#fff}.t-mid{background:var(--mid);color:#fff}
+.t-ok{background:var(--ok);color:#fff}.t-acc{background:var(--acc);color:var(--acc-ink)}
+.note{font-size:12px;color:var(--mute)}
+.nb{margin-bottom:8px}
+
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 6px;position:sticky;
+  top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5}
+.tabs button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);
+  color:var(--ink);padding:6px 12px;border-radius:99px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+
+.tbl{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.tbl.flat{border:0;border-radius:0;background:transparent}
+.tbl.flat th{background:transparent}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{background:var(--chip);font-weight:700;white-space:nowrap;font-size:11px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--mute);
+  border-bottom:1px solid var(--line)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.c,th.c{text-align:center}
+tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--chip) 36%,transparent)}
+tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+tbody tr.pick td{background:color-mix(in srgb,var(--hl) 17%,transparent)}
+.dim{color:var(--mute)}
+
+.bar{display:inline-block;width:70px;height:6px;background:var(--chip);border-radius:3px;
+  vertical-align:middle;margin-left:6px}
+.bar i{display:block;height:6px;border-radius:3px}
+.b-ok{background:var(--ok)}.b-mid{background:var(--mid)}.b-bad{background:var(--bad)}
+.hbar{display:grid;grid-template-columns:minmax(0,1fr) 46px 84px;gap:8px;align-items:center;
+  padding:3px 0;font-size:13px}
+.hbar b{text-align:right;font-variant-numeric:tabular-nums}
+.hbar .bar{width:84px;margin:0}
+
+.mix{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr) 96px;gap:8px;align-items:center;
+  font-size:12.5px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.mix:last-of-type{border-bottom:0}
+.mix .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mix .stk{display:flex;height:12px;border-radius:4px;overflow:hidden;background:var(--chip)}
+.mix .stk i{display:block;height:12px}
+.mix .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--mute);white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--mute);margin:4px 0 8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.i-hot{background:var(--hot)}.i-warm{background:var(--warm)}.i-cold{background:var(--cold)}
+
+/* thẻ vấn đề — sọc mức nặng bên trái, không phải thẻ bo tròn giống nhau */
+.issue{display:grid;gap:6px;align-content:start;border-left:4px solid var(--line)}
+.issue.sev-nghiem_trong{border-left-color:var(--bad)}
+.issue.sev-nang{border-left-color:var(--mid)}
+.issue .rank{font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--mute);font-weight:700}
+.issue h3{margin-top:2px}
+
+/* chấm điểm */
+.bands{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.band{border:1px solid var(--line);border-top:4px solid var(--line);border-radius:8px;
+  padding:10px 12px;background:var(--card)}
+.band b{font-size:26px;font-variant-numeric:tabular-nums;display:block;line-height:1.1}
+.band.A{border-top-color:var(--bA)}.band.B{border-top-color:var(--bB)}
+.band.C{border-top-color:var(--bC)}.band.D{border-top-color:var(--bD)}
+.band .l{font-size:12px;color:var(--mute)}
+.crit{display:grid;grid-template-columns:52px minmax(0,1fr) 54px 84px;gap:8px;align-items:center;
+  padding:4px 0;border-bottom:1px dashed var(--line);font-size:12.5px}
+.crit:last-child{border-bottom:0}
+.crit .ma{font-weight:600;font-variant-numeric:tabular-nums}
+.crit .v{text-align:right;font-variant-numeric:tabular-nums}
+.crit .bar{width:84px;margin:0}
+/* thanh bộ lọc bảng — dùng lại .picker của chọn kỳ cho cùng một hình thức */
+.loc{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:flex-end;margin:0 0 10px}
+.loc .picker select{min-width:160px}
+.loc .picker:has(select:disabled) select{opacity:.6;cursor:not-allowed}
+.btn{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);
+  color:var(--ink);padding:7px 12px;border-radius:8px;cursor:pointer}
+.btn:hover{border-color:var(--acc)}
+tr[hidden]{display:none}
+.fm-ds{display:grid;gap:4px;min-width:150px;max-width:260px;font-size:12.5px}
+/* Mỗi idea hook là một ô riêng trong cùng một dòng CD × giai đoạn. */
+.idea{padding:7px 0;border-top:1px dashed var(--line)}
+.idea:first-child{padding-top:0;border-top:0}
+.idea>.note{margin-top:2px}
+/* Thanh trạng thái thư viện hook + nút sửa từng idea. */
+.thv{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:0 0 10px;
+  padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.thv .tt{flex:1 1 260px;min-width:0;font-size:12.5px;color:var(--mute)}
+.thv .tt.xau{color:var(--bad)}
+.thv .tt.tot{color:var(--ok)}
+a.btn{text-decoration:none;display:inline-block}
+.idea .sua{margin-top:6px;padding:3px 9px;font-size:12px}
+dialog.hop{border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);
+  padding:0;width:min(680px,94vw);max-height:88vh;font:14px/1.55 var(--f)}
+dialog.hop::backdrop{background:rgba(0,0,0,.45)}
+.hop .dau{padding:13px 16px;border-bottom:1px solid var(--line);background:var(--chip);
+  display:flex;gap:10px;align-items:baseline;justify-content:space-between}
+.hop .dau b{font-size:15px}
+.hop .than{padding:14px 16px;overflow:auto;max-height:62vh;display:grid;gap:11px}
+.hop .chan2{padding:11px 16px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;
+  gap:9px;align-items:center;justify-content:flex-end}
+.hop .chan2 .tt{flex:1 1 220px;font-size:12.5px;color:var(--mute)}
+.hop label{display:grid;gap:4px}
+.hop label>span{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);
+  font-weight:700}
+.hop textarea,.hop input,.hop select{font:inherit;font-size:13.5px;color:var(--ink);
+  background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%}
+.hop textarea{resize:vertical;min-height:54px}
+.hop .doi{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:11px}
+/* Hai trường chỉ có nghĩa khi TẠO hook mới — sửa hook của kỳ thì ẩn đi. */
+.hop .tao-only{display:none}
+.hop.tao .tao-only{display:grid}
+@media (max-width:560px){.hop .doi{grid-template-columns:minmax(0,1fr)}}
+.hop .khoa{font-size:12.5px;color:var(--mute);border-left:3px solid var(--line);
+  padding:4px 0 4px 9px;display:grid;gap:2px}
+.btn.chinh{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:600}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.tick{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mute);
+  cursor:pointer;margin-top:6px;padding:3px 9px;border:1px solid var(--line);border-radius:8px}
+.tick:hover{border-color:var(--acc)}
+.tick input{accent-color:var(--acc);margin:0}
+.idea.da-tick{background:color-mix(in srgb,var(--acc) 8%,transparent);
+  margin-inline:-7px;padding-inline:7px;border-radius:8px}
+.idea.da-tick .tick{border-color:var(--acc);color:var(--acc);font-weight:600}
+.thv .btn.gui{margin-left:auto}
+.don{border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:10px;
+  background:var(--card);padding:11px 13px;margin:0 0 10px}
+.don .dh{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;
+  justify-content:space-between;margin-bottom:6px}
+.don .dh b{font-size:14px}
+.ds-ma{display:flex;flex-wrap:wrap;gap:5px}
+.nw{white-space:nowrap}
+.lock{padding:24px 18px;text-align:center;color:var(--mute);border:1px dashed var(--line);
+  border-radius:10px;background:color-mix(in srgb,var(--chip) 40%,transparent);line-height:1.6}
+/* Chân trang — hai ô gập «lưu ý» và «ghi chú dữ liệu» nằm ở đây, sau mọi tab.
+   Gập lại nên không chiếm chỗ, nhưng vẫn ở đúng một nơi cố định của trang. */
+.chan{margin-top:36px;padding-top:14px;border-top:1px solid var(--line)}
+.chan .fold{margin:4px 0}
+.empty{padding:28px 16px;text-align:center;color:var(--mute)}
+.loading{padding:60px 0;text-align:center;color:var(--mute)}
+ul.plain,ol.plain{margin:0;padding-left:18px;display:grid;gap:5px}
+.sub2{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);
+  font-weight:700;margin:12px 0 5px}
+.card h3{font-size:14px}
+.bands{margin-bottom:2px}
+.band .l{letter-spacing:.03em}
+.ev{font-size:12px;color:var(--mute);border-left:3px solid var(--line);padding:3px 0 3px 9px;
+  margin:5px 0;overflow-wrap:anywhere;line-height:1.55}
+/* Thẻ insight chia thành Ô, không phải một dải văn bản liền.
+   Nửa trên = HIỂU khách. Nửa dưới = LÀM gì, có rail màu để tách hẳn ra. */
+.card.ins{padding:0;overflow:hidden;align-self:start}
+/* Đầu thẻ là nút gập — ấn xuống mới mở phần thân. Ba chân dung ưu tiên mở sẵn. */
+.ins>summary{list-style:none;cursor:pointer;display:block;position:relative;
+  padding:13px 36px 11px 14px;background:var(--chip);border-bottom:1px solid var(--line)}
+.ins>summary::-webkit-details-marker{display:none}
+.ins>summary::after{content:"▾";position:absolute;right:14px;top:12px;
+  color:var(--mute);font-size:14px;transition:transform .15s}
+.ins[open]>summary::after{transform:rotate(180deg)}
+.ins>summary:hover{background:color-mix(in srgb,var(--acc) 7%,var(--chip))}
+.ins.uu>summary{background:color-mix(in srgb,var(--acc) 14%,var(--chip))}
+.ins.uu{border-color:color-mix(in srgb,var(--acc) 35%,var(--line))}
+.ins .hd h3{margin:4px 0 5px;font-size:15px;line-height:1.3}
+.ins .sec{padding:10px 14px}
+.ins .sec + .sec{border-top:1px solid var(--line)}
+/* ★ Nửa «phải làm gì» đổ màu để tách hẳn khỏi nửa «hiểu khách». */
+.ins .sec.do{border-left:3px solid var(--acc);
+  background:color-mix(in srgb,var(--acc) 7%,transparent)}
+.ins .sec.no{border-left:3px solid var(--bad);
+  background:color-mix(in srgb,var(--bad) 7%,transparent)}
+.ins .sec.no .lab{color:var(--bad)}
+.ins .sec.no li::marker{color:var(--bad)}
+.ins .lab{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);
+  font-weight:700;margin:0 0 5px}
+.ins p{margin:0;font-size:13.5px;white-space:pre-line}
+.ins ul,.ins ol{margin:0;padding-left:17px;display:grid;gap:4px}
+.ins ol{padding-left:21px}
+.ins li{font-size:13.5px;line-height:1.5}
+.ins ul li::marker{color:var(--mute)}
+.ins ol li::marker{color:var(--acc);font-weight:600}
+.ins .q{font-size:13.5px;line-height:1.5;margin:3px 0;padding:2px 0 2px 10px;
+  border-left:2px solid var(--acc)}
+.ins .sec.do .q{border-left:0;padding-left:0}
+.ins .ev{margin:0;padding:10px 14px;border-left:0;border-top:1px solid var(--line);
+  background:color-mix(in srgb,var(--chip) 45%,transparent)}
+.win{display:grid;grid-template-columns:34px minmax(0,1fr) 64px;gap:8px;align-items:center;
+  padding:5px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.win:last-of-type{border-bottom:0}
+.win .r{font-weight:700;font-variant-numeric:tabular-nums;text-align:center;
+  border-radius:6px;padding:2px 0;background:var(--chip)}
+.win.top .r{background:var(--acc);color:var(--acc-ink)}
+.win .d{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+@media (max-width:600px){
+  h1{font-size:19px}.kpi b{font-size:19px}.picker,.picker select{width:100%;min-width:0}
+  .mix{grid-template-columns:minmax(0,110px) minmax(0,1fr) 80px}
+  .crit{grid-template-columns:46px minmax(0,1fr) 46px 60px}.crit .bar{width:60px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap" id="app"><div class="loading">Đang tải báo cáo…</div></div>
+
+<dialog class="hop" id="sua-hop">
+ <form method="dialog" id="sua-form">
+  <div class="dau"><b>Sửa hook <span id="sua-ma"></span></b>
+    <span class="note" id="sua-cd"></span></div>
+  <div class="than">
+    <div class="doi tao-only" id="f-khoi-cd">
+      <label><span>Chân dung</span><select id="f-cd"></select></label>
+      <label><span>Giai đoạn</span><select id="f-nac">
+        <option value="A1 · TOF">A1 · TOF</option><option value="A2 · MOF">A2 · MOF</option>
+        <option value="A3 · MOF">A3 · MOF</option><option value="A4 · BOF">A4 · BOF</option>
+        <option value="A5 · sau bán">A5 · sau bán</option></select></label>
+    </div>
+    <label><span>Insight lõi</span><textarea id="f-insight"></textarea></label>
+    <label><span>Hook</span><textarea id="f-hook"></textarea></label>
+    <label><span>CTA cuối</span><textarea id="f-cta"></textarea></label>
+    <label><span>Format đề xuất</span><input id="f-fm"></label>
+    <div class="doi">
+      <label><span>Local hóa</span><select id="f-local">
+        <option value="Không">Không — dùng chung một bản</option>
+        <option value="Có">Có — cần bản riêng theo vùng</option>
+      </select></label>
+      <label><span>Lý do local</span><input id="f-lydo"></label>
+    </div>
+    <label><span>Mục tiêu truyền thông</span><input id="f-muctieu"
+      placeholder="Có mục tiêu thì ghi vào đây — để trống là «Không»"></label>
+    <div class="doi">
+      <label><span>Chọn sản xuất</span><select id="f-chon">
+        <option value="">— chưa quyết —</option><option value="Chọn">Chọn</option>
+        <option value="Bỏ">Bỏ</option><option value="Để sau">Để sau</option>
+      </select></label>
+      <label><span>Ghi chú</span><input id="f-ghichu"></label>
+    </div>
+    <label class="tao-only" id="f-khoi-truy"><span>Truy ngược — mã HT làm bằng</span>
+      <input id="f-truy" placeholder="HT-xxxxxxxxxx · để trống là hook chưa có bằng chứng"></label>
+    <div class="khoa" id="sua-khoa"></div>
+  </div>
+  <div class="chan2"><span class="tt" id="sua-tt"></span>
+    <button type="button" class="btn" id="sua-huy">Đóng</button>
+    <button type="button" class="btn chinh" id="sua-luu">Lưu vào Google Sheet</button></div>
+ </form>
+</dialog>
+
+<dialog class="hop" id="gui-hop">
+ <form method="dialog" id="gui-form">
+  <div class="dau"><b>Gửi hook đã chọn</b>
+    <span class="note" id="gui-dem"></span></div>
+  <div class="than">
+    <label><span>Người gửi</span><input id="g-nguoi" placeholder="Tên bạn — ghi vào cột Người gửi"></label>
+    <label><span>Ghi chú cho cả đơn</span><input id="g-ghichu"
+      placeholder="vd: đợt quay tuần 45 — ưu tiên CD4"></label>
+    <div class="khoa" id="gui-ds"></div>
+  </div>
+  <div class="chan2"><span class="tt" id="gui-tt"></span>
+    <button type="button" class="btn" id="gui-huy">Đóng</button>
+    <button type="button" class="btn chinh" id="gui-ok">Gửi vào Google Sheet</button></div>
+ </form>
+</dialog>
+
+<dialog class="hop" id="cd-hop">
+ <form method="dialog">
+  <div class="dau"><b>Vì sao chưa vào Google Sheet?</b></div>
+  <div class="than">
+    <div class="khoa" id="cd-ds">Đang đọc…</div>
+    <label><span>Token Apps Script (để trống nếu Web App không đặt TOKEN)</span>
+      <input id="cd-token" placeholder="chuỗi đặt ở Script properties → TOKEN"></label>
+    <div class="note">Trang có ba đường vào Sheet: <b>Apps Script</b> gọi thẳng ·
+      <b>connector Google Sheets</b> của claude.ai · và <b>cửa sổ mới</b>.
+      Khung artifact chặn hai đường đầu thì đường thứ ba vẫn chạy —
+      nút <b>⇪ Đẩy … qua cửa sổ mới</b> ở tab Ngân hàng hook, vì mở tab là điều hướng
+      bình thường, ⛔ không bị CSP chặn như gọi mạng.</div>
+    <div class="note">Trang chỉ ghi được qua connector khi cửa sổ đang mở cấp cho nó quyền gọi
+      connector <b>Google Sheets</b>, và gọi bằng chính tài khoản Google của bạn.
+      Cửa sổ nào không cấp thì mọi thay đổi vẫn giữ trên máy, ⛔ không mất.</div>
+  </div>
+  <div class="chan2"><span class="tt" id="cd-tt"></span>
+    <button type="button" class="btn" id="cd-dong">Đóng</button>
+    <button type="button" class="btn" id="cd-tai">Tải lại trang</button>
+    <button type="button" class="btn" id="cd-xin">Xin quyền connector</button>
+    <button type="button" class="btn chinh" id="cd-gas">Thử lại Apps Script</button></div>
+ </form>
+</dialog>
+
+<dialog class="hop" id="chep-hop">
+ <form method="dialog">
+  <div class="dau"><b>Chép thay đổi sang Google Sheet</b>
+    <span class="note" id="chep-dem"></span></div>
+  <div class="than">
+    <div class="khoa">
+      <div>Cửa sổ này không ghi thẳng vào Sheet được, nên đây là phần việc tay:</div>
+      <div>① Bấm <b>Chép</b> · ② mở Sheet · ③ với mỗi mã, dán khối <b>F:L</b> và <b>R:V</b>
+        vào đúng dòng của mã đó.</div>
+      <div>⛔ Đừng dán đè cột <b>Q (Duyệt)</b> — đó là ô của bác sĩ và pháp chế.</div>
+    </div>
+    <label><span>Dữ liệu (TSV — dán được thẳng vào Sheet)</span>
+      <textarea id="chep-o" readonly rows="10"></textarea></label>
+  </div>
+  <div class="chan2"><span class="tt" id="chep-tt"></span>
+    <button type="button" class="btn" id="chep-dong">Đóng</button>
+    <button type="button" class="btn chinh" id="chep-ok">Chép</button></div>
+ </form>
+</dialog>
+
+<!-- Bản một kỳ (dự phòng): tools/id.py có thể nhúng JSON vào đây.
+     Để trống thì trang đọc data/index.json — link cố định, xem được nhiều kỳ.
+     Schema: insight-dashboard-kangnam/1 -->
+<script type="application/json" id="kn-data"></script>
+
+<script>
+(function(){
+"use strict";
+var app=document.getElementById('app');
+
+/* ───────── định dạng ───────── */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function num(v,d){return v==null||v===''?'—':Number(v).toLocaleString('vi-VN',
+  {maximumFractionDigits:d==null?1:d,minimumFractionDigits:0})}
+function pct(v){return v==null?'—':num(v,1)+'%'}
+function k(v){return v==null?'<span class="dim">—</span>':num(Math.round(v/1000),0)}
+function find(a,key,val){if(!a)return null;for(var i=0;i<a.length;i++)if(a[i][key]===val)return a[i];return null}
+function objList(o){if(!o)return[];if(Array.isArray(o))return o;
+  return Object.keys(o).map(function(x){return{nhan:x,so:o[x]}}).sort(function(a,b){return (b.so||0)-(a.so||0)})}
+
+function delta(cur,prev,kieu,tot){
+  if(cur==null||prev==null)return '<span class="dim" style="font-size:12px">kỳ trước —</span>';
+  var x=cur-prev; if(Math.abs(x)<1e-9)return '<span class="dim" style="font-size:12px">= kỳ trước</span>';
+  var tot_hon=(tot==='thap')?x<0:x>0;
+  var v=kieu==='pct'?num(Math.abs(x),1)+' điểm':num(Math.abs(x),0);
+  return '<span style="font-size:12px;font-variant-numeric:tabular-nums;color:'+
+    (tot?(tot_hon?'var(--ok)':'var(--bad)'):'var(--mute)')+'">'+(x>0?'▲':'▼')+' '+v+'</span>';
+}
+function barCls(v,chuan){if(v==null)return 'b-mid';var c=chuan||70;
+  return v>=c?'b-ok':(v>=c*0.6?'b-mid':'b-bad')}
+function bar(v,chuan){if(v==null)return '';
+  return '<span class="bar" aria-hidden="true"><i class="'+barCls(v,chuan)+
+    '" style="width:'+Math.max(0,Math.min(100,v))+'%"></i></span>'}
+function t(rows,head,cls,id){
+  return '<div class="tbl'+(cls?' '+cls:'')+'"><table'+(id?' id="'+id+'"':'')+'><thead><tr>'+head.map(function(h){
+    return '<th'+(h.c?' class="'+h.c+'"':'')+'>'+esc(h.l)+'</th>'}).join('')+'</tr></thead><tbody>'+
+    (rows.length?rows.join(''):'<tr><td colspan="'+head.length+'" class="empty">Không có dữ liệu kỳ này</td></tr>')+
+    '</tbody></table></div>'}
+function td(v,c){return '<td'+(c?' class="'+c+'"':'')+'>'+v+'</td>'}
+function hbars(list,tong){
+  list=objList(list); if(!list.length)return '<div class="note">—</div>';
+  var mx=tong||Math.max.apply(null,list.map(function(x){return x.so||0}))||1;
+  return list.map(function(x){
+    return '<div class="hbar"><span>'+esc(x.nhan)+'</span><b>'+num(x.so,0)+
+      '</b><span class="bar" aria-hidden="true"><i class="b-mid" style="width:'+
+      ((x.so||0)/mx*100)+'%"></i></span></div>'}).join('')}
+function fold(title,cnt,body,open){
+  return '<details class="fold"'+(open?' open':'')+'><summary>'+esc(title)+
+    (cnt?' <span class="cnt">'+esc(cnt)+'</span>':'')+'</summary><div>'+body+'</div></details>'}
+function bullets(a){return '<ul class="plain">'+(a||[]).map(function(x){
+  return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'}
+
+var SEV={nghiem_trong:['nghiêm trọng','t-bad'],nang:['nặng','t-mid'],nhe:['nhẹ','']};
+var NHAN={da_do:['đã đo','t-ok'],gia_thuyet:['giả thuyết','t-mid']};
+function chip(map,key){var x=map[key]||[key,''];return key?'<span class="tag '+x[1]+'">'+esc(x[0])+'</span>':''}
+
+function vanDe(arr,title,top){
+  arr=arr||[];
+  return '<h2'+(top?' class="top"':'')+'>'+esc(title||'Vấn đề cốt lõi')+'</h2>'+
+    (arr.length?'<div class="g3">'+arr.map(function(x,i){
+      var s=SEV[x.muc]||['',''];
+      return '<div class="card issue sev-'+esc(x.muc)+'"><div class="rank">#'+(i+1)+
+        (x.anh_huong!=null?' · ảnh hưởng '+num(x.anh_huong,0)+' HT':'')+'</div><div>'+
+        '<span class="tag '+s[1]+'">'+s[0]+'</span>'+chip(NHAN,x.nhan_do)+'</div><h3>'+esc(x.tieu_de)+'</h3>'+
+        '<div><b>Số liệu:</b> '+esc(x.so_lieu)+'</div><div><b>Đề xuất:</b> '+esc(x.de_xuat)+'</div>'+
+        '<div class="note">Người làm: '+esc(x.so_huu||'—')+'</div></div>'}).join('')+'</div>'
+     :'<div class="card empty">Agent chưa ghi vấn đề cốt lõi cho khối này</div>')}
+
+/* ───────── đầu trang ───────── */
+function header(D,ky_ds,id){
+  var ky=D.ky||{},sel='';
+  if(ky_ds&&ky_ds.length>1)sel='<label class="picker" for="ky-select">Kỳ báo cáo<select id="ky-select">'+
+    ky_ds.map(function(p){return '<option value="'+esc(p.id)+'"'+(p.id===id?' selected':'')+'>'+
+      esc(p.nhan)+'</option>'}).join('')+'</select></label>';
+  var meta=['Kỳ '+esc(ky.nhan||''),ky.tao?'tạo '+esc(ky.tao):'',ky.nguon?'nguồn '+esc(ky.nguon):'']
+    .filter(Boolean).join(' · ');
+  var L=bc();
+  return '<div class="head"><div><h1>'+esc(L.ten)+'</h1>'+
+    '<div class="sub">'+(L.phu?esc(L.phu)+'<br>':'')+meta+
+    '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát</div>'+
+    '</div>'+sel+'</div>'}
+
+function canhBao(D){
+  var a=(D.canh_bao||[]).map(function(x){
+    return '<div class="alert'+(x.muc==='bad'?' bad':'')+'">'+esc(x.text||x)+'</div>'});
+  var h=a.length?fold(a.length+' lưu ý dữ liệu','','<div class="alerts">'+a.join('')+'</div>'):'';
+  /* Bố cục bỏ tab Ghi chú dữ liệu thì ghi chú vẫn phải ở lại: báo cáo không nói được
+     số đến từ đâu thì không ai dám dùng để ra quyết định (id-J §1). Đưa vào ô gập. */
+  if(bc().tab.indexOf('ghi-chu')<0&&(D.ghi_chu||[]).length)
+    h+=fold(D.ghi_chu.length+' ghi chú dữ liệu — mỗi con số đến từ đâu','',
+            '<div class="card">'+bullets(D.ghi_chu)+'</div>');
+  return h}
+
+function theTong(D){
+  var P=(D.truoc&&D.truoc.the_tong)||[],L=bc();
+  var ds=(D.the_tong||[]).filter(function(x){return !L.the||L.the.indexOf(x.id)>=0});
+  return '<div class="kpis">'+ds.map(function(x){
+    var p=find(P,'id',x.id);
+    var v=x.kieu==='pct'?pct(x.gia_tri):num(x.gia_tri,0);
+    var canh=x.id==='nong_chua_sdt'&&x.gia_tri>0;
+    return '<div class="kpi'+(canh?' canh':'')+'"><span class="l">'+esc(x.nhan)+'</span><b>'+v+'</b>'+
+      '<span class="s">'+esc(x.phu||'')+'</span>'+delta(x.gia_tri,p?p.gia_tri:null,x.kieu,x.tot)+'</div>'
+  }).join('')+'</div>'}
+
+/* ───────── ① Phễu inbox ───────── */
+function tabPheu(D){
+  var P=D.pheu||{},N=P.nhiet||{},n=P.so_ht_phan_tich||0;
+  var h=vanDe(P.van_de,'Vấn đề cốt lõi cần xử ngay',true);
+
+  var nx=P.nhiet_x_sdt||[];
+  var trai='<div class="card"><h3>Mức nóng × trạng thái SĐT</h3>'+
+    '<div class="note nb">HOT = 4–5 tín hiệu · WARM = 2–3 · COLD = 0–1 (id-D §2)</div>'+
+    t(nx.map(function(r){
+      var nong=(r.muc!=='COLD'&&(r.chua||0)>0);
+      return '<tr>'+td('<b>'+esc(r.muc)+'</b>')+
+        td(nong?'<b style="color:var(--bad)">'+num(r.chua,0)+'</b>':num(r.chua,0),'n')+
+        td(num(r.co,0),'n')+td(num((r.chua||0)+(r.co||0),0),'n')+'</tr>'}),
+      [{l:'Mức'},{l:'Chưa có SĐT',c:'n'},{l:'Có SĐT',c:'n'},{l:'Tổng',c:'n'}],'flat')+
+    '<div class="note" style="margin:6px 0 12px">Ô HOT/WARM chưa có SĐT (đỏ) = lead nóng chưa vào tay telesale.</div>'+
+    '<h3>Năm tín hiệu nóng — số HT đạt</h3>'+hbars(P.tin_hieu,n)+
+    '<div class="note">② mốc thời gian ≤14 ngày và ⑤ đồng ý khung giờ gọi là hai tín hiệu hiếm nhất — '+
+    'đó là lý do HOT luôn ít, và là hai việc sửa được ngay.</div></div>';
+
+  var phai='<div class="card"><h3>Vì sao khách rơi</h3>'+
+    '<div class="note nb">Mỗi hội thoại đúng MỘT giá trị — tổng = '+num(n,0)+' HT.</div>'+
+    hbars(P.nguyen_nhan_roi,n)+
+    '<h3 style="margin-top:14px">Rào cản quan sát được</h3>'+
+    '<div class="note nb">Một hội thoại có thể mang nhiều rào cản.</div>'+hbars(P.rao_can)+'</div>';
+  h+='<h2>Mức nóng · vì sao rơi · rào cản</h2><div class="cols2">'+trai+phai+'</div>';
+
+  var mo=(P.ma_o||[]).filter(function(x){return x.so});
+  h+='<h2>Mười hai mã phản đối</h2>'+
+    '<div class="note nb">«(chưa nêu)» = khách chưa nói đủ để có phản đối — ⛔ không gộp với O-00. '+
+    'O-00 vượt 10% mẫu là tín hiệu phải bổ sung từ điển (id-D §1).</div>'+
+    t(mo.map(function(r){
+      var canh=(r.ma==='O-00'&&r.pct>10);
+      return '<tr'+(canh?' class="pick"':'')+'>'+td('<span class="tag">'+esc(r.ma)+'</span>')+
+        td(esc(TEN_O[r.ma]||''))+td(num(r.so,0),'n')+td(pct(r.pct)+bar(r.pct,20),'n')+
+        td(canh?'<span class="tag t-mid">vượt ngưỡng 10% — bổ sung từ điển</span>':
+           (CHAN_O[r.ma]?'<span class="tag t-bad">'+CHAN_O[r.ma]+'</span>':''))+'</tr>'}),
+      [{l:'Mã'},{l:'Tên'},{l:'Số HT',c:'n'},{l:'% mẫu',c:'n'},{l:'Ghi chú'}]);
+  return h}
+
+var TEN_O={'O-01':'Giá & phát sinh','O-02':'Sợ kết quả xấu hơn','O-03':'Sợ lộ sửa',
+  'O-04':'Đau · sưng · nghỉ việc','O-05':'Nghi tay nghề bác sĩ','O-06':'Nghi địa chỉ, uy tín',
+  'O-07':'Bảo hành & trách nhiệm','O-08':'Không biết mình cần gì','O-09':'Thời gian · khoảng cách',
+  'O-10':'So sánh đối thủ','O-11':'Người nhà phản đối','O-12':'Bệnh nền',
+  'O-00':'Không xếp được','(chưa nêu)':'Khách chưa nêu phản đối nào'};
+var CHAN_O={'O-07':'⛔ không được tự trả lời','O-12':'⛔ không được tự trả lời'};
+
+/* ───────── ② Chân dung & insight ───────── */
+/* Thân một ô của thẻ insight: dòng mở đầu "- " thành <li>, còn lại thành đoạn.
+   ⛔ Không dùng pre-line giả làm bullet — gạch đầu dòng thật mới có thụt lề treo. */
+function insBody(v){
+  var ra='',li=[];
+  function xa(){
+    if(!li.length)return;
+    var so=li.every(function(x){return /^\d+\.\s/.test(x)});   // thứ tự → <ol> thật
+    ra+=so?'<ol>'+li.map(function(x){return '<li>'+esc(x.replace(/^\d+\.\s*/,''))+'</li>'}).join('')+'</ol>'
+          :'<ul>'+li.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>';
+    li=[]}
+  String(v||'').split('\n').forEach(function(d){
+    d=d.replace(/\s+$/,'');
+    if(!d.trim())return;
+    if(d.indexOf('- ')===0){li.push(d.slice(2).trim());return}
+    xa();
+    // '» ' = lời thoại mẫu / câu của khách — tách hẳn khỏi gạch đầu dòng
+    if(d.indexOf('» ')===0)ra+='<div class="q">'+esc(d.slice(2).trim())+'</div>';
+    else ra+='<p>'+esc(d.trim())+'</p>'});
+  xa(); return ra}
+var TEN_NAC={A1:'A1 · AWARE',A2:'A2 · APPEAL',A3:'A3 · ASK',A4:'A4 · ACT',A5:'A5 · ADVOCATE'};
+function nacChanDung(C){
+  var nac=C.nac||{},tn=Object.keys(nac).reduce(function(s,x){return s+nac[x]},0);
+  return '<h2>Phân bố nấc 5A</h2><div class="card">'+
+    hbars(Object.keys(TEN_NAC).map(function(a){return{nhan:TEN_NAC[a],so:nac[a]||0}}),tn)+
+    '<div class="note" style="margin-top:6px">Trên 60% hội thoại rơi A3 nghĩa là phễu thiếu nội dung '+
+    'A1–A2 — tệp mới không vào. Kết luận này không nhìn ra được từ số liệu ads.</div></div>'}
+
+function tabChanDung(D){
+  var C=D.chan_dung||{},tep=C.tep||[],prev=(D.truoc&&D.truoc.tep)||[];
+  var P=C.phac_hoa||{};
+  if(!tep.length) return '<h2 class="top">Chân dung khách hàng</h2>'+
+    '<div class="lock">⏳ <b>Chân dung của kỳ này chưa được phác họa.</b> '+esc(P.vi_sao||'')+
+    '<br>Hệ <b>không có bộ chân dung mặc định</b>: mỗi kỳ, chân dung được phác họa từ chính '+
+    'hội thoại đưa vào rồi người dùng duyệt ở <b>CỔNG 0</b> — xem <code>id-C §1</code>.</div>'+
+    (an('nac-5a')?'':nacChanDung(C));
+  var tong=tep.reduce(function(s,r){return s+(r.ht||0)},0);
+  var h='<h2 class="top">Cơ cấu nóng theo chân dung</h2>'+
+    '<div class="card"><div class="legend"><span><i class="i-hot"></i>HOT</span>'+
+    '<span><i class="i-warm"></i>WARM</span><span><i class="i-cold"></i>COLD</span>'+
+    '<span>· độ dài thanh theo số HT</span></div>';
+  var mx=Math.max.apply(null,tep.map(function(r){return r.ht||0}).concat([1]));
+  h+=tep.map(function(r){
+    var tt=(r.hot||0)+(r.warm||0)+(r.cold||0)||1,wd=Math.max(6,(r.ht||0)/mx*100);
+    return '<div class="mix"><span class="nm" title="'+esc(r.ten)+'"><b>'+esc(r.cd)+'</b> '+esc(r.ten)+
+      '</span><span><span class="stk" style="width:'+wd+'%" aria-label="HOT '+r.hot+', WARM '+r.warm+
+      ', COLD '+r.cold+'"><i class="i-hot" style="width:'+(r.hot/tt*100)+'%"></i>'+
+      '<i class="i-warm" style="width:'+(r.warm/tt*100)+'%"></i>'+
+      '<i class="i-cold" style="width:'+(r.cold/tt*100)+'%"></i></span></span>'+
+      '<span class="v">'+num(r.ht,0)+' · '+num(r.hot,0)+'/'+num(r.warm,0)+'/'+num(r.cold,0)+
+      '</span></div>'}).join('')+'<div class="note" style="margin-top:6px">Số bên phải: HT · HOT/WARM/COLD.</div></div>';
+
+  /* Bảng «Chỉ số theo chân dung» đã bỏ. Ghi chú CỔNG 0 thì GIỮ: đó là dấu vết
+     ai duyệt cách chia khách của kỳ — ⛔ không được mất theo bảng (id-C §2).
+     Câu về nhãn 👁 quan sát bỏ theo bảng, vì không còn chỗ nào hiện nhãn đó. */
+  h+='<div class="note">'+(P.duyet_boi
+      ?'Chân dung phác họa từ chính hội thoại của kỳ · duyệt bởi <b>'+esc(P.duyet_boi)+
+       '</b> lúc '+esc(P.duyet_luc||'—')+' (CỔNG 0).'
+      :'⚠ Kỳ này chưa ghi người duyệt chân dung.')+
+    ' Mã <code>CD0</code> là mã dự trữ cho hội thoại không khớp dấu hiệu nào — '+
+    '⛔ không phải «rác»: CD0 đông là lỗi của quảng cáo, không phải của khách.</div>';
+
+  var W=C.co_hoi_win||[];
+  if(W.length){
+    var mx=Math.max.apply(null,W.map(function(r){return r.diem||0}).concat([1]));
+    /* BẢNG trước, thanh xếp hạng sau: bảng là chỗ tra số, thanh là chỗ nhìn
+       tương quan — đọc số trước rồi mới cần thấy khoảng cách giữa các hạng. */
+    h+='<h2>★ Cơ hội win — chân dung nào đáng dồn sức trước</h2>'+
+      '<div class="note nb">'+esc(C.cach_tinh_win||'')+
+      ' <b>Chọn</b> = ba hạng đầu, là nơi kỳ này dồn sức làm nội dung; '+
+      '⚠ «chưa chọn» ⛔ không có nghĩa là bỏ — cột lý do nói rõ đang vướng gì.</div>'+
+      t(W.map(function(r){
+        return '<tr'+(r.uu_tien?' class="pick"':'')+'>'+
+          td(r.hang?(r.uu_tien?'<b>'+esc(r.hang)+'</b>':esc(r.hang)):'<span class="dim">—</span>','c')+
+          td('<b>'+esc(r.cd)+'</b>')+td(esc(r.ten))+td(num(r.ht,0),'n')+td(num(r.lead_bo_lo,0),'n')+
+          td('<span class="note">'+esc(r.he_so)+'</span>','c')+td(pct(r.pct_sdt),'n')+
+          td('<b>'+num(r.diem,0)+'</b>','n')+td(num(r.roi_truc,0),'n')+
+          td((r.hang
+               ?(r.uu_tien?'<span class="tag t-ok">✓ chọn</span>':'<span class="tag">chưa chọn</span>')
+               :'<span class="tag t-bad">⛔ không xếp hạng</span>')+
+             (r.ly_do_chon?'<div class="note">'+esc(r.ly_do_chon)+'</div>':''))+
+          td(esc(r.ghi_chu||''))+'</tr>'}),
+        [{l:'Hạng',c:'c'},{l:'Mã'},{l:'Chân dung'},{l:'HT',c:'n'},{l:'Lead bỏ lỡ',c:'n'},
+         {l:'Hệ số',c:'c'},{l:'Đang chốt',c:'n'},{l:'Điểm win',c:'n'},
+         {l:'Rơi ở câu trả lời',c:'n'},{l:'Lý do chọn'},{l:'Đọc thế nào'}])+
+      '<div class="card" style="margin-top:12px">'+
+      W.map(function(r){
+        return '<div class="win'+(r.uu_tien?' top':'')+'"><span class="r">'+
+          (r.hang?esc(r.hang):'—')+'</span><span><b>'+esc(r.cd)+'</b> '+esc(r.ten)+
+          '<div class="note">'+num(r.lead_bo_lo,0)+' lead bỏ lỡ × hệ số '+esc(r.he_so)+
+          ' × '+pct(r.pct_sdt)+' đang chốt được'+
+          (r.roi_truc?' · '+num(r.roi_truc,0)+' HT rơi ở câu trả lời':'')+'</div></span>'+
+          '<span class="d">'+num(r.diem,0)+bar(r.diem/mx*100,100)+'</span></div>'}).join('')+
+      '</div>';
+  }
+
+  if(!an('nac-5a'))h+=nacChanDung(C);
+
+  var ins=C.insight||[];
+  h+='<h2>Insight từng chân dung</h2>';
+  if(!ins.length) h+='<div class="lock">Agent chưa viết thẻ insight. Đây là phần <b>đọc hiểu</b>, '+
+    'script không làm thay — xem <code>id-C §5</code>.</div>';
+  else h+='<div class="note nb">Ấn vào đầu thẻ để mở. Ba chân dung ưu tiên mở sẵn; '+
+    'ô có <b>nền màu</b> là phần trực page phải làm, ô nền đỏ là điều cần tránh.</div>'+
+    '<div class="g-ins">'+ins.map(function(x){
+    var r=find(tep,'cd',x.cd)||{},w=find(W,'cd',x.cd)||{};
+    function o(nhan,v,kieu){return v?'<div class="sec'+(kieu?' '+kieu:'')+'">'+
+      '<div class="lab">'+esc(nhan)+'</div>'+insBody(v)+'</div>':''}
+    return '<details class="card ins'+(w.uu_tien?' uu':'')+'"'+(w.uu_tien?' open':'')+'>'+
+      '<summary class="hd"><div class="note">'+esc(x.cd)+(x.nhom?' · '+esc(x.nhom):'')+'</div>'+
+      '<h3>'+esc(x.ten)+'</h3><div class="note">'+num(r.ht,0)+' HT · '+num(r.hot,0)+' HOT · '+
+      num(r.warm,0)+' WARM · '+num(r.co_sdt,0)+' có SĐT</div></summary>'+
+      o('Họ là ai',x.ho_la_ai)+o('Insight',x.insight)+
+      o('Câu hỏi ngầm',x.cau_hoi_ngam)+o('Tín hiệu nóng',x.tin_hieu_nong)+
+      o('Câu mở mẫu',x.cau_mo,'do')+o('Thứ tự đưa thông tin',x.thu_tu,'do')+
+      o('⛔ Tránh',x.tranh,'no')+o('→ Việc cho khối nội dung',x.viec_nd,'do')+
+      o('Hướng xử lý',x.huong_xu_ly)+
+      (x.trich?'<div class="ev">'+esc(x.trich)+'</div>':'')+'</details>'}).join('')+'</div>';
+  return h}
+
+
+/* ───────── ⑧ Hook đã gửi — theo dõi hook tạo ngay trên báo cáo này ───────
+   Đọc THẲNG từ Google Sheet, ⛔ không giữ một bản riêng trong trang: hai người
+   cùng mở phải thấy cùng một thứ, và Sheet mới là chỗ team PM làm việc tiếp. */
+function tabTheoDoi(D){
+  var h='<h2 class="top">Hook tạo và gửi từ báo cáo này</h2>';
+
+  /* Gộp hai nguồn: dòng đọc được từ Sheet, và bản còn treo trên máy người xem. */
+  var tat=[];
+  SHEET_MA.forEach(function(m){tat.push(m)});
+  Object.keys(TAY).forEach(function(m){if(tat.indexOf(m)<0)tat.push(m)});
+
+  if(!tat.length)
+    return h+'<div class="lock">Chưa có gì để theo dõi.<br>'+
+      'Sang tab <b>Ngân hàng hook</b>: tích «chọn» rồi bấm <b>Gửi</b>, hoặc bấm '+
+      '<b>+ Tạo hook mới</b>. Những gì bạn chốt ở đó hiện lại ở đây.'+
+      '<div class="note" style="margin-top:10px">Bản đầy đủ nằm ở <a href="'+SHEET_URL+
+      '" target="_blank" rel="noopener">Google Sheet · Insight Kangnam</a>.</div></div>';
+
+  function ht(ma){
+    var c=hk(goc(ma)||{ma:ma}),t=SHEET_THO[ma];
+    return {ma:ma,cd:sv(c.cd),nac:sv(c.nac),hook:sv(c.hook),insight:sv(c.insight),
+      cta:sv(c.cta),fm:fmText(c),local:sv(c.local_hoa),muc_tieu:sv(c.muc_tieu),
+      truy:sv(c.truy_nguoc),duyet:sv(c.duyet),ghi_chu:sv(c.ghi_chu),
+      luc:sv(c.cap_nhat),nguoi:sv(c.nguoi_gui),trang_thai:sv(c.trang_thai),
+      moi:!!(c.moi||(t&&sv(t[22])===NGUON_MOI)),
+      treo:!!TAY[ma]}}
+
+  var moi=[],gui=[],ky=0,treo=0,chuaHT=0;
+  tat.forEach(function(ma){
+    var x=ht(ma);
+    if(x.moi)moi.push(x); else ky++;
+    if(x.trang_thai==='Đã gửi')gui.push(x);
+    if(x.treo)treo++;
+    if(x.moi&&(!x.truy||x.truy.indexOf('⛔')===0))chuaHT++});
+
+  function o(nhan,so,phu,canh){
+    return '<div class="kpi'+(canh?' canh':'')+'"><span class="l">'+esc(nhan)+'</span><b>'+
+      num(so,0)+'</b><span class="s">'+esc(phu)+'</span></div>'}
+  h+='<div class="kpis">'+
+    o('Tổng hook',tat.length,num(ky,0)+' đến từ báo cáo kỳ')+
+    o('Tạo trên báo cáo này',moi.length,'gõ tay, ngoài hội thoại')+
+    o('Đã gửi',gui.length,'đã chốt để sản xuất')+
+    o('Chưa vào Sheet',treo,treo?'còn nằm trên máy bạn':'đã đồng bộ hết',treo>0)+
+    o('Chưa gắn HT',chuaHT,'hook gõ tay chưa có hội thoại làm bằng',chuaHT>0)+'</div>';
+
+  if(treo)h+='<div class="alert bad" style="margin:0 0 12px">⚠ <b>'+num(treo,0)+
+    ' thay đổi mới chỉ nằm trên máy bạn</b> — người khác mở báo cáo ⛔ không thấy.'+
+    '<div class="thv" style="margin:8px 0 0;padding:0;border:0;background:transparent">'+
+    nutDongBo(treo,true)+
+    (khoCo()?'':'<button type="button" class="btn" id="hook-visao">⚙ Vì sao chưa vào Sheet?</button>')+
+    '<a class="btn" href="'+SHEET_URL+'" target="_blank" rel="noopener">Mở Google Sheet</a>'+
+    '</div></div>';
+
+  function nhan(x){
+    return x.trang_thai==='Đã gửi'?'<span class="tag t-ok">Đã gửi</span>'
+      :(x.trang_thai?'<span class="tag t-mid">'+esc(x.trang_thai)+'</span>'
+                    :'<span class="dim">—</span>')}
+  function co(x){return x.treo?'<span class="tag t-mid">chưa vào Sheet</span>':''}
+
+  h+='<h2>Hook gõ tay trên báo cáo</h2>';
+  if(!moi.length)
+    h+='<div class="card empty">Chưa ai tạo hook mới. Bấm «+ Tạo hook mới» ở tab Ngân hàng hook.</div>';
+  else h+='<div class="note nb">Hook gõ tay ⛔ chưa qua bước đọc hội thoại của agent, nên cờ '+
+    'pháp chế để «⚠ chưa soát» và phải tự gắn mã HT làm bằng (luật ①).</div>'+
+    t(moi.map(function(x){
+      var thieu=(!x.truy||x.truy.indexOf('⛔')===0);
+      return '<tr'+(thieu?' class="pick"':'')+'>'+
+        td('<b>'+esc(x.ma)+'</b><div class="note">'+esc(x.cd)+' · '+
+           esc(GIAI_DOAN[x.nac]||x.nac||'—')+'</div>'+co(x))+
+        td('<b>'+esc(x.hook)+'</b>'+(x.insight?'<div class="note">'+esc(x.insight)+'</div>':''))+
+        td(esc(x.cta))+
+        td('<div class="fm-ds">'+esc(x.fm)+'</div>')+
+        td(tagCK(x.local,x.local),'c')+
+        td(tagCK(x.muc_tieu,x.muc_tieu),'c')+
+        td(thieu?'<span class="tag t-bad">⛔ chưa gắn HT</span>':esc(x.truy))+
+        td(nhan(x)+(x.nguoi?'<div class="note">'+esc(x.nguoi)+'</div>':'')+
+           (x.luc?'<div class="note">'+esc(x.luc)+'</div>':''))+
+        td('<button type="button" class="btn sua" data-sua="'+esc(x.ma)+'">✎ Sửa</button>')+
+        '</tr>'}),
+      [{l:'Mã · chân dung'},{l:'Hook · insight'},{l:'CTA'},{l:'Format'},{l:'Local',c:'c'},
+       {l:'Mục tiêu',c:'c'},{l:'Truy ngược'},{l:'Trạng thái'},{l:''}]);
+
+  h+='<h2>Đơn đã gửi</h2>';
+  if(!gui.length)
+    h+='<div class="card empty">Chưa có lô nào được gửi. Ở tab Ngân hàng hook: tích «chọn» '+
+       'từng hook rồi bấm «Gửi … hook đã chọn».</div>';
+  else{
+    var don={},kh=[];
+    gui.forEach(function(x){
+      var k=x.nguoi+'|'+x.luc;
+      if(!don[k]){don[k]={nguoi:x.nguoi,luc:x.luc,ghi:x.ghi_chu,ds:[]};kh.push(k)}
+      don[k].ds.push(x)});
+    kh.reverse();
+    h+='<div class="note nb">'+num(kh.length,0)+' lô · '+num(gui.length,0)+
+      ' hook. Một lô = một lần bấm Gửi, gom theo người gửi và thời điểm chốt.</div>'+
+      kh.map(function(k){
+        var e=don[k];
+        return '<div class="don"><div class="dh"><b>'+esc(e.nguoi||'(không ghi tên)')+'</b>'+
+          '<span class="note">'+esc(e.luc||'—')+' · '+num(e.ds.length,0)+' hook</span></div>'+
+          (e.ghi?'<div class="note nb">'+esc(e.ghi)+'</div>':'')+
+          '<div class="ds-ma">'+e.ds.map(function(x){
+            var ok=(x.duyet&&x.duyet.indexOf('chờ')<0);
+            return '<span class="tag'+(ok?' t-ok':(x.treo?' t-mid':''))+'" title="'+
+              esc(x.hook)+'">'+esc(x.ma)+(x.treo?' ·⧗':'')+'</span>'}).join('')+
+          '</div></div>'}).join('');
+  }
+  h+='<div class="note">Cột <b>Duyệt</b> của bác sĩ và pháp chế điền thẳng trong Sheet — trang '+
+    '⛔ không ghi đè cột đó. Thẻ mã chuyển xanh khi ô Duyệt đã có người ký, ⧗ là chưa vào Sheet.</div>';
+  return h}
+
+/* ───────── ③ Chấm điểm nhân viên ───────── */
+var TEN_CD_DO={'CĐ-1':'Cam kết kết quả','CĐ-2':'Nêu con số bảo hành','CĐ-3':'Trả lời câu bệnh nền',
+  'CĐ-4':'Nói quá về bác sĩ','CĐ-5':'Lộ thông tin khách khác','CĐ-6':'Dìm đối thủ / gắt với khách'};
+function tabNhanVien(D){
+  var V=D.nhan_vien||{},pb=V.phan_bo||{};
+  var h='<h2 class="top">Phân bố nhân viên trực page</h2><div class="bands">'+
+    ['A','B','C','D'].map(function(b){
+      return '<div class="band '+b+'"><span class="l">Loại '+b+'</span><b>'+num(pb[b]||0,0)+'</b>'+
+        '<span class="l">'+({A:'≥85 điểm',B:'70–84',C:'55–69',D:'<55'})[b]+'</span></div>'}).join('')+
+    '<div class="band"><span class="l">Chưa đủ mẫu</span><b>'+num(pb['chưa đủ mẫu']||0,0)+
+    '</b><span class="l">dưới 10 HT</span></div></div>'+
+    '<div class="note" style="margin-top:8px">'+esc(V.ghi_chu||'')+'</div>';
+
+  h+='<h2>Sáu nhóm tiêu chí — % đạt của cả khối</h2>'+
+    '<div class="note nb">% đạt = ✓ ÷ (✓ + ✗). Ô «—» (không phát sinh, hoặc lỗi hệ) ⛔ không tính là trượt.</div>'+
+    '<div class="g2">'+(V.nhom||[]).map(function(g){
+      return '<div class="card"><h3>'+esc(g.ma)+' · '+esc(g.ten)+
+        ' <span class="dim" style="font-weight:400">('+num(g.diem_toi_da,0)+' điểm)</span></h3>'+
+        '<div class="crit" style="border-bottom:1px solid var(--line);color:var(--mute)">'+
+        '<span class="ma">Mã</span><span>Tiêu chí</span><span class="v">đ</span><span class="v">% đạt</span></div>'+
+        (g.tieu_chi||[]).map(function(c){
+          return '<div class="crit"><span class="ma">'+esc(c.ma)+'</span><span>'+esc(c.ten)+
+            (c.khong_ap_dung?'<div class="note">'+num(c.khong_ap_dung,0)+' HT không áp dụng</div>':'')+
+            '</span><span class="v">'+num(c.diem,0)+'</span><span class="v">'+pct(c.pct_dat)+
+            bar(c.pct_dat,70)+'</span></div>'}).join('')+'</div>'}).join('')+'</div>';
+
+  var cd=V.co_do||[];
+  h+='<h2>Cờ đỏ</h2>';
+  if(!cd.length) h+='<div class="card empty">Không có cờ đỏ trong kỳ</div>';
+  else h+=t(cd.map(function(r){
+    return '<tr>'+td('<span class="tag t-bad">'+esc(r.ma)+'</span>')+td(esc(TEN_CD_DO[r.ma]||''))+
+      td(esc(r.nguoi))+td('<span class="dim">'+esc(r.ht)+'</span>')+
+      td('<span class="ev">'+esc(r.trich||'')+'</span>')+td(esc(r.nguoi_xu_ly||'—'))+'</tr>'}),
+    [{l:'Mã'},{l:'Cờ đỏ'},{l:'Nhân viên'},{l:'Hội thoại'},{l:'Trích'},{l:'Người xử lý'}]);
+
+  var vh=V.viec_he_thong||[];
+  if(vh.length)h+='<h2>Việc hệ thống — ⛔ không trừ điểm nhân viên</h2>'+
+    t(vh.map(function(r){return '<tr>'+td(esc(r.nguyen_nhan))+td(num(r.so_ht,0),'n')+
+      td(esc(r.so_huu||'—'))+'</tr>'}),[{l:'Nguyên nhân'},{l:'Số HT',c:'n'},{l:'Sở hữu'}]);
+
+  h+='<h2>Bảng điểm cá nhân</h2><div class="lock">⛔ Bảng điểm có tên <b>không hiển thị ở đây</b>. '+
+    'Nó chỉ nằm trong sổ tay riêng của từng người và bản của trưởng nhóm — rào an toàn ④ của '+
+    '<code>id-F §7</code>.<br><span class="note">Đã chấm '+num((V.ca_nhan||[]).length,0)+
+    ' nhân viên · xem <code>out/cham-hoi-thoai.csv</code> và <code>out/so-tay/</code>.</span></div>';
+  return h}
+
+/* ───────── ④ Marketing Facebook ───────── */
+function tabFacebook(D){
+  var F=D.facebook||{};
+  if(F.co_du_lieu===false||!F.chuoi)
+    return '<h2 class="top">Quảng cáo Facebook</h2><div class="card empty">'+
+      esc(F.ghi_chu||'⚠ chưa có dữ liệu quảng cáo Facebook')+'</div>';
+  var P=(D.truoc&&D.truoc.chuoi)||[];
+  var h='<h2 class="top">Chuỗi chỉ số</h2><div class="note nb">'+
+    'Chi → CPM → CTR → CPI → CPL → CPB → Booking/Lead. ⛔ Chưa phân rã CPL thì chưa kết luận lỗi nội dung '+
+    '(id-E §1). Nguồn: '+esc(F.nguon||'—')+'</div><div class="kpis">'+
+    F.chuoi.map(function(c){
+      var pv=find(P,'ma',c.ma);
+      var v=c.kieu==='pct'?pct(c.gia_tri):(c.gia_tri==null?'—':num(c.gia_tri,0)+' đ');
+      return '<div class="kpi"><span class="l">'+esc(c.nhan)+'</span><b>'+v+'</b><span class="s">'+
+        esc(c.phu||(c.muc_tieu==null?'⚠ chưa có mốc so sánh':'mục tiêu '+num(c.muc_tieu,0)))+'</span>'+
+        delta(c.gia_tri,pv?pv.gia_tri:(c.ky_truoc!=null?c.ky_truoc:null),c.kieu,c.tot)+'</div>'}).join('')+'</div>';
+
+  var dg={tot:['tốt','t-ok'],kem:['kém','t-bad'],giu:['giữ','']};
+  h+='<h2>Đánh giá từng nội dung</h2>'+
+    '<div class="note nb">🟢 TỐT = CTR ≥ trung vị và CPL ≤ trung vị → nhân bản · '+
+    '🔴 KÉM → giữ ý bỏ hook, hoặc bỏ hẳn (id-E §4). Tiền: nghìn đồng.</div>'+
+    t((F.dong||[]).map(function(r){
+      var d=dg[r.danh_gia]||[r.danh_gia||'—',''];
+      return '<tr>'+td('<b>'+esc(r.noi_dung||r.ten)+'</b>')+td(k(r.chi),'n')+td(num(r.inbox,0),'n')+
+        td(num(r.deal,0),'n')+td(num(r.bk,0),'n')+td(k(r.cpi),'n')+td(k(r.cpl),'n')+td(k(r.cpb),'n')+
+        td('<span class="tag '+d[1]+'">'+esc(d[0])+'</span>')+'</tr>'}),
+      [{l:'Nội dung'},{l:'Chi',c:'n'},{l:'Inbox',c:'n'},{l:'Lead',c:'n'},{l:'Booking',c:'n'},
+       {l:'CPI',c:'n'},{l:'CPL',c:'n'},{l:'CPB',c:'n'},{l:'Đánh giá'}]);
+  if((F.van_de||[]).length)h+=vanDe(F.van_de,'Vấn đề trọng tâm');
+  return h}
+
+/* ───────── ⑤ Google Ads ───────── */
+function tabGoogle(D){
+  var G=D.google||{};
+  if(G.co_du_lieu===false||!G.chuoi)
+    return '<h2 class="top">Google Ads</h2><div class="lock">'+esc(G.ghi_chu||'⚠ chưa có dữ liệu Google Ads')+
+      '<div class="note" style="margin-top:10px">Khung đọc đã dựng sẵn ở <code>id-B §4</code> và '+
+      '<code>id-E §5</code>. Thả file đúng cột vào <code>du-lieu/google-ads.csv</code> là chạy được ngay.<br>'+
+      'Ba câu Google trả lời được mà Facebook không: khách gõ chữ gì · truy vấn nào tốn tiền không ra số · '+
+      'truy vấn nào có người tìm mà Kangnam chưa có trang.</div></div>';
+  return '<h2 class="top">Google Ads</h2>'+t((G.search_term||[]).map(function(r){
+    return '<tr>'+td(esc(r.tu_khoa))+td(k(r.chi),'n')+td(num(r.click,0),'n')+
+      td(num(r.chuyen_doi,0),'n')+td('<span class="tag">'+esc(r.ma_o||'—')+'</span>')+
+      td(esc(r.quyet_dinh||''))+'</tr>'}),
+    [{l:'Truy vấn'},{l:'Chi',c:'n'},{l:'Click',c:'n'},{l:'Chuyển đổi',c:'n'},{l:'Mã O'},{l:'Quyết định'}])}
+
+/* ───────── ⑥ Ma trận ưu tiên ───────── */
+function tabMaTran(D){
+  var M=D.ma_tran||{};
+  var duyet=M.trang_thai==='da_duyet';
+  var h='<h2 class="top">Ma trận ưu tiên sản xuất nội dung</h2><div class="card">'+
+    (duyet?'<span class="tag t-ok">Đã duyệt</span> '+esc(M.duyet_boi||'')+
+      (M.duyet_luc?' · '+esc(M.duyet_luc):'')
+     :'<span class="tag t-mid">⏳ Chờ người dùng duyệt</span> Hook và sổ tay chỉ được viết sau khi ma trận được duyệt — cổng 1 của <code>id-A §3</code>.')+
+    (M.cach_xep?'<div class="note" style="margin-top:8px">'+esc(M.cach_xep)+'</div>':'')+'</div>';
+
+  if(!(M.khoi||[]).length)
+    return h+'<div class="lock" style="margin-top:12px">Agent chưa dựng ma trận. '+
+      'Chạy <code>AUTO</code> rồi xem lại trang này.</div>';
+
+  (M.khoi||[]).forEach(function(B){
+    h+='<h2>'+esc(B.ten)+'</h2><div class="note nb">'+esc(B.muc_tieu||'')+
+      (B.tap_lead?' · tập: '+esc(B.tap_lead):'')+'</div>'+
+      t((B.dong||[]).map(function(r){
+        return '<tr'+(r.chon?' class="pick"':'')+'>'+
+          td(r.chon?'<b>'+esc(r.uu_tien)+'</b>':'<span class="dim">—</span>','c')+
+          td('<b>'+esc(r.cd)+'</b>')+td(esc(r.ten))+td(num(r.ht,0),'n')+td(num(r.lead,0),'n')+
+          td(num(r.co_sdt,0),'n')+td('<span class="note">'+esc(r.he_so)+'</span>')+
+          td('<b>'+num(r.diem,0)+'</b>','n')+td(r.nac?'<span class="tag t-acc">'+esc(r.nac)+'</span>':'')+
+          td(esc(r.huong||r.ly_do||''))+'</tr>'}),
+        [{l:'Ưu tiên',c:'c'},{l:'Mã'},{l:'Chân dung'},{l:'HT',c:'n'},{l:'Trong tập',c:'n'},
+         {l:'Có SĐT',c:'n'},{l:'Hệ số'},{l:'Điểm',c:'n'},{l:'Nấc'},{l:'Hướng nội dung'}])});
+
+  if((M.sua_van_hanh||[]).length)
+    h+='<h2>🔧 Sửa vận hành trước — ⛔ chưa làm nội dung</h2>'+
+      '<div class="note nb">Ô có ≥50% HT rơi do trực page. Nội dung không gỡ được lỗi câu trả lời.</div>'+
+      t(M.sua_van_hanh.map(function(r){
+        return '<tr>'+td('<b>'+esc(r.cd)+'</b>')+td(esc(r.ten))+td(num(r.ht,0),'n')+
+          td(num(r.truc,0),'n')+td(esc(r.ly_do))+'</tr>'}),
+        [{l:'Mã'},{l:'Chân dung'},{l:'HT',c:'n'},{l:'Rơi do trực page',c:'n'},{l:'Lý do'}]);
+
+  if((M.quan_sat||[]).length)
+    h+='<div class="card" style="margin-top:12px"><h3>👁 Quan sát — dưới 5 HT</h3>'+
+      M.quan_sat.map(function(r){return '<span class="tag">'+esc(r.cd)+' · '+esc(r.ten)+
+        ' · '+num(r.ht,0)+' HT</span>'}).join(' ')+'</div>';
+  return h}
+
+/* ───────── ⑦ Ngân hàng hook ───────── */
+/* 16 format L01–L16 của id-H §2 — bảng tra để bảng hook hiện TÊN format,
+   ⛔ không bắt người đọc nhớ mã. L13–L16 chưa ai viết định nghĩa (id-H §2). */
+var TEN_FM={
+  L01:['Bác sĩ — Talk hỏi đáp','25–35s'],      L02:['Bác sĩ — Talk chủ đề','40–60s'],
+  L03:['Bác sĩ — Phân tích ca thật','30–45s'], L04:['Khách hàng — Trước/sau','10–15s'],
+  L05:['Khách hàng — Biến đổi theo mốc ngày','15–25s'], L06:['Khách hàng — Review','0–45s'],
+  L07:['Khách hàng — Hành trình 1 ngày','45–90s'], L08:['Khách hàng — Kết quả','20–35s'],
+  L09:['Dịch vụ — Công nghệ','15–30s'],        L10:['Dịch vụ — Quy trình','25–40s'],
+  L11:['Dịch vụ — Giá / chính sách','10–20s'], L12:['Local — Cơ sở · bác sĩ · công nghệ','20–35s'],
+  L13:['⚠ chưa có định nghĩa format','—'],L14:['⚠ chưa có định nghĩa format','—'],
+  L15:['⚠ chưa có định nghĩa format','—'],L16:['⚠ chưa có định nghĩa format','—']};
+
+/* Nấc 5A đọc theo tầng phễu cho khối nội dung: A1 đầu phễu, A2–A3 giữa, A4 cuối,
+   A5 là sau bán. ⛔ Không đổi tên nấc trong dữ liệu — chỉ đổi cách hiện. */
+var GIAI_DOAN={A1:'A1 · TOF',A2:'A2 · MOF',A3:'A3 · MOF',A4:'A4 · BOF',A5:'A5 · sau bán'};
+
+/* Dịch vụ trong line Da. Dòng hook khai sẵn `dich_vu` thì lấy nguyên; chưa khai thì
+   suy từ chữ trong hook — cùng lối từ khoá của tools/id.py, ⛔ số máy xếp chưa người soát. */
+var DV_TU=[
+  ['Nám · tàn nhang',['nám','tàn nhang','đốm nâu','sạm']],
+  ['Mụn · thâm · lỗ chân lông',['mụn','thâm','lỗ chân lông','sẹo rỗ']],
+  ['Tiêm — filler · botox',['tiêm','filler','botox','ấn đường','rãnh cười','thái dương']],
+  ['Trẻ hoá · nâng cơ',['trẻ hoá','trẻ hóa','nâng cơ','chảy xệ','nhăn','hifu','thermage','lão hoá','lão hóa']],
+  ['Trắng da',['trắng da','tắm trắng','bật tông']],
+  ['Sẹo',['sẹo']]];
+function suyDichVu(r,ten){
+  var s=((r.hook||'')+' '+(r.insight||'')+' '+(ten||'')).toLowerCase();
+  for(var i=0;i<DV_TU.length;i++)for(var j=0;j<DV_TU[i][1].length;j++)
+    if(s.indexOf(DV_TU[i][1][j])>=0)return DV_TU[i][0];
+  return '(chưa nêu)'}
+
+/* Lọc TẠI CHỖ bằng data-* trên từng dòng — ⛔ không render lại cả trang,
+   render lại là mất tab và kỳ đang xem. */
+function locHook(){
+  var box=document.getElementById('hook-loc'); if(!box)return;
+  var g={};
+  box.querySelectorAll('select').forEach(function(s){if(!s.disabled)g[s.dataset.truong]=s.value});
+  var hien=0,tong=0;
+  app.querySelectorAll('#hook-bang tbody tr[data-loc]').forEach(function(tr){
+    tong++;
+    var ok=Object.keys(g).every(function(f){return !g[f]||tr.dataset[f]===g[f]});
+    tr.hidden=!ok; if(ok)hien++});
+  var d=document.getElementById('hook-dem');
+  if(d)d.textContent=(hien===tong?num(tong,0)+' hook':num(hien,0)+'/'+num(tong,0)+' hook');
+  var e=document.getElementById('hook-rong'); if(e)e.hidden=hien>0}
+
+/* Ba bộ lọc: dịch vụ · tuyến nội dung · nhân viên. Trường nào dữ liệu chưa khai thì
+   select khoá lại và nói rõ cần khai trường gì — ⛔ không ẩn đi như thể không có yêu cầu. */
+function locHookBar(ds){
+  var F=[{k:'dv',l:'Dịch vụ',truong:'dich_vu'},
+         {k:'tuyen',l:'Tuyến nội dung',truong:'tuyen'},
+         {k:'nhanvien',l:'Nhân viên',truong:'nhan_vien'}];
+  return '<div class="loc" id="hook-loc">'+F.map(function(f){
+    var dem={},co=0;
+    ds.forEach(function(x){var v=x[f.k]; if(v){dem[v]=(dem[v]||0)+1;co++}});
+    var ks=Object.keys(dem).sort();
+    if(!ks.length)return '<label class="picker"><span>'+esc(f.l)+'</span>'+
+      '<select data-truong="'+f.k+'" disabled><option>chưa có dữ liệu</option></select>'+
+      '<span class="note">dòng hook chưa khai <code>'+esc(f.truong)+'</code></span></label>';
+    return '<label class="picker"><span>'+esc(f.l)+'</span><select data-truong="'+f.k+'">'+
+      '<option value="">Tất cả · '+num(co,0)+' hook</option>'+ks.map(function(v){
+        return '<option value="'+esc(v)+'">'+esc(v)+' · '+num(dem[v],0)+'</option>'}).join('')+
+      '</select></label>'}).join('')+
+    '<button type="button" class="btn" id="hook-xoa">Xoá lọc</button></div>'}
+
+/* Kế hoạch theo chân dung — khối đọc TRƯỚC bảng hook: kỳ này chọn chân dung nào,
+   insight cốt lõi là gì, và phải cầm PROOF gì trong tay rồi mới được sản xuất.
+   ⛔ Chỉ liệt kê chân dung thật sự có hook trong kỳ — không có hook thì không phải kế hoạch. */
+function keHoachCD(D,ds){
+  var C=D.chan_dung||{},W=C.co_hoi_win||[],ins=C.insight||[],tep=C.tep||[];
+  var cds=[];
+  ds.forEach(function(x){if(cds.indexOf(x.r.cd)<0)cds.push(x.r.cd)});
+  if(!cds.length)return '';
+  var dong=cds.map(function(cd){
+    var w=find(W,'cd',cd)||{},i=find(ins,'cd',cd)||{},tp=find(tep,'cd',cd)||{},pr=[];
+    ds.forEach(function(x){
+      if(x.r.cd!==cd||!x.r.ly_do_co)return;
+      var s=(x.r.co_phap_che||'')+' '+x.r.ly_do_co;
+      if(pr.indexOf(s)<0)pr.push(s)});
+    return {cd:cd,ten:i.ten||tp.ten||cd,ins:i.insight||'',proof:i.proof||w.proof||'',ds_proof:pr,
+      diem:(w.diem==null?null:w.diem),hang:w.hang,
+      so:ds.filter(function(x){return x.r.cd===cd}).length}});
+  dong.sort(function(a,b){return (b.diem||0)-(a.diem||0)});
+  return '<h2 class="top">Kế hoạch theo chân dung</h2>'+
+    '<div class="note nb">'+num(dong.length,0)+' chân dung được chọn, sắp theo điểm Win. '+
+    'Mỗi chân dung có một insight cốt lõi và proof bắt buộc phải có trước khi sản xuất. '+
+    'Proof gom từ cờ pháp chế của chính các hook bên dưới — khai <code>proof</code> trong thẻ '+
+    'insight chân dung thì bảng lấy nguyên.</div>'+
+    t(dong.map(function(r){
+      return '<tr>'+td('<b>'+esc(r.cd)+'</b>')+
+        td('<b>'+esc(r.ten)+'</b><div class="note">'+num(r.so,0)+' hook kỳ này</div>')+
+        td(r.ins?'<div class="ins">'+insBody(r.ins)+'</div>':'<span class="dim">—</span>')+
+        td(r.proof?'<div class="ins">'+insBody(r.proof)+'</div>':
+           (r.ds_proof.length?'<ul class="plain">'+r.ds_proof.map(function(s){
+             return '<li>'+esc(s)+'</li>'}).join('')+'</ul>'
+            :'<span class="dim">không có cờ pháp chế — sản xuất được ngay</span>'))+
+        td(r.diem==null?'<span class="dim">—</span>':'<b>'+num(r.diem,1)+'</b>'+
+           (r.hang?'<div class="note">hạng '+esc(r.hang)+'</div>':''),'n')+'</tr>'}),
+      [{l:'Mã'},{l:'Chân dung'},{l:'Insight cốt lõi'},{l:'Proof bắt buộc'},{l:'Win',c:'n'}])}
+
+/* ───────── Thư viện hook — sửa tại chỗ, ghi thẳng vào Google Sheet ─────────
+   Google Sheet là BẢN GỐC. Trang đọc Sheet lúc mở rồi ĐẮP lên dữ liệu kỳ, nên
+   sửa ở trang hay sửa thẳng trong Sheet đều ra cùng một kết quả.
+   ⛔ Cột Duyệt (Q) chỉ ĐỌC — đó là ô của bác sĩ và pháp chế (id-H §4), trang
+   không bao giờ ghi đè. Điểm win · mã phản đối · HT truy ngược · cờ pháp chế
+   cũng chỉ đọc: chúng truy ngược về hội thoại, sửa tay là mất dấu (luật ①). */
+var SHEET_ID='1MJbv_M5Sh3BPntLnj9mqS8c4QNXYmwyRC_1Mj_Y4j2Q';
+var SHEET_URL='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/edit?gid=0';
+var SHEET_MAY='Google Sheets';     /* tên hiển thị của connector, không phải id */
+var SHEET_O='Trang tính1';   /* Google đặt tên trang tính theo ngôn ngữ tài khoản */
+var SUA={};          /* mã hook -> các trường đọc được từ Sheet */
+var SHEET_DONG={};   /* mã hook -> số dòng trong Sheet (1-based) */
+var SHEET_THO={};    /* mã hook -> dòng thô, để dựng lại hook KHÔNG có trong kỳ */
+var SHEET_MA=[];     /* mã hook theo đúng thứ tự trong Sheet */
+var CHON={};         /* mã hook đang tích chọn để gửi — chỉ sống trong phiên xem */
+/* Bản sửa còn nằm trên MÁY người xem, chưa vào Sheet. Google Sheets không phải
+   lúc nào cũng gọi được (mở trang ngoài claude.ai, chưa nối connector, bị chính
+   sách chặn), ⛔ nhưng không vì thế mà khoá nút — người dùng vẫn phải chọn, sửa
+   và chốt được; phần ghi sang Sheet đẩy sau. localStorage là của RIÊNG từng máy:
+   người khác ⛔ không thấy, nên mọi thay đổi treo đều phải nhắc đưa lên Sheet. */
+var TAY={};
+var NGUON_MOI='Tạo trên artifact';
+var MCP=null,MCP_TT='dang';        /* dang · san_sang · khong */
+var MCP_LOI='';
+var D_HIEN=null;     /* kỳ đang xem, để vẽ lại riêng tab hook */
+var VE_LAI=null;
+
+/* Trường sửa được <-> cột Sheet. HAI dải rời nhau, chừa hẳn cột Q cho pháp chế. */
+var COT_1=['insight','hook','cta','fm_text','local_hoa','ly_do_local','muc_tieu']; /* F..L */
+var COT_2=['chon','ghi_chu','cap_nhat','nguoi_gui','trang_thai'];                  /* R..V */
+
+function sv(x){return x==null?'':String(x)}
+function napTay(){
+  try{TAY=JSON.parse(localStorage.getItem('kn_hook_tay')||'{}')||{}}catch(e){TAY={}}}
+function luuTay(){
+  try{localStorage.setItem('kn_hook_tay',JSON.stringify(TAY))}catch(e){}}
+function dsTreo(){return Object.keys(TAY)}
+function xoaTreo(ma){delete TAY[ma];luuTay()}
+
+/* Ba tầng, tầng sau đè tầng trước: dữ liệu kỳ → Sheet → bản sửa trên máy. */
+function hk(r){
+  var a=SUA[r.ma],b=TAY[r.ma],o,k;
+  if(!a&&!b)return r;
+  o={}; for(k in r)o[k]=r[k];
+  if(a)for(k in a)if(a[k]!=='')o[k]=a[k];
+  if(b)for(k in b)if(k.charAt(0)!=='_'&&b[k]!=='')o[k]=b[k];
+  return o}
+/* Hai cột quyết định của form: bảng chỉ cần thấy CÓ hay KHÔNG. Chữ giải thích
+   không mất — xuống dòng phụ, vào tooltip, và vẫn sửa được trong ô Sửa.
+   Đọc được cả lối ghi cũ Y/N để dòng Sheet chưa đổi vẫn hiện đúng. */
+function laCo(v){
+  v=sv(v).trim();
+  return v!==''&&v!=='—'&&v!=='0'&&v!=='N'&&v!=='n'&&v.toLowerCase()!=='không'}
+function tagCK(v,tip){
+  var c=laCo(v);
+  return '<span class="tag '+(c?'t-acc':'')+'"'+(tip?' title="'+esc(tip)+'"':'')+'>'+
+    (c?'Có':'Không')+'</span>'}
+
+function fmText(r){
+  if(r.fm_text)return r.fm_text;
+  return (r.fm||[]).map(function(f){var n=TEN_FM[f];return n?n[0]:f}).join(' · ')}
+
+/* Mỗi mã lỗi một lối gỡ khác nhau — không gộp hết vào một câu «có lỗi». */
+var LOI_MCP={
+  server_not_connected:'Chưa nối Google Sheets — thêm ở claude.ai · Cài đặt → Connectors.',
+  needs_reauth:'Google Sheets hết hạn đăng nhập — nối lại ở claude.ai · Cài đặt → Connectors.',
+  selection_required:'Bạn có nhiều kết nối Google Sheets — chọn một cái rồi mở lại trang.',
+  not_in_manifest:'Trang chưa được phép gọi Google Sheets cho người xem này.',
+  approval_required:'Cần bấm «Cho phép» khi claude.ai hỏi, rồi thử lại.',
+  consent_required:'Bạn chưa cho phép trang này dùng Google Sheets.',
+  blocked_by_policy:'Chính sách tổ chức chặn thao tác này.',
+  server_unavailable:'Google Sheets đang không trả lời — thử lại sau ít phút.',
+  rate_limited:'Gọi quá nhanh — chờ một chút rồi thử lại.',
+  tool_error:'Google Sheets từ chối thao tác.',
+  bad_request:'Lệnh gửi lên Google Sheets không hợp lệ — lỗi của trang.',
+  cancelled:'Đã huỷ.',
+  not_granted:'Phiên xem này không được cấp quyền gọi connector.',
+  capability_disabled:'Trình xem này không chạy được connector.'};
+function loiMcp(e){
+  var c=(e&&e.code)||'upstream_error';
+  return (LOI_MCP[c]||'Không gọi được Google Sheets.')+' ['+c+']'}
+
+function tt(msg,kieu){
+  var e=document.getElementById('hook-tt'); if(!e)return;
+  e.textContent=msg; e.className='tt'+(kieu===1?' xau':(kieu===2?' tot':''))}
+
+/* Đọc cả bảng rồi dựng bản đắp. Sheets cắt bớt ô trống cuối dòng và dòng trống
+   cuối bảng, nên luôn đọc qua sv() chứ không giả định đủ 20 ô. */
+function docSheet(){
+  if(!MCP)return Promise.resolve(false);
+  tt('⏳ Đang đọc Google Sheet…');
+  return MCP.callTool(SHEET_MAY,'get_values',
+      {spreadsheetId:SHEET_ID,range:SHEET_O+'!A1:W500'},{cache:{refresh:true}})
+    .then(function(res){
+      var v=(res&&res.payload&&res.payload.values)||[],n=0;
+      SUA={};SHEET_DONG={};SHEET_THO={};SHEET_MA=[];
+      for(var i=1;i<v.length;i++){
+        var r=v[i]||[],ma=sv(r[0]).trim(); if(!ma)continue;
+        SHEET_DONG[ma]=i+1;
+        SHEET_THO[ma]=r; SHEET_MA.push(ma);
+        SUA[ma]={insight:sv(r[5]),hook:sv(r[6]),cta:sv(r[7]),fm_text:sv(r[8]),
+          local_hoa:sv(r[9]),ly_do_local:sv(r[10]),muc_tieu:sv(r[11]),
+          duyet:sv(r[16]),chon:sv(r[17]),ghi_chu:sv(r[18]),cap_nhat:sv(r[19]),
+          nguoi_gui:sv(r[20]),trang_thai:sv(r[21]),nguon:sv(r[22])};
+        n++}
+      if(VE_LAI)VE_LAI();
+      tt('✓ Đã đồng bộ ' + n + ' hook từ Google Sheet',2);
+      return true})
+    .catch(function(e){MCP_LOI=loiMcp(e);tt('⚠ '+MCP_LOI,1);return false})}
+
+function ghiSheet(ma,v){
+  if(!MCP)return Promise.reject({code:'not_granted'});
+  var p=SHEET_DONG[ma]?Promise.resolve(true):docSheet();
+  return p.then(function(){
+    var dong=SHEET_DONG[ma];
+    if(!dong)throw {code:'tool_error',message:'không thấy mã '+ma+' trong Sheet'};
+    var a=COT_1.map(function(k){return sv(v[k])}),
+        b=COT_2.map(function(k){return sv(v[k])});
+    return MCP.callTool(SHEET_MAY,'update_values',
+        {spreadsheetId:SHEET_ID,range:SHEET_O+'!F'+dong+':L'+dong,values:[a]})
+      .then(function(){
+        return MCP.callTool(SHEET_MAY,'update_values',
+          {spreadsheetId:SHEET_ID,range:SHEET_O+'!R'+dong+':V'+dong,values:[b]})})
+      .then(function(){return dong})})}
+
+/* Mã cho hook tạo trên artifact — đếm các mã KN-ART- đã có trong Sheet.
+   ⛔ Không dùng mã KN-24xx của kỳ: phải phân biệt được hook do agent đọc ra
+   từ hội thoại với hook người gõ tay (luật ① — biết bằng chứng ở đâu). */
+function maMoi(){
+  var n=0;
+  SHEET_MA.forEach(function(m){if(m.indexOf('KN-ART-')===0){
+    var k=parseInt(m.slice(7),10); if(k>n)n=k}});
+  n++; return 'KN-ART-'+(n<10?'00':(n<100?'0':''))+n}
+
+function taoHook(v){
+  if(!MCP)return Promise.reject({code:'not_granted'});
+  var p=SHEET_MA.length?Promise.resolve(true):docSheet();
+  return p.then(function(){
+    var ma=maMoi(),tp=find(((D_HIEN||{}).chan_dung||{}).tep||[],'cd',v.cd)||{},
+        w=find(((D_HIEN||{}).chan_dung||{}).co_hoi_win||[],'cd',v.cd)||{};
+    var dong=[ma,v.cd,tp.ten||'',v.nac,v.dich_vu||'(chưa nêu)',
+      v.insight,v.hook,v.cta,v.fm_text,v.local_hoa,v.ly_do_local,v.muc_tieu,
+      (w.diem==null?'':w.diem),'',
+      v.truy_nguoc||'⛔ chưa gắn HT',' ⚠ chưa soát','chờ BS + pháp chế',
+      v.chon,v.ghi_chu,v.cap_nhat,v.nguoi_gui||'','Nháp',NGUON_MOI];
+    return MCP.callTool(SHEET_MAY,'append_values',
+        {spreadsheetId:SHEET_ID,range:SHEET_O+'!A1',values:[dong]})
+      .then(function(){return ma})})}
+
+/* Gửi cả lô: mỗi hook ghi một dải R:V. Dải này KHÔNG chạm cột Q của pháp chế,
+   và cũng không chạm F:L nên lời hook giữ nguyên như lúc duyệt. */
+function guiDon(mas,nguoi,ghiChu,tien){
+  if(!MCP)return Promise.reject({code:'not_granted'});
+  var luc=new Date().toLocaleString('vi-VN'),i=0,xong=[];
+  function buoc(){
+    if(i>=mas.length)return Promise.resolve(xong);
+    var ma=mas[i++],dong=SHEET_DONG[ma];
+    if(!dong){return buoc()}
+    var cu=SUA[ma]||{};
+    var b=['Chọn',ghiChu||sv(cu.ghi_chu),luc,nguoi,'Đã gửi'];
+    if(tien)tien(i,mas.length,ma);
+    return MCP.callTool(SHEET_MAY,'update_values',
+        {spreadsheetId:SHEET_ID,range:SHEET_O+'!R'+dong+':V'+dong,values:[b]})
+      .then(function(){
+        cu.chon='Chọn';cu.ghi_chu=b[1];cu.cap_nhat=luc;cu.nguoi_gui=nguoi;
+        cu.trang_thai='Đã gửi';SUA[ma]=cu;
+        if(SHEET_THO[ma]){var t=SHEET_THO[ma];
+          t[17]=b[0];t[18]=b[1];t[19]=luc;t[20]=nguoi;t[21]='Đã gửi'}
+        xong.push(ma);return buoc()})}
+  return buoc()}
+
+
+/* ───────── Đường ② — Apps Script Web App ─────────
+   Gắn vào chính bảng Insight Kangnam (tools/apps-script/Code.gs). Không đi qua
+   connector nên chạy được ở cửa sổ claude.ai không cấp quyền mcp.
+   Luật ghi giống hệt bên connector: script chỉ đụng hai dải F:L và R:V,
+   ⛔ cột Q (Duyệt) và M–P để nguyên. */
+var GAS_URL='https://script.google.com/macros/s/'+
+  'AKfycbxCMV_gCOjftuVFfo67-Gl_yaRqpTI-470jeLSnWW2mvABUi4NKubyoAt6b7n7oNWmw/exec';
+var GAS_TT='chua';        /* chua · ok · loi */
+var GAS_LOI='';
+var GAS_TOKEN='';
+var GAS_TOI='';   /* email người đang xem, server trả về */
+var GAS_CAN_TOKEN=false;
+
+/* Thứ tự cột A..W, khớp với thanhObj() của Code.gs. */
+var GAS_COT=['ma','cd','chan_dung','giai_doan','dich_vu','insight','hook','cta','fm_text',
+  'local_hoa','ly_do_local','muc_tieu','win','phan_doi','truy_nguoc','co_phap_che','duyet',
+  'chon','ghi_chu','cap_nhat','nguoi_gui','trang_thai','nguon'];
+
+function napGasToken(){try{GAS_TOKEN=localStorage.getItem('kn_gas_token')||''}catch(e){}}
+function luuGasToken(t){
+  GAS_TOKEN=sv(t);
+  try{localStorage.setItem('kn_gas_token',GAS_TOKEN)}catch(e){}}
+
+function gasLoi(e){
+  var m=sv(e&&e.message||e);
+  if(m.indexOf('Failed to fetch')>=0||m.indexOf('NetworkError')>=0||m==='TypeError')
+    return 'Khung trang không cho gọi ra script.google.com';
+  return m||'Apps Script không trả lời'}
+
+/* google.script.run là cầu nối sẵn có giữa trang và server Apps Script —
+   CÙNG GỐC, nên ⛔ không CSP chặn, ⛔ không cần connector, ⛔ không cần token.
+   Bọc thành Promise để phần còn lại của trang dùng y như lúc gọi fetch. */
+function gsr(ten,args){
+  return new Promise(function(ok,hong){
+    if(!(window.google&&google.script&&google.script.run))
+      return hong(new Error('Trang không chạy trên Apps Script'));
+    var r=google.script.run.withSuccessHandler(ok).withFailureHandler(function(e){
+      hong(new Error((e&&e.message)||'Server báo lỗi'))});
+    /* ⛔ apply(null,…) là hỏng: runner của google.script.run cần chính nó
+       làm `this`, mất `this` thì lời gọi không bao giờ tới server. */
+    r[ten].apply(r,args||[])})}
+
+function gasKetQua(r){
+  if(!r)throw new Error('Apps Script trả về rỗng');
+  if(!r.ok)throw new Error(sv(r.loi)||'Apps Script từ chối');
+  return r}
+
+function noiGas(){
+  return gsr('apiPing').then(function(r){
+    gasKetQua(r);
+    GAS_TT='ok'; GAS_LOI=''; GAS_TOI=sv(r.toi);
+    return docGas()})
+   .catch(function(e){GAS_TT='loi';GAS_LOI=gasLoi(e);return false})}
+
+function docGas(){
+  tt('⏳ Đang đọc Sheet qua Apps Script…');
+  return gsr('apiDocHook').then(function(r){
+    gasKetQua(r);
+    SUA={};SHEET_DONG={};SHEET_THO={};SHEET_MA=[];
+    (r.hook||[]).forEach(function(o,i){
+      var ma=sv(o.ma).trim(); if(!ma)return;
+      var t=GAS_COT.map(function(k){return sv(o[k])});
+      SHEET_MA.push(ma); SHEET_THO[ma]=t; SHEET_DONG[ma]=i+2;
+      SUA[ma]={insight:t[5],hook:t[6],cta:t[7],fm_text:t[8],local_hoa:t[9],
+        ly_do_local:t[10],muc_tieu:t[11],duyet:t[16],chon:t[17],ghi_chu:t[18],
+        cap_nhat:t[19],nguoi_gui:t[20],trang_thai:t[21],nguon:t[22]}});
+    if(VE_LAI)VE_LAI();
+    tt('✓ Đã đồng bộ '+SHEET_MA.length+' hook qua Apps Script',2);
+    return true})
+   .catch(function(e){GAS_LOI=gasLoi(e);tt('⚠ '+GAS_LOI,1);return false})}
+
+function ghiGas(ma,v){
+  var t={};
+  COT_1.concat(COT_2).forEach(function(k){if(v[k]!==undefined)t[k]=sv(v[k])});
+  return gsr('apiSua',[ma,t])
+    .then(gasKetQua).then(function(r){return (r.ket_qua||{}).dong||0})}
+
+function taoGas(v){
+  return gsr('apiTao',[{
+      cd:sv(v.cd),chan_dung:sv(v.chan_dung),giai_doan:sv(v.nac),dich_vu:sv(v.dich_vu),
+      insight:sv(v.insight),hook:sv(v.hook),cta:sv(v.cta),fm_text:sv(v.fm_text),
+      local_hoa:sv(v.local_hoa),ly_do_local:sv(v.ly_do_local),muc_tieu:sv(v.muc_tieu),
+      truy_nguoc:sv(v.truy_nguoc),chon:sv(v.chon),ghi_chu:sv(v.ghi_chu),
+      nguoi_gui:sv(v.nguoi_gui),trang_thai:sv(v.trang_thai)}])
+    .then(gasKetQua).then(function(r){return (r.ket_qua||{}).ma||''})}
+
+/* Apps Script chốt cả lô trong MỘT lần gọi và tự đóng cùng một mốc thời gian,
+   nên lô ⛔ không bị tách ra như khi ghi từng dòng. */
+function guiGas(mas,nguoi,ghiChu,tien){
+  if(tien)tien(0,mas.length,'cả lô');
+  return gsr('apiGui',[mas,nguoi,ghiChu])
+    .then(gasKetQua).then(function(r){
+      var k=r.ket_qua||{},xong=k.xong||[];
+      xong.forEach(function(ma){
+        var cu=SUA[ma]||{};
+        cu.chon='Chọn'; if(ghiChu)cu.ghi_chu=ghiChu;
+        cu.cap_nhat=k.luc; cu.nguoi_gui=nguoi; cu.trang_thai='Đã gửi';
+        SUA[ma]=cu;
+        var t=SHEET_THO[ma];
+        if(t){t[17]='Chọn';if(ghiChu)t[18]=ghiChu;t[19]=k.luc;t[20]=nguoi;t[21]='Đã gửi'}});
+      return xong})}
+
+/* ───────── Chọn đường ─────────
+   Apps Script trước vì nó chạy ở mọi cửa sổ; connector là đường dự phòng. */
+function khoCo(){return GAS_TT==='ok'?'gas':(MCP?'mcp':'')}
+function khoTen(){
+  var k=khoCo();
+  return k==='gas'?'Apps Script':(k==='mcp'?'connector Google Sheets':'')}
+/* Người gửi điền sẵn bằng email đang đăng nhập — ⛔ không bắt gõ tay nữa. */
+function nguoiMacDinh(){return GAS_TOI||''}
+function khoDoc(){
+  var k=khoCo();
+  return k==='gas'?docGas():(k==='mcp'?docSheet():Promise.resolve(false))}
+function khoGhi(ma,v){return khoCo()==='gas'?ghiGas(ma,v):ghiSheet(ma,v)}
+function khoTao(v){return khoCo()==='gas'?taoGas(v):taoHook(v)}
+function khoGui(mas,n,g,tien){
+  return khoCo()==='gas'?guiGas(mas,n,g,tien):guiDon(mas,n,g,tien)}
+
+function goc(ma){
+  var r=null;
+  ((((D_HIEN||{}).hook)||{}).dong||[]).forEach(function(x){if(x.ma===ma)r=x});
+  if(r)return r;
+  /* Hook tạo trên artifact không có trong file kỳ — dựng lại từ dòng Sheet. */
+  var y=TAY[ma];
+  if(y&&y._moi)return {ma:ma,cd:sv(y.cd),nac:sv(y.nac),dich_vu:sv(y.dich_vu),
+    insight:sv(y.insight),hook:sv(y.hook),cta:sv(y.cta),fm_text:sv(y.fm_text),
+    local_hoa:sv(y.local_hoa),ly_do_local:sv(y.ly_do_local),muc_tieu:sv(y.muc_tieu),
+    truy_nguoc:sv(y.truy_nguoc),co_phap_che:'⚠ chưa soát',duyet:'chờ BS + pháp chế',moi:1};
+  var t=SHEET_THO[ma]; if(!t)return null;
+  return {ma:ma,cd:sv(t[1]),ten_cd:sv(t[2]),nac:sv(t[3]),dich_vu:sv(t[4]),
+    insight:sv(t[5]),hook:sv(t[6]),cta:sv(t[7]),fm_text:sv(t[8]),
+    local_hoa:sv(t[9]),ly_do_local:sv(t[10]),muc_tieu:sv(t[11]),
+    truy_nguoc:sv(t[14]),co_phap_che:sv(t[15]),duyet:sv(t[16]),moi:1}}
+
+function q(id){return document.getElementById(id)}
+
+/* Nạp danh sách chân dung của kỳ vào ô chọn — ⛔ không gõ tay mã CD, mã phải
+   trùng với chân dung đã duyệt ở CỔNG 0 thì điểm win mới gắn đúng. */
+function napOCd(cd){
+  var o=q('f-cd'); if(!o)return;
+  var tep=((D_HIEN||{}).chan_dung||{}).tep||[];
+  o.innerHTML=tep.map(function(t){
+    return '<option value="'+esc(t.cd)+'">'+esc(t.cd)+' · '+esc(t.ten)+'</option>'}).join('');
+  if(cd)o.value=cd}
+
+function moTao(){
+  var d=document.getElementById('sua-hop'); if(!d)return;
+  d.dataset.ma=''; d.dataset.che='tao'; d.className='hop tao';
+  q('sua-ma').textContent='mới';
+  q('sua-cd').textContent='sẽ nhận mã KN-ART-… khi lưu';
+  napOCd('');
+  q('f-nac').value='A3 · MOF';
+  ['f-insight','f-hook','f-cta','f-fm','f-lydo','f-muctieu','f-ghichu','f-truy']
+    .forEach(function(i){var e=q(i); if(e)e.value=''});
+  q('f-local').value='Không'; q('f-chon').value='';
+  q('sua-khoa').innerHTML='<div><b>Hook gõ tay.</b> Nó sẽ vào Sheet với nguồn '+
+    '«'+esc(NGUON_MOI)+'», cờ pháp chế «⚠ chưa soát» và trạng thái «Nháp».</div>'+
+    '<div>Không điền mã HT truy ngược thì Sheet ghi «⛔ chưa gắn HT» — hook không có '+
+    'bằng chứng từ hội thoại, ⛔ không được đưa đi sản xuất (luật ①).</div>';
+  var t=q('sua-tt'); if(t){t.textContent='';t.className='tt'}
+  q('sua-luu').disabled=false;
+  d.showModal()}
+
+function moSua(ma){
+  var d=document.getElementById('sua-hop'),g=goc(ma); if(!d||!g)return;
+  var c=hk(g);
+  d.dataset.ma=ma; d.dataset.che='sua'; d.className='hop';
+  q('sua-ma').textContent=ma;
+  q('sua-cd').textContent=(c.cd||'')+' · '+(GIAI_DOAN[c.nac]||c.nac||'');
+  q('f-insight').value=sv(c.insight); q('f-hook').value=sv(c.hook);
+  q('f-cta').value=sv(c.cta); q('f-fm').value=fmText(c);
+  q('f-local').value=(laCo(c.local_hoa)?'Có':'Không');
+  q('f-lydo').value=sv(c.ly_do_local); q('f-muctieu').value=sv(c.muc_tieu);
+  q('f-chon').value=sv(c.chon); q('f-ghichu').value=sv(c.ghi_chu);
+  q('sua-khoa').innerHTML=
+    '<div><b>Chỉ đọc</b> — ô của bác sĩ và pháp chế, trang không ghi đè:</div>'+
+    '<div>Duyệt: '+esc(sv(c.duyet)||'chờ BS + pháp chế')+'</div>'+
+    '<div>Cờ pháp chế: '+esc(sv(c.co_phap_che)||'—')+
+    ' · Phản đối: '+esc(TEN_O[c.ma_o]||c.ma_o||'—')+'</div>'+
+    '<div>Truy ngược: '+esc(sv(c.truy_nguoc)||'⛔ trống')+'</div>'+
+    (c.cap_nhat?'<div>Sửa lần cuối: '+esc(c.cap_nhat)+'</div>':'');
+  var t=q('sua-tt'); if(t){t.textContent='';t.className='tt'}
+  q('sua-luu').disabled=false;
+  d.showModal()}
+
+function luuSua(){
+  var d=document.getElementById('sua-hop'); if(!d)return;
+  var ma=d.dataset.ma,tao=(d.dataset.che==='tao');
+  if(!ma&&!tao)return;
+  var t=q('sua-tt'),nut=q('sua-luu');
+  var v={insight:q('f-insight').value.trim(),hook:q('f-hook').value.trim(),
+    cta:q('f-cta').value.trim(),fm_text:q('f-fm').value.trim(),
+    local_hoa:q('f-local').value,ly_do_local:q('f-lydo').value.trim(),
+    muc_tieu:q('f-muctieu').value.trim(),chon:q('f-chon').value,
+    ghi_chu:q('f-ghichu').value.trim(),
+    cap_nhat:new Date().toLocaleString('vi-VN')};
+  if(!v.hook){t.textContent='⚠ Hook không được để trống.';t.className='tt xau';return}
+  nut.disabled=true; t.textContent='⏳ Đang ghi vào Google Sheet…'; t.className='tt';
+  function hong(e){
+    nut.disabled=false;
+    t.textContent='⚠ Chưa ghi được — '+loiMcp(e)+(e&&e.message?' '+e.message:'');
+    t.className='tt xau'}
+  function xong(msg){
+    t.textContent='✓ '+msg; t.className='tt tot';
+    tt('✓ '+msg,2);
+    setTimeout(function(){try{d.close()}catch(e){}},700)}
+
+  if(tao){
+    v.cd=q('f-cd').value; v.nac=q('f-nac').value;
+    v.truy_nguoc=q('f-truy').value.trim();
+    if(!v.cd){t.textContent='⚠ Chọn chân dung đã.';t.className='tt xau';nut.disabled=false;return}
+    if(!khoCo()){
+      var maT=maTay(); v._moi=1; v.trang_thai='Nháp'; TAY[maT]=v; luuTay();
+      if(VE_LAI)VE_LAI();
+      xong('Đã tạo '+maT+' — lưu trên máy bạn, chưa vào Sheet'); return}
+    khoTao(v).then(function(maM){
+      return khoDoc().then(function(){xong('Đã thêm '+maM+' vào Google Sheet')})})
+     .catch(hong);
+    return}
+
+  if(!khoCo()){
+    var cu0=TAY[ma]||{},k0; for(k0 in v)cu0[k0]=v[k0];
+    if((goc(ma)||{}).moi)cu0._moi=1;
+    TAY[ma]=cu0; luuTay();
+    if(VE_LAI)VE_LAI();
+    xong('Đã lưu '+ma+' trên máy bạn — chưa vào Sheet'); return}
+
+  khoGhi(ma,v).then(function(dong){
+    var cu=SUA[ma]||{},k; for(k in v)cu[k]=v[k]; SUA[ma]=cu;
+    xoaTreo(ma);
+    if(VE_LAI)VE_LAI();
+    xong('Đã ghi '+ma+' · dòng '+dong+' của Sheet')})
+   .catch(hong)}
+
+/* Mã cho hook gõ khi CHƯA nối Sheet — ⛔ không dùng KN-ART-: số thứ tự ART phải
+   đếm trên Sheet, đoán mò là đụng mã của người khác. Đẩy lên Sheet thì đổi mã. */
+function maTay(){
+  var n=0;
+  Object.keys(TAY).forEach(function(m){
+    if(m.indexOf('KN-TAY-')===0){var k=parseInt(m.slice(7),10); if(k>n)n=k}});
+  n++; return 'KN-TAY-'+(n<10?'00':(n<100?'0':''))+n}
+
+/* ── Gửi cả lô ───────────────────────────────────────────────────────── */
+function dsChon(){return Object.keys(CHON).filter(function(m){return CHON[m]})}
+
+function capNhatChon(){
+  var n=dsChon().length,b=q('hook-gui');
+  if(b){b.disabled=!n;
+    b.textContent=n?('Gửi '+n+' hook đã chọn →'):'Chưa chọn hook nào'}
+  app.querySelectorAll('.idea[data-ma]').forEach(function(e){
+    e.classList.toggle('da-tick',!!CHON[e.dataset.ma])})}
+
+function moGui(){
+  var d=document.getElementById('gui-hop'),ds=dsChon(); if(!d||!ds.length)return;
+  q('gui-dem').textContent=ds.length+' hook';
+  var ten=nguoiMacDinh();
+  if(!ten){try{ten=localStorage.getItem('kn_nguoi')||''}catch(e){}}
+  q('g-nguoi').value=ten; q('g-ghichu').value='';
+  q('gui-ds').innerHTML=ds.map(function(ma){
+    var g=hk(goc(ma)||{ma:ma});
+    return '<div>'+esc(ma)+' · '+esc((g.hook||'').slice(0,70))+
+      ((g.hook||'').length>70?'…':'')+'</div>'}).join('');
+  var t=q('gui-tt'); if(t){t.textContent='';t.className='tt'}
+  q('gui-ok').disabled=false;
+  d.showModal()}
+
+function guiNgay(){
+  var d=document.getElementById('gui-hop'),ds=dsChon(); if(!d||!ds.length)return;
+  var t=q('gui-tt'),nut=q('gui-ok'),nguoi=q('g-nguoi').value.trim();
+  if(!nguoi){t.textContent='⚠ Điền tên người gửi — Sheet cần biết ai chốt lô này.';
+    t.className='tt xau';return}
+  try{localStorage.setItem('kn_nguoi',nguoi)}catch(e){}
+  nut.disabled=true; t.className='tt';
+  if(!khoCo()){
+    var luc=new Date().toLocaleString('vi-VN'),gc=q('g-ghichu').value.trim();
+    ds.forEach(function(ma){
+      var c=TAY[ma]||{};
+      c.chon='Chọn'; if(gc)c.ghi_chu=gc; c.cap_nhat=luc;
+      c.nguoi_gui=nguoi; c.trang_thai='Đã gửi';
+      if((goc(ma)||{}).moi)c._moi=1;
+      TAY[ma]=c});
+    luuTay(); CHON={};
+    t.textContent='✓ Đã chốt '+ds.length+' hook trên máy bạn — chưa vào Sheet. '+
+      'Dùng nút «⧉ Chép … thay đổi» để dán sang Sheet.';
+    t.className='tt tot';
+    if(VE_LAI)VE_LAI();
+    setTimeout(function(){try{d.close()}catch(e){}},1400);
+    return}
+  khoGui(ds,nguoi,q('g-ghichu').value.trim(),function(i,n,ma){
+    t.textContent='⏳ Đang gửi '+i+'/'+n+' — '+ma+'…'})
+   .then(function(xong){
+    CHON={}; xong.forEach(xoaTreo);
+    t.textContent='✓ Đã gửi '+xong.length+'/'+ds.length+' hook vào Google Sheet';
+    t.className='tt tot';
+    if(VE_LAI)VE_LAI();
+    tt('✓ Đã gửi '+xong.length+' hook · người gửi '+nguoi,2);
+    setTimeout(function(){try{d.close()}catch(e){}},900)})
+   .catch(function(e){
+    nut.disabled=false;
+    t.textContent='⚠ Gửi dở dang — '+loiMcp(e)+'. Những hook đã ghi vẫn nằm trong Sheet; '+
+      'bấm «⟳ Tải lại từ Sheet» để xem lô nào đã vào.';
+    t.className='tt xau'})}
+
+/* Thanh trạng thái thư viện. Bốn trạng thái, mỗi cái nói rõ làm gì tiếp. */
+var DA_DAY=false;      /* đã mở cửa sổ ghi, đang chờ người xác nhận */
+
+/* Đúng những trường người dùng đã sửa — ⛔ không gửi cả 12 trường.
+   Gửi thừa một trường đang trống là ghi '' đè lên ô người khác vừa gõ
+   thẳng vào Sheet. TAY[ma] chính là danh sách khoá đã đụng tới. */
+function truongSua(ma){
+  var y=TAY[ma]||{},c=hk(goc(ma)||{ma:ma}),t={},k;
+  for(k in y){
+    if(k.charAt(0)==='_')continue;
+    if(COT_1.indexOf(k)<0&&COT_2.indexOf(k)<0)continue;
+    t[k]=sv(k==='fm_text'?fmText(c):y[k])}
+  return t}
+
+/* Gói mọi thay đổi đang treo thành danh sách thao tác cho Apps Script. */
+function goiDay(){
+  var v=[];
+  dsTreo().forEach(function(ma){
+    var c=hk(goc(ma)||{ma:ma}),y=TAY[ma]||{};
+    if(y._moi)v.push({a:'create',hook:{
+      cd:sv(c.cd),giai_doan:sv(c.nac),dich_vu:sv(c.dich_vu),truy_nguoc:sv(c.truy_nguoc),
+      insight:sv(c.insight),hook:sv(c.hook),cta:sv(c.cta),fm_text:fmText(c),
+      local_hoa:sv(c.local_hoa),ly_do_local:sv(c.ly_do_local),muc_tieu:sv(c.muc_tieu),
+      chon:sv(c.chon),ghi_chu:sv(c.ghi_chu),nguoi_gui:sv(c.nguoi_gui),
+      trang_thai:sv(c.trang_thai)}});
+    else v.push({a:'update',ma:ma,truong:truongSua(ma)})});
+  return v}
+
+/* ĐƯỜNG THOÁT khi khung artifact chặn mạng.
+   CSP của khung chặn `connect-src` nên fetch hỏng, NHƯNG mở một cửa sổ là điều
+   hướng bình thường — không bị chặn. Người dùng thấy kết quả bằng mắt ở tab mới
+   rồi quay về bấm xác nhận. ⛔ Không tự xoá hàng treo trước khi có xác nhận:
+   trang không đọc được tab kia, đoán là có ngày mất dữ liệu. */
+/* Apps Script giải mã tham số GET ⛔ KHÔNG theo UTF-8 — «Tiếng Việt» đi qua
+   query string thành «Ti?ng Vi?t». Thoát hết ký tự ngoài ASCII thành \\uXXXX
+   thì chuỗi thuần ASCII qua nguyên vẹn, JSON.parse bên kia dựng lại đúng chữ. */
+function chiAscii(x){
+  return x.replace(/[^\x20-\x7E]/g,function(c){
+    return '\\u'+('000'+c.charCodeAt(0).toString(16)).slice(-4)})}
+
+/* URL đẩy, dựng sẵn để gắn vào href. Rỗng = không đẩy được bằng một cú bấm. */
+function urlDay(){
+  var v=goiDay(); if(!v.length)return '';
+  var u=GAS_URL+'?action=push'+(GAS_TOKEN?'&token='+encodeURIComponent(GAS_TOKEN):'')+
+    '&d='+encodeURIComponent(chiAscii(JSON.stringify({v:v})));
+  return u.length>7000?'':u}
+
+var XONG_HOI=false;
+
+/* Hai bước, cố ý. Trang ⛔ không đọc được tab vừa mở nên nó KHÔNG biết Sheet đã
+   nhận hay chưa — chỉ người dùng biết. Một bản deploy cũ (chưa có action=push)
+   trả về một đống JSON mà ⛔ không ghi gì; bấm một phát là mất sạch hàng treo. */
+function xongDay(){
+  var b=document.getElementById('hook-xong');
+  if(!XONG_HOI){
+    XONG_HOI=true;
+    if(b)b.textContent='Chắc chắn? Tab kia phải báo «✓ Đã ghi»';
+    tt('⚠ Chỉ bấm tiếp khi cửa sổ vừa mở hiện «✓ Đã ghi … thay đổi vào Sheet». '+
+       'Nếu nó hiện một đống JSON hoặc báo lỗi thì bản Apps Script còn cũ — '+
+       '⛔ đừng xoá hàng treo, deploy lại Code.gs đã.',1);
+    setTimeout(function(){
+      XONG_HOI=false;
+      var b2=document.getElementById('hook-xong');
+      if(b2)b2.textContent='✓ Đã ghi xong'},15000);
+    return}
+  XONG_HOI=false;
+  var n=dsTreo().length;
+  TAY={}; luuTay(); DA_DAY=false;
+  if(VE_LAI)VE_LAI();
+  tt('✓ Đã xoá '+n+' thay đổi khỏi hàng treo — Google Sheet giờ là bản gốc.',2)}
+
+/* Ba nút đồng bộ, tuỳ đường nào đang chạy. Trả về chuỗi HTML dùng chung cho
+   thanh công cụ và dải cảnh báo, để hai chỗ ⛔ không lệch nhau. */
+function nutDongBo(tr,chinh){
+  var c=chinh?' chinh':'';
+  if(khoCo())
+    return '<button type="button" class="btn'+c+'" id="hook-day">⇪ Đẩy '+num(tr,0)+
+      ' thay đổi lên Sheet</button>';
+  /* Thẻ <a> chứ ⛔ không phải window.open: khung sandbox chặn pop-up mà không
+     báo gì, còn link người dùng bấm thì đi cùng lối với «Mở Google Sheet». */
+  var u=urlDay();
+  return (u
+    ?'<a class="btn'+c+'" id="hook-day2" href="'+esc(u)+'" target="_blank" rel="noopener">'+
+     '⇪ Đẩy '+num(tr,0)+' thay đổi qua cửa sổ mới</a>'
+    :'<span class="note">⚠ '+num(tr,0)+' thay đổi quá dài cho một đường dẫn — '+
+     'dùng «⧉ Chép để dán tay».</span>')+
+    '<button type="button" class="btn" id="hook-xong">✓ Đã ghi xong</button>'+
+    '<button type="button" class="btn" id="hook-chep">⧉ Chép để dán tay</button>'}
+
+function thvBar(){
+  var tr=dsTreo().length,n=dsChon().length,k=khoCo();
+  var d=k
+    ?('✓ Nối thẳng Google Sheet'+(GAS_TOI?' · '+GAS_TOI:'')+
+       ' — sửa và gửi ghi vào Sheet ngay.')
+    :((GAS_TT==='chua'&&MCP_TT==='dang')
+       ?'⏳ Đang nối Google Sheet…'
+       :'⚠ Cửa sổ này bị chặn gọi thẳng vào Sheet. Vẫn chọn · sửa · gửi bình thường — '+
+         'xong bấm «⇪ Đẩy … qua cửa sổ mới» là vào Sheet.');
+  d+=(tr?(' · '+tr+' thay đổi CHƯA vào Sheet'):'');
+  return '<div class="thv"><span class="tt'+(tr?' xau':'')+'" id="hook-tt">'+esc(d)+'</span>'+
+    (k?'<button type="button" class="btn" id="hook-tai">⟳ Tải lại từ Sheet</button>'
+      :'<button type="button" class="btn" id="hook-visao">⚙ Vì sao chưa vào Sheet?</button>')+
+    (tr?nutDongBo(tr,false):'')+
+    '<button type="button" class="btn" id="hook-tao">+ Tạo hook mới</button>'+
+    '<button type="button" class="btn chinh gui" id="hook-gui"'+(n?'':' disabled')+'>'+
+    (n?('Gửi '+n+' hook đã chọn →'):'Chưa chọn hook nào')+'</button>'+
+    '<a class="btn" href="'+SHEET_URL+'" target="_blank" rel="noopener">Mở Google Sheet</a></div>'}
+
+/* Đẩy mọi bản sửa đang treo lên Sheet, từng cái một. Hỏng giữa chừng thì những
+   cái đã lên vẫn được xoá khỏi hàng treo — ⛔ không ghi lại lần hai. */
+function dayTreo(){
+  if(!khoCo())return;
+  var ds=dsTreo(),i=0,ok=0;
+  function buoc(){
+    if(i>=ds.length)return Promise.resolve(ok);
+    var ma=ds[i++],c=hk(goc(ma)||{ma:ma}),y=TAY[ma]||{};
+    var v=y._moi
+      ?{insight:sv(c.insight),hook:sv(c.hook),cta:sv(c.cta),fm_text:fmText(c),
+        local_hoa:sv(c.local_hoa),ly_do_local:sv(c.ly_do_local),muc_tieu:sv(c.muc_tieu),
+        chon:sv(c.chon),ghi_chu:sv(c.ghi_chu),cap_nhat:sv(c.cap_nhat),
+        nguoi_gui:sv(c.nguoi_gui),trang_thai:sv(c.trang_thai),
+        cd:sv(c.cd),nac:sv(c.nac),dich_vu:sv(c.dich_vu),truy_nguoc:sv(c.truy_nguoc)}
+      :truongSua(ma);
+    tt('⏳ Đang đẩy '+i+'/'+ds.length+' — '+ma+'…');
+    return (y._moi?khoTao(v):khoGhi(ma,v))
+      .then(function(){ok++;xoaTreo(ma);return buoc()})}
+  buoc().then(function(){return khoDoc()})
+    .then(function(){tt('✓ Đã đẩy '+ok+'/'+ds.length+' thay đổi lên Google Sheet',2)})
+    .catch(function(e){
+      if(VE_LAI)VE_LAI();
+      tt('⚠ Đẩy dở dang ('+ok+'/'+ds.length+') — '+loiMcp(e),1)})}
+
+/* TSV của các bản treo: mã + đúng hai dải trang được phép ghi (F:L và R:V). */
+function tsvTreo(){
+  var d=[['Mã hook','| F:L >','Insight lõi','Hook','CTA cuối','Format đề xuất','Local hóa',
+          'Lý do local','Mục tiêu truyền thông','| R:V >','Chọn sản xuất','Ghi chú',
+          'Cập nhật lúc','Người gửi','Trạng thái'].join('\t')];
+  dsTreo().forEach(function(ma){
+    var c=hk(goc(ma)||{ma:ma});
+    d.push([ma,'',c.insight,c.hook,c.cta,fmText(c),c.local_hoa,c.ly_do_local,c.muc_tieu,'',
+      c.chon,c.ghi_chu,c.cap_nhat,c.nguoi_gui,c.trang_thai]
+      .map(function(x){return sv(x).replace(/[\t\r\n]+/g,' ')}).join('\t'))});
+  return d.join('\n')}
+
+/* Đọc đúng những gì nền tảng nói ra, ⛔ không đoán. Bốn câu hỏi theo thứ tự:
+   trang có đang chạy trong khung claude.ai không · khung có phục vụ mcp không ·
+   người xem đã cho phép chưa · connector Google Sheets có nối không. */
+function chanDoan(){
+  var d=[],C=(typeof window!=='undefined')&&window.claude;
+  d.push(['Chạy trong claude.ai',C&&C.use?'có':'KHÔNG — mở trang từ claude.ai']);
+  d.push(['Cửa sổ phục vụ mcp',MCP?'có':(MCP_TT==='dang'?'đang chờ…':'KHÔNG')]);
+  d.push(['Apps Script',GAS_TT==='ok'
+    ?('nối được'+(GAS_CAN_TOKEN?' · có yêu cầu token':' · không cần token'))
+    :(GAS_TT==='loi'?GAS_LOI:'chưa thử')]);
+  var b=(C&&C.use)?C.use('permissions'):Promise.resolve(null);
+  return b.then(function(p){
+    if(!p){d.push(['Trạng thái quyền','không đọc được']);return null}
+    return p.state().then(function(m){
+      m=m||{};
+      var k=['mcp','mcp:'+SHEET_MAY],co=0;
+      k.forEach(function(x){if(m[x]){co++;d.push(['Quyền «'+x+'»',m[x]])}});
+      if(!co)d.push(['Quyền mcp','unavailable — cửa sổ này không có để xin']);
+      return p},function(){d.push(['Trạng thái quyền','đọc lỗi']);return p})})
+  .then(function(){
+    if(!MCP){d.push(['Connector Google Sheets','chưa hỏi được — cửa sổ chưa phục vụ mcp']);return d}
+    return MCP.listTools(SHEET_MAY).then(function(r){
+      var v=((r||{}).servers||[])[0];
+      d.push(['Connector Google Sheets',v?(v.authStatus+' · '+((v.tools||[]).length)+' tool')
+                                         :'không thấy trong tài khoản này']);
+      return d},function(e){d.push(['Connector Google Sheets',loiMcp(e)]);return d})})
+  .catch(function(){return d})}
+
+function moChanDoan0(){
+  chanDoan().then(function(ds){
+    var e=q('cd-ds'); if(!e)return;
+    e.innerHTML=ds.map(function(x){
+      var xau=/KHÔNG|unavailable|denied|lỗi|không thấy|không đọc|không cho|chưa thử/.test(x[1]);
+      return '<div>'+esc(x[0])+': <b'+(xau?' style="color:var(--bad)"':'')+'>'+
+        esc(x[1])+'</b></div>'}).join('')+
+      (dsTreo().length?'<div style="margin-top:6px">Đang treo trên máy: <b>'+
+        esc(dsTreo().join(' · '))+'</b></div>':'')})}
+
+function moChanDoan(){
+  var d=document.getElementById('cd-hop'); if(!d)return;
+  var ot=q('cd-token'); if(ot)ot.value=GAS_TOKEN;
+  q('cd-ds').innerHTML='Đang đọc…';
+  var t=q('cd-tt'); if(t){t.textContent='';t.className='tt'}
+  d.showModal();
+  moChanDoan0()}
+
+function xinQuyen(){
+  var t=q('cd-tt'),C=(typeof window!=='undefined')&&window.claude;
+  if(!(C&&C.use)){t.textContent='⚠ Trang không chạy trong claude.ai — không có gì để xin.';
+    t.className='tt xau';return}
+  t.textContent='⏳ Đang hỏi…'; t.className='tt';
+  C.use('permissions').then(function(p){
+    if(!p)throw 0;
+    return p.request(['mcp','mcp:'+SHEET_MAY])}).then(function(m){
+    m=m||{};
+    var v=m['mcp:'+SHEET_MAY]||m['mcp']||'unavailable';
+    if(v==='granted'){t.textContent='✓ Đã cấp quyền — bấm «Tải lại trang» để trang nối Sheet.';
+      t.className='tt tot'}
+    else if(v==='denied')t.textContent='⚠ Bạn đã từ chối ở lần mở này. Mở lại trang rồi chọn Cho phép.';
+    else if(v==='prompt')t.textContent='⚠ Chưa có trả lời. Thử lại, hoặc mở báo cáo từ trong khung chat Claude.';
+    else t.textContent='⚠ Cửa sổ này không có quyền mcp để xin. Mở báo cáo từ trong khung chat Claude, '+
+      'hoặc dùng «⧉ Chép» để dán tay sang Sheet.';
+    if(v!=='granted')t.className='tt xau';
+  }).catch(function(){
+    t.textContent='⚠ Không hỏi quyền được ở cửa sổ này. Dùng «⧉ Chép» để dán tay sang Sheet.';
+    t.className='tt xau'})}
+
+function moChep(){
+  var d=document.getElementById('chep-hop'); if(!d)return;
+  q('chep-dem').textContent=dsTreo().length+' thay đổi';
+  q('chep-o').value=tsvTreo();
+  var t=q('chep-tt'); if(t){t.textContent='';t.className='tt'}
+  d.showModal()}
+
+function chepNgay(){
+  var o=q('chep-o'),t=q('chep-tt');
+  function xong(){t.textContent='✓ Đã chép — dán vào Sheet rồi bấm Đóng.';t.className='tt tot'}
+  function hong(){
+    try{o.focus();o.select()}catch(e){}
+    t.textContent='⚠ Trình duyệt không cho chép tự động — bấm Ctrl+C.';t.className='tt xau'}
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(o.value).then(xong,hong);
+  else hong()}
+
+
+function tabHook(D){
+  var H=D.hook||{},M=D.ma_tran||{},C=D.chan_dung||{},tep=C.tep||[],W=C.co_hoi_win||[];
+  if(M.trang_thai!=='da_duyet'||!(H.dong||[]).length)
+    return '<h2 class="top">Ngân hàng hook</h2><div class="lock">'+
+      esc(H.ghi_chu||'chưa viết — ma trận chưa được duyệt')+
+      '<div class="note" style="margin-top:10px">Mỗi hook phải gắn 1 chân dung · 1 nấc · 1 phản đối · '+
+      '1 HT truy ngược · 3 format. Cột <b>Duyệt</b> do bác sĩ và pháp chế điền, ⛔ agent không tự điền '+
+      '(<code>id-H §4</code>).</div></div>';
+  var CO={'🔴':['🔴 chặn','t-bad'],'🟡':['🟡 hỏi lại','t-mid'],'🟢':['🟢 sạch','t-ok']};
+  /* Gộp sẵn ba khoá lọc cho từng dòng — tên chân dung lấy từ tệp của kỳ, ⛔ không hiện mã trần. */
+  /* Hook gõ tay — từ Sheet hoặc còn treo trên máy — phải nằm CHUNG bảng, nếu
+     không thì người tạo ra nó không thấy nó đâu nữa. */
+  var nguon=H.dong.slice();
+  SHEET_MA.forEach(function(ma){
+    if(sv((SHEET_THO[ma]||[])[22])===NGUON_MOI&&!find(nguon,'ma',ma)){
+      var g=goc(ma); if(g)nguon.push(g)}});
+  Object.keys(TAY).forEach(function(ma){
+    if(TAY[ma]._moi&&!find(nguon,'ma',ma)){var g=goc(ma); if(g)nguon.push(g)}});
+
+  var ds=nguon.map(function(r0){
+    var r=hk(r0);                       /* dap ban sua doc tu Google Sheet */
+    var cd=find(tep,'cd',r.cd)||{};
+    return {r:r, ten:cd.ten||'',
+      dv:r.dich_vu||suyDichVu(r,cd.ten),
+      tuyen:r.tuyen||r.khoi||'(chưa khai)',
+      nhanvien:r.nhan_vien||r.nguoi_viet||r.so_huu||''}});
+
+  /* ★ Bảng theo FORM đã chốt với team PM (link ở ghi chú dưới bảng):
+       CD-Giai đoạn · Insight · Hook (nhiều idea) · CTA · Format · Local hóa (Y/N)
+       · Mục tiêu truyền thông · Cơ hội win
+     Một dòng = một ô CD × giai đoạn, trong đó liệt kê NHIỀU idea hook đánh số ①②③.
+     Mã O · truy ngược · cờ pháp chế · ô Duyệt ⛔ KHÔNG bị bỏ — nằm dưới từng idea,
+     vì đó là rào an toàn id-H §4 chứ không phải cột trang trí. */
+  var SO=['①','②','③','④','⑤','⑥','⑦','⑧','⑨'];
+  var nhom={},thuTu=[];
+  ds.forEach(function(x){
+    var k=x.r.cd+'|'+x.r.nac;
+    if(!nhom[k]){nhom[k]=[];thuTu.push(k)}
+    nhom[k].push(x)});
+
+  var head=[{l:'CD · Giai đoạn'},{l:'Insight lõi'},{l:'Hook (nhiều idea)'},{l:'CTA cuối'},
+    {l:'Format đề xuất'},{l:'Local hóa',c:'c'},{l:'Mục tiêu truyền thông',c:'c'},{l:'Cơ hội win',c:'n'}];
+  var rows=thuTu.map(function(k){
+    var g=nhom[k],x0=g[0],r0=x0.r,w=find(W,'cd',r0.cd)||{};
+    var co_do=g.some(function(y){return y.r.co_phap_che==='🔴'});
+    function cot(f){return '<div class="fm-ds">'+g.map(function(y,i){
+      return '<div>'+(g.length>1?'<b>'+SO[i]+'</b> ':'')+f(y.r,i)+'</div>'}).join('')+'</div>'}
+    return '<tr data-loc="1" data-dv="'+esc(x0.dv)+'" data-tuyen="'+esc(x0.tuyen)+
+      '" data-nhanvien="'+esc(x0.nhanvien)+'"'+(co_do?' class="pick"':'')+'>'+
+      td('<b>'+esc(x0.ten||r0.cd)+'</b><div class="note">'+esc(r0.cd)+' · '+esc(x0.dv)+'</div>'+
+         '<div class="note nw">'+esc(GIAI_DOAN[r0.nac]||r0.nac||'—')+'</div>'+
+         '<div class="note">'+esc(r0.khoi||'')+'</div>')+
+      td(cot(function(r){return esc(r.insight||'—')}))+
+      td(g.map(function(y,i){
+        var r=y.r,c=CO[r.co_phap_che]||[r.co_phap_che||'—',''];
+        var phu=['Phản đối: '+esc(TEN_O[r.ma_o]||r.ma_o||'—')];
+        if(CHAN_O[r.ma_o])phu.push('<span style="color:var(--bad)">'+esc(CHAN_O[r.ma_o])+'</span>');
+        phu.push(r.truy_nguoc?esc(r.truy_nguoc):
+          '<span style="color:var(--bad)">⛔ truy ngược trống — loại</span>');
+        phu.push(r.duyet?'duyệt: '+esc(r.duyet):'chờ BS + pháp chế');
+        return '<div class="idea'+(CHON[r.ma]?' da-tick':'')+'" data-ma="'+esc(r.ma||'')+'">'+
+          (g.length>1?'<b>'+SO[i]+'</b> ':'')+
+          '<b>'+esc(r.hook)+'</b>'+
+          '<div class="note"><span class="tag '+c[1]+'">'+esc(c[0])+'</span>'+
+          (r.challenger?'<span class="tag t-acc">challenger</span>':'')+
+          (r.chon?'<span class="tag t-ok">✓ '+esc(r.chon)+'</span>':'')+
+          esc(r.loai_hook||'')+'</div>'+
+          (r.ly_do_co?'<div class="note">'+esc(r.ly_do_co)+'</div>':'')+
+          '<div class="note">'+phu.join(' · ')+'</div>'+
+          (r.ghi_chu?'<div class="note">Ghi chú: '+esc(r.ghi_chu)+'</div>':'')+
+          (r.ma
+            ?'<label class="tick"><input type="checkbox" data-tick="'+esc(r.ma)+'"'+
+             (CHON[r.ma]?' checked':'')+'> chọn</label> '+
+             '<button type="button" class="btn sua" data-sua="'+esc(r.ma)+'">✎ Sửa</button>'+
+             (TAY[r.ma]?'<span class="tag t-mid">chưa vào Sheet</span>':''):'')+
+          '</div>'}).join(''))+
+      td(cot(function(r){return esc(r.cta||'—')}))+
+      td(cot(function(r){return esc(fmText(r))}))+
+      td(cot(function(r){return tagCK(r.local_hoa,r.ly_do_local)+
+        (r.ly_do_local?'<div class="note">'+esc(r.ly_do_local)+'</div>':'')}),'c')+
+      td(cot(function(r){return tagCK(r.muc_tieu,r.muc_tieu)}),'c')+
+      td(w.diem==null?'<span class="dim">—</span>':'<b>'+num(w.diem,1)+'</b>'+
+         (w.hang?'<div class="note">hạng '+esc(w.hang)+'</div>':''),'n')+
+      '</tr>'});
+  rows.push('<tr id="hook-rong" hidden><td colspan="'+head.length+
+    '" class="empty">Không hook nào khớp bộ lọc đang chọn</td></tr>');
+
+  var dau=keHoachCD(D,ds);
+  return dau+'<h2'+(dau?'':' class="top"')+'>Ngân hàng hook — <span id="hook-dem">'+
+    num(nguon.length,0)+' hook</span></h2>'+
+    '<div class="note nb">'+num(nguon.length,0)+
+    ' nội dung: Chân dung → Giai đoạn → Hook → CTA → Format'+
+    (H.ghi_chu?'<br>'+esc(H.ghi_chu):'')+'</div>'+thvBar()+locHookBar(ds)+
+    '<div class="note nb">★ Bảng theo <b>form đã chốt với team PM</b> — chọn hoặc sửa ở đây '+
+    'rồi điền sang file order. Cập nhật hook tại '+
+    '<a href="https://docs.google.com/spreadsheets/d/1MJbv_M5Sh3BPntLnj9mqS8c4QNXYmwyRC_1Mj_Y4j2Q/edit?gid=0" '+
+    'target="_blank" rel="noopener">Google Sheet · Insight Kangnam</a>.<br>'+
+    'Bộ lọc chỉ lọc bảng, ⛔ không đổi số liệu kỳ. '+
+    'Dịch vụ suy từ chữ trong hook khi dòng hook chưa khai <code>dich_vu</code>. '+
+    '<b>Win</b> là điểm win của chân dung ở tab Chân dung (lead bỏ lỡ × hệ số × tỷ lệ chốt), '+
+    '⛔ chưa phải điểm riêng từng hook — khai <code>win</code> trong dòng hook thì bảng lấy số đó.</div>'+
+    t(rows,head,null,'hook-bang')+
+    ((H.tu_kiem||[]).length?'<h2>Tự kiểm ngân hàng hook — id-H §5</h2><div class="card">'+
+      bullets(H.tu_kiem)+'</div>':'')}
+
+/* ───────── ⑧ Sổ tay & việc cần xử lý ───────── */
+function tabViec(D){
+  var S=D.so_tay||{},V=D.viec||[],K=D.ket_luan||{},L=D.theo_doi||[];
+  var h='<h2 class="top">Sổ tay thực thi</h2>';
+  h+=S.da_sinh?'<div class="card"><b>'+num(S.so_ban,0)+' bản</b> đã sinh tại <code>'+
+      esc(S.duong_dan)+'</code><div class="note" style="margin-top:6px">⛔ Sổ tay cá nhân phát riêng '+
+      'từng người, ⛔ không đính kèm nhiều bản trong một file, ⛔ không gửi vào nhóm chat chung '+
+      '(<code>id-I §7</code>).</div></div>'
+    :'<div class="lock">Chưa sinh sổ tay. Duyệt ma trận rồi chạy <code>python tools/so_tay.py --ky …</code></div>';
+
+  var bo=[['marketing','Marketing'],['truc_page','Trực page'],['he_thong','Hệ thống']];
+  var co=bo.some(function(g){return (K[g[0]]||[]).length});
+  if(co){
+    h+='<h2>Kết luận kỳ — việc trọng tâm mỗi bộ phận</h2><div class="g3">'+bo.map(function(g){
+      var arr=K[g[0]]||[];
+      return '<div class="card"><h3>'+g[1]+'</h3>'+(arr.length?'<ol class="plain">'+arr.map(function(v){
+        return '<li><b>'+esc(v.viec)+'</b>'+(v.ly_do?'<div class="note">'+esc(v.ly_do)+'</div>':'')+
+          (v.so_huu?'<div class="note">Người làm: '+esc(v.so_huu)+'</div>':'')+
+          (v.do_ky_sau?'<div class="note">Đo kỳ sau: '+esc(v.do_ky_sau)+'</div>':'')+
+          chip(NHAN,v.nhan)+'</li>'}).join('')+'</ol>':'<div class="note">Không có việc trọng tâm kỳ này.</div>')+
+        '</div>'}).join('')+'</div>';
+  }
+
+  h+='<h2>Việc cần xử lý — '+num(V.length,0)+' việc</h2>';
+  h+=V.length?t(V.map(function(r){
+      var st={moi:['mới',''],dang:['đang làm','t-mid'],dat:['đạt','t-ok'],chua:['chưa đạt','t-bad']}[r.trang_thai]||[r.trang_thai||'—',''];
+      return '<tr>'+td(num(r.so,0),'n')+td('<b>'+esc(r.viec)+'</b>')+td(esc(r.bo_phan))+
+        td(r.so_huu?esc(r.so_huu):'<span class="tag t-bad">chưa có người</span>')+td(esc(r.han||'—'))+
+        td(esc(r.do_the_nao||'—'))+td('<span class="tag '+st[1]+'">'+st[0]+'</span>')+'</tr>'}),
+      [{l:'#',c:'n'},{l:'Việc'},{l:'Bộ phận'},{l:'Sở hữu'},{l:'Hạn'},{l:'Đo thế nào'},{l:'Trạng thái'}])
+    :'<div class="card empty">Agent chưa ghi việc nào. Việc không có tên người là việc không ai làm.</div>';
+
+  if(L.length)h+='<h2>Theo dõi việc kỳ trước</h2>'+t(L.map(function(r){
+    var s=r.dat===true?['đạt','t-ok']:(r.dat===false?['chưa đạt','t-bad']:['chưa đo','']);
+    return '<tr>'+td(esc(r.bo_phan))+td(esc(r.viec))+td(esc(r.muc_tieu))+td(esc(r.ket_qua))+
+      td('<span class="tag '+s[1]+'">'+s[0]+'</span>'+
+        (r.lan>=2&&r.dat===false?' <span class="tag t-bad">2 kỳ — đẩy BU</span>':''))+'</tr>'}),
+    [{l:'Bộ phận'},{l:'Việc'},{l:'Mục tiêu'},{l:'Kết quả kỳ này'},{l:'Trạng thái'}]);
+  return h}
+
+/* ───────── ⑨ Ghi chú dữ liệu ───────── */
+function tabGhiChu(D){
+  return '<h2 class="top">Ghi chú dữ liệu</h2>'+
+    '<div class="note nb">Báo cáo không nói được số đến từ đâu thì không ai dám dùng để ra quyết định.</div>'+
+    '<div class="card">'+bullets(D.ghi_chu)+'</div>'}
+
+/* ───────── khung ───────── */
+/* ───────── BỐ CỤC BÁO CÁO ─────────
+   Một trang, nhiều bố cục. `data/index.json` khai `bo_cuc`; không khai thì ra bản
+   ĐẦY ĐỦ 9 tab như cũ. Nhờ vậy tách được báo cáo cho từng người đọc mà
+   ⛔ không phải đẻ thêm một bản trang nào — link cũ vẫn chạy. */
+var BC='day-du';
+var BO_CUC={
+  'day-du':{ten:'Chân dung khách & chất lượng trực page · Kangnam',
+    tab:['pheu','chan-dung','nhan-vien','facebook','google','ma-tran','hook','theo-doi',
+         'viec','ghi-chu']},
+  // ⛔ Bố cục này KHÔNG có tab quảng cáo: đầu vào của nó là HỘI THOẠI.
+  //    Số chi phí đến từ nguồn khác (id.py ads) và ở bản `day-du`.
+  'insight':{ten:'Insight khách · line Da · Kangnam',
+    phu:'Đọc từ chính lời khách — khách là ai · họ sợ gì · kỳ tới làm nội dung gì',
+    tab:['chan-dung','ma-tran','hook','theo-doi'],
+    the:['ht','bo_1','co_sdt','nong_chua_sdt'],
+    an:['nac-5a']},   // khối ẩn ở bố cục này — vẫn còn ở `day-du` (id-J §1)
+  'truc-page':{ten:'Chất lượng trực page · Kangnam',
+    phu:'Khối đang yếu tiêu chí nào · ai cần kèm · tuần tới sửa câu nào',
+    tab:['nhan-vien','pheu','chan-dung','viec','ghi-chu'],
+    the:['ht','sla','roi_truc','bo_1','nong_chua_sdt'],
+    nhan:{'pheu':'Khách rơi ở đâu','chan-dung':'Khách là ai · câu mở mẫu'}}
+};
+function bc(){return BO_CUC[BC]||BO_CUC['day-du']}
+/* Ẩn một KHỐI bên trong tab, khác với bỏ cả tab. ⛔ Khối bị ẩn ở bố cục này thì
+   phải còn đọc được ở một bố cục khác — ⛔ không để mất khỏi cả ba (id-J §1). */
+function an(x){return (bc().an||[]).indexOf(x)>=0}
+function tabDs(){var L=bc();            // ★ giữ ĐÚNG thứ tự khai trong bố cục,
+  return L.tab.map(function(id){        //   không theo thứ tự của TABS
+    var x=find(TABS.map(function(t){return {id:t[0],t:t}}),'id',id);
+    return x?[id,(L.nhan&&L.nhan[id])||x.t[1],x.t[2]]:null}).filter(Boolean)}
+
+var TABS=[['pheu','Phễu inbox',tabPheu],['chan-dung','Chân dung & insight',tabChanDung],
+  ['nhan-vien','Chấm điểm nhân viên',tabNhanVien],['facebook','Facebook Ads',tabFacebook],
+  ['google','Google Ads',tabGoogle],['ma-tran','Ma trận ưu tiên',tabMaTran],
+  ['hook','Ngân hàng hook',tabHook],['theo-doi','Hook đã gửi',tabTheoDoi],
+  ['viec','Sổ tay & việc',tabViec],
+  ['ghi-chu','Ghi chú dữ liệu',tabGhiChu]];
+
+function chonTab(id){
+  app.querySelectorAll('.tabs button').forEach(function(b){
+    b.setAttribute('aria-selected',String(b.dataset.p===id))});
+  app.querySelectorAll('section[role=tabpanel]').forEach(function(p){p.hidden=(p.id!=='p-'+id)});
+  try{localStorage.setItem('kn_tab_'+BC,id)}catch(e){}
+}
+function render(D,ky_ds,id){
+  D_HIEN=D; VE_LAI=veLaiHook;
+  var DS=tabDs();
+  var tab=(location.hash||'').replace('#','');
+  try{if(!tab)tab=localStorage.getItem('kn_tab_'+BC)||''}catch(e){}
+  if(!DS.some(function(x){return x[0]===tab}))tab=DS[0][0];
+  var h=header(D,ky_ds,id)+theTong(D);
+  h+='<div class="tabs" role="tablist">'+DS.map(function(x){
+    return '<button role="tab" id="tab-'+x[0]+'" data-p="'+x[0]+'" aria-selected="'+
+      (x[0]===tab)+'">'+esc(x[1])+'</button>'}).join('')+'</div>';
+  DS.forEach(function(x){
+    var body;
+    try{body=x[2](D)}catch(e){body='<div class="card empty">Không dựng được phần này: '+esc(e.message)+'</div>'}
+    h+='<section role="tabpanel" id="p-'+x[0]+'" aria-labelledby="tab-'+x[0]+'"'+
+      (x[0]===tab?'':' hidden')+'>'+body+'</section>'});
+  var cb=canhBao(D);
+  if(cb)h+='<div class="chan">'+cb+'</div>';   // chân trang, hiện ở mọi tab
+  app.innerHTML=h;
+  app.querySelectorAll('.tabs button').forEach(function(b){
+    b.addEventListener('click',function(){chonTab(b.dataset.p)})});
+  var s=document.getElementById('ky-select');
+  if(s)s.addEventListener('change',function(){napKy(ky_ds,s.value)});
+  noiHook();
+}
+
+/* Nối lại sự kiện của tab hook. Gọi sau mỗi lần vẽ — kể cả lần vẽ lại riêng
+   tab hook khi Google Sheet trả dữ liệu về. */
+function noiHook(){
+  var hl=document.getElementById('hook-loc');
+  if(hl){
+    hl.addEventListener('change',locHook);
+    var xo=document.getElementById('hook-xoa');
+    if(xo)xo.addEventListener('click',function(){
+      hl.querySelectorAll('select').forEach(function(q){q.value=''});locHook()});
+  }
+  var tai=document.getElementById('hook-tai');
+  if(tai)tai.addEventListener('click',function(){khoDoc()});
+  var tao=document.getElementById('hook-tao');
+  if(tao)tao.addEventListener('click',moTao);
+  var gui=document.getElementById('hook-gui');
+  if(gui)gui.addEventListener('click',moGui);
+  app.querySelectorAll('#hook-day').forEach(function(b){
+    b.addEventListener('click',dayTreo)});
+  app.querySelectorAll('#hook-chep').forEach(function(b){
+    b.addEventListener('click',moChep)});
+  app.querySelectorAll('#hook-day2').forEach(function(b){
+    b.addEventListener('click',function(){
+      DA_DAY=true;
+      tt('⏳ Đã mở tab ghi. Tab đó phải hiện «✓ Đã ghi … vào Sheet» — '+
+         'rồi quay lại bấm «✓ Đã ghi xong».')})});
+  app.querySelectorAll('#hook-xong').forEach(function(b){
+    b.addEventListener('click',xongDay)});
+  app.querySelectorAll('#hook-visao').forEach(function(b){
+    b.addEventListener('click',moChanDoan)});
+  app.querySelectorAll('button[data-sua]').forEach(function(b){
+    b.addEventListener('click',function(){moSua(b.dataset.sua)})});
+  app.querySelectorAll('input[data-tick]').forEach(function(c){
+    c.addEventListener('change',function(){
+      CHON[c.dataset.tick]=c.checked; capNhatChon()})});
+}
+
+/* Vẽ lại RIÊNG tab hook rồi trả bộ lọc về đúng chỗ người dùng đang để.
+   ⛔ Không vẽ lại cả trang: vẽ lại là mất tab đang xem và kỳ đang chọn. */
+function veLaiHook(){
+  if(!D_HIEN)return;
+  var g={},hl=document.getElementById('hook-loc');
+  if(hl)hl.querySelectorAll('select').forEach(function(x){g[x.dataset.truong]=x.value});
+  var p=document.getElementById('p-hook');
+  if(p){try{p.innerHTML=tabHook(D_HIEN)}catch(e){}}
+  var td2=document.getElementById('p-theo-doi');
+  if(td2){try{td2.innerHTML=tabTheoDoi(D_HIEN)}catch(e){}}
+  noiHook();
+  var h2=document.getElementById('hook-loc');
+  if(h2){h2.querySelectorAll('select').forEach(function(q){
+    if(g[q.dataset.truong])q.value=g[q.dataset.truong]});locHook()}
+}
+function loi(msg){app.innerHTML='<div class="card empty">'+esc(msg)+'</div>'}
+/* Kỳ nằm trong một thư mục Drive — Claude phân tích hội thoại xong thả file
+   JSON vào đó là trang thấy ngay, ⛔ không phải deploy lại. */
+function napKy(ds,id){
+  var p=find(ds,'id',id)||ds[0];
+  try{localStorage.setItem('kn_ky',p.id)}catch(e){}
+  gsr('apiDuLieu',[p.file_id])
+    .then(function(D){render(D,ds,p.id)})
+    .catch(function(e){loi('Không đọc được kỳ '+esc(p.nhan)+' — '+esc(e.message))});
+}
+/* Hộp thoại sửa nằm ngoài #app nên chỉ nối sự kiện MỘT lần. */
+(function(){
+  var l=document.getElementById('sua-luu'),h=document.getElementById('sua-huy'),
+      f=document.getElementById('sua-form');
+  if(l)l.addEventListener('click',luuSua);
+  if(h)h.addEventListener('click',function(){
+    var d=document.getElementById('sua-hop'); if(d)try{d.close()}catch(e){}});
+  if(f)f.addEventListener('submit',function(e){e.preventDefault()});
+  var go=document.getElementById('gui-ok'),gh=document.getElementById('gui-huy'),
+      gf=document.getElementById('gui-form');
+  if(go)go.addEventListener('click',guiNgay);
+  if(gh)gh.addEventListener('click',function(){
+    var d=document.getElementById('gui-hop'); if(d)try{d.close()}catch(e){}});
+  if(gf)gf.addEventListener('submit',function(e){e.preventDefault()});
+  var co=document.getElementById('chep-ok'),cd=document.getElementById('chep-dong');
+  if(co)co.addEventListener('click',chepNgay);
+  if(cd)cd.addEventListener('click',function(){
+    var x=document.getElementById('chep-hop'); if(x)try{x.close()}catch(e){}});
+  var cx=document.getElementById('cd-xin'),cdg=document.getElementById('cd-dong'),
+      ctl=document.getElementById('cd-tai');
+  if(cx)cx.addEventListener('click',xinQuyen);
+  var cg=document.getElementById('cd-gas');
+  if(cg)cg.addEventListener('click',function(){
+    var t=document.getElementById('cd-tt'),o=document.getElementById('cd-token');
+    luuGasToken(o?o.value.trim():'');
+    t.textContent='⏳ Đang thử Apps Script…'; t.className='tt';
+    noiGas().then(function(ok){
+      if(ok){t.textContent='✓ Nối được — đã đọc '+SHEET_MA.length+' hook từ Sheet.';
+        t.className='tt tot'; if(VE_LAI)VE_LAI()}
+      else{t.textContent='⚠ '+GAS_LOI; t.className='tt xau'}
+      moChanDoan0()})});
+  if(ctl)ctl.addEventListener('click',function(){try{location.reload()}catch(e){}});
+  if(cdg)cdg.addEventListener('click',function(){
+    var x=document.getElementById('cd-hop'); if(x)try{x.close()}catch(e){}});
+})();
+
+napTay();       /* bản sửa của lần mở trước — đọc trước khi vẽ */
+napGasToken();
+
+/* Thử Apps Script ngay: nó ⛔ không cần người xem bấm cho phép, nên nếu khung
+   cho gọi ra thì mọi cửa sổ đều ghi được vào Sheet. */
+noiGas().then(function(ok){if(!ok&&VE_LAI)VE_LAI()});
+
+/* ⛔ Không có capability mcp ở đây, và cũng không cần: server nằm ngay sau
+   google.script.run. Nhánh connector giữ nguyên trong mã nhưng không bao giờ
+   chạy — khoCo() thấy GAS_TT==='ok' là xong. */
+
+/* Bố cục cố định ở bản web app: đây là báo cáo insight cho khối nội dung.
+   Đổi bằng ?bo_cuc=truc-page trên URL khi cần xem bản khác. */
+(function(){
+  var m=/[?&]bo_cuc=([^&]+)/.exec(location.search||'');
+  BC=(m&&BO_CUC[decodeURIComponent(m[1])])?decodeURIComponent(m[1]):'insight';
+  try{document.title=bc().ten}catch(e){}
+})();
+
+gsr('apiKy').then(function(ds){
+  if(!ds||!ds.length){
+    loi('Thư mục Drive chưa có file JSON kỳ nào. Thả file «<tên kỳ>.json» vào '+
+        'thư mục khai ở Script properties → THU_MUC.');return}
+  var want=null; try{want=localStorage.getItem('kn_ky')}catch(e){}
+  napKy(ds,find(ds,'id',want)?want:ds[0].id)})
+ .catch(function(e){loi('Không lấy được danh sách kỳ — '+esc(e.message))});
+})();
+</script>
+

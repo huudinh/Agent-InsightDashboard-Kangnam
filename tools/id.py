@@ -422,6 +422,304 @@ def gan_rao_can(ht, td, ma_o):
     return sorted(set(rc))
 
 
+# ══════════════ bộ chấm lead KF-60 v1.1 — XẾP HÀNG CHỜ GỌI ══════════════
+# ⛔ Bộ này KHÔNG thay nhãn 5 tín hiệu của `id-D` §2. Nhãn báo ra ngoài vẫn là
+#    `nhiet`. Điểm dưới đây là THỨ TỰ GỌI bên trong một nhãn, cộng 6 luật ghi đè.
+#    Hai nơi cùng gọi một hội thoại là HOT theo hai cách khác nhau thì không ai
+#    còn tin con số nào — vì thế mỗi bản ghi mang CẢ HAI nhãn và một cờ `lech`.
+#
+#    Tiêu chí, bằng chứng hiệu chỉnh và ba ngưỡng tạm:
+#    doc/KF-60-lead-scoring-hoi-thoai-inbox-v1.1.md
+
+KF60 = "KF-60/1.1"
+TRAN_AM = -30                         # trần nhóm tín hiệu âm (§5)
+
+# ★ ĐO RỒI MỚI CHỐT. Chấm 493 hội thoại kỳ 24–29/10 bằng đúng thang điểm KF-60:
+#   điểm gốc trung vị 12 · p75 20 · p90 35 · CAO NHẤT 65. Chỉ 5 hội thoại vượt 50.
+#   ⛔ Vì vậy KF-60 ⛔ KHÔNG phát nhãn HOT/WARM/COLD: không có cặp ngưỡng nào
+#   làm nhãn đó khớp nhãn 5 tín hiệu của id-D (lệch thấp nhất đo được là 12.8%,
+#   và cấu hình đó chỉ cho 5 lead vào hàng chờ — vô dụng). Hai bộ đo hai thứ
+#   khác nhau CÓ CHỦ Ý: id-D đếm 5 tín hiệu nhị phân, KF-60 cân 19 tiêu chí.
+#   Bắt chúng khớp nhau là sai đề.
+#
+#   Đầu ra của bộ này là VIỆC, không phải nhãn: bốn NHÓM GỌI dưới đây.
+NGUONG_NUOI = 17                      # p75 của phân bố nhiệt đo được
+NHOM_GOI = {
+    "GOI_NGAY": "Sale gọi ≤15′ — có SĐT và khớp luật ghi đè",
+    "XIN_SO": "Trực page xin số ≤15′ — nóng mà chưa có SĐT",
+    "NUOI": "Chuỗi chăm sóc 24–72h theo mã O",
+    "KHONG": "Remarketing tự động",
+}
+B3_CHU_DE = ("b3_bac_si", "b3_quy_trinh", "b3_gay_me", "b3_hoi_phuc",
+             "b3_bao_hanh", "b3_chat_lieu")
+
+TEN_LUONG = {
+    "LEAD": "Lead — chấm nhiệt độ",
+    "N1a": "Chưa tương tác thật",
+    "N1b": "Đã trả lời rồi khách im",
+    "N2": "Không phải lead",
+    "N3": "Khách cũ – CSKH",
+    "N4": "Cảnh báo đỏ",
+    "N5": "Chưa đủ điều kiện",
+}
+TEN_GHI_DE = {
+    "HOT_SDT_MOC": "① có SĐT + mốc thời gian/lịch cụ thể",
+    "HOT_COC": "② hỏi cách chuyển cọc",
+    "HOT_SDT_DV": "③ có SĐT + dịch vụ cụ thể hoặc ≥2 chủ đề quyết định",
+    "HOT_CHUA_SO": "④⑤ nóng mà chưa có SĐT",
+    "TRAN_WARM": "⑥ có SĐT nhưng nhóm B = 0",
+}
+HE_SO_TG = ((24, 1.0), (72, 0.85), (168, 0.7))      # ≤24h · 1–3 ngày · 4–7 ngày
+
+
+def _lk(td, ten):
+    return td.get("lead_kf60", {}).get(ten) or []
+
+
+def _phan_luong(ht, td):
+    """Bước 0 (§3). ⚠ `N1b` vẫn được chấm như LEAD — đó là sửa chính của v1.1."""
+    kh = ht["kh_text"]
+    if co_tu(kh, _lk(td, "n4_canh_bao_do")):
+        return "N4"
+    if co_tu(kh, _lk(td, "n2_khong_phai_lead")):
+        return "N2"
+    if co_tu(kh, _lk(td, "n5_chua_du_dieu_kien")):
+        return "N5"
+    if ht.get("khach") == "cu" and co_tu(kh, _lk(td, "n3_khach_cu")):
+        return "N3"
+    luot_kh = sum(1 for t in ht["tin"] if not t["nv"])
+    co_nv = any(t["nv"] for t in ht["tin"])
+    if luot_kh <= 1 and not co_nv:
+        return "N1a"
+    # Khách được trả lời rồi mới im: ⛔ KHÔNG phải N1a. Là lead thật, và là
+    # bằng chứng lỗi câu trả lời — 43.9% hội thoại của kỳ 24–29/10 rơi kiểu này.
+    if luot_kh <= 2 and co_nv and not ht["co_sdt"]:
+        return "N1b"
+    return "LEAD"
+
+
+def _trung_vi(ds):
+    if not ds:
+        return None
+    s = sorted(ds)
+    m = len(s) // 2
+    return s[m] if len(s) % 2 else (s[m - 1] + s[m]) / 2.0
+
+
+def cham_lead(ht, td, ma_o, rao_can, roi, cham, nhiet_id_d, he_so, moc_chot=None):
+    """Chấm một hội thoại theo KF-60 v1.1. Trả về dict đủ để truy ngược từng ô."""
+    kh = ht["kh_text"]
+    tin = ht["tin"]
+    tin_kh = [t for t in tin if not t["nv"]]
+    luot_kh = len(tin_kh)
+    co_sdt = bool(ht["co_sdt"])
+    chot = bool(ht.get("chot_lich"))
+    route = _phan_luong(ht, td)
+
+    o = {}          # từng ô tiêu chí → điểm, để người đọc cãi được
+
+    # ── A · nhu cầu & mức phù hợp (tối đa 25) ───────────────────────────
+    if co_tu(kh, sum(td["dich_vu_chinh"].values(), [])):
+        o["A1"] = 8                                  # khách TỰ gọi tên dịch vụ
+    elif ht.get("kh_gui_anh") or ht.get("gan_theo_qc"):
+        o["A1"] = 4                                  # chỉ biết qua ảnh / thẻ QC
+    else:
+        o["A1"] = 0
+    o["A2"] = 8 if ht.get("kh_gui_anh") else (4 if "chưa nói tình trạng" not in rao_can else 0)
+    o["A3"] = 5 if co_tu(kh, _lk(td, "a3_se_den")) else (3 if ht.get("viet_kieu") else 0)
+    o["A4"] = 4 if (co_tu(kh, _lk(td, "a4_cho_minh"))
+                    or co_tu(kh, _lk(td, "a4_nguoi_than"))) else 0
+
+    # ── B · ý định mua (tối đa 35) ──────────────────────────────────────
+    if co_tu(kh, _lk(td, "b1_hai_tuan")):
+        o["B1"] = 12
+    elif co_tu(kh, _lk(td, "b1_mot_thang")):
+        o["B1"] = 9
+    elif co_tu(kh, _lk(td, "b1_ba_thang")):
+        o["B1"] = 5
+    else:
+        o["B1"] = 0
+    if co_tu(kh, _lk(td, "b2_cam_ket_tien")):
+        o["B2"] = 8
+    elif "O-01" in ma_o:
+        # «hỏi giá ngay» = giá nằm ở CÂU ĐẦU, chưa kể gì về mình → giá trống không.
+        o["B2"] = 2 if "hỏi giá ngay" in rao_can else 5
+    else:
+        o["B2"] = 0
+    cd = sum(1 for g in B3_CHU_DE if co_tu(kh, _lk(td, g)))
+    o["B3"] = 8 if cd >= 2 else (4 if cd == 1 else 0)
+    o["B4"] = 7 if "O-10" in ma_o else 0
+
+    # ── C · cam kết hành động (tối đa 25) ───────────────────────────────
+    o["C1"] = 12 if co_sdt else 0
+    o["C2"] = 8 if chot else (4 if co_tu(kh, _lk(td, "c2_hoi_lich")) else 0)
+    co_coc = co_tu(kh, _lk(td, "c3_coc"))
+    # ⚠ v1.1 hạ hỏi-địa-chỉ 5 → 2: nhóm khách tỉnh hỏi địa chỉ rất nhiều mà
+    #   chỉ 9.4% cho SĐT. Hỏi ĐƯỜNG ĐI không phải cam kết; hỏi CHUYỂN CỌC thì có.
+    o["C3"] = 5 if co_coc else (2 if co_tu(kh, _lk(td, "c3_duong_di")) else 0)
+
+    # ── D · mức tương tác (tối đa 15) ───────────────────────────────────
+    o["D1"] = 6 if luot_kh > 10 else (5 if luot_kh >= 6 else (3 if luot_kh >= 3 else 0))
+    vt_gia = next((i for i, t in enumerate(tin)
+                   if t["nv"] and co_tu(t["text"], _lk(td, "nv_da_neu_gia"))), None)
+    nv_neu_gia = vt_gia is not None
+    o["D2"] = 5 if (nv_neu_gia and any(i > vt_gia for i, t in enumerate(tin) if not t["nv"])) else 0
+    tre = []
+    for i, t in enumerate(tin[:-1]):
+        if t["nv"] and not tin[i + 1]["nv"]:
+            d = phut(t["tem"], tin[i + 1]["tem"])
+            if d is not None and d >= 0:
+                tre.append(d)
+    tv = _trung_vi(tre)
+    o["D3"] = 0 if tv is None else (4 if tv < 10 else (2 if tv < 60 else 0))
+
+    # ── E · tín hiệu âm (trần −30) ──────────────────────────────────────
+    # ⛔ LUẬT v1.1: chỉ trừ E1/E3 khi hội thoại rơi vì «khách tự dừng».
+    #    Khách im sau một câu trả lời không đóng được nỗi sợ ⛔ không phải khách
+    #    nguội — đó là lead còn nóng bị trả lời sai, và là việc của id-F.
+    kh_tu_dung = (roi == "khách tự dừng")
+    gio_im = None
+    moc_cuoi_kh = tin_kh[-1]["tem"] if tin_kh else None
+    if moc_chot and moc_cuoi_kh:
+        p = phut(moc_cuoi_kh, moc_chot)
+        gio_im = round(p / 60.0, 1) if p is not None and p >= 0 else None
+    o["E1"] = -10 if (kh_tu_dung and nv_neu_gia and gio_im is not None and gio_im >= 48) else 0
+    o["E2"] = -5 if (kh_tu_dung and co_tu(kh, _lk(td, "e2_phan_doi_gia"))) else 0
+    so_xin = sum(1 for t in tin if t["nv"] and co_tu(t["text"], td["nv_xin_so"]))
+    o["E3"] = -5 if (kh_tu_dung and so_xin >= 2 and not co_sdt
+                     and cham.get("N5.1") == "✓") else 0
+    o["E4"] = -5 if co_tu(kh, _lk(td, "e4_hoi_cho_biet")) else 0
+    o["E5"] = -5 if ("O-09" in ma_o and not co_tu(kh, _lk(td, "a3_se_den"))) else 0
+
+    nhom = {g: sum(v for k, v in o.items() if k[0] == g) for g in "ABCDE"}
+    nhom["E"] = max(nhom["E"], TRAN_AM)
+    goc = max(0, nhom["A"] + nhom["B"] + nhom["C"] + nhom["D"] + nhom["E"])
+
+    # ── Bước 4 · hệ số thời gian ────────────────────────────────────────
+    hs = 1.0
+    if not chot and gio_im is not None:
+        hs = next((h for moc, h in HE_SO_TG if gio_im <= moc), 0.5)
+    nhiet_ht = round(goc * hs, 1)
+
+    # ── Bước 3 · luật ghi đè → NHÓM GỌI ────────────────────────────────
+    ghi_de = []
+    if route in ("N2", "N3", "N4", "N5", "N1a"):
+        return {"route": route, "ten_luong": TEN_LUONG[route], "cham_nhiet": False,
+                "o": o, "nhom": nhom, "goc": goc, "he_so_tg": hs, "gio_im": gio_im,
+                "diem": None, "nhom_goi": None, "ghi_de": [], "uu_tien": None,
+                "chua_so": False}
+    if co_sdt and (o["B1"] >= 9 or chot):
+        ghi_de.append("HOT_SDT_MOC")
+    if co_coc:
+        ghi_de.append("HOT_COC")
+    if co_sdt and (o["A1"] == 8 or o["B3"] == 8):
+        ghi_de.append("HOT_SDT_DV")
+    # ⑥ để số vì form/ưu đãi mà chưa có ý định thật → ⛔ không vào hàng gọi ngay
+    tran = co_sdt and nhom["B"] == 0 and bool(ghi_de)
+    if tran:
+        ghi_de.append("TRAN_WARM")
+
+    # ── Bốn nhóm gọi ────────────────────────────────────────────────────
+    # ★ Nhóm XIN_SO tái tạo đúng ô đỏ của id-D §2 — nóng mà chưa vào tay
+    #   telesale. Người phải làm là TRỰC PAGE, ⛔ không phải Sale.
+    nong_id_d = nhiet_id_d in ("HOT", "WARM")
+    if co_sdt and ghi_de and not tran:
+        nhom_goi = "GOI_NGAY"
+    elif not co_sdt and (nong_id_d or nhiet_ht >= NGUONG_NUOI):
+        nhom_goi = "XIN_SO"
+    elif co_sdt or nong_id_d or nhiet_ht >= NGUONG_NUOI:
+        nhom_goi = "NUOI"
+    else:
+        nhom_goi = "KHONG"
+    chua_so = nhom_goi == "XIN_SO"
+    if chua_so:
+        ghi_de.append("HOT_CHUA_SO")
+
+    return {"route": route, "ten_luong": TEN_LUONG[route], "cham_nhiet": True,
+            "o": o, "nhom": nhom, "goc": goc, "he_so_tg": hs, "gio_im": gio_im,
+            "diem": nhiet_ht, "nhom_goi": nhom_goi, "ghi_de": ghi_de,
+            "uu_tien": round(nhiet_ht * (he_so or 1), 1), "chua_so": chua_so}
+
+
+def gom_lead(ban_ghi):
+    """Gom khối `lead` cho file báo cáo (id-J §2b).
+
+    ⛔ Không chữ của khách trong khối này: hàng chờ chỉ mang mã HT, dịch vụ,
+    mã O và việc phải làm. Nội dung hội thoại ở lại out/ban-ghi.json.
+    """
+    cham = [r for r in ban_ghi if (r.get("lead") or {}).get("cham_nhiet")]
+    n = len(cham)
+
+    def dem_nhom(x):
+        return sum(1 for r in cham if r["lead"]["nhom_goi"] == x)
+
+    # ── Hai bất biến THẬT, thay cho luật «lệch nhãn 5%» đã bỏ ───────────
+    #    Luật cũ bắt hai bộ đo khác nhau phải khớp nhãn — sai đề. Hai luật
+    #    dưới đây kiểm được và phải luôn đúng; khác 0 là lỗi code, ⛔ không
+    #    phải chuyện hiệu chỉnh ngưỡng.
+    v1 = [r["ma"] for r in cham
+          if r["lead"]["nhom_goi"] == "GOI_NGAY" and not r["co_sdt"]]
+    v2 = [r["ma"] for r in cham
+          if r["nhiet"] == "HOT" and r["lead"]["nhom_goi"] == "KHONG"]
+
+    hang = sorted([r for r in cham if r["lead"]["nhom_goi"] in ("GOI_NGAY", "XIN_SO")],
+                  key=lambda r: (r["lead"]["nhom_goi"] != "GOI_NGAY",
+                                 -(r["lead"]["uu_tien"] or 0)))
+    return {
+        "bo_cham": KF60,
+        "nguong_nuoi": NGUONG_NUOI,
+        "so_cham": n,
+        "phan_luong": [{"ma": m, "ten": TEN_LUONG[m],
+                        "so": sum(1 for r in ban_ghi
+                                  if (r.get("lead") or {}).get("route") == m)}
+                       for m in ("LEAD", "N1b", "N1a", "N3", "N5", "N2", "N4")],
+        "nhom_goi": [{"ma": m, "ten": NHOM_GOI[m], "so": dem_nhom(m),
+                      "pct": pct(dem_nhom(m), n)}
+                     for m in ("GOI_NGAY", "XIN_SO", "NUOI", "KHONG")],
+        "chua_so": dem_nhom("XIN_SO"),
+        "ghi_de": [{"ma": m, "ten": TEN_GHI_DE[m],
+                    "so": sum(1 for r in cham if m in r["lead"]["ghi_de"])}
+                   for m in ("HOT_SDT_MOC", "HOT_COC", "HOT_SDT_DV",
+                             "TRAN_WARM", "HOT_CHUA_SO")],
+        "nhom_diem": [{"nhan": g, "trung_binh": round(
+            sum(r["lead"]["nhom"][g] for r in cham) / n, 1) if n else None,
+            "toi_da": {"A": 25, "B": 35, "C": 25, "D": 15, "E": -30}[g],
+            "cao_nhat": max([r["lead"]["nhom"][g] for r in cham], default=None)}
+            for g in "ABCDE"],
+        "diem": {"trung_vi": _trung_vi([r["lead"]["diem"] for r in cham]),
+                 "cao_nhat": max([r["lead"]["diem"] for r in cham], default=None),
+                 "goc_cao_nhat": max([r["lead"]["goc"] for r in cham], default=None)},
+        # Nhóm gọi × nhãn id-D: bảng này cho người đọc thấy HAI bộ nói gì về
+        # cùng một tệp, ⛔ không phải để bắt chúng khớp nhau.
+        "doi_chieu": [{"id_d": m,
+                       "nhom": {k: sum(1 for r in cham if r["nhiet"] == m
+                                       and r["lead"]["nhom_goi"] == k)
+                                for k in ("GOI_NGAY", "XIN_SO", "NUOI", "KHONG")}}
+                      for m in ("HOT", "WARM", "COLD")],
+        "bat_bien": {"goi_ngay_thieu_sdt": len(v1), "id_d_hot_roi_khong": len(v2),
+                     "dat": not (v1 or v2),
+                     "ht_v1": v1[:20], "ht_v2": v2[:20]},
+        "hang_cho": [{"ht": r["ma"], "cd": r.get("cd"), "dich_vu": r.get("dich_vu"),
+                      "he_so": r.get("he_so"), "nhom_goi": r["lead"]["nhom_goi"],
+                      "id_d": r["nhiet"], "diem": r["lead"]["diem"],
+                      "uu_tien": r["lead"]["uu_tien"], "co_sdt": bool(r["co_sdt"]),
+                      "ma_o": [m for m in r["ma_o"] if m != "(chưa nêu)"],
+                      "ghi_de": r["lead"]["ghi_de"], "gio_im": r["lead"]["gio_im"],
+                      "viec": ("Sale gọi ≤15′" if r["lead"]["nhom_goi"] == "GOI_NGAY"
+                               else "Trực page xin số ≤15′")}
+                     for r in hang],
+        "ghi_chu": [
+            "Nhãn HOT/WARM/COLD của kỳ là nhãn 5 tín hiệu (id-D §2). KF-60 ⛔ KHÔNG "
+            "phát nhãn thứ hai — nó chia tệp thành bốn NHÓM GỌI và xếp thứ tự trong nhóm.",
+            "Ngưỡng nuôi ≥%d là p75 của phân bố nhiệt đo trên kỳ này — ⚠ chưa có "
+            "dòng CRM để đối chiếu booking thật." % NGUONG_NUOI,
+            "Hệ số thời gian tính từ tin cuối của khách tới mốc chốt dữ liệu của kỳ, "
+            "⛔ không tính tới «bây giờ».",
+            "Chấm tự động bằng tools/id.py, CHƯA qua người soát.",
+        ],
+    }
+
+
 # ───────────── nguyên liệu PHÁC HỌA chân dung — bước B3 ──────────────────
 # ⛔ Phần này KHÔNG xếp chân dung. Nó chỉ bày ra chữ của khách để agent đọc và
 #   phác họa, rồi người dùng duyệt ở CỔNG 0 (id-C §1).
@@ -657,7 +955,13 @@ def lenh_doc(args):
 
     pho, vi_sao = nap_phac_hoa(args.ky)
 
-    ban_ghi, co_do_all = [], []
+    # Mốc chốt dữ liệu của kỳ = tem muộn nhất trong file. Hệ số thời gian của
+    # KF-60 đo từ tin cuối của khách tới mốc này — ⛔ không dùng "bây giờ",
+    # vì chạy lại báo cáo cũ sau một tháng thì mọi lead đều nguội giả.
+    moc_chot = max([t["tem"] for ht in hts for t in ht["tin"] if t.get("tem")],
+                   default=None)
+
+    ban_ghi = []
     for ht in hts:
         cd = gan_chan_dung(ht, pho)          # None khi chưa qua CỔNG 0
         nac = gan_nac(ht, td)
@@ -667,33 +971,82 @@ def lenh_doc(args):
         ht["chot_lich"] = bool(co_tu(ht["nv_text"], td["nv_moi_lich"]) and co_tu(ht["kh_text"], ["vâng", "ok", "được", "em qua"]))
         roi = gan_vi_sao_roi(ht, td, diem)
         rc = gan_rao_can(ht, td, ma_o)
+        hs = he_so_gia_tri(ht, td)
         for c in co_do:
-            co_do_all.append({"ma": c["ma"], "nguoi": ht["nv"], "ht": ht["ma"], "trich": c["trich"]})
+            c["nguoi"] = ht["nv"]
         ban_ghi.append({
             "ma": ht["ma"], "nv": ht["nv"], "cd": cd, "nac": nac, "ma_o": ma_o,
             "nhiet": nhiet, "tin_hieu": tin_hieu, "co_sdt": ht["co_sdt"],
             "chot_lich": ht["chot_lich"], "roi": roi, "rao_can": rc,
-            "dich_vu": gan_dich_vu(ht, td), "he_so": he_so_gia_tri(ht, td),
-            "diem": diem, "cham": k, "co_do": [c["ma"] for c in co_do],
+            "dich_vu": gan_dich_vu(ht, td), "he_so": hs,
+            "diem": diem, "cham": k, "co_do": co_do,
             "so_luot_kh": sum(1 for t in ht["tin"] if not t["nv"]),
+            "lead": cham_lead(ht, td, ma_o, rc, roi, k, nhiet, hs, moc_chot),
         })
 
     n = len(ban_ghi)
     os.makedirs(RA, exist_ok=True)
+    ghi_csv(ban_ghi)
+    ket = gom_doc(ban_ghi, args.ky, os.path.basename(args.file), pho, vi_sao)
 
-    # bảng chấm từng hội thoại
+    with open(os.path.join(RA, "doc-hoi-thoai.json"), "w", encoding="utf-8") as f:
+        json.dump(ket, f, ensure_ascii=False, indent=1)
+
+    # Nguyên liệu phác họa ghi lại MỖI LẦN chạy: kỳ sau chân dung có thể khác,
+    # và bản phác họa cũ phải đối chiếu được với chữ của khách kỳ này.
+    nl = nguyen_lieu_chan_dung(ban_ghi, hts, td, args.ky, os.path.basename(args.file))
+    with open(NGUYEN_LIEU, "w", encoding="utf-8") as f:
+        json.dump(nl, f, ensure_ascii=False, indent=1)
+
+    _in_tom_tat(ket, ban_ghi, nl)
+
+
+
+def _ma_co_do(r):
+    """Cờ đỏ trong bản ghi có thể là dict (có trích dẫn) hoặc chuỗi mã."""
+    return [c["ma"] if isinstance(c, dict) else c for c in (r.get("co_do") or [])]
+
+
+def ghi_csv(ban_ghi):
+    """Bảng chấm từng hội thoại — một dòng một HT, truy ngược được."""
     with open(os.path.join(RA, "cham-hoi-thoai.csv"), "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         cot = [m for _, _, ds in TIEU_CHI for m, _, _ in ds]
+        o_cot = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4",
+                 "C1", "C2", "C3", "D1", "D2", "D3", "E1", "E2", "E3", "E4", "E5"]
         w.writerow(["ma", "nv", "cd", "nac", "ma_o", "nhiet", "co_sdt", "chot_lich",
-                    "vi_sao_roi", "rao_can", "dich_vu", "he_so", "diem", "co_do"] + cot)
+                    "vi_sao_roi", "rao_can", "dich_vu", "he_so", "diem", "co_do",
+                    # ── KF-60: nhãn thứ hai đứng CẠNH nhãn id-D, không thay nó
+                    "luong", "lead_goc", "lead_hs_tg", "lead_nhiet", "lead_nhan",
+                    "lead_ghi_de", "lead_uu_tien", "lech_nhan", "gio_im"]
+                   + cot + o_cot)
         for r in ban_ghi:
+            L = r.get("lead") or {}
             w.writerow([r["ma"], r["nv"], r["cd"], r["nac"], " ".join(r["ma_o"]), r["nhiet"],
                         "Có" if r["co_sdt"] else "", "Có" if r["chot_lich"] else "",
                         r["roi"], " · ".join(r["rao_can"]), r["dich_vu"], r["he_so"],
-                        r["diem"] if r["diem"] is not None else "", " ".join(r["co_do"])]
-                       + [r["cham"].get(c, "") for c in cot])
+                        r["diem"] if r["diem"] is not None else "",
+                        " ".join(_ma_co_do(r)),
+                        L.get("route", ""), L.get("goc", ""), L.get("he_so_tg", ""),
+                        L.get("nhiet", ""), L.get("nhan", "") or "",
+                        " ".join(L.get("ghi_de") or []), L.get("uu_tien", ""),
+                        "Lệch" if L.get("lech") else "", L.get("gio_im", "")]
+                       + [r["cham"].get(c, "") for c in cot]
+                       + [(L.get("o") or {}).get(c, "") for c in o_cot])
 
+
+def gom_doc(ban_ghi, ky, nguon, pho, vi_sao):
+    """Gom bản ghi thành out/doc-hoi-thoai.json.
+
+    ★ Dùng chung cho MỌI khuôn đầu vào (Caresoft qua `lenh_doc`, KNB qua
+    tools/knb.py). ⛔ Đừng chép logic này sang chỗ thứ hai — hai bản sẽ
+    lệch nhau sau hai kỳ.
+    """
+    n = len(ban_ghi)
+    co_do_all = [{"ma": c["ma"], "nguoi": c.get("nguoi") or r.get("nv") or "(không rõ)",
+                  "ht": r["ma"], "trich": c.get("trich", "")}
+                 for r in ban_ghi for c in (r.get("co_do") or [])
+                 if isinstance(c, dict)]
     # tổng hợp nhân viên
     theo_nv = defaultdict(list)
     for r in ban_ghi:
@@ -702,7 +1055,7 @@ def lenh_doc(args):
     for nv, rs in sorted(theo_nv.items(), key=lambda x: -len(x[1])):
         ds = [r["diem"] for r in rs if r["diem"] is not None]
         d = round(sum(ds) / len(ds), 1) if ds else None
-        cds = sorted({c for r in rs for c in r["co_do"]})
+        cds = sorted({m for r in rs for m in _ma_co_do(r)})
         yeu = min(TIEU_CHI, key=lambda g: _pct_nhom(rs, g[0]) if _pct_nhom(rs, g[0]) is not None else 999)
         manh = max(TIEU_CHI, key=lambda g: _pct_nhom(rs, g[0]) if _pct_nhom(rs, g[0]) is not None else -1)
         ca_nhan.append({"ten": nv, "ht": len(rs), "diem": d,
@@ -723,7 +1076,7 @@ def lenh_doc(args):
                      "pct_dat": _pct_nhom(ban_ghi, ma), "tieu_chi": tc})
 
     ket = {
-        "ky": args.ky, "so_ht": n, "nguon": os.path.basename(args.file),
+        "ky": ky, "so_ht": n, "nguon": nguon,
         "tao": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "nhiet": dict(Counter(r["nhiet"] for r in ban_ghi)),
         "nhiet_x_sdt": [{"muc": m,
@@ -754,17 +1107,10 @@ def lenh_doc(args):
                       "ghi_chu": "Điểm dùng để phân việc kèm cặp. "
                                  "Không phải căn cứ kỷ luật hay xếp hạng công khai."},
         "the_tong": _the_tong(ban_ghi),
+        # ★ Khối lead: xếp HÀNG CHỜ GỌI. Nhãn id-D ở trên ⛔ không bị thay.
+        "lead": gom_lead(ban_ghi),
     }
-    with open(os.path.join(RA, "doc-hoi-thoai.json"), "w", encoding="utf-8") as f:
-        json.dump(ket, f, ensure_ascii=False, indent=1)
-
-    # Nguyên liệu phác họa ghi lại MỖI LẦN chạy: kỳ sau chân dung có thể khác,
-    # và bản phác họa cũ phải đối chiếu được với chữ của khách kỳ này.
-    nl = nguyen_lieu_chan_dung(ban_ghi, hts, td, args.ky, os.path.basename(args.file))
-    with open(NGUYEN_LIEU, "w", encoding="utf-8") as f:
-        json.dump(nl, f, ensure_ascii=False, indent=1)
-
-    _in_tom_tat(ket, ban_ghi, nl)
+    return ket
 
 
 def _pct_nhom(rs, ma_nhom):
@@ -808,6 +1154,8 @@ def _the_tong(ban_ghi):
     sla = [r for r in ban_ghi if r["cham"].get("N1.1") in ("✓", "✗")]
     nong_chua = sum(1 for r in ban_ghi if r["nhiet"] in ("HOT", "WARM") and not r["co_sdt"])
     roi_truc = sum(1 for r in ban_ghi if r["roi"] == "trực page")
+    goi_ngay = sum(1 for r in ban_ghi
+                   if (r.get("lead") or {}).get("nhan") == "HOT" and r["co_sdt"])
     return [
         {"id": "ht", "nhan": "Hội thoại phân tích", "gia_tri": n, "kieu": "n"},
         {"id": "bo_1", "nhan": "Bỏ sau 1 lượt", "gia_tri": pct(bo1, n), "kieu": "pct",
@@ -822,6 +1170,8 @@ def _the_tong(ban_ghi):
          "phu": "%d/%d HT — câu trả lời của trực page làm khách dừng" % (roi_truc, n)},
         {"id": "nong_chua_sdt", "nhan": "HOT/WARM chưa có SĐT", "gia_tri": nong_chua,
          "kieu": "n", "tot": "thap", "phu": "lead nóng chưa vào tay telesale"},
+        {"id": "goi_ngay", "nhan": "Hot có số — gọi ≤15′", "gia_tri": goi_ngay,
+         "kieu": "n", "phu": "hàng chờ Sale theo KF-60 · %s" % KF60},
     ]
 
 

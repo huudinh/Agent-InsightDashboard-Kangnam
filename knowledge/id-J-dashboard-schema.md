@@ -26,7 +26,7 @@ Chín tab ở trên là bản **đầy đủ**. Cùng một trang và cùng mộ
 | `bo_cuc` | Tên báo cáo | Tab | Thẻ số tổng |
 |---|---|---|---|
 | *(không khai)* · `day-du` | Chân dung khách & chất lượng trực page | cả 9 | cả 6 |
-| `insight` | **Insight khách** — khách là ai · họ sợ gì · kỳ tới làm nội dung gì | ① ② ⑥ ⑦ | HT · bỏ 1 lượt · có SĐT · HOT/WARM chưa SĐT |
+| `insight` | **Insight khách** — khách là ai · họ sợ gì · kỳ tới làm nội dung gì | ② ⑥ ⑦ · ẩn khối `nac-5a` | HT · bỏ 1 lượt · có SĐT · HOT/WARM chưa SĐT |
 | `truc-page` | **Chất lượng trực page** — khối yếu gì · ai cần kèm · sửa câu nào | ③ ① ② ⑧ ⑨ | HT · trả lời lượt đầu · rơi do trực page · bỏ 1 lượt · HOT/WARM chưa SĐT |
 
 ```
@@ -40,6 +40,10 @@ Chín tab ở trên là bản **đầy đủ**. Cùng một trang và cùng mộ
 ⚠ Hai bố cục hẹp dùng CHUNG một file kỳ. Số liệu chỉ có một bản —
    ⛔ không bao giờ có chuyện hai báo cáo nói hai con số khác nhau.
 
+★ Bố cục còn giấu được từng **KHỐI bên trong một tab**, qua `an:['<tên khối>']` — nhỏ hơn một tab. Hiện có `nac-5a` (phân bố nấc 5A trong tab ②). Luật áp dụng y như với tab: khối ẩn ở bố cục này phải còn đọc được ở bố cục khác.
+
+⚠️ Bố cục hẹp **giấu tab chứ không xoá dữ liệu**: file kỳ vẫn đủ mọi khối. Khối nào bị ẩn ở bố cục này thì phải còn đọc được ở một bố cục khác — `insight` bỏ tab ① thì tab ① vẫn nằm ở `truc-page` (tên «Khách rơi ở đâu») và ở bản đầy đủ. ⛔ Không để một khối biến mất khỏi CẢ BA bố cục.
+
 ★ Bố cục bỏ tab ⑨ thì ghi chú dữ liệu **chuyển lên ô gập đầu trang**, ⛔ không biến mất. Tab ⑨ là tab bắt buộc của bản đầy đủ; bỏ nó khỏi thanh tab là để trang gọn, ⛔ không phải để thôi nói số đến từ đâu.
 
 ★ `insight` ⛔ KHÔNG có hai tab quảng cáo. Đầu vào của nó là HỘI THOẠI; số chi
@@ -51,10 +55,15 @@ Chín tab ở trên là bản **đầy đủ**. Cùng một trang và cùng mộ
 ### Đầu trang — luôn hiện, không nằm trong tab nào
 
 ```
-Tiêu đề + chọn kỳ
-▶ n lưu ý dữ liệu        (gập lại, mở ra xem)
-5 thẻ số tổng            (giá trị · so kỳ trước · so mốc gốc)
+ĐẦU TRANG   Tiêu đề + chọn kỳ
+            Thẻ số tổng   (giá trị · so kỳ trước · so mốc gốc)
+            Thanh tab
+
+CHÂN TRANG  ▶ n lưu ý dữ liệu              (gập lại, mở ra xem)
+            ▶ n ghi chú dữ liệu            (bố cục không có tab ⑨)
 ```
+
+★ Hai ô gập nằm ở **chân trang**, sau mọi tab, và hiện ở mọi tab. Đầu trang để dành cho con số và thanh tab — thứ người đọc cần thấy trong hai giây đầu. ⚠ Chúng gập lại nên ⛔ không thay được cho cảnh báo thật sự chặn: lỗi phải dừng bản phát hành thì gắn cờ 🔴 vào đúng dòng chạm tới, không để riêng dưới chân trang.
 
 ### Sáu thẻ số tổng
 
