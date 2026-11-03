@@ -2129,7 +2129,15 @@ def lenh_bao_cao(args):
 
     print("\n  Đã ghi dashboard/data/%s.json và cập nhật index.json" % ky_id)
     print("  Mở dashboard/index.html để xem.")
-    print("  ⚠ Ma trận đang ở trạng thái CHỜ DUYỆT — tab Hook và Sổ tay còn trống.\n")
+    # ⚠ Trạng thái đọc từ file VỪA GHI (đã phủ chữ người), ⛔ không in cứng:
+    #    lớp phủ mở được CỔNG 1 thì dòng này phải nói đúng điều đó.
+    mt = D.get("ma_tran") or {}
+    if mt.get("trang_thai") == "da_duyet":
+        print("  ✓ CỔNG 1 đã mở — %d khối ma trận · %d hook%s\n"
+              % (len(mt.get("khoi") or []), len((D.get("hook") or {}).get("dong") or []),
+                 " · duyệt bởi " + mt["duyet_boi"] if mt.get("duyet_boi") else ""))
+    else:
+        print("  ⚠ Ma trận đang ở trạng thái CHỜ DUYỆT — tab Hook và Sổ tay còn trống.\n")
 
 
 # ──────────────────────────────── main ───────────────────────────────────

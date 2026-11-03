@@ -464,7 +464,18 @@ function header(D,ky_ds,id){
   var meta=['Kỳ '+esc(ky.nhan||''),ky.tao?'tạo '+esc(ky.tao):'',ky.nguon?'nguồn '+esc(ky.nguon):'']
     .filter(Boolean).join(' · ');
   var L=bc();
+  /* ★ Chip NỔI cạnh tiêu đề, ⛔ không chôn trong dòng chữ xám nhỏ.
+     File kỳ thiếu khối `kf64` nghĩa là JSON trên Drive còn là bản cũ — mà
+     bản mã cũ thì ⛔ KHÔNG in gì cả, nên người đọc tưởng giao diện hỏng.
+     Nói thẳng ra, bằng một chip đỏ. */
+  var chipDl=D.kf64
+    ?'<span class="tag t-ok" title="File kỳ có khối kf64 — dữ liệu đã mới.">dữ liệu '+
+     esc(String(D.schema||'').replace('insight-dashboard-kangnam/','schema /'))+
+     ((D.ky||{}).tao?' · '+esc(D.ky.tao):'')+'</span>'
+    :'<span class="tag t-bad" title="Đẩy lại dashboard/data/&lt;ky&gt;.json vào thư mục Drive.">'+
+     '⛔ DỮ LIỆU CŨ — file kỳ chưa có khối kf64</span>';
   return '<div class="head"><div><h1>'+esc(L.ten)+'</h1>'+
+    '<div style="margin:6px 0 0">'+chipDl+'</div>'+
     '<div class="sub">'+(L.phu?esc(L.phu)+'<br>':'')+meta+
     '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát</div>'+
     '</div>'+sel+'</div>'}

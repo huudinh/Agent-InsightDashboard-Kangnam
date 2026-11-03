@@ -188,12 +188,17 @@ thay("""  var ten=''; try{ten=localStorage.getItem('kn_nguoi')||''}catch(e){}"""
 # ⛔ không có dấu hiệu gì. In mốc sinh ra đầu trang là cách trả lời câu
 # «deploy rồi mà sao chưa thấy?» trong một giây.
 DAU_SINH = datetime.datetime.now().strftime("%d/%m %H:%M")
-thay("""    '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát</div>'+""",
-     """    '<br>Tiền: nghìn đồng · phân loại tự động bằng tools/id.py, chưa qua người soát'+
-    '<br><span class="note">trang sinh """ + DAU_SINH + """ — số này ⛔ không đổi khi bấm '+
-    'Deploy; nó chỉ đổi khi bạn dán lại trang.html mới. Thấy mốc cũ = bản deploy còn cũ.</span>'+
-    (BC_SAI?'<br><span style="color:var(--bad)">⛔ Không có bố cục «'+esc(BC_SAI)+
-      '» — đang hiện bản «'+esc(BC)+'». Tên đúng: sale · truc-page · day-du · insight.</span>':'')+
+# ★ Dấu sinh đi THẲNG vào chip cạnh tiêu đề, ⛔ không nằm trong chữ xám nhỏ
+#   cuối dòng chú thích — chỗ đó đã hai lần không ai nhìn thấy.
+thay("""  var chipDl=D.kf64""",
+     """  var chipMa='<span class="tag t-acc" title="Đổi KHI VÀ CHỈ KHI bạn dán lại '+
+    'trang.html vào file «trang» rồi Deploy → Manage deployments → Edit → '+
+    'Version: New. ⛔ Bấm Deploy suông không đổi số này.">mã """ + DAU_SINH + """</span>';
+  var chipDl=D.kf64""",
+     "chip-ma")
+thay("""    '<div style="margin:6px 0 0">'+chipDl+'</div>'+""",
+     """    '<div style="margin:6px 0 0">'+chipMa+chipDl+
+    (BC_SAI?'<span class="tag t-bad">⛔ không có bố cục «'+esc(BC_SAI)+'»</span>':'')+
     '</div>'+""",
      "dau-sinh")
 
