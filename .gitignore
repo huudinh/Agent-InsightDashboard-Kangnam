@@ -24,3 +24,10 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+
+# Ban xuat tho tu extension KNB (data/KNB_*) - KHONG commit.
+# File nay la hoi thoai khach, du da khu danh tinh. Truoc day
+# data/KNB_1_toan_bo_24-10_den_29-10.txt da bi commit vi khong co luat nao
+# chan no. Dau vet nguon van con: moi file trong dashboard/data/ ghi ten
+# ban xuat o truong "nguon".
+data/
