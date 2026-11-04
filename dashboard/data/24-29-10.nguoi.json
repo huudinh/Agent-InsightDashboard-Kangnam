@@ -280,7 +280,7 @@
  },
  "ma_tran": {
   "trang_thai": "da_duyet",
-  "duyet_boi": "Trần Hữu Đinh",
+  "duyet_boi": "Quản trị Insight (nội bộ)",
   "duyet_luc": "2026-11-03 09:40",
   "ghi_chu_duyet": "CỔNG 1 mở theo yêu cầu trực tiếp ngày 03/11 («duyệt để hiển thị ma trận và ngân hàng hook»). ⚠ Ma trận này dựng lại trên bộ chân dung KF-62 ngày 03/11, ⛔ không phải bản CD1–CD7 đã duyệt 02/11 — bản cũ vẫn nằm nguyên ở _luu_chan_dung_cu.",
   "cach_xep": "Điểm ô = lead đang bỏ lỡ trong ô × hệ số giá trị đơn của chân dung (id-G §3). Khối ① nhắm HOT nên lead bỏ lỡ = cả tập; khối ② và ③ nhắm SĐT nên lead bỏ lỡ = HT chưa có SĐT. Số đếm tính thẳng từ 494 bản ghi hội thoại theo mã chân dung KF-62. ⚠ Hệ số ước từ bảng giá chuẩn, chưa phải doanh thu thật. Tối đa 3 + 3 + 2 ô một kỳ, ⛔ ô dưới 5 HT không được chọn.",
@@ -1628,7 +1628,7 @@
   "cach_tinh_win": "Điểm win = lead đang bỏ lỡ × hệ số giá trị đơn × tỷ lệ đang chốt được của chính nhóm. Cả ba đều là số ĐÃ ĐO của kỳ này — ⛔ không có hệ số nào tự đặt. Nhóm rơi chủ yếu ở câu trả lời của trực page thì điểm thấp là đúng: việc của nó nằm ở ô 🔧 sửa vận hành, sửa câu trước rồi mới làm nội dung.",
   "ma_tran": {
    "trang_thai": "da_duyet",
-   "duyet_boi": "Trần Hữu Đinh",
+   "duyet_boi": "Quản trị Insight (nội bộ)",
    "duyet_luc": "2026-11-02 14:32",
    "cach_xep": "Điểm ô = số lead bỏ lỡ trong ô × hệ số giá trị đơn (id-G §3). Khối ① nhắm HOT nên lead bỏ lỡ = cả tập (WARM chưa thành HOT); khối ② và ③ nhắm SĐT nên lead bỏ lỡ = HT chưa có SĐT. Hệ số ⚠ ước từ bảng giá chuẩn, chưa phải doanh thu thật. Tối đa 3 + 3 + 2 ô nội dung một kỳ.",
    "ghi_chu_duyet": "CỔNG 1 mở theo yêu cầu trực tiếp của người dùng ngày 31/10 («đã cung cấp đủ dữ liệu mà ngân hàng hook chưa có gì»), ⚠ không phải lệnh DUYỆT gõ theo khuôn. Muốn soát lại ma trận trước khi dùng hook thì nói, tôi đóng cổng lại.",
